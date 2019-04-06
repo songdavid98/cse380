@@ -1,2 +1,4 @@
 # cse380
-Class Project
+
+Name of the Game: Day Bing Bing Night Wahoo
+Firebase URL: 
