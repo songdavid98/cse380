@@ -4,7 +4,7 @@ Group Members:
 Jakob Buckley, David Song, Yuki Yoshinaga
 
 
-Name of the Game: Day Bing Bing Night Wahoo
+Name of the Game: Break of Dawn
 
 Firebase URL:
 https://break-of-dawn.firebaseapp.com/benchmark1
