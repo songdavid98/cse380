@@ -1,5 +1,9 @@
 # cse380
 
+Group Members:
+Jakob Buckley, David Song, Yuki Yoshinaga
+
+
 Name of the Game: Day Bing Bing Night Wahoo
 
 Firebase URL:
