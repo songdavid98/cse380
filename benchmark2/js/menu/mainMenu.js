@@ -14,8 +14,8 @@ export class MenuScene extends Phaser.Scene{
         console.log("created");
 
         //add images
-        let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
-        let startButton = this.add.image(this.game.renderer.width/2, this.game.renderer.height*.75,"startButton").setDepth(1).setScale(.5,.5);
+        let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.45, "logo").setDepth(1).setScale(.5,.5);
+        let startButton = this.add.image(this.game.renderer.width/2, this.game.renderer.height*.8,"startButton").setDepth(1).setScale(.5,.5);
 
         //add button events
         startButton.setInteractive();

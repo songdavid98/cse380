@@ -13,11 +13,11 @@ export class PreloadScene extends Phaser.Scene{
     preload(){
         console.log("loading logo");
         this.load.image("logo","../assets/images/logo.png");
-        this.load.image("startButton", "../assets/images/temp_startbutton.png");
+        this.load.image("startButton", "../assets/images/temp_startbutton.png"); //FIXME: temporary button image
     }
     create(){
         console.log("scene");
-        this.scene.start(SCENES.MAIN_MENU, "loaded main menu");
+        this.scene.start(SCENES.SPLASH, "loaded main menu");
     }
 
 }
