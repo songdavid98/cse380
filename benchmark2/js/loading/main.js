@@ -10,5 +10,20 @@ let game = new Phaser.Game({
     height: 1300,
     scene:[
         PreloadScene, SplashScene, MenuScene, LevelSelectionScene, DayScene
-    ]
+    ],
+
+    //----------------------------------mine 
+
+    render:{
+        pixelArt: true
+    },
+    physics: {
+        default: "arcade",
+        arcade: {
+            debug: true
+        }
+    }
+
+    //---------------------------------until here
+
 });

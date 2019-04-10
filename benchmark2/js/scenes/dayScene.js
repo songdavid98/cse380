@@ -15,11 +15,11 @@ export class DayScene extends Phaser.Scene{
         this.mapLevel;
     }
     preload(){
-        this.load.image("terrain", "assets/images/tiles.png");
+        this.load.image("terrain", "../assets/images/tiles.png");
 
         switch(this.level){
             case 1: 
-                this.load.tilemapTiledJSON("map1", "assets/tilemaps/dungeon1.json");
+                this.load.tilemapTiledJSON("map1", "../assets/tilemaps/dungeon2.json");
                 this.mapLevel = "map1";
                 console.log("Welcome to level 1");
                 break;
@@ -47,7 +47,6 @@ export class DayScene extends Phaser.Scene{
                 this.load.tilemapTiledJSON("map6", "../assets/tilemaps/dungeon6.json");
                 this.mapLevel = "map6";
                 console.log("make suer this dungeon even exits, dumbo");
-
                 break;
             default:
                 this.scene.start(SCENES.Main_MENU, "how");
@@ -57,13 +56,13 @@ export class DayScene extends Phaser.Scene{
         //Generate map
 
         //const map = this.make.tilemap({ key: this.mapLevel });
+        console.log(this.mapLevel);
         this.map = this.add.tilemap(this.mapLevel);
         
-        let terrain = this.map.addTilesetImage("testTile", "terrain");
-        this.wallLayer = this.map.createStaticLayer("dungeon", [terrain], 0, 0);
+        let terrain = this.map.addTilesetImage("tiles", "terrain");
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0);
-        //const layer = map.createStaticLayer(0, "terrain", 0, 0);
-        //this.backgroundlayer.resizeWorld();
+        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0);
+        
         //let bottomLayer = map.createStaticLayer("bottom", [terrain], 0,0).setDepth(-1);
         //let topLayer = map.createStaticLayer("top", [terrain], 0,0);
 
