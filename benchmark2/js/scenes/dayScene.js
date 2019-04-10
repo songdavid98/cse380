@@ -17,7 +17,7 @@ export class DayScene extends Phaser.Scene{
     preload(){
         this.load.image("terrain", "../assets/image/tiles.png");
 
-        switch(level){
+        switch(this.level){
             case 1: 
                 
                 this.load.tilemapTiledJSON("map1", "../assets/tilemaps/dungeon1.json");
@@ -62,7 +62,7 @@ export class DayScene extends Phaser.Scene{
 
         //let bottomLayer = map.createStaticLayer("bottom", [terrain], 0,0).setDepth(-1);
         //let topLayer = map.createStaticLayer("top", [terrain], 0,0);
-        
+
 
     }
     update(){
