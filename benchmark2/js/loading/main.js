@@ -1,6 +1,6 @@
-import {MenuScene} from "../menu/mainMenu.js";
-import {PreloadScene} from "../loading/preload.js";
-import {SplashScene} from "../menu/startUp.js";
+import {MenuScene} from "../scenes/mainMenu.js";
+import {PreloadScene} from "../scenes/preload.js";
+import {SplashScene} from "../scenes/startUp.js";
 
 //Main
 let game = new Phaser.Game({
