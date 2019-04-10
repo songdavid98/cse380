@@ -1,7 +1,7 @@
 //Day time level
 'use strict'
 
-class dayLevel{
+class dayScene{
     constructor(){}
 
     
