@@ -1,4 +1,3 @@
-//mainMenu
 import {SCENES} from "../constants/SceneNames.js";
 export class MenuScene extends Phaser.Scene{
     constructor(){

@@ -1,4 +1,3 @@
-//Preload
 import {SCENES} from "../constants/SceneNames.js";
 export class PreloadScene extends Phaser.Scene{
     constructor(){
