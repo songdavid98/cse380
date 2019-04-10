@@ -1,19 +1,31 @@
 //Day time enemy
 
-//Animation
+class DayEnemy{
+    constructor(){
+        super({
+            key: SCENES.DAY
+        })
+    }
+    init(data){
+        
+        //Animation
 
-//Movement
+        //Movement
 
+        //Health
 
-//Health
+        //Attack
 
-//Attack
+        //Speed
+    }
+    create(){
 
-//Speed
+    
 
+    }
+    
 
-
-
+}
 
 
 

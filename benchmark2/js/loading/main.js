@@ -7,6 +7,6 @@ let game = new Phaser.Game({
     width: 500,
     height: 500,
     scene:[
-        PreloadScene, SplashScene, MenuScene
+        PreloadScene, SplashScene, MenuScene, DayScene
     ]
 });
