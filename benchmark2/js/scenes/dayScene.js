@@ -60,7 +60,8 @@ export class DayScene extends Phaser.Scene{
         this.map = this.add.tilemap(this.mapLevel);
         
         let terrain = this.map.addTilesetImage("testTile", "terrain");
-        this.backgroundlayer = this.map.createStaticLayer(0, 'dungeon', 0,0);
+        this.wallLayer = this.map.createStaticLayer("dungeon", [terrain], 0, 0);
+        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0);
         //const layer = map.createStaticLayer(0, "terrain", 0, 0);
         //this.backgroundlayer.resizeWorld();
         //let bottomLayer = map.createStaticLayer("bottom", [terrain], 0,0).setDepth(-1);
