@@ -1,6 +1,8 @@
 //Day time level 
 
 import {SCENES} from "../constants/SceneNames.js";
+import {HEROES} from "../constants/PlayerTypes.js";
+import {DayPlayer} from "../gamePlay/DayPlayer.js";
 export class DayScene extends Phaser.Scene{
     constructor(){
         super({
@@ -16,6 +18,8 @@ export class DayScene extends Phaser.Scene{
     }
     preload(){
         this.load.image("terrain", "../assets/images/tiles.png");
+        this.load.spritesheet("shieldHero", "../assets/images/shieldHero1.png", 32,32,4);
+
 
         switch(this.level){
             case 1: 
@@ -54,22 +58,31 @@ export class DayScene extends Phaser.Scene{
     }
     create(){
         //Generate map
-
-        //const map = this.make.tilemap({ key: this.mapLevel });
-        console.log(this.mapLevel);
         this.map = this.add.tilemap(this.mapLevel);
-        
         let terrain = this.map.addTilesetImage("tiles", "terrain");
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0);
         this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0);
         
+        //Generate sprite
+        this.sprite = this.add.sprite(50,50, 'base', 'shieldHero');
+        this.walk = this.sprite.animations.add('walk'); 
+
+
+        //Create the heroes
+        console.log(this.input.keyboard);
+        this.shieldHero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
+        "health":1,"attack":1,"speed":1,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+
+        //DayPlayer swordHero = new DayPlayer();
+        //DayPlayer mageHero = new DayPlayer();
+
         //let bottomLayer = map.createStaticLayer("bottom", [terrain], 0,0).setDepth(-1);
         //let topLayer = map.createStaticLayer("top", [terrain], 0,0);
 
 
     }
-    update(){
-
+    update(time, delta){
+        this.shieldHero.update();
 
 
     }

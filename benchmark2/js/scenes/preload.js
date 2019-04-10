@@ -16,7 +16,6 @@ export class PreloadScene extends Phaser.Scene{
         this.load.image("level1Button", "../assets/images/temp_level_box.png"); //FIXME: temporary button image
 
 
-        this.load.spritesheet("shieldHero", "../assets/images/shieldHero.png", {frameHeight: 64, frameWidth: 64})
 
     }
     create(){
