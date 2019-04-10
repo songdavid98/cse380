@@ -2,5 +2,6 @@ export const SCENES = {
     LEVEL_SELECT:"LEVEL_SELECT",
     MAIN_MENU:"MAIN_MENU",
     PRELOAD:"PRELOAD",
-    SPLASH:"SPLASH"
+    SPLASH:"SPLASH",
+    DAY: "DAY"
 }
