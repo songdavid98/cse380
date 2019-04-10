@@ -12,6 +12,10 @@ class DayPlayer{
     }
     create(){
         this.player = this.add.sprite(400, 400, playerType, 26).setScale(2);
+
+        this.keyboard = this.input.keyboard.addKeys("W, A, S, D");
+
+
     }
     preload(){
         this.anims.create({
