@@ -12,16 +12,17 @@ export class LevelSelectionScene extends Phaser.Scene{
     create(){
 
         //add images
-        let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
-        let startButton = this.add.image(this.game.renderer.width/2, this.game.renderer.height*.7,"startButton").setDepth(1).setScale(.5,.5);
+        //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
+        let level1Button = this.add.image(this.game.renderer.width/2, this.game.renderer.height*.5,"level1Button").setDepth(1).setScale(1,1);
 
         //add button events
-        startButton.setInteractive();
-        startButton.on("pointerover", ()=>{
+        level1Button.setInteractive();
+        level1Button.on("pointerover", ()=>{
             console.log("woah");
         });
-        startButton.on("pointerdown", ()=>{
-            this.scene.start(SCENES.MAIN_MENU, "splashin in ;)");
+        level1Button.on("pointerdown", ()=>{
+            let data = {"level":1}
+            this.scene.start(SCENES.DAY, data);
         });
     }
 }

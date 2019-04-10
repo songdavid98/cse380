@@ -22,7 +22,7 @@ export class MenuScene extends Phaser.Scene{
             console.log("woohoo");
         });
         startButton.on("pointerdown", ()=>{
-            this.scene.start(SCENES.MAIN_MENU, "button clicked");
+            this.scene.start(SCENES.LEVEL_SELECT, "moving to level select");
         });
     }
 }
