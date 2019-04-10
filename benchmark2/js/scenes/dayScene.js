@@ -15,13 +15,13 @@ export class DayScene extends Phaser.Scene{
         this.mapLevel;
     }
     preload(){
-        this.load.image("terrain", "../assets/image/tiles.png");
+        this.load.image("terrain", "assets/images/tiles.png");
 
         switch(this.level){
             case 1: 
-                
-                this.load.tilemapTiledJSON("map1", "../assets/tilemaps/dungeon1.json");
+                this.load.tilemapTiledJSON("map1", "assets/tilemaps/dungeon1.json");
                 this.mapLevel = "map1";
+                console.log("Welcome to level 1");
                 break;
             case 2: 
                 this.load.tilemapTiledJSON("map2", "../assets/tilemaps/dungeon2.json");
@@ -56,10 +56,13 @@ export class DayScene extends Phaser.Scene{
     create(){
         //Generate map
 
-
-        let map = this.add.tilemap(this.mapLevel);
-        let terrain = map.addTilesetImage("testTile", "terrain");
-
+        //const map = this.make.tilemap({ key: this.mapLevel });
+        this.map = this.add.tilemap(this.mapLevel);
+        
+        let terrain = this.map.addTilesetImage("testTile", "terrain");
+        this.backgroundlayer = this.map.createStaticLayer(0, 'dungeon', 0,0);
+        //const layer = map.createStaticLayer(0, "terrain", 0, 0);
+        //this.backgroundlayer.resizeWorld();
         //let bottomLayer = map.createStaticLayer("bottom", [terrain], 0,0).setDepth(-1);
         //let topLayer = map.createStaticLayer("top", [terrain], 0,0);
 
