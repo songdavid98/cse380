@@ -184,7 +184,7 @@ export class DayPlayer{
             this.keyboard.on("keydown", function(e){
                 console.log(e);
             });
-            this.sprite.animations.play('walk', 4, true);
+            //this.sprite.animations.play('walk', 4, true);
             /*if(this.keyboard.A.isDown === true){
                 console.log("eyboi");
                 this.player.setVelocityX(-64);

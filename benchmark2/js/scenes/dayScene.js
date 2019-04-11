@@ -18,7 +18,7 @@ export class DayScene extends Phaser.Scene{
     }
     preload(){
         this.load.image("terrain", "../assets/images/tiles.png");
-        this.load.spritesheet("shieldHero", "../assets/images/shieldHero1.png", 32,32,4);
+        this.load.spritesheet("shieldHero", "../assets/images/shieldHero1.png", {frameWidth: 32, frameHeight:32});
 
 
         switch(this.level){
@@ -60,12 +60,12 @@ export class DayScene extends Phaser.Scene{
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         let terrain = this.map.addTilesetImage("tiles", "terrain");
-        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0);
-        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0);
+        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(2,2);
+        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(2,2);
         
         //Generate sprite
-        this.sprite = this.add.sprite(50,50, 'base', 'shieldHero');
-        this.walk = this.sprite.animations.add('walk'); 
+        this.sprite = this.physics.add.sprite(100,100, 'shieldHero').setScale(3,3);
+        //this.walk = this.sprite.animations.add('walk'); 
 
 
         //Create the heroes
