@@ -65,11 +65,19 @@ export class DayScene extends Phaser.Scene{
         
         //Generate sprite
         this.sprite = this.physics.add.sprite(100,100, 'shieldHero').setScale(3,3);
+        console.log(this.sprite);
         //this.walk = this.sprite.animations.add('walk'); 
 
 
         //Create the heroes
         console.log(this.input.keyboard);
+        /*this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W); 
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S); 
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);*/
+        this.input.keyboard.addKeys('W,S,A,D');
+
         this.shieldHero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
         "health":1,"attack":1,"speed":1,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
 

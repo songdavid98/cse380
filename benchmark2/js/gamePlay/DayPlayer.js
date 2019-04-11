@@ -164,7 +164,8 @@ export class DayPlayer{
 
         this.shieldWall = this.physics.add.group();
 
-        this.keyboard = this.input.keyboard.addKeys("W, A, S, D");
+        //this.keyboard.addKeys("W, A, S, D");
+        console.log(this.keyboard);
         /*this.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
             if(pointer.isDown){
                 let shield = this.add.sprite(pointer.x, pointer.y, "attack", "file.png").play("wallShield");
@@ -182,33 +183,39 @@ export class DayPlayer{
 
         if(this.active === true){
             this.keyboard.on("keydown", function(e){
-                console.log(e);
+                //console.log(e);
             });
             //this.sprite.animations.play('walk', 4, true);
-            /*if(this.keyboard.A.isDown === true){
-                console.log("eyboi");
-                this.player.setVelocityX(-64);
-                this.player.play("left", true);
+            
+            //if either are released, set velocityX to 0 for now
+            //what if an enemy makes someone move?
+            //NOTE: keycodes => W = 87, A = 65, S = 83, D = 68
+            if(this.keyboard.keys[68].isUp || this.keyboard.keys[65].isUp){
+                this.sprite.body.setVelocityX(0);
             }
-            if(this.keyboard.D.isDown === true){
-                this.player.setVelocityX(64);
-                this.player.anims.playReverse("right", true);
-            }
-            if(this.keyboard.A.isUp && this.keyboard.D.isUp){
-                this.player.setVelocityX(0);
+            if(this.keyboard.keys[65].isDown && this.keyboard.keys[68].isDown){
+                this.sprite.body.setVelocityX(0);
+            }else if(this.keyboard.keys[65].isDown){
+                //console.log("eyboi");
+                this.sprite.body.setVelocityX(-128);
+                //this.player.play("left", true);
+            }else if(this.keyboard.keys[68].isDown){
+                this.sprite.body.setVelocityX(128);
+                //this.player.anims.playReverse("right", true);
             }
 
-            if(this.keyboard.W.isDown === true){
-                this.player.setVelocityY(64);
-                this.player.play("up", true);
+            if(this.keyboard.keys[83].isUp || this.keyboard.keys[87].isUp){
+                this.sprite.body.setVelocityY(0)
             }
-            if(this.keyboard.S.isDown === true){
-                this.player.setVelocityY(-64);
-                this.player.anims.playReverse("down", true);
+            if(this.keyboard.keys[83].isDown && this.keyboard.keys[87].isDown){
+                this.sprite.body.setVelocityY(0);
+            }else if(this.keyboard.keys[83].isDown){
+                this.sprite.body.setVelocityY(128); //y goes down, not up
+                //this.player.play("up", true);
+            }else if(this.keyboard.keys[87].isDown){
+                this.sprite.body.setVelocityY(-128);
+                //this.player.anims.playReverse("down", true);
             }
-            if(this.keyboard.W.isUp && this.keyboard.S.isUp){
-                this.player.setVelocityY(0);
-            }*/
         }
     }
 

@@ -1,4 +1,3 @@
-//startUp
 import {SCENES} from "../constants/SceneNames.js";
 export class SplashScene extends Phaser.Scene{
     constructor(){
@@ -24,5 +23,6 @@ export class SplashScene extends Phaser.Scene{
         startButton.on("pointerdown", ()=>{
             this.scene.start(SCENES.MAIN_MENU, "splashin in ;)");
         });
+        this.scene.start(SCENES.DAY, {"level":1})
     }
 }
