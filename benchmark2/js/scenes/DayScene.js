@@ -17,38 +17,38 @@ export class DayScene extends Phaser.Scene{
         this.mapLevel;
     }
     preload(){
-        this.load.image("terrain", "../assets/images/tiles.png");
-        this.load.spritesheet("shieldHero", "../assets/images/shieldHero1.png", {frameWidth: 32, frameHeight:32});
+        this.load.image("terrain", "assets/images/tiles.png");
+        this.load.spritesheet("shieldHero", "assets/images/shieldHero1.png", {frameWidth: 32, frameHeight:32});
 
 
         switch(this.level){
             case 1: 
-                this.load.tilemapTiledJSON("map1", "../assets/tilemaps/dungeon2.json");
+                this.load.tilemapTiledJSON("map1", "assets/tilemaps/dungeon2.json");
                 this.mapLevel = "map1";
                 console.log("Welcome to level 1");
                 break;
             case 2: 
-                this.load.tilemapTiledJSON("map2", "../assets/tilemaps/dungeon2.json");
+                this.load.tilemapTiledJSON("map2", "assets/tilemaps/dungeon2.json");
                 this.mapLevel = "map2";
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
             case 3: 
-                this.load.tilemapTiledJSON("map3", "../assets/tilemaps/dungeon3.json");
+                this.load.tilemapTiledJSON("map3", "assets/tilemaps/dungeon3.json");
                 this.mapLevel = "map3";
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
             case 4: 
-                this.load.tilemapTiledJSON("map4", "../assets/tilemaps/dungeon4.json");
+                this.load.tilemapTiledJSON("map4", "assets/tilemaps/dungeon4.json");
                 this.mapLevel = "map4";
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
             case 5: 
-                this.load.tilemapTiledJSON("map5", "../assets/tilemaps/dungeon5.json");
+                this.load.tilemapTiledJSON("map5", "assets/tilemaps/dungeon5.json");
                 this.mapLevel = "map5";
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
             case 6: 
-                this.load.tilemapTiledJSON("map6", "../assets/tilemaps/dungeon6.json");
+                this.load.tilemapTiledJSON("map6", "assets/tilemaps/dungeon6.json");
                 this.mapLevel = "map6";
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
@@ -61,14 +61,14 @@ export class DayScene extends Phaser.Scene{
         this.map = this.add.tilemap(this.mapLevel);
         let terrain = this.map.addTilesetImage("tiles", "terrain");
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(2,2);
-        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(2,2);
-        this.wallLayer.setCollisionBetween(265,300); //set tiles to collide with non inclusive - tileindex-1
+        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(2,2); 
         //Generate sprite
         this.sprite = this.physics.add.sprite(100,100, 'shieldHero').setScale(3,3);
-        this.physics.add.collider(this.sprite, this.wallLayer);
         console.log(this.sprite);
         //this.walk = this.sprite.animations.add('walk'); 
-
+	//collisions
+	this.wallLayer.setCollisionBetween(265,300);
+	this.physics.add.collider(this.sprite,this.wallLayer);
 
         //Create the heroes
         console.log(this.input.keyboard);
