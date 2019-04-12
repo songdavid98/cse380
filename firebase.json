@@ -8,11 +8,8 @@
     ],
     "rewrites": [
   	{"source":"/benchmark1",
-	 "destination": "/benchmark1/break-of-dawn/public/ProjectPlan.html"
-	},
-        {"source":"/benchmark2",
-	 "destination": "/benchmark2/index.html"
-	}	 
+	 "destination": "/benchmark1/ProjectPlan.html"
+	} 
     ]
   }
 }
