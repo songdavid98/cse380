@@ -62,10 +62,9 @@ export class DayScene extends Phaser.Scene{
         let terrain = this.map.addTilesetImage("tiles", "terrain");
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(2,2);
         this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(2,2);
-        this.wallLayer.setCollisionBetween(265,300); //set tiles to collide with non inclusive - tileindex-1
+        
         //Generate sprite
         this.sprite = this.physics.add.sprite(100,100, 'shieldHero').setScale(3,3);
-        this.physics.add.collider(this.sprite, this.wallLayer);
         console.log(this.sprite);
         //this.walk = this.sprite.animations.add('walk'); 
 
