@@ -181,6 +181,22 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../images/heroes/shieldHero/attackDown/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackDown/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackDown/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackDown/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackLeft/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackLeft/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackLeft/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackLeft/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackRight/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackRight/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackRight/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackRight/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackUp/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackUp/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackUp/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/attackUp/0004.png</key>
             <key type="filename">../images/heroes/shieldHero/down/0001.png</key>
             <key type="filename">../images/heroes/shieldHero/down/0002.png</key>
             <key type="filename">../images/heroes/shieldHero/down/0003.png</key>
