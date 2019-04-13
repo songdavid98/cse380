@@ -65,28 +65,40 @@ export class DayScene extends Phaser.Scene{
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(5,5);
         this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(5,5); 
 
-        //Generate sprite
+        //Generate sprites
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
-        console.log(this.sprite);
 
-	    //collisions
-	    this.wallLayer.setCollisionBetween(265,300);
-        this.physics.add.collider(this.sprite,this.wallLayer);
-        this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
-        this.cameras.main.startFollow(this.sprite);
-        this.input.on('pointermove', function (pointer) {
-            let cursor = pointer;
-            this.angle = Phaser.Math.Angle.Between(this.sprite.x, this.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
-
-      }, this);
 
         //Keyboard stuff
         console.log(this.input.keyboard);
         this.input.keyboard.addKeys('W,S,A,D');
 
         //Create the heroes
-        this.shieldHero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":1,"attack":1,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
+        "health":1,"basicAttack":1,"specialAttack":2,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+
+	    //collisions
+	    this.wallLayer.setCollisionBetween(265,300);
+        this.physics.add.collider(this.sprite,this.wallLayer);
+
+        //Camera
+        this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
+        this.cameras.main.startFollow(this.sprite);
+
+        //Event Listeners
+        this.input.on('pointermove', function (pointer) {
+            let cursor = pointer;
+            this.angle = Phaser.Math.Angle.Between(this.sprite.x, this.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
+            if(pointer.leftButtonDown()){
+                this.hero.attackBasic(cursor, this.angle);
+            }
+            else if(pointer.rightButtonDown()){
+                this.hero.attackSpecial(cursor, this.angle);
+            }
+        }, this);
+
+
+
 
 
 
@@ -100,7 +112,7 @@ export class DayScene extends Phaser.Scene{
 
     }
     update(time, delta){
-        this.shieldHero.update(this.angle);
+        this.hero.update(this.angle);
 
 
     }
