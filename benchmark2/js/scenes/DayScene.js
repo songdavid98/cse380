@@ -73,6 +73,7 @@ export class DayScene extends Phaser.Scene{
         //Keyboard stuff
         console.log(this.input.keyboard);
         this.input.keyboard.addKeys('W,S,A,D');
+        this.input.keyboard.addKeys('Esc');
 
         //Create the heroes
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
@@ -90,43 +91,42 @@ export class DayScene extends Phaser.Scene{
         this.input.on('pointermove', function (pointer) {
             let cursor = pointer;
             this.angle = Phaser.Math.Angle.Between(this.sprite.x, this.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
-            console.log((Math.PI/2-this.angle) / (Math.PI/180));
+            //console.log((Math.PI/2-this.angle) / (Math.PI/180));
         }, this);
 
         this.input.on('pointerdown', function (pointer) {
 
-        if(pointer.leftButtonDown()){
+            if(pointer.leftButtonDown()){
 
-            let pointY;
-            let pointX;
+                let pointY;
+                let pointX;
 
-            let dist = 200;
-            pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
-            pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
+                let dist = 200;
+                pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
+                pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
 
-            this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
+                this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
 
-            
-            this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
-            this.shieldBeamSprite.body.angle = this.angle+ Math.PI/2;
+                
+                this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
+                this.shieldBeamSprite.body.angle = this.angle+ Math.PI/2;
 
-            this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
-                this.emit('animationcomplete_' + anim.key, anim, frame);
-            }, this.shieldBeamSprite);
-              
-            this.shieldBeamSprite.on('animationcomplete_shield', function () {
-                console.log(this.destroy());                    
-                //this.shieldBeamSprite.destroy();
-            });
+                this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+                    this.emit('animationcomplete_' + anim.key, anim, frame);
+                }, this.shieldBeamSprite);
+                
+                this.shieldBeamSprite.on('animationcomplete_shield', function () {
+                    console.log(this.destroy());                    
+                    //this.shieldBeamSprite.destroy();
+                });
 
-              
-            this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
-        }
-        else if(pointer.rightButtonDown()){
-            this.hero.attackSpecial(pointer, this.angle);
-        }
-
-    }, this);
+                
+                this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
+            }
+            else if(pointer.rightButtonDown()){
+                this.hero.attackSpecial(pointer, this.angle);
+            }
+        }, this);
 
 
 
@@ -141,8 +141,18 @@ export class DayScene extends Phaser.Scene{
     }
     update(time, delta){
         this.hero.update(this.angle);
-
-
+        if(this.input.keyboard.keys[27].isDown && !this.justPaused){
+            this.justPaused = true
+            this.input.keyboard.keys[68].isDown = false
+            this.input.keyboard.keys[65].isDown = false
+            this.input.keyboard.keys[87].isDown = false
+            this.input.keyboard.keys[83].isDown = false
+            this.scene.launch(SCENES.PAUSE);
+            this.scene.pause();
+            console.log("hello");
+        }else if(this.input.keyboard.keys[27].isUp){
+            this.justPaused = false;
+        }
     }
 }
 

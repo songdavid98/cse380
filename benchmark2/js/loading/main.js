@@ -6,19 +6,21 @@ import {HelpScene} from "../scenes/help.js"
 import {ControlsScene} from "../scenes/ControlsScene.js"
 import {DayScene} from "../scenes/DayScene.js"
 import {NightScene} from "../scenes/nightScene.js"
+import {PauseScene} from "../scenes/PauseScene.js"
 
 //Main
 let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene:[
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, PauseScene
     ],
 
     //----------------------------------mine 
 
     render:{
-        pixelArt: true
+        pixelArt: true,
+        transparent: true
     },
     physics: {
         default: "arcade",

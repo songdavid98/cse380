@@ -139,15 +139,14 @@ export class DayPlayer{
                 //this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
             }
 
-
+            console.log(this.keyboard.keys[83].isDown)
             /*
             shieldSprite.anims.onComplete.add(function() {
                 shieldSprite.destroy();
                 console.log("destrooooooooooyedddddddddddddddddddd");
             }, shieldSprite);
             */
-        }
-        
+        } 
     }
 
     //When this is called, for now, launch a projectile with the correct animation

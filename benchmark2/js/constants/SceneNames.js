@@ -3,6 +3,7 @@ export const SCENES = {
     HELP: "HELP",
     LEVEL_SELECT: "LEVEL_SELECT",
     MAIN_MENU: "MAIN_MENU",
+    PAUSE: "PAUSE",
     PRELOAD: "PRELOAD",
     SPLASH: "SPLASH",
     DAY: "DAY",
