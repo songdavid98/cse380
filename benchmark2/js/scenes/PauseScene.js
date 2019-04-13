@@ -21,6 +21,7 @@ export class PauseScene extends Phaser.Scene{
         backButton.on("pointerdown", ()=>{
             console.log("hello");
             let data = "main menu from level help"
+            this.scene.stop(SCENES.DAY);
             this.scene.start(SCENES.MAIN_MENU, data);
         });
     }
