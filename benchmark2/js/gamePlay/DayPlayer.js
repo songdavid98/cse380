@@ -28,15 +28,24 @@ export class DayPlayer{
         // animation
         var leftFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
         this.anims.create({ key: 'left', frames: leftFrames, frameRate: 5, repeat: -1 });
+        var leftIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
+        this.anims.create({ key: 'leftIdle', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
 
         var rightFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/right/', suffix:'.png' });
         this.anims.create({ key: 'right', frames: rightFrames, frameRate: 5, repeat: -1 });
+        var rightIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/right/', suffix:'.png' });
+        this.anims.create({ key: 'rightIdle', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
 
         var upFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/up/', suffix:'.png' });
         this.anims.create({ key: 'up', frames: upFrames, frameRate: 5, repeat: -1 });
+        var upIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'shieldHero/up/', suffix:'.png' });
+        this.anims.create({ key: 'upIdle', frames: upIdleFrame, frameRate: 5, repeat: -1 });
 
         var downFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/down/', suffix:'.png' });
         this.anims.create({ key: 'down', frames: downFrames, frameRate: 5, repeat: -1 });
+        var downIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/down/', suffix:'.png' });
+        this.anims.create({ key: 'downIdle', frames: downIdleFrame, frameRate: 5, repeat: -1 });
+
 
         //this.shieldWall = this.physics.add.group();
 
@@ -57,12 +66,6 @@ export class DayPlayer{
 
         
         if(this.active === true){
-            this.keyboard.on("keydown", function(e){
-                //console.log(e);
-            });
-            
-            
-
             //if either are released, set velocityX to 0 for now
             //what if an enemy makes someone move?
             //NOTE: keycodes => W = 87, A = 65, S = 83, D = 68
@@ -97,23 +100,42 @@ export class DayPlayer{
 
             //Rotation of sprite and box
             if(angle > -Math.PI/4 && angle <= Math.PI/4){
-                this.sprite.anims.play("right", true);
-                this.sprite.setRotation(angle );                //Rotates the image
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("rightIdle");
+                }else{
+                    this.sprite.anims.play("right", true);
+                }
+               // this.sprite.anims.play("right", true);
+                //this.sprite.setRotation(angle );                //Rotates the image
                 this.sprite.body.angle = angle;                 //Rotates the box (playerclass)
             }
             else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
-                this.sprite.anims.play("up", true);
-                this.sprite.setRotation(angle + Math.PI/2);     //Rotates the image
+                //this.sprite.anims.play("up", true);
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("upIdle");
+                }else{
+                    this.sprite.anims.play("up", true);
+                }
+                //this.sprite.setRotation(angle + Math.PI/2);     //Rotates the image
                 this.sprite.body.angle = angle + Math.PI/2;     //Rotates the box (playerclass)
             }
             else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
-                this.sprite.anims.play("left", true);
-                this.sprite.setRotation(angle - Math.PI);       //Rotates the image
+                //this.sprite.setRotation(angle - Math.PI);       //Rotates the image
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("leftIdle");
+                }else{
+                    this.sprite.anims.play("left", true);
+                }
                 this.sprite.body.angle = angle - Math.PI;       //Rotates the box (playerclass)
             }
             else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
-                this.sprite.anims.play("down", true);
-                this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
+                //this.sprite.anims.play("down", true);
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("downIdle");
+                }else{
+                    this.sprite.anims.play("down", true);
+                }
+                //this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
                 this.sprite.body.angle = angle - Math.PI/2;     //Rotates the box (playerclass)
             }
             //console.log(angle/ (Math.PI/180));
@@ -121,7 +143,7 @@ export class DayPlayer{
 
             //Stopping animation
             if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
+                //this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
             }
 
 
