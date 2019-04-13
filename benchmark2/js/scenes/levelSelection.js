@@ -18,12 +18,13 @@ export class LevelSelectionScene extends Phaser.Scene{
         let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.3,"level1Button").setDepth(1).setScale(1,1);
         let level2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.3,"level1Button").setDepth(1).setScale(1,1);
         let level3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.3,"level1Button").setDepth(1).setScale(1,1);
-        let level4Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
-        let level5Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
-        let level6Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
+        let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
+        let nightLevel2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
+        let nightLevel3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
 
         //add button events
         level1Button.setInteractive();
+        nightLevel1Button.setInteractive();
         backButton.setInteractive();
         level1Button.on("pointerover", ()=>{
             console.log("woah");
@@ -31,6 +32,10 @@ export class LevelSelectionScene extends Phaser.Scene{
         level1Button.on("pointerdown", ()=>{
             let data = {"level":1}
             this.scene.start(SCENES.DAY, data);
+        });
+        nightLevel1Button.on("pointerdown", ()=>{
+            let data = {"level":1}
+            this.scene.start(SCENES.NIGHT, data);
         });
         backButton.on("pointerdown", ()=>{
             console.log("hello");

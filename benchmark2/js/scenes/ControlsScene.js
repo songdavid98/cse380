@@ -1,13 +1,13 @@
 import {SCENES} from "../constants/SceneNames.js";
-export class HelpScene extends Phaser.Scene{
+export class ControlsScene extends Phaser.Scene{
     constructor(){
         super({
-            key: SCENES.HELP
+            key: SCENES.CONTROLS
         })
     }
     init(data){
         console.log(data);
-        console.log("entered help");
+        console.log("entered controls");
     }
     create(){
 
@@ -18,10 +18,10 @@ export class HelpScene extends Phaser.Scene{
 
         //add button events
         backButton.setInteractive();
-
+        
         backButton.on("pointerdown", ()=>{
             console.log("hello");
-            let data = "main menu from level help"
+            let data = "main menu from controls"
             this.scene.start(SCENES.MAIN_MENU, data);
         });
     }

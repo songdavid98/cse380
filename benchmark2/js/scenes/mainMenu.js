@@ -21,8 +21,17 @@ export class MenuScene extends Phaser.Scene{
 
         //add button events
         playButton.setInteractive();
+        controlsButton.setInteractive();
+        helpButton.setInteractive();
+
         playButton.on("pointerdown", ()=>{
             this.scene.start(SCENES.LEVEL_SELECT, "moving to level select");
+        });
+        controlsButton.on("pointerdown", ()=>{
+            this.scene.start(SCENES.CONTROLS, "moving to level select");
+        });
+        helpButton.on("pointerdown", ()=>{
+            this.scene.start(SCENES.HELP, "moving to level select");
         });
     }
 }

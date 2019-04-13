@@ -1,4 +1,6 @@
 export const SCENES = {
+    CONTROLS: "CONTROLS",
+    HELP: "HELP",
     LEVEL_SELECT: "LEVEL_SELECT",
     MAIN_MENU: "MAIN_MENU",
     PRELOAD: "PRELOAD",
