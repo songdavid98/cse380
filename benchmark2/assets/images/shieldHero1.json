@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "shieldHero1.png",
+					"filename": "shieldHero/left/0001.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "shieldHero2.png",
+					"filename": "shieldHero/left/0002.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "shieldHero3.png",
+					"filename": "shieldHero/left/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "shieldHero4.png",
+					"filename": "shieldHero/left/0004.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -99,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:32dfc4018d7de565885f70341a305b47:70fd261f4bd0b0ba227df660fb4e8534:9225cd36db165eecd9a3116afa500e90$"
+		"smartupdate": "$TexturePacker:SmartUpdate:d6c154885867eb3704dbb5edf270c346:70fd261f4bd0b0ba227df660fb4e8534:9225cd36db165eecd9a3116afa500e90$"
 	}
 }

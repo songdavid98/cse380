@@ -1,5 +1,5 @@
 //Day time player
-
+import {HEROES} from "../constants/PlayerTypes.js";
 export class DayPlayer{
 
     constructor(data){
@@ -19,173 +19,29 @@ export class DayPlayer{
     }
 
     preload(){
-        this.anims.create({
-            key: "left",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "right",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "up",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "down",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "attack1Left",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "attack1Right",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "attack1Up",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });        
-        this.anims.create({
-            key: "attack1Down",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "attack2Left",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "attack2Right",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "attack2Up",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });        
-        this.anims.create({
-            key: "attack2Down",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });              
-        this.anims.create({
-            key: "damageLeft",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });        
-        this.anims.create({
-            key: "damageRight",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "damageUp",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "damageDown",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "wallShield",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 1,
-                end: 2
-            })        
-        });
-        this.anims.create({
-            key: "idle",
-            frameRate: 10,
-            frames: this.anims.generateFrameNumbers(this.playerType, {
-                start: 2,
-                end: 1
-            })        
-        });
+      
 
     }
     create(){
-
-        this.player = this.physics.add.sprite(400, 400, 'shieldHero1',this.playerType, 26).setScale(2);
-            //this.capguy = this.physics.add.sprite(600, 400,'cityscene', 'capguy/walk/0001.png');
-            //this.capguy.setScale(0.5, 0.5);
+        this.player = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/left/0001.png');
+        this.player.setScale(5, 5);
+        //this.capguy = this.physics.add.sprite(600, 400,HEROES.SHIELD_HERO, 'capguy/0001.png');
+        //this.capguy.setScale(0.5, 0.5);
 
         // animation
-            //var frameNames = this.anims.generateFrameNames('cityscene', { start: 1, end: 8, zeroPad: 4, prefix:'capguy/walk/', suffix:'.png' });
-        var frameNames = this.anims.generateFrameNames('shieldHero1', { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero1/', suffix:'.png' });
+            //var frameNames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 8, zeroPad: 4, prefix:'capguy/', suffix:'.png' });
+        var frameNames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
+        console.log(frameNames);
+        //this.anims.create({ key: 'walk', frames: frameNames, frameRate: 10, repeat: -1 });
+       // this.capguy.anims.play('walk');
+        this.anims.create({ key: 'left', frames: frameNames, frameRate: 5, repeat: -1 });
+        console.log(this.anims); 
+        this.player.anims.play('left');
 
-        //  this.anims.create({ key: 'walk', frames: frameNames, frameRate: 10, repeat: -1 });
-       //    this.capguy.anims.play('walk');
-        
-        this.anims.create({ key: 'walk', frames: frameNames, frameRate: 10, repeat: -1 });
-        console.log(this.anims);
-        this.player.anims.play('walk');
-
-        this.shieldWall = this.physics.add.group();
+        //this.shieldWall = this.physics.add.group();
 
         //this.keyboard.addKeys("W, A, S, D");
-        console.log(this.keyboard);
+        //console.log(this.keyboard);
         /*this.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
             if(pointer.isDown){
                 let shield = this.add.sprite(pointer.x, pointer.y, "attack", "file.png").play("wallShield");
@@ -199,7 +55,7 @@ export class DayPlayer{
     }
     update(){
 
-        
+        /*
         if(this.active === true){
             this.keyboard.on("keydown", function(e){
                 //console.log(e);
@@ -218,12 +74,12 @@ export class DayPlayer{
                 //console.log("eyboi");
                 this.sprite.body.setVelocityX(-this.speed);
                 if(!this.sprite.anims.isPlaying){
-                    this.sprite.anims.play("left", true);
+                    //this.sprite.anims.play("left", true);
                 }
             }else if(this.keyboard.keys[68].isDown){
                 this.sprite.body.setVelocityX(this.speed);
                 if(!this.sprite.anims.isPlaying){
-                    this.sprite.anims.playReverse("left", true);
+                   // this.sprite.anims.playReverse("left", true);
                 }
             }
 
@@ -235,19 +91,21 @@ export class DayPlayer{
             }else if(this.keyboard.keys[83].isDown){
                 this.sprite.body.setVelocityY(this.speed); //y goes down, not up
                 if(!this.sprite.anims.isPlaying){
-                    this.sprite.anims.play("down", true);
+                    //this.sprite.anims.play("down", true);
                 }
             }else if(this.keyboard.keys[87].isDown){
                 this.sprite.body.setVelocityY(-this.speed);
                 if(!this.sprite.anims.isPlaying){
-                    this.sprite.anims.playReverse("down", true);
+                   // this.sprite.anims.playReverse("down", true);
                 }
             }
             if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                console.log("hello");
+                //console.log("hello");
                 this.sprite.setFrame(1);
             }
+            
         }
+        */
     }
 
 

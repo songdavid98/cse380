@@ -20,9 +20,8 @@ export class DayScene extends Phaser.Scene{
         this.load.image("terrain", "assets/images/tiles.png");
         //this.load.spritesheet(HEROES.SHIELD_HERO, "assets/images/shieldHero1.png", {frameWidth: 32, frameHeight:32});
 
-        this.load.multiatlas('shieldHero1', 'assets/images/shieldHero1.json', "assets/images/shieldHero1");
-
-        //this.load.multiatlas('cityscene', 'assets/images/cityscene.json', "assets/images");
+        this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/shieldHero1.json', "assets/images");
+        //this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/cityscene.json', "assets/images");
 
         switch(this.level){
             case 1: 
@@ -82,15 +81,12 @@ export class DayScene extends Phaser.Scene{
       }, this);
         //Create the heroes
         console.log(this.input.keyboard);
-        /*this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W); 
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S); 
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);*/
         this.input.keyboard.addKeys('W,S,A,D');
 
         this.shieldHero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
         "health":1,"attack":1,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+
+        this.shieldHero.create();
 
         //DayPlayer swordHero = new DayPlayer();
         //DayPlayer mageHero = new DayPlayer();
