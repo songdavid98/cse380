@@ -17,7 +17,7 @@ export class PreloadScene extends Phaser.Scene{
         this.load.image("level1Button", "../benchmark2/assets/images/temp_level_box.png"); //FIXME: temporary button image
         this.load.image("playButton", "../benchmark2/assets/images/playbutton.png");
         this.load.image("controlsButton", "../benchmark2/assets/images/controlsbutton.png");
-        this.load.image("helpButton", "../benchmark2/assets/images/buttonbar.png");
+        this.load.image("helpButton", "../benchmark2/assets/images/helpbutton.png");
         this.load.image("backButton", "../benchmark2/assets/images/backbutton.png");
 
 
