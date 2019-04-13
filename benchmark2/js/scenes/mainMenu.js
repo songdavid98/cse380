@@ -13,7 +13,8 @@ export class MenuScene extends Phaser.Scene{
         console.log("created");
         this.cameras.main.setBackgroundColor('#008080')
         //add images
-        let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.45, "logo").setDepth(1).setScale(.5,.5);
+        this.add.image(this.game.renderer.width / 2, this.game.renderer.height * .35, "logo").setDepth(1).setScale(.5, .5);
+        this.add.image(this.game.renderer.width / 2, this.game.renderer.height * .5, "textlogo").setDepth(2).setScale(3, 3);
         let startButton = this.add.image(this.game.renderer.width/2, this.game.renderer.height*.8,"startButton").setDepth(1).setScale(.5,.5);
 
         //add button events
