@@ -7,7 +7,9 @@ export class DayPlayer{
         this.playerType = data.playerType; //Sword, mage, shield?
         this.health = data.health;
         this.basicAttack = data.basicAttack;
+        this.basicAttackSpeed = data.basicAttackSpeed;
         this.specialAttack = data.specialAttack;
+        this.specialAttackSpeed = data.specialAttackSpeed;
         this.speed = data.speed;
         this.keyboard = data.keyboard;
         this.physics = data.physics;
@@ -55,8 +57,9 @@ export class DayPlayer{
         var downBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/attackDown/', suffix:'.png' });
         this.anims.create({ key: 'downBasicAttack', frames: downBasicAttackFrame, frameRate: 5, repeat: -1 });
 
-        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/shield/', suffix:'.png' });
-        this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 5, repeat: -1 });
+        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 6, zeroPad: 4, prefix:'shieldHero/shield/', suffix:'.png' });
+        this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 5, repeat: 0 });
+
 
 
     }
@@ -90,9 +93,6 @@ export class DayPlayer{
             else if(this.keyboard.keys[87].isDown){                            //if W is down (and not S)
                 this.sprite.body.setVelocityY(-this.speed);
             }
-
-
-
 
             //Rotation of sprite and box
             if(angle > -Math.PI/4 && angle <= Math.PI/4){
@@ -140,23 +140,66 @@ export class DayPlayer{
             }
 
 
-
-
-            
+            /*
+            shieldSprite.anims.onComplete.add(function() {
+                shieldSprite.destroy();
+                console.log("destrooooooooooyedddddddddddddddddddd");
+            }, shieldSprite);
+            */
         }
         
     }
 
     //When this is called, for now, launch a projectile with the correct animation
-    attackBasic(cursor, angle){
-        /*
-        this.shieldWall = this.physics.add.group();
-        let shield = this.add.sprite(pointer.x, pointer.y, "attack", "file.png").play('shield');
-        this.shieldWall.add(shield);
-        shield.on("animationcomplete", () => {
-            shield.destroy();
+    attackBasic(cursor, angle, shieldSprite){
+        
+        shieldSprite.anims.play("shield", true);
+        shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
+        shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+
+        console.log(shieldSprite.anims);
+
+        //nextFire = this.time.now + fireRate;
+
+        //var bullet = bullets.getFirstDead();
+
+        //bullet.reset(sprite.x - 8, sprite.y - 8);
+
+        //this.physics.arcade.moveToPointer(shieldSprite, 300);
+
+/*
+        if(angle > -Math.PI/4 && angle <= Math.PI/4){
+            this.sprite.setRotation(angle );                //Rotates the image
+            this.sprite.body.angle = angle;                 //Rotates the box (playerclass)
+        }
+        else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
+            this.sprite.setRotation(angle + Math.PI/2);     //Rotates the image
+            this.sprite.body.angle = angle + Math.PI/2;     //Rotates the box (playerclass)
+        }
+        else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
+            this.sprite.setRotation(angle - Math.PI);       //Rotates the image
+            this.sprite.body.angle = angle - Math.PI;       //Rotates the box (playerclass)
+        }
+        else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
+            this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
+            this.sprite.body.angle = angle - Math.PI/2;     //Rotates the box (playerclass)
+        }
+
+        shieldSprite.on("animationcomplete", () => {
+            
+            console.log("destrooooooooooyed");
         })
-        */
+*/
+
+
+
+ 
+        
+    }
+
+    animationStopped(){
+
+        console.log("destroyeeed");
     }
 
     attackSpecial(cursor, angle){

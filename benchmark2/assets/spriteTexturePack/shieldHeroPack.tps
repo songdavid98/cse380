@@ -209,6 +209,12 @@
             <key type="filename">../images/heroes/shieldHero/right/0002.png</key>
             <key type="filename">../images/heroes/shieldHero/right/0003.png</key>
             <key type="filename">../images/heroes/shieldHero/right/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0005.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0006.png</key>
             <key type="filename">../images/heroes/shieldHero/up/0001.png</key>
             <key type="filename">../images/heroes/shieldHero/up/0002.png</key>
             <key type="filename">../images/heroes/shieldHero/up/0003.png</key>

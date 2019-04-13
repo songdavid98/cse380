@@ -67,7 +67,8 @@ export class DayScene extends Phaser.Scene{
 
         //Generate sprites
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
-
+        //this.shieldSprites = this.physics.add.group();
+        
 
         //Keyboard stuff
         console.log(this.input.keyboard);
@@ -75,7 +76,7 @@ export class DayScene extends Phaser.Scene{
 
         //Create the heroes
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":1,"basicAttack":1,"specialAttack":2,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        "health":1,"basicAttack":1, "basicAttackSpeed":20,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
 
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
@@ -89,16 +90,43 @@ export class DayScene extends Phaser.Scene{
         this.input.on('pointermove', function (pointer) {
             let cursor = pointer;
             this.angle = Phaser.Math.Angle.Between(this.sprite.x, this.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
-            if(pointer.leftButtonDown()){
-                this.hero.attackBasic(cursor, this.angle);
-            }
-            else if(pointer.rightButtonDown()){
-                this.hero.attackSpecial(cursor, this.angle);
-            }
+            console.log((Math.PI/2-this.angle) / (Math.PI/180));
         }, this);
 
+        this.input.on('pointerdown', function (pointer) {
 
+        if(pointer.leftButtonDown()){
 
+            let pointY;
+            let pointX;
+
+            let dist = 200;
+            pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
+            pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
+
+            this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
+
+            
+            this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
+            this.shieldBeamSprite.body.angle = this.angle+ Math.PI/2;
+
+            this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+                this.emit('animationcomplete_' + anim.key, anim, frame);
+            }, this.shieldBeamSprite);
+              
+            this.shieldBeamSprite.on('animationcomplete_shield', function () {
+                console.log("destrrrrrrrroyed");                    
+                //this.shieldBeamSprite.destroy();
+            });
+
+              
+            this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
+        }
+        else if(pointer.rightButtonDown()){
+            this.hero.attackSpecial(pointer, this.angle);
+        }
+
+    }, this);
 
 
 
