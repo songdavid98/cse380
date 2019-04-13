@@ -115,7 +115,7 @@ export class DayScene extends Phaser.Scene{
             }, this.shieldBeamSprite);
               
             this.shieldBeamSprite.on('animationcomplete_shield', function () {
-                console.log("destrrrrrrrroyed");                    
+                console.log(this.destroy());                    
                 //this.shieldBeamSprite.destroy();
             });
 
