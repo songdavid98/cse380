@@ -6,8 +6,8 @@ import {DayScene} from "../scenes/DayScene.js"
 
 //Main
 let game = new Phaser.Game({
-    width: 1300,
-    height: 1300,
+    width: window.innerWidth,
+    height: window.innerHeight,
     scene:[
         PreloadScene, SplashScene, MenuScene, LevelSelectionScene, DayScene
     ],

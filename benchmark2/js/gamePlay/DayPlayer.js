@@ -155,6 +155,14 @@ export class DayPlayer{
                 end: 2
             })        
         });
+        this.anims.create({
+            key: "idle",
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers(this.playerType, {
+                start: 2,
+                end: 1
+            })        
+        });
 
     }
     create(){
@@ -180,7 +188,7 @@ export class DayPlayer{
     }
     update(){
 
-
+        
         if(this.active === true){
             this.keyboard.on("keydown", function(e){
                 //console.log(e);
@@ -197,11 +205,15 @@ export class DayPlayer{
                 this.sprite.body.setVelocityX(0);
             }else if(this.keyboard.keys[65].isDown){
                 //console.log("eyboi");
-                this.sprite.body.setVelocityX(-128);
-                //this.player.play("left", true);
+                this.sprite.body.setVelocityX(-this.speed);
+                if(!this.sprite.anims.isPlaying){
+                    this.sprite.anims.play("left", true);
+                }
             }else if(this.keyboard.keys[68].isDown){
-                this.sprite.body.setVelocityX(128);
-                //this.player.anims.playReverse("right", true);
+                this.sprite.body.setVelocityX(this.speed);
+                if(!this.sprite.anims.isPlaying){
+                    this.sprite.anims.playReverse("left", true);
+                }
             }
 
             if(this.keyboard.keys[83].isUp || this.keyboard.keys[87].isUp){
@@ -210,11 +222,19 @@ export class DayPlayer{
             if(this.keyboard.keys[83].isDown && this.keyboard.keys[87].isDown){
                 this.sprite.body.setVelocityY(0);
             }else if(this.keyboard.keys[83].isDown){
-                this.sprite.body.setVelocityY(128); //y goes down, not up
-                //this.player.play("up", true);
+                this.sprite.body.setVelocityY(this.speed); //y goes down, not up
+                if(!this.sprite.anims.isPlaying){
+                    this.sprite.anims.play("down", true);
+                }
             }else if(this.keyboard.keys[87].isDown){
-                this.sprite.body.setVelocityY(-128);
-                //this.player.anims.playReverse("down", true);
+                this.sprite.body.setVelocityY(-this.speed);
+                if(!this.sprite.anims.isPlaying){
+                    this.sprite.anims.playReverse("down", true);
+                }
+            }
+            if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                console.log("hello");
+                this.sprite.setFrame(1);
             }
         }
     }

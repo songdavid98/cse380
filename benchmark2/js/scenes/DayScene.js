@@ -18,7 +18,7 @@ export class DayScene extends Phaser.Scene{
     }
     preload(){
         this.load.image("terrain", "assets/images/tiles.png");
-        this.load.spritesheet("shieldHero", "assets/images/shieldHero1.png", {frameWidth: 32, frameHeight:32});
+        this.load.spritesheet(HEROES.SHIELD_HERO, "assets/images/shieldHero1.png", {frameWidth: 32, frameHeight:32});
 
 
         switch(this.level){
@@ -60,16 +60,23 @@ export class DayScene extends Phaser.Scene{
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         let terrain = this.map.addTilesetImage("tiles", "terrain");
-        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(2,2);
-        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(2,2); 
+        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(5,5);
+        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(5,5); 
         //Generate sprite
-        this.sprite = this.physics.add.sprite(100,100, 'shieldHero').setScale(3,3);
+        this.sprite = this.physics.add.sprite(400,400, HEROES.SHIELD_HERO).setScale(6,6);
         console.log(this.sprite);
         //this.walk = this.sprite.animations.add('walk'); 
-	//collisions
-	this.wallLayer.setCollisionBetween(265,300);
-	this.physics.add.collider(this.sprite,this.wallLayer);
-
+	    //collisions
+	    this.wallLayer.setCollisionBetween(265,300);
+        this.physics.add.collider(this.sprite,this.wallLayer);
+        this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
+        this.cameras.main.startFollow(this.sprite);
+        this.input.on('pointermove', function (pointer) {
+            let cursor = pointer;
+            let angle = Phaser.Math.Angle.Between(this.sprite.x, this.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY)-1.65;
+            this.sprite.setRotation(angle);
+            this.sprite.body.angle = angle;
+      }, this);
         //Create the heroes
         console.log(this.input.keyboard);
         /*this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
@@ -80,7 +87,7 @@ export class DayScene extends Phaser.Scene{
         this.input.keyboard.addKeys('W,S,A,D');
 
         this.shieldHero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":1,"attack":1,"speed":1,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        "health":1,"attack":1,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
 
         //DayPlayer swordHero = new DayPlayer();
         //DayPlayer mageHero = new DayPlayer();
