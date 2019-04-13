@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/shieldHero1.json</filename>
+                <filename>../images/heroes.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,10 +181,22 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/shieldHero1/shieldHero/left/0001.png</key>
-            <key type="filename">../images/shieldHero1/shieldHero/left/0002.png</key>
-            <key type="filename">../images/shieldHero1/shieldHero/left/0003.png</key>
-            <key type="filename">../images/shieldHero1/shieldHero/left/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/down/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/down/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/down/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/down/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/left/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/left/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/left/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/left/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/right/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/right/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/right/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/right/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/up/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/up/0002.png</key>
+            <key type="filename">../images/heroes/shieldHero/up/0003.png</key>
+            <key type="filename">../images/heroes/shieldHero/up/0004.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -200,7 +212,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/shieldHero1</filename>
+            <filename>../images/heroes</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

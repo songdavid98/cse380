@@ -1,0 +1,356 @@
+{
+	"textures": [
+		{
+			"image": "heroes.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 23,
+				"h": 440
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "shieldHero/down/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 3,
+						"w": 22,
+						"h": 27
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 27
+					}
+				},
+				{
+					"filename": "shieldHero/down/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 4,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 0,
+						"y": 27,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shieldHero/down/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 3,
+						"w": 22,
+						"h": 27
+					},
+					"frame": {
+						"x": 0,
+						"y": 53,
+						"w": 22,
+						"h": 27
+					}
+				},
+				{
+					"filename": "shieldHero/down/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 4,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 0,
+						"y": 80,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shieldHero/left/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 3,
+						"w": 23,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 106,
+						"w": 23,
+						"h": 28
+					}
+				},
+				{
+					"filename": "shieldHero/left/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 0,
+						"y": 134,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shieldHero/left/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 3,
+						"w": 23,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 160,
+						"w": 23,
+						"h": 28
+					}
+				},
+				{
+					"filename": "shieldHero/left/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 0,
+						"y": 188,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shieldHero/right/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 3,
+						"w": 23,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 214,
+						"w": 23,
+						"h": 28
+					}
+				},
+				{
+					"filename": "shieldHero/right/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 0,
+						"y": 242,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shieldHero/right/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 3,
+						"w": 23,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 268,
+						"w": 23,
+						"h": 28
+					}
+				},
+				{
+					"filename": "shieldHero/right/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 0,
+						"y": 296,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shieldHero/up/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 322,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "shieldHero/up/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 1,
+						"w": 22,
+						"h": 31
+					},
+					"frame": {
+						"x": 0,
+						"y": 350,
+						"w": 22,
+						"h": 31
+					}
+				},
+				{
+					"filename": "shieldHero/up/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 381,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "shieldHero/up/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 1,
+						"w": 22,
+						"h": 31
+					},
+					"frame": {
+						"x": 0,
+						"y": 409,
+						"w": 22,
+						"h": 31
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:21afe734e498c3ffedd634b31ff69856:1ae08922a0a5d3e0a8f6c391425a9881:fa6206f32e24e13194d38060eb015395$"
+	}
+}

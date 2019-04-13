@@ -12,7 +12,7 @@ export class DayPlayer{
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true; //FIXME: remove this
-        this.preload();
+        this.create();
     }
     init(){
 
@@ -23,20 +23,20 @@ export class DayPlayer{
 
     }
     create(){
-        this.player = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/left/0001.png');
-        this.player.setScale(5, 5);
-        //this.capguy = this.physics.add.sprite(600, 400,HEROES.SHIELD_HERO, 'capguy/0001.png');
-        //this.capguy.setScale(0.5, 0.5);
+        
 
         // animation
-            //var frameNames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 8, zeroPad: 4, prefix:'capguy/', suffix:'.png' });
-        var frameNames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
-        console.log(frameNames);
-        //this.anims.create({ key: 'walk', frames: frameNames, frameRate: 10, repeat: -1 });
-       // this.capguy.anims.play('walk');
-        this.anims.create({ key: 'left', frames: frameNames, frameRate: 5, repeat: -1 });
-        console.log(this.anims); 
-        this.player.anims.play('left');
+        var leftFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
+        this.anims.create({ key: 'left', frames: leftFrames, frameRate: 5, repeat: -1 });
+
+        var rightFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/right/', suffix:'.png' });
+        this.anims.create({ key: 'right', frames: rightFrames, frameRate: 5, repeat: -1 });
+
+        var upFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/up/', suffix:'.png' });
+        this.anims.create({ key: 'up', frames: upFrames, frameRate: 5, repeat: -1 });
+
+        var downFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/down/', suffix:'.png' });
+        this.anims.create({ key: 'down', frames: downFrames, frameRate: 5, repeat: -1 });
 
         //this.shieldWall = this.physics.add.group();
 
@@ -53,59 +53,83 @@ export class DayPlayer{
         });*/
 
     }
-    update(){
+    update(angle){
 
-        /*
+        
         if(this.active === true){
             this.keyboard.on("keydown", function(e){
                 //console.log(e);
             });
-            //this.sprite.animations.play('walk', 4, true);
             
+            
+
             //if either are released, set velocityX to 0 for now
             //what if an enemy makes someone move?
             //NOTE: keycodes => W = 87, A = 65, S = 83, D = 68
-            if(this.keyboard.keys[68].isUp || this.keyboard.keys[65].isUp){
+            if(this.keyboard.keys[68].isUp || this.keyboard.keys[65].isUp){     //if D and A are up
                 this.sprite.body.setVelocityX(0);
             }
-            if(this.keyboard.keys[65].isDown && this.keyboard.keys[68].isDown){
+            if(this.keyboard.keys[65].isDown && this.keyboard.keys[68].isDown){ //if D and A are down
                 this.sprite.body.setVelocityX(0);
-            }else if(this.keyboard.keys[65].isDown){
-                //console.log("eyboi");
+            }
+            else if(this.keyboard.keys[65].isDown){                            //else if A is down (and not D)
                 this.sprite.body.setVelocityX(-this.speed);
-                if(!this.sprite.anims.isPlaying){
-                    //this.sprite.anims.play("left", true);
-                }
-            }else if(this.keyboard.keys[68].isDown){
+            }
+            else if(this.keyboard.keys[68].isDown){                            //else if D is down (and not A)
                 this.sprite.body.setVelocityX(this.speed);
-                if(!this.sprite.anims.isPlaying){
-                   // this.sprite.anims.playReverse("left", true);
-                }
             }
 
-            if(this.keyboard.keys[83].isUp || this.keyboard.keys[87].isUp){
-                this.sprite.body.setVelocityY(0)
-            }
-            if(this.keyboard.keys[83].isDown && this.keyboard.keys[87].isDown){
+            if(this.keyboard.keys[83].isUp || this.keyboard.keys[87].isUp){     //if S and W are up
                 this.sprite.body.setVelocityY(0);
-            }else if(this.keyboard.keys[83].isDown){
+            }
+            if(this.keyboard.keys[83].isDown && this.keyboard.keys[87].isDown){ //if S and W are down
+                this.sprite.body.setVelocityY(0);
+            }
+            else if(this.keyboard.keys[83].isDown){                            //if S is down (and not W)
                 this.sprite.body.setVelocityY(this.speed); //y goes down, not up
-                if(!this.sprite.anims.isPlaying){
-                    //this.sprite.anims.play("down", true);
-                }
-            }else if(this.keyboard.keys[87].isDown){
+            }
+            else if(this.keyboard.keys[87].isDown){                            //if W is down (and not S)
                 this.sprite.body.setVelocityY(-this.speed);
-                if(!this.sprite.anims.isPlaying){
-                   // this.sprite.anims.playReverse("down", true);
-                }
             }
+
+
+
+
+            //Rotation of sprite and box
+            if(angle > -Math.PI/4 && angle <= Math.PI/4){
+                this.sprite.anims.play("right", true);
+                this.sprite.setRotation(angle );                //Rotates the image
+                this.sprite.body.angle = angle;                 //Rotates the box (playerclass)
+            }
+            else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
+                this.sprite.anims.play("up", true);
+                this.sprite.setRotation(angle + Math.PI/2);     //Rotates the image
+                this.sprite.body.angle = angle + Math.PI/2;     //Rotates the box (playerclass)
+            }
+            else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
+                this.sprite.anims.play("left", true);
+                this.sprite.setRotation(angle - Math.PI);       //Rotates the image
+                this.sprite.body.angle = angle - Math.PI;       //Rotates the box (playerclass)
+            }
+            else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
+                this.sprite.anims.play("down", true);
+                this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
+                this.sprite.body.angle = angle - Math.PI/2;     //Rotates the box (playerclass)
+            }
+            //console.log(angle/ (Math.PI/180));
+
+
+            //Stopping animation
             if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                //console.log("hello");
-                this.sprite.setFrame(1);
+                this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
             }
+
+
+
+
             
         }
-        */
+        
     }
 
 
