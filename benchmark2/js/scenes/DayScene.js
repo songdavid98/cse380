@@ -68,6 +68,7 @@ export class DayScene extends Phaser.Scene{
 
         //Generate sprites
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
+        this.sprite.body.setSize(20,20,0);
         //this.shieldSprites = this.physics.add.group();
         
 
