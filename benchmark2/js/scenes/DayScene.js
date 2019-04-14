@@ -117,9 +117,13 @@ export class DayScene extends Phaser.Scene{
                 this.shieldBeamSprite.body.setSize(xx, yy);
                 //this.shieldBeamSprite.body.center.x = 10;
                 //this.shieldBeamSprite.body.center.y = 10000;
-                console.log(this.sprite.x - (pointer.x +this.cameras.main.scrollX));
-                console.log(this.sprite.y - (pointer.y +this.cameras.main.scrollY));
-                this.shieldBeamSprite.body.setOffset(1, -5);
+                //console.log(this.sprite.x - (pointer.x +this.cameras.main.scrollX));
+                //console.log(this.sprite.y - (pointer.y +this.cameras.main.scrollY));
+                console.log(this.shieldBeamSprite.x);
+                console.log(this.shieldBeamSprite.body.position.x);
+                console.log(this.shieldBeamSprite.body.offset);
+                this.shieldBeamSprite.body.setOffset(this.shieldBeamSprite.body.offset.x-60, this.shieldBeamSprite.body.offset.y-20)
+                //this.shieldBeamSprite.body.reset(this.shieldBeamSprite.x, this.shieldBeamSprite.y);
 
 
                 this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
