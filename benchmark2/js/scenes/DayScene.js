@@ -68,7 +68,6 @@ export class DayScene extends Phaser.Scene{
 
         //Generate sprites
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
-        this.sprite.body.setCircle(14,4,4);
         //this.shieldSprites = this.physics.add.group();
         
 
@@ -79,7 +78,7 @@ export class DayScene extends Phaser.Scene{
 
         //Create the heroes
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":1,"basicAttack":1, "basicAttackSpeed":20,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        "health":1,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
 
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
@@ -106,7 +105,7 @@ export class DayScene extends Phaser.Scene{
                 let pointY;
                 let pointX;
 
-                let dist = 200;
+                let dist = 100;
                 pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
                 pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
 

@@ -57,7 +57,7 @@ export class DayPlayer{
         var downBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/attackDown/', suffix:'.png' });
         this.anims.create({ key: 'downBasicAttack', frames: downBasicAttackFrame, frameRate: 5, repeat: -1 });
 
-        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 6, zeroPad: 4, prefix:'shieldHero/shield/', suffix:'.png' });
+        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 16, zeroPad: 4, prefix:'shieldHero/shield/', suffix:'.png' });
         this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
 
 

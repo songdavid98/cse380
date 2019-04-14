@@ -167,7 +167,7 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
-            <uint>7</uint>
+            <uint>0</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
             <key>tracerTolerance</key>
@@ -228,6 +228,28 @@
                 <rect>8,8,16,16</rect>
                 <key>scale9Paddings</key>
                 <rect>8,8,16,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/heroes/shieldHero/shield/0007.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0008.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0009.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0010.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0011.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0012.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0013.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0014.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0015.png</key>
+            <key type="filename">../images/heroes/shieldHero/shield/0016.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,3,15,5</rect>
+                <key>scale9Paddings</key>
+                <rect>8,3,15,5</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
