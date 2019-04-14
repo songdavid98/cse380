@@ -12,18 +12,28 @@ export class PauseScene extends Phaser.Scene{
     create(){
         this.justPaused = true;
         //add images
-        let backButton = this.add.image(this.game.renderer.width*.5,this.game.renderer.height*.3,"backButton").setDepth(2).setScale(2,2);
+        //let backButton = this.add.image(this.game.renderer.width*.5,this.game.renderer.height*.3,"backButton").setDepth(2).setScale(2,2);
         let pauseBox = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.5,"blueBox").setDepth(1).setScale(4,2.2);
-        let text = this.add.text(this.game.renderer.width*.46,this.game.renderer.height*.15,"Paused", {fontSize: 32, color: "#fff", strokeThickness:6, stroke:"#000000"}).setDepth(3);
+        let continueButton = this.add.image(this.game.renderer.width*.5,this.game.renderer.height*.5,"blueBar").setDepth(2).setScale(2,2);
+        let exitButton = this.add.image(this.game.renderer.width*.5,this.game.renderer.height*.7,"blueBar").setDepth(2).setScale(2,2);
+        let text = this.add.text(this.game.renderer.width*.46,this.game.renderer.height*.2,"Paused", {fontSize: 32, color: "#fff", strokeThickness:6, stroke:"#000000"}).setDepth(3);
+        let continueText = this.add.text(this.game.renderer.width*.452,this.game.renderer.height*.485,"Continue", {fontSize: 32, color: "#000000"}).setDepth(3);
+        let exitText = this.add.text(this.game.renderer.width*.475,this.game.renderer.height*.685,"Exit", {fontSize: 32, color: "#000000"}).setDepth(3);
         console.log(text);
         
         //set any colors and opacities
         pauseBox.alpha = 0.75;
         
-        //add button events
-        backButton.setInteractive();
-        backButton.on("pointerdown", ()=>{
-            console.log("hello");
+        //set button interactive
+        continueButton.setInteractive();
+        exitButton.setInteractive();
+        
+        //set button event handlers
+        continueButton.on("pointerdown", ()=>{
+            this.scene.resume(SCENES.DAY);
+            this.scene.stop();
+        });
+        exitButton.on("pointerdown", ()=>{
             let data = "main menu from level help"
             this.scene.stop(SCENES.DAY);
             this.scene.start(SCENES.MAIN_MENU, data);
