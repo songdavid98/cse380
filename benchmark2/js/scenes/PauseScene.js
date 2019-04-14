@@ -12,18 +12,25 @@ export class PauseScene extends Phaser.Scene{
     create(){
         this.justPaused = true;
         //add images
-        //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
-        let backButton = this.add.image(this.game.renderer.width*.05,this.game.renderer.height*.1,"backButton").setDepth(1).setScale(2,2);
-
+        let backButton = this.add.image(this.game.renderer.width*.5,this.game.renderer.height*.3,"backButton").setDepth(2).setScale(2,2);
+        let pauseBox = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.5,"blueBox").setDepth(1).setScale(4,2.2);
+        let text = this.add.text(this.game.renderer.width*.46,this.game.renderer.height*.15,"Paused", {fontSize: 32, color: "#fff", strokeThickness:6, stroke:"#000000"}).setDepth(3);
+        console.log(text);
+        
+        //set any colors and opacities
+        pauseBox.alpha = 0.75;
+        
         //add button events
         backButton.setInteractive();
-        this.input.keyboard.addKeys('Esc');
         backButton.on("pointerdown", ()=>{
             console.log("hello");
             let data = "main menu from level help"
             this.scene.stop(SCENES.DAY);
             this.scene.start(SCENES.MAIN_MENU, data);
         });
+
+        //add keyboard keys
+        this.input.keyboard.addKeys('Esc');
     }
     update(time,delta){
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
