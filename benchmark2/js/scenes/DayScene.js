@@ -20,6 +20,7 @@ export class DayScene extends Phaser.Scene{
         this.mapLevel;
         this.angle;
         this.cooldown = 0;
+        this.slimeCount = 10;
     }
     preload(){
         this.load.image("terrain", "assets/images/tiles.png");
@@ -74,11 +75,10 @@ export class DayScene extends Phaser.Scene{
         //Keyboard stuff
         this.input.keyboard.addKeys('W,S,A,D');
         this.input.keyboard.addKeys('Esc');
-        
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
-        for(var i = 0; i < 20; i++){
+        for(var i = 0; i < this.slimeCount; i++){
             this.enemySprite = this.physics.add.sprite(Math.random()*1000+100, Math.random()*1000+100, ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
             this.enemyGroup.add(this.enemySprite);
             this.enemies = new DayEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
