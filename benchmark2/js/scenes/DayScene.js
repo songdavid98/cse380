@@ -90,7 +90,7 @@ export class DayScene extends Phaser.Scene{
 
         //Create the enemies
         this.enemy = new DayEnemy({"sprite":this.slimeSprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"playerType":ENEMIES.SLIME, "anims":this.anims});
+        "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
 
 
 
