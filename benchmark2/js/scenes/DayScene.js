@@ -2,7 +2,10 @@
 
 import {SCENES} from "../constants/SceneNames.js";
 import {HEROES} from "../constants/PlayerTypes.js";
+import {ENEMIES} from "../constants/EnemyTypes.js";
 import {DayPlayer} from "../gamePlay/DayPlayer.js";
+import {DayEnemy} from "../gamePlay/DayEnemy.js";
+
 export class DayScene extends Phaser.Scene{
     constructor(){
         super({
@@ -22,6 +25,8 @@ export class DayScene extends Phaser.Scene{
         this.load.image("terrain", "assets/images/tiles.png");
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes.json', "assets/images");
+        this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
+
         //this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/cityscene.json', "assets/images");
 
         switch(this.level){
@@ -68,7 +73,10 @@ export class DayScene extends Phaser.Scene{
 
         //Generate sprites
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
-        //this.shieldSprites = this.physics.add.group();
+        this.slimeSprite = this.physics.add.sprite(600, 700, ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+
+
+
         
 
         //Keyboard stuff
@@ -80,9 +88,16 @@ export class DayScene extends Phaser.Scene{
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
         "health":1,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
 
+        //Create the enemies
+        this.enemy = new DayEnemy({"sprite":this.slimeSprite,"physics":this.physics,"keyboard":this.input.keyboard,
+        "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"playerType":ENEMIES.SLIME, "anims":this.anims});
+
+
+
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
         this.physics.add.collider(this.sprite,this.wallLayer);
+        this.physics.add.collider(this.slimeSprite,this.wallLayer);
 
         //Camera
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
@@ -165,6 +180,7 @@ export class DayScene extends Phaser.Scene{
         this.time = Math.floor(time/1000);
 
         this.hero.update(this.angle, time);
+        this.enemy.update(time);
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             this.justPaused = true
             this.input.keyboard.keys[68].isDown = false
