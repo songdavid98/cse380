@@ -58,12 +58,16 @@ export class DayPlayer{
         this.anims.create({ key: 'downBasicAttack', frames: downBasicAttackFrame, frameRate: 5, repeat: -1 });
 
         var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 6, zeroPad: 4, prefix:'shieldHero/shield/', suffix:'.png' });
-        this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
 
 
 
     }
-    update(angle){
+    update(angle, time){
+        //Gets the time of the game and stores it as a variable
+        this.time = time;   
+
+
         if(this.active === true){
             //if either are released, set velocityX to 0 for now
             //what if an enemy makes someone move?
@@ -138,14 +142,6 @@ export class DayPlayer{
             if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
                 //this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
             }
-
-            console.log(this.keyboard.keys[83].isDown)
-            /*
-            shieldSprite.anims.onComplete.add(function() {
-                shieldSprite.destroy();
-                console.log("destrooooooooooyedddddddddddddddddddd");
-            }, shieldSprite);
-            */
         } 
     }
 
@@ -156,7 +152,6 @@ export class DayPlayer{
         shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
         shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
 
-        console.log(shieldSprite.anims);
 
         //nextFire = this.time.now + fireRate;
 
@@ -165,30 +160,6 @@ export class DayPlayer{
         //bullet.reset(sprite.x - 8, sprite.y - 8);
 
         //this.physics.arcade.moveToPointer(shieldSprite, 300);
-
-/*
-        if(angle > -Math.PI/4 && angle <= Math.PI/4){
-            this.sprite.setRotation(angle );                //Rotates the image
-            this.sprite.body.angle = angle;                 //Rotates the box (playerclass)
-        }
-        else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
-            this.sprite.setRotation(angle + Math.PI/2);     //Rotates the image
-            this.sprite.body.angle = angle + Math.PI/2;     //Rotates the box (playerclass)
-        }
-        else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
-            this.sprite.setRotation(angle - Math.PI);       //Rotates the image
-            this.sprite.body.angle = angle - Math.PI;       //Rotates the box (playerclass)
-        }
-        else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
-            this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
-            this.sprite.body.angle = angle - Math.PI/2;     //Rotates the box (playerclass)
-        }
-
-        shieldSprite.on("animationcomplete", () => {
-            
-            console.log("destrooooooooooyed");
-        })
-*/
 
 
 
