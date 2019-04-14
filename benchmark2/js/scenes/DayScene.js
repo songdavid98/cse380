@@ -68,7 +68,7 @@ export class DayScene extends Phaser.Scene{
 
         //Generate sprites
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
-        this.sprite.body.setSize(20,20,0);
+        this.sprite.body.setCircle(14,4,4);
         //this.shieldSprites = this.physics.add.group();
         
 
@@ -122,6 +122,15 @@ export class DayScene extends Phaser.Scene{
                 this.shieldBeamSprite.on('animationcomplete_shield', function () {
                     this.destroy();                   
                 });
+
+                this.sprite.on('animationcomplete', function (anim, frame) {
+                    this.emit('animationcomplete_' + anim.key, anim, frame);
+                }, this.sprite);
+                
+                this.sprite.on('animationcomplete_rightBasicAttack', function () {
+                    console.log("print");                   
+                });
+
                 this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
             }
             else if(pointer.rightButtonDown()){

@@ -151,6 +151,23 @@ export class DayPlayer{
         shieldSprite.anims.play("shield", true);
         shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
         shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+        
+
+        this.sprite.anims.play("upIdle");
+
+        //Rotation of sprite and box
+        if(angle > -Math.PI/4 && angle <= Math.PI/4){
+            this.sprite.anims.play("rightBasicAttack");
+        }
+        else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
+            this.sprite.anims.play("upBasicAttack");
+        }
+        else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
+            this.sprite.anims.play("leftBasicAttack");
+        }
+        else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
+            this.sprite.anims.play("rightBasicAttack");
+        }
 
 
         //nextFire = this.time.now + fireRate;
