@@ -7,13 +7,14 @@ import {ControlsScene} from "../scenes/ControlsScene.js"
 import {DayScene} from "../scenes/DayScene.js"
 import {NightScene} from "../scenes/nightScene.js"
 import {PauseScene} from "../scenes/PauseScene.js"
+import {DayOverlayScene} from "../scenes/DayOverlay.js"
 
 //Main
 let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene:[
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, PauseScene
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, PauseScene, DayOverlayScene
     ],
 
     //----------------------------------mine 

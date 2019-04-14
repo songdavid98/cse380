@@ -7,5 +7,6 @@ export const SCENES = {
     PRELOAD: "PRELOAD",
     SPLASH: "SPLASH",
     DAY: "DAY",
-    NIGHT: "NIGHT"
+    NIGHT: "NIGHT",
+    DAY_OVERLAY:"DAY_OVERLAY"
 }

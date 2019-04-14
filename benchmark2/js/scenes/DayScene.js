@@ -19,11 +19,12 @@ export class DayScene extends Phaser.Scene{
         this.level = data.level;
         this.mapLevel;
         this.angle;
-        this.cooldown = 0;
+        this.cooldown = 5;
         this.slimeCount = 10;
     }
     preload(){
         this.load.image("terrain", "assets/images/tiles.png");
+        this.load.image("heart", "assets/images/icons/heart.png");
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes.json', "assets/images");
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
@@ -89,14 +90,15 @@ export class DayScene extends Phaser.Scene{
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
 
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":1,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        "health":3,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        this.scene.launch(SCENES.DAY_OVERLAY, {"hero":this.hero});
 
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
         this.physics.add.collider(this.sprite,this.wallLayer);
         //this.physics.add.collider(this.sprite,this.enemyGroup.getChildren());
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
-        this.physics.add.collider(this.enemyGroup.getChildren(),this.enemyGroup.getChildren());
+        //this.physics.add.collider(this.enemyGroup.getChildren(),this.enemyGroup.getChildren());
             //The shieldbeam collider is inside the click function, since the sprite is generated in there as well
 
         //Camera
@@ -130,6 +132,7 @@ export class DayScene extends Phaser.Scene{
                 this.physics.add.overlap(this.shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
                     o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
                     o2.active = false;
+                    o2.destroy();
                     if(!o1.colliding){
                         o1.colliding = [];
                     }
