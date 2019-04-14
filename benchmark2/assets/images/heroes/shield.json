@@ -1,16 +1,16 @@
 {
 	"textures": [
 		{
-			"image": "heroes.png",
+			"image": "shield.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 435,
-				"h": 64
+				"w": 119,
+				"h": 165
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "shieldHero/attackLeft/0001.png",
+					"filename": "attackLeft/0001.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "shieldHero/attackRight/0001.png",
+					"filename": "attackRight/0001.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -43,16 +43,58 @@
 						"y": 1,
 						"w": 22,
 						"h": 29
+					},
+					"frame": {
+						"x": 25,
+						"y": 1,
+						"w": 22,
+						"h": 29
+					}
+				},
+				{
+					"filename": "up/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 21,
+						"h": 30
+					},
+					"frame": {
+						"x": 49,
+						"y": 1,
+						"w": 21,
+						"h": 30
+					}
+				},
+				{
+					"filename": "up/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 21,
+						"h": 30
 					},
 					"frame": {
 						"x": 1,
 						"y": 32,
-						"w": 22,
-						"h": 29
+						"w": 21,
+						"h": 30
 					}
 				},
 				{
-					"filename": "shieldHero/up/0002.png",
+					"filename": "attackLeft/0002.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -61,19 +103,40 @@
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 0,
-						"w": 21,
-						"h": 30
+						"y": 2,
+						"w": 22,
+						"h": 28
 					},
 					"frame": {
-						"x": 25,
+						"x": 24,
+						"y": 32,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "attackRight/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 72,
 						"y": 1,
-						"w": 21,
-						"h": 30
+						"w": 22,
+						"h": 28
 					}
 				},
 				{
-					"filename": "shieldHero/up/0004.png",
+					"filename": "left/0001.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -82,40 +145,103 @@
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 0,
-						"w": 21,
-						"h": 30
+						"y": 2,
+						"w": 22,
+						"h": 28
 					},
 					"frame": {
-						"x": 25,
+						"x": 96,
+						"y": 1,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "left/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 72,
+						"y": 31,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "right/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 48,
 						"y": 33,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "right/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 24,
+						"y": 62,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "attackUp/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
 						"w": 21,
-						"h": 30
-					}
-				},
-				{
-					"filename": "shieldHero/attackLeft/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 2,
-						"w": 22,
 						"h": 28
 					},
 					"frame": {
-						"x": 48,
-						"y": 1,
-						"w": 22,
+						"x": 1,
+						"y": 64,
+						"w": 21,
 						"h": 28
 					}
 				},
 				{
-					"filename": "shieldHero/attackRight/0002.png",
+					"filename": "attackLeft/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -124,145 +250,19 @@
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 2,
+						"y": 3,
 						"w": 22,
-						"h": 28
-					},
-					"frame": {
-						"x": 48,
-						"y": 31,
-						"w": 22,
-						"h": 28
-					}
-				},
-				{
-					"filename": "shieldHero/left/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 2,
-						"w": 22,
-						"h": 28
-					},
-					"frame": {
-						"x": 72,
-						"y": 1,
-						"w": 22,
-						"h": 28
-					}
-				},
-				{
-					"filename": "shieldHero/left/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 2,
-						"w": 22,
-						"h": 28
-					},
-					"frame": {
-						"x": 72,
-						"y": 31,
-						"w": 22,
-						"h": 28
-					}
-				},
-				{
-					"filename": "shieldHero/right/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 2,
-						"w": 22,
-						"h": 28
-					},
-					"frame": {
-						"x": 96,
-						"y": 1,
-						"w": 22,
-						"h": 28
-					}
-				},
-				{
-					"filename": "shieldHero/right/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 2,
-						"w": 22,
-						"h": 28
+						"h": 27
 					},
 					"frame": {
 						"x": 96,
 						"y": 31,
 						"w": 22,
-						"h": 28
+						"h": 27
 					}
 				},
 				{
-					"filename": "swordHero/up/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 21,
-						"h": 29
-					},
-					"frame": {
-						"x": 120,
-						"y": 1,
-						"w": 21,
-						"h": 29
-					}
-				},
-				{
-					"filename": "swordHero/up/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 21,
-						"h": 29
-					},
-					"frame": {
-						"x": 120,
-						"y": 32,
-						"w": 21,
-						"h": 29
-					}
-				},
-				{
-					"filename": "shieldHero/attackLeft/0003.png",
+					"filename": "attackLeft/0004.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -276,224 +276,14 @@
 						"h": 27
 					},
 					"frame": {
-						"x": 143,
-						"y": 1,
-						"w": 22,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackLeft/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 3,
-						"w": 22,
-						"h": 27
-					},
-					"frame": {
-						"x": 143,
-						"y": 1,
-						"w": 22,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackRight/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 3,
-						"w": 22,
-						"h": 27
-					},
-					"frame": {
-						"x": 143,
-						"y": 30,
-						"w": 22,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackRight/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 3,
-						"w": 22,
-						"h": 27
-					},
-					"frame": {
-						"x": 143,
-						"y": 30,
-						"w": 22,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackUp/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 21,
-						"h": 28
-					},
-					"frame": {
-						"x": 167,
-						"y": 1,
-						"w": 21,
-						"h": 28
-					}
-				},
-				{
-					"filename": "shieldHero/up/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 21,
-						"h": 28
-					},
-					"frame": {
-						"x": 167,
-						"y": 31,
-						"w": 21,
-						"h": 28
-					}
-				},
-				{
-					"filename": "shieldHero/up/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 21,
-						"h": 28
-					},
-					"frame": {
-						"x": 167,
-						"y": 31,
-						"w": 21,
-						"h": 28
-					}
-				},
-				{
-					"filename": "swordHero/up/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 21,
-						"h": 28
-					},
-					"frame": {
-						"x": 190,
-						"y": 1,
-						"w": 21,
-						"h": 28
-					}
-				},
-				{
-					"filename": "swordHero/up/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 21,
-						"h": 28
-					},
-					"frame": {
-						"x": 190,
-						"y": 1,
-						"w": 21,
-						"h": 28
-					}
-				},
-				{
-					"filename": "swordHero/right/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 20,
-						"h": 29
-					},
-					"frame": {
-						"x": 190,
-						"y": 31,
-						"w": 20,
-						"h": 29
-					}
-				},
-				{
-					"filename": "shieldHero/left/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 3,
-						"w": 22,
-						"h": 26
-					},
-					"frame": {
-						"x": 212,
+						"x": 96,
 						"y": 31,
 						"w": 22,
-						"h": 26
+						"h": 27
 					}
 				},
 				{
-					"filename": "shieldHero/left/0004.png",
+					"filename": "attackRight/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -504,17 +294,17 @@
 						"x": 0,
 						"y": 3,
 						"w": 22,
-						"h": 26
+						"h": 27
 					},
 					"frame": {
-						"x": 212,
-						"y": 31,
+						"x": 96,
+						"y": 60,
 						"w": 22,
-						"h": 26
+						"h": 27
 					}
 				},
 				{
-					"filename": "shieldHero/right/0002.png",
+					"filename": "attackRight/0004.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -525,17 +315,17 @@
 						"x": 0,
 						"y": 3,
 						"w": 22,
-						"h": 26
+						"h": 27
 					},
 					"frame": {
-						"x": 213,
-						"y": 1,
+						"x": 96,
+						"y": 60,
 						"w": 22,
-						"h": 26
+						"h": 27
 					}
 				},
 				{
-					"filename": "shieldHero/right/0004.png",
+					"filename": "up/0001.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -544,649 +334,376 @@
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 3,
-						"w": 22,
-						"h": 26
-					},
-					"frame": {
-						"x": 213,
-						"y": 1,
-						"w": 22,
-						"h": 26
-					}
-				},
-				{
-					"filename": "shieldHero/attackDown/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 21,
-						"h": 27
-					},
-					"frame": {
-						"x": 236,
-						"y": 29,
-						"w": 21,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackDown/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 3,
-						"w": 21,
-						"h": 26
-					},
-					"frame": {
-						"x": 237,
 						"y": 1,
 						"w": 21,
-						"h": 26
-					}
-				},
-				{
-					"filename": "shieldHero/attackDown/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 21,
-						"h": 27
-					},
-					"frame": {
-						"x": 259,
-						"y": 29,
-						"w": 21,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackDown/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 21,
-						"h": 27
-					},
-					"frame": {
-						"x": 259,
-						"y": 29,
-						"w": 21,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/down/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 3,
-						"w": 21,
-						"h": 26
-					},
-					"frame": {
-						"x": 260,
-						"y": 1,
-						"w": 21,
-						"h": 26
-					}
-				},
-				{
-					"filename": "shieldHero/down/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 3,
-						"w": 21,
-						"h": 26
-					},
-					"frame": {
-						"x": 260,
-						"y": 1,
-						"w": 21,
-						"h": 26
-					}
-				},
-				{
-					"filename": "shieldHero/down/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 21,
-						"h": 27
-					},
-					"frame": {
-						"x": 282,
-						"y": 29,
-						"w": 21,
-						"h": 27
-					}
-				},
-				{
-					"filename": "swordHero/down/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 2,
-						"w": 19,
-						"h": 26
-					},
-					"frame": {
-						"x": 283,
-						"y": 1,
-						"w": 19,
-						"h": 26
-					}
-				},
-				{
-					"filename": "swordHero/down/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 2,
-						"w": 19,
-						"h": 26
-					},
-					"frame": {
-						"x": 283,
-						"y": 1,
-						"w": 19,
-						"h": 26
-					}
-				},
-				{
-					"filename": "swordHero/down/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 3,
-						"w": 19,
-						"h": 26
-					},
-					"frame": {
-						"x": 304,
-						"y": 1,
-						"w": 19,
-						"h": 26
-					}
-				},
-				{
-					"filename": "shieldHero/down/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 21,
-						"h": 27
-					},
-					"frame": {
-						"x": 305,
-						"y": 29,
-						"w": 21,
-						"h": 27
-					}
-				},
-				{
-					"filename": "swordHero/down/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 3,
-						"w": 18,
-						"h": 26
-					},
-					"frame": {
-						"x": 325,
-						"y": 1,
-						"w": 18,
-						"h": 26
-					}
-				},
-				{
-					"filename": "swordHero/right/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 20,
 						"h": 28
 					},
 					"frame": {
-						"x": 328,
-						"y": 29,
-						"w": 20,
+						"x": 72,
+						"y": 61,
+						"w": 21,
 						"h": 28
 					}
 				},
 				{
-					"filename": "swordHero/left/0002.png",
+					"filename": "up/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
 						"w": 22,
-						"h": 29
+						"h": 30
 					},
 					"spriteSourceSize": {
-						"x": 2,
-						"y": 4,
-						"w": 18,
-						"h": 25
+						"x": 0,
+						"y": 1,
+						"w": 21,
+						"h": 28
 					},
 					"frame": {
-						"x": 345,
-						"y": 1,
-						"w": 18,
-						"h": 25
+						"x": 72,
+						"y": 61,
+						"w": 21,
+						"h": 28
 					}
 				},
 				{
-					"filename": "swordHero/left/0004.png",
+					"filename": "left/0002.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
 						"w": 22,
-						"h": 29
+						"h": 30
 					},
 					"spriteSourceSize": {
-						"x": 2,
-						"y": 4,
-						"w": 18,
-						"h": 25
+						"x": 0,
+						"y": 3,
+						"w": 22,
+						"h": 26
 					},
 					"frame": {
-						"x": 345,
-						"y": 1,
-						"w": 18,
-						"h": 25
+						"x": 48,
+						"y": 63,
+						"w": 22,
+						"h": 26
 					}
 				},
 				{
-					"filename": "swordHero/left/0001.png",
+					"filename": "left/0004.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
 						"w": 22,
-						"h": 29
+						"h": 30
 					},
 					"spriteSourceSize": {
-						"x": 2,
+						"x": 0,
+						"y": 3,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 48,
+						"y": 63,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "right/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 95,
+						"y": 89,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "right/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 95,
+						"y": 89,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "attackDown/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
 						"y": 2,
-						"w": 20,
+						"w": 21,
 						"h": 27
 					},
 					"frame": {
-						"x": 350,
-						"y": 28,
-						"w": 20,
+						"x": 48,
+						"y": 91,
+						"w": 21,
 						"h": 27
 					}
 				},
 				{
-					"filename": "shieldHero/shield/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 0,
-						"w": 26,
-						"h": 6
-					},
-					"frame": {
-						"x": 350,
-						"y": 57,
-						"w": 26,
-						"h": 6
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0006.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 11
-					},
-					"frame": {
-						"x": 365,
-						"y": 1,
-						"w": 30,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0008.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 11
-					},
-					"frame": {
-						"x": 365,
-						"y": 1,
-						"w": 30,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0010.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 11
-					},
-					"frame": {
-						"x": 365,
-						"y": 1,
-						"w": 30,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0012.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 11
-					},
-					"frame": {
-						"x": 365,
-						"y": 1,
-						"w": 30,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0014.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 11
-					},
-					"frame": {
-						"x": 365,
-						"y": 1,
-						"w": 30,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0016.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 11
-					},
-					"frame": {
-						"x": 365,
-						"y": 1,
-						"w": 30,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 8
-					},
-					"frame": {
-						"x": 365,
-						"y": 14,
-						"w": 30,
-						"h": 8
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 8
-					},
-					"frame": {
-						"x": 365,
-						"y": 14,
-						"w": 30,
-						"h": 8
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0009.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 8
-					},
-					"frame": {
-						"x": 365,
-						"y": 14,
-						"w": 30,
-						"h": 8
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0011.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 8
-					},
-					"frame": {
-						"x": 365,
-						"y": 14,
-						"w": 30,
-						"h": 8
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0013.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 8
-					},
-					"frame": {
-						"x": 365,
-						"y": 14,
-						"w": 30,
-						"h": 8
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0015.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 30,
-						"h": 8
-					},
-					"frame": {
-						"x": 365,
-						"y": 14,
-						"w": 30,
-						"h": 8
-					}
-				},
-				{
-					"filename": "swordHero/left/0003.png",
+					"filename": "attackDown/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
 						"w": 22,
-						"h": 29
+						"h": 30
 					},
 					"spriteSourceSize": {
-						"x": 2,
+						"x": 1,
 						"y": 2,
-						"w": 20,
+						"w": 21,
 						"h": 27
 					},
 					"frame": {
-						"x": 372,
-						"y": 24,
-						"w": 20,
+						"x": 24,
+						"y": 92,
+						"w": 21,
 						"h": 27
 					}
 				},
 				{
-					"filename": "shieldHero/shield/0003.png",
+					"filename": "attackDown/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 21,
+						"h": 27
+					},
+					"frame": {
+						"x": 24,
+						"y": 92,
+						"w": 21,
+						"h": 27
+					}
+				},
+				{
+					"filename": "down/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 21,
+						"h": 27
+					},
+					"frame": {
+						"x": 1,
+						"y": 94,
+						"w": 21,
+						"h": 27
+					}
+				},
+				{
+					"filename": "down/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 21,
+						"h": 27
+					},
+					"frame": {
+						"x": 71,
+						"y": 91,
+						"w": 21,
+						"h": 27
+					}
+				},
+				{
+					"filename": "attackDown/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 3,
+						"w": 21,
+						"h": 26
+					},
+					"frame": {
+						"x": 94,
+						"y": 117,
+						"w": 21,
+						"h": 26
+					}
+				},
+				{
+					"filename": "down/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 3,
+						"w": 21,
+						"h": 26
+					},
+					"frame": {
+						"x": 47,
+						"y": 120,
+						"w": 21,
+						"h": 26
+					}
+				},
+				{
+					"filename": "down/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 3,
+						"w": 21,
+						"h": 26
+					},
+					"frame": {
+						"x": 47,
+						"y": 120,
+						"w": 21,
+						"h": 26
+					}
+				},
+				{
+					"filename": "attackUp/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 19,
+						"h": 28
+					},
+					"frame": {
+						"x": 24,
+						"y": 121,
+						"w": 19,
+						"h": 28
+					}
+				},
+				{
+					"filename": "attackUp/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 19,
+						"h": 27
+					},
+					"frame": {
+						"x": 1,
+						"y": 123,
+						"w": 19,
+						"h": 27
+					}
+				},
+				{
+					"filename": "attackUp/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 19,
+						"h": 27
+					},
+					"frame": {
+						"x": 1,
+						"y": 123,
+						"w": 19,
+						"h": 27
+					}
+				},
+				{
+					"filename": "shield/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 0,
+						"w": 12,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 120,
+						"w": 12,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -1200,14 +717,140 @@
 						"h": 10
 					},
 					"frame": {
-						"x": 378,
-						"y": 53,
+						"x": 70,
+						"y": 133,
 						"w": 12,
 						"h": 10
 					}
 				},
 				{
-					"filename": "shieldHero/shield/0002.png",
+					"filename": "shield/0006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 145,
+						"w": 30,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 145,
+						"w": 30,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0010.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 145,
+						"w": 30,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0012.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 145,
+						"w": 30,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0014.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 145,
+						"w": 30,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0016.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 11
+					},
+					"frame": {
+						"x": 70,
+						"y": 145,
+						"w": 30,
+						"h": 11
+					}
+				},
+				{
+					"filename": "shield/0002.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -1221,56 +864,14 @@
 						"h": 9
 					},
 					"frame": {
-						"x": 392,
-						"y": 53,
+						"x": 45,
+						"y": 148,
 						"w": 12,
 						"h": 9
 					}
 				},
 				{
-					"filename": "shieldHero/attackUp/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 19,
-						"h": 27
-					},
-					"frame": {
-						"x": 394,
-						"y": 24,
-						"w": 19,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/attackUp/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 2,
-						"w": 19,
-						"h": 27
-					},
-					"frame": {
-						"x": 394,
-						"y": 24,
-						"w": 19,
-						"h": 27
-					}
-				},
-				{
-					"filename": "shieldHero/shield/0001.png",
+					"filename": "shield/0005.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -1278,79 +879,142 @@
 						"h": 11
 					},
 					"spriteSourceSize": {
-						"x": 9,
+						"x": 0,
 						"y": 0,
-						"w": 12,
-						"h": 11
+						"w": 30,
+						"h": 8
 					},
 					"frame": {
-						"x": 397,
-						"y": 1,
-						"w": 12,
-						"h": 11
-					}
-				},
-				{
-					"filename": "shieldHero/attackUp/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 22,
-						"h": 30
-					},
-					"spriteSourceSize": {
 						"x": 1,
-						"y": 1,
-						"w": 19,
-						"h": 28
-					},
-					"frame": {
-						"x": 415,
-						"y": 1,
-						"w": 19,
-						"h": 28
+						"y": 152,
+						"w": 30,
+						"h": 8
 					}
 				},
 				{
-					"filename": "swordHero/right/0002.png",
+					"filename": "shield/0007.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 22,
-						"h": 29
+						"w": 30,
+						"h": 11
 					},
 					"spriteSourceSize": {
-						"x": 2,
-						"y": 2,
-						"w": 18,
-						"h": 27
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 8
 					},
 					"frame": {
-						"x": 415,
-						"y": 31,
-						"w": 18,
-						"h": 27
+						"x": 1,
+						"y": 152,
+						"w": 30,
+						"h": 8
 					}
 				},
 				{
-					"filename": "swordHero/right/0004.png",
+					"filename": "shield/0009.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 22,
-						"h": 29
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 8
+					},
+					"frame": {
+						"x": 1,
+						"y": 152,
+						"w": 30,
+						"h": 8
+					}
+				},
+				{
+					"filename": "shield/0011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 8
+					},
+					"frame": {
+						"x": 1,
+						"y": 152,
+						"w": 30,
+						"h": 8
+					}
+				},
+				{
+					"filename": "shield/0013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 8
+					},
+					"frame": {
+						"x": 1,
+						"y": 152,
+						"w": 30,
+						"h": 8
+					}
+				},
+				{
+					"filename": "shield/0015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 8
+					},
+					"frame": {
+						"x": 1,
+						"y": 152,
+						"w": 30,
+						"h": 8
+					}
+				},
+				{
+					"filename": "shield/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 11
 					},
 					"spriteSourceSize": {
 						"x": 2,
-						"y": 2,
-						"w": 18,
-						"h": 27
+						"y": 0,
+						"w": 26,
+						"h": 6
 					},
 					"frame": {
-						"x": 415,
-						"y": 31,
-						"w": 18,
-						"h": 27
+						"x": 59,
+						"y": 158,
+						"w": 26,
+						"h": 6
 					}
 				}
 			]
@@ -1359,6 +1023,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:305facdec67dbe7a494096613df3f25b:de5d8e26477823c33d9160b83c68a54d:fa6206f32e24e13194d38060eb015395$"
+		"smartupdate": "$TexturePacker:SmartUpdate:9b6e230f815765c4321dcb806bd231d9:e3df4fe419dd8f23b8836aafae08ee4e:de2262643e270aaf58b5d08b08daa083$"
 	}
 }

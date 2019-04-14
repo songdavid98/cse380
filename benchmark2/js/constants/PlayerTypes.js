@@ -1,3 +1,5 @@
 export const HEROES = {
-    SHIELD_HERO: "SHIELD_HERO"
+    SHIELD_HERO: "SHIELD_HERO",
+    SWORD_HERO: "SWORD_HERO",
+    MAGE_HERO: "MAGE_HERO"
 }

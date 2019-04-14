@@ -29,35 +29,35 @@ export class DayPlayer{
         
 
         // animation
-        var leftFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
+        var leftFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'left', frames: leftFrames, frameRate: 5, repeat: -1 });
-        var leftIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/left/', suffix:'.png' });
+        var leftIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftIdle', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
-        var leftBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/attackLeft/', suffix:'.png' });
+        var leftBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'attackLeft/', suffix:'.png' });
         this.anims.create({ key: 'leftBasicAttack', frames: leftBasicAttackFrame, frameRate: 5, repeat: -1 });
 
-        var rightFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/right/', suffix:'.png' });
+        var rightFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'right', frames: rightFrames, frameRate: 5, repeat: -1 });
-        var rightIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/right/', suffix:'.png' });
+        var rightIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'rightIdle', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
-        var rightBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/attackRight/', suffix:'.png' });
+        var rightBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'attackRight/', suffix:'.png' });
         this.anims.create({ key: 'rightBasicAttack', frames: rightBasicAttackFrame, frameRate: 5, repeat: -1 });
 
-        var upFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/up/', suffix:'.png' });
+        var upFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
         this.anims.create({ key: 'up', frames: upFrames, frameRate: 5, repeat: -1 });
-        var upIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'shieldHero/up/', suffix:'.png' });
+        var upIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
         this.anims.create({ key: 'upIdle', frames: upIdleFrame, frameRate: 5, repeat: -1 });
-        var upBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'shieldHero/attackUp/', suffix:'.png' });
+        var upBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'attackUp/', suffix:'.png' });
         this.anims.create({ key: 'upBasicAttack', frames: upBasicAttackFrame, frameRate: 5, repeat: -1 });
 
-        var downFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'shieldHero/down/', suffix:'.png' });
+        var downFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
         this.anims.create({ key: 'down', frames: downFrames, frameRate: 5, repeat: -1 });
-        var downIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/down/', suffix:'.png' });
+        var downIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
         this.anims.create({ key: 'downIdle', frames: downIdleFrame, frameRate: 5, repeat: -1 });
-        var downBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'shieldHero/attackDown/', suffix:'.png' });
+        var downBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'attackDown/', suffix:'.png' });
         this.anims.create({ key: 'downBasicAttack', frames: downBasicAttackFrame, frameRate: 5, repeat: -1 });
 
-        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 16, zeroPad: 4, prefix:'shieldHero/shield/', suffix:'.png' });
+        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
         this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
 
 
