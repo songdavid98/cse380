@@ -94,7 +94,9 @@ export class DayScene extends Phaser.Scene{
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
         this.physics.add.collider(this.sprite,this.wallLayer);
+        this.physics.add.collider(this.sprite,this.enemyGroup.getChildren());
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+        this.physics.add.collider(this.enemyGroup.getChildren(),this.enemyGroup.getChildren());
             //The shieldbeam collider is inside the click function, since the sprite is generated in there as well
 
         //Camera
@@ -124,8 +126,15 @@ export class DayScene extends Phaser.Scene{
 
                 this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
                 
-                this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
-
+                //this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
+                this.physics.add.overlap(this.shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
+                    o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
+                    o2.active = false;
+                    if(!o1.colliding){
+                        o1.colliding = [];
+                    }
+                    o1.colliding.push(o2);
+                });
 
                 let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.angle)));
                 let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
@@ -145,7 +154,12 @@ export class DayScene extends Phaser.Scene{
                     this.emit('animationcomplete_' + anim.key, anim, frame);
                 }, this.shieldBeamSprite);
                 
-                this.shieldBeamSprite.on('animationcomplete_shield', function () {
+                this.shieldBeamSprite.on('animationcomplete_shield', function (o1) {
+                    if(this.colliding){
+                        for(var i = 0; i < this.colliding.length; i++){
+                            this.colliding[i].active = true;
+                        }
+                    }
                     this.destroy();                   
                 });
 

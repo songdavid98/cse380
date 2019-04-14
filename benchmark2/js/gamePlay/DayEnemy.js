@@ -40,53 +40,52 @@ export class DayEnemy{
     update(time){
         
         for(var i = 0; i < this.sprite.length; i++){
-
-            if(this.goX[i] && this.goY[i]){
-                this.sprite[i].body.setVelocityX(this.movement[i]);
-                this.sprite[i].body.setVelocityY(0);
-                this.sprite[i].anims.play("rightSlime", true);
-                this.moveCounter[i]++;
-                if(this.moveCounter[i] >= 50){
-                    this.goX[i] = false;
-                    this.goY[i] = false;
-                    this.moveCounter[i] = 0;
+            if(this.sprite[i].active){
+                if(this.goX[i] && this.goY[i]){
+                    this.sprite[i].body.setVelocityX(this.movement[i]);
+                    this.sprite[i].body.setVelocityY(0);
+                    this.sprite[i].anims.play("rightSlime", true);
+                    this.moveCounter[i]++;
+                    if(this.moveCounter[i] >= 50){
+                        this.goX[i] = false;
+                        this.goY[i] = false;
+                        this.moveCounter[i] = 0;
+                    }
+                }
+                else if(this.goX[i] == false && this.goY[i] == false){
+                    this.sprite[i].body.setVelocityX(0);
+                    this.sprite[i].body.setVelocityY(this.movement[i]);
+                    this.sprite[i].anims.play("downSlime", true);
+                    this.moveCounter[i]++;
+                    if(this.moveCounter[i] >= 50){
+                        this.goX[i] = true;
+                        this.goY[i] = false;
+                        this.moveCounter[i] = 0;
+                    }
+                }
+                else if(this.goX[i] == true && this.goY[i] == false){
+                    this.sprite[i].body.setVelocityX(-this.movement[i]);
+                    this.sprite[i].body.setVelocityY(0);
+                    this.sprite[i].anims.play("leftSlime", true);
+                    this.moveCounter[i]--;
+                    if(this.moveCounter[i] <= -50){
+                        this.goX[i] = false;
+                        this.goY[i] = true;
+                        this.moveCounter[i] = 0;
+                    }
+                }
+                else if(this.goX[i] == false && this.goY[i] == true){
+                    this.sprite[i].body.setVelocityX(0);
+                    this.sprite[i].body.setVelocityY(-this.movement[i]);
+                    this.sprite[i].anims.play("upSlime", true);
+                    this.moveCounter[i]--;
+                    if(this.moveCounter[i] <= -50){
+                        this.goX[i] = true;
+                        this.goY[i] = true;
+                        this.moveCounter[i] = 0;
+                    }
                 }
             }
-            else if(this.goX[i] == false && this.goY[i] == false){
-                this.sprite[i].body.setVelocityX(0);
-                this.sprite[i].body.setVelocityY(this.movement[i]);
-                this.sprite[i].anims.play("downSlime", true);
-                this.moveCounter[i]++;
-                if(this.moveCounter[i] >= 50){
-                    this.goX[i] = true;
-                    this.goY[i] = false;
-                    this.moveCounter[i] = 0;
-                }
-            }
-            else if(this.goX[i] == true && this.goY[i] == false){
-                this.sprite[i].body.setVelocityX(-this.movement[i]);
-                this.sprite[i].body.setVelocityY(0);
-                this.sprite[i].anims.play("leftSlime", true);
-                this.moveCounter[i]--;
-                if(this.moveCounter[i] <= -50){
-                    this.goX[i] = false;
-                    this.goY[i] = true;
-                    this.moveCounter[i] = 0;
-                }
-            }
-            else if(this.goX[i] == false && this.goY[i] == true){
-                this.sprite[i].body.setVelocityX(0);
-                this.sprite[i].body.setVelocityY(-this.movement[i]);
-                this.sprite[i].anims.play("upSlime", true);
-                this.moveCounter[i]--;
-                if(this.moveCounter[i] <= -50){
-                    this.goX[i] = true;
-                    this.goY[i] = true;
-                    this.moveCounter[i] = 0;
-                }
-            }
-
-            
         }
 
     }
