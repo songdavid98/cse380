@@ -16,12 +16,18 @@ export class LevelSelectionScene extends Phaser.Scene{
         this.cameras.main.setBackgroundColor('#008080')
         let backButton = this.add.image(this.game.renderer.width*.05,this.game.renderer.height*.1,"backButton").setDepth(1).setScale(2,2);
         let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
-        let level2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
-        let level3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
+        this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level2
+        this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level3
         let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
-        let nightLevel2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
-        let nightLevel3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
+        this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.68,"greyBox").setDepth(2).setScale(3,3); //n-level2
+        this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.68,"greyBox").setDepth(2).setScale(3,3); //n-level3
         let levelsBox = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.5,'blueBox').setDepth(1).setScale(4,2);
+
+        //add tbas
+        this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"tba").setDepth(3).setScale(3,3); //level2 tba
+        this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.38,"tba").setDepth(3).setScale(3,3); //level3 tba
+        this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.68,"tba").setDepth(3).setScale(3,3); //n-level2 tba
+        this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.68,"tba").setDepth(3).setScale(3,3); //n-level3 tba
         
         //add text
         this.add.text(this.game.renderer.width*.31, this.game.renderer.height*.18,"Level Selection", {fontSize: 64, color: "#000000"}).setDepth(2); //title

@@ -21,6 +21,8 @@ export class PreloadScene extends Phaser.Scene{
         this.load.image("backButton", "../benchmark2/assets/images/buttons/backbutton.png");
         this.load.image("blueBox", "../benchmark2/assets/images/buttons/bluebox.png");
         this.load.image("blueBar", "../benchmark2/assets/images/buttons/bluebar.png");
+        this.load.image("tba", "../benchmark2/assets/images/buttons/tba.png");
+        this.load.image("greyBox", "../benchmark2/assets/images/buttons/greybox.png");
 
 
 
