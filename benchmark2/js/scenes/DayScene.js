@@ -71,33 +71,31 @@ export class DayScene extends Phaser.Scene{
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(5,5);
         this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(5,5); 
 
-        //Generate sprites
-        this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
-        this.slimeSprite = this.physics.add.sprite(600, 700, ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-
-
-
-        
-
         //Keyboard stuff
-        console.log(this.input.keyboard);
         this.input.keyboard.addKeys('W,S,A,D');
         this.input.keyboard.addKeys('Esc');
-
-        //Create the heroes
-        this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":1,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        
 
         //Create the enemies
-        this.enemy = new DayEnemy({"sprite":this.slimeSprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+        this.enemyGroup = this.physics.add.group();
+        for(var i = 0; i < 20; i++){
+            this.enemySprite = this.physics.add.sprite(Math.random()*1000+100, Math.random()*1000+100, ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+            this.enemyGroup.add(this.enemySprite);
+            this.enemies = new DayEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
+            "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+        }
 
+        //Create the heroes
+        this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'shieldHero/down/0001.png').setScale(5, 5);
 
+        this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
+        "health":1,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
 
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
         this.physics.add.collider(this.sprite,this.wallLayer);
-        this.physics.add.collider(this.slimeSprite,this.wallLayer);
+        this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+            //The shieldbeam collider is inside the click function, since the sprite is generated in there as well
 
         //Camera
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
@@ -126,14 +124,13 @@ export class DayScene extends Phaser.Scene{
 
                 this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
                 
+                this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
+
+
                 let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.angle)));
                 let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
 
                 this.shieldBeamSprite.body.setSize(xx, yy);
-                //this.shieldBeamSprite.body.center.x = 10;
-                //this.shieldBeamSprite.body.center.y = 10000;
-                //console.log(this.sprite.x - (pointer.x +this.cameras.main.scrollX));
-                //console.log(this.sprite.y - (pointer.y +this.cameras.main.scrollY));
                 console.log(this.shieldBeamSprite.x);
                 console.log(this.shieldBeamSprite.body.position.x);
                 console.log(this.shieldBeamSprite.body.offset);
@@ -180,7 +177,8 @@ export class DayScene extends Phaser.Scene{
         this.time = Math.floor(time/1000);
 
         this.hero.update(this.angle, time);
-        this.enemy.update(time);
+        this.enemies.update(time);
+
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             this.justPaused = true
             this.input.keyboard.keys[68].isDown = false

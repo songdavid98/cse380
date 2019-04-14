@@ -15,10 +15,12 @@ export class DayEnemy{
         this.active = true; //FIXME: remove this
         this.create();
 
-        this.moveCounter = 0;
-        this.movement = 50;
-        this.goX = true;
-        this.goY = true;
+        
+        this.moveCounter = new Array(this.sprite.length).fill(0);
+        this.movement = new Array(this.sprite.length).fill(Math.random()*100);
+        this.goX = new Array(this.sprite.length).fill(true);
+        this.goY = new Array(this.sprite.length).fill(true);
+        
     }
     init(){}
     
@@ -36,51 +38,56 @@ export class DayEnemy{
     }
 
     update(time){
-        if(this.goX && this.goY){
-            this.sprite.body.setVelocityX(this.movement);
-            this.sprite.body.setVelocityY(0);
-            this.sprite.anims.play("rightSlime", true);
-            this.moveCounter++;
-            if(this.moveCounter >= 50){
-                this.goX = false;
-                this.goY = false;
-                this.moveCounter = 0;
-            }
-        }
-        else if(this.goX == false && this.goY == false){
-            this.sprite.body.setVelocityX(0);
-            this.sprite.body.setVelocityY(this.movement);
-            this.sprite.anims.play("downSlime", true);
-            this.moveCounter++;
-            if(this.moveCounter >= 50){
-                this.goX = true;
-                this.goY = false;
-                this.moveCounter = 0;
-            }
-        }
-        else if(this.goX == true && this.goY == false){
-            this.sprite.body.setVelocityX(-this.movement);
-            this.sprite.body.setVelocityY(0);
-            this.sprite.anims.play("leftSlime", true);
-            this.moveCounter--;
-            if(this.moveCounter <= -50){
-                this.goX = false;
-                this.goY = true;
-                this.moveCounter = 0;
-            }
-        }
-        else if(this.goX == false && this.goY == true){
-            this.sprite.body.setVelocityX(0);
-            this.sprite.body.setVelocityY(-this.movement);
-            this.sprite.anims.play("upSlime", true);
-            this.moveCounter--;
-            if(this.moveCounter <= -50){
-                this.goX = true;
-                this.goY = true;
-                this.moveCounter = 0;
-            }
-        }
+        
+        for(var i = 0; i < this.sprite.length; i++){
 
+            if(this.goX[i] && this.goY[i]){
+                this.sprite[i].body.setVelocityX(this.movement[i]);
+                this.sprite[i].body.setVelocityY(0);
+                this.sprite[i].anims.play("rightSlime", true);
+                this.moveCounter[i]++;
+                if(this.moveCounter[i] >= 50){
+                    this.goX[i] = false;
+                    this.goY[i] = false;
+                    this.moveCounter[i] = 0;
+                }
+            }
+            else if(this.goX[i] == false && this.goY[i] == false){
+                this.sprite[i].body.setVelocityX(0);
+                this.sprite[i].body.setVelocityY(this.movement[i]);
+                this.sprite[i].anims.play("downSlime", true);
+                this.moveCounter[i]++;
+                if(this.moveCounter[i] >= 50){
+                    this.goX[i] = true;
+                    this.goY[i] = false;
+                    this.moveCounter[i] = 0;
+                }
+            }
+            else if(this.goX[i] == true && this.goY[i] == false){
+                this.sprite[i].body.setVelocityX(-this.movement[i]);
+                this.sprite[i].body.setVelocityY(0);
+                this.sprite[i].anims.play("leftSlime", true);
+                this.moveCounter[i]--;
+                if(this.moveCounter[i] <= -50){
+                    this.goX[i] = false;
+                    this.goY[i] = true;
+                    this.moveCounter[i] = 0;
+                }
+            }
+            else if(this.goX[i] == false && this.goY[i] == true){
+                this.sprite[i].body.setVelocityX(0);
+                this.sprite[i].body.setVelocityY(-this.movement[i]);
+                this.sprite[i].anims.play("upSlime", true);
+                this.moveCounter[i]--;
+                if(this.moveCounter[i] <= -50){
+                    this.goX[i] = true;
+                    this.goY[i] = true;
+                    this.moveCounter[i] = 0;
+                }
+            }
+
+            
+        }
 
     }
     
