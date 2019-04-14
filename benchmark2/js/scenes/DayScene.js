@@ -94,7 +94,7 @@ export class DayScene extends Phaser.Scene{
 	    //collisions
 	    this.wallLayer.setCollisionBetween(265,300);
         this.physics.add.collider(this.sprite,this.wallLayer);
-        this.physics.add.collider(this.sprite,this.enemyGroup.getChildren());
+        //this.physics.add.collider(this.sprite,this.enemyGroup.getChildren());
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.enemyGroup.getChildren());
             //The shieldbeam collider is inside the click function, since the sprite is generated in there as well
