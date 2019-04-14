@@ -29,5 +29,13 @@ export class ControlsScene extends Phaser.Scene{
             let data = "main menu from controls"
             this.scene.start(SCENES.MAIN_MENU, data);
         });
+        
+        //add keyboard keys
+        this.input.keyboard.addKeys('Esc');
+    }
+    update(time, delta){
+        if(this.input.keyboard.keys[27].isDown){
+            this.scene.start(SCENES.MAIN_MENU);
+        }
     }
 }
