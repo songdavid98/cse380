@@ -15,12 +15,25 @@ export class LevelSelectionScene extends Phaser.Scene{
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         this.cameras.main.setBackgroundColor('#008080')
         let backButton = this.add.image(this.game.renderer.width*.05,this.game.renderer.height*.1,"backButton").setDepth(1).setScale(2,2);
-        let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.3,"level1Button").setDepth(1).setScale(1,1);
-        let level2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.3,"level1Button").setDepth(1).setScale(1,1);
-        let level3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.3,"level1Button").setDepth(1).setScale(1,1);
-        let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
-        let nightLevel2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
-        let nightLevel3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.6,"level1Button").setDepth(1).setScale(1,1);
+        let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
+        let level2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
+        let level3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
+        let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
+        let nightLevel2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
+        let nightLevel3Button = this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
+        let levelsBox = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.5,'blueBox').setDepth(1).setScale(4,2);
+        
+        //add text
+        this.add.text(this.game.renderer.width*.31, this.game.renderer.height*.18,"Level Selection", {fontSize: 64, color: "#000000"}).setDepth(2); //title
+        this.add.text(this.game.renderer.width*.183, this.game.renderer.height*.50,"Day Level 1", {fontSize: 32, color: "#000000"}).setDepth(2); 
+        this.add.text(this.game.renderer.width*.433, this.game.renderer.height*.50,"Day Level 2", {fontSize: 32, color: "#000000"}).setDepth(2); 
+        this.add.text(this.game.renderer.width*.683, this.game.renderer.height*.50,"Day Level 3", {fontSize: 32, color: "#000000"}).setDepth(2);
+        this.add.text(this.game.renderer.width*.171, this.game.renderer.height*.80,"Night Level 1", {fontSize: 32, color: "#000000"}).setDepth(2); 
+        this.add.text(this.game.renderer.width*.421, this.game.renderer.height*.80,"Night Level 2", {fontSize: 32, color: "#000000"}).setDepth(2); 
+        this.add.text(this.game.renderer.width*.681, this.game.renderer.height*.80,"Night Level 3", {fontSize: 32, color: "#000000"}).setDepth(2);  
+        
+        //set opacities and stuff
+        levelsBox.alpha = 0.75
 
         //add button events
         level1Button.setInteractive();
