@@ -10,12 +10,13 @@ export class DayScene extends Phaser.Scene{
         })
     }
     init(data){
-        this.time;
+        this.timer;
         this.map;
         this.monsterArray;
         this.level = data.level;
         this.mapLevel;
         this.angle;
+        this.cooldown = 2;
     }
     preload(){
         this.load.image("terrain", "assets/images/tiles.png");
@@ -94,10 +95,13 @@ export class DayScene extends Phaser.Scene{
             //console.log((Math.PI/2-this.angle) / (Math.PI/180));
         }, this);
 
+
+        //Jakukob can put this ANYWHERE he wants
+        this.prevTime = 0;
+    
         this.input.on('pointerdown', function (pointer) {
-
-            if(pointer.leftButtonDown()){
-
+            if(pointer.leftButtonDown() && this.time >= this.cooldown + this.prevTime){
+                this.prevTime = this.time;
                 let pointY;
                 let pointX;
 
@@ -106,7 +110,6 @@ export class DayScene extends Phaser.Scene{
                 pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
 
                 this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
-
                 
                 this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
                 this.shieldBeamSprite.body.angle = this.angle+ Math.PI/2;
@@ -116,11 +119,8 @@ export class DayScene extends Phaser.Scene{
                 }, this.shieldBeamSprite);
                 
                 this.shieldBeamSprite.on('animationcomplete_shield', function () {
-                    console.log(this.destroy());                    
-                    //this.shieldBeamSprite.destroy();
+                    this.destroy();                   
                 });
-
-                
                 this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
             }
             else if(pointer.rightButtonDown()){
@@ -134,13 +134,13 @@ export class DayScene extends Phaser.Scene{
         //DayPlayer swordHero = new DayPlayer();
         //DayPlayer mageHero = new DayPlayer();
 
-        //let bottomLayer = map.createStaticLayer("bottom", [terrain], 0,0).setDepth(-1);
-        //let topLayer = map.createStaticLayer("top", [terrain], 0,0);
 
 
     }
     update(time, delta){
-        this.hero.update(this.angle);
+        this.time = Math.floor(time/1000);
+
+        this.hero.update(this.angle, time);
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             this.justPaused = true
             this.input.keyboard.keys[68].isDown = false
@@ -149,7 +149,6 @@ export class DayScene extends Phaser.Scene{
             this.input.keyboard.keys[83].isDown = false
             this.scene.launch(SCENES.PAUSE);
             this.scene.pause();
-            console.log("hello");
         }else if(this.input.keyboard.keys[27].isUp){
             this.justPaused = false;
         }
