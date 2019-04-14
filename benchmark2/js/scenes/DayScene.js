@@ -130,7 +130,7 @@ export class DayScene extends Phaser.Scene{
                 }, this.shieldBeamSprite);
                 
                 this.shieldBeamSprite.on('animationcomplete_shield', function () {
-                    //this.destroy();                   
+                    this.destroy();                   
                 });
 
                 this.sprite.on('animationcomplete', function (anim, frame) {
