@@ -16,7 +16,7 @@ export class DayScene extends Phaser.Scene{
         this.level = data.level;
         this.mapLevel;
         this.angle;
-        this.cooldown = 2;
+        this.cooldown = 0;
     }
     preload(){
         this.load.image("terrain", "assets/images/tiles.png");
@@ -111,15 +111,26 @@ export class DayScene extends Phaser.Scene{
 
                 this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shieldHero/shield/0001.png').setScale(5, 5);
                 
+                let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.angle)));
+                let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+
+                this.shieldBeamSprite.body.setSize(xx, yy);
+                //this.shieldBeamSprite.body.center.x = 10;
+                //this.shieldBeamSprite.body.center.y = 10000;
+                console.log(this.sprite.x - (pointer.x +this.cameras.main.scrollX));
+                console.log(this.sprite.y - (pointer.y +this.cameras.main.scrollY));
+                this.shieldBeamSprite.body.setOffset(1, -5);
+
+
                 this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
-                this.shieldBeamSprite.body.angle = this.angle+ Math.PI/2;
+                //this.shieldBeamSprite.body.angle = this.angle+ Math.PI/2;
 
                 this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
                     this.emit('animationcomplete_' + anim.key, anim, frame);
                 }, this.shieldBeamSprite);
                 
                 this.shieldBeamSprite.on('animationcomplete_shield', function () {
-                    this.destroy();                   
+                    //this.destroy();                   
                 });
 
                 this.sprite.on('animationcomplete', function (anim, frame) {
@@ -127,7 +138,7 @@ export class DayScene extends Phaser.Scene{
                 }, this.sprite);
                 
                 this.sprite.on('animationcomplete_rightBasicAttack', function () {
-                    console.log("print");                   
+                    //console.log("print");                   
                 });
 
                 this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
