@@ -229,6 +229,7 @@ export class DayScene extends Phaser.Scene{
             this.input.keyboard.keys[87].isDown = false
             this.input.keyboard.keys[83].isDown = false
             this.scene.launch(SCENES.PAUSE);
+            this.scene.pause(SCENES.DAY_OVERLAY)
             this.scene.pause();
         }else if(this.input.keyboard.keys[27].isUp){
             this.justPaused = false;
