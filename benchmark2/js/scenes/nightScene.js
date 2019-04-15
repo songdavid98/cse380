@@ -134,7 +134,7 @@ export class NightScene extends Phaser.Scene {
                 this.defStrGroup.add(this.cannon);
                 this.defStr = new NightDefenseStructure({"sprite":this.cannon,"physics":this.physics,"keyboard":this.input.keyboard,
                 "health":3,"basicAttack":1,"speed":128,"defstrType":DEFSTR.CANNON, "anims":this.anims, "shoots":true, "cooldown":5});
-            
+                this.defStr.placed = false;
                 this.defStrs.push(this.defStr);
             }
 
@@ -168,7 +168,7 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
             if(this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY){
-                
+                this.defStr.placed = true;
 
                 //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
 /*
@@ -206,7 +206,7 @@ export class NightScene extends Phaser.Scene {
         for(var i = 0; i < this.defStrs.length; i++){
             let min = -1;
             let targetIndex = -1;
-            if(this.enemies && this.enemies.sprite.length > 0){
+            if(this.enemies && this.enemies.sprite.length > 0 && this.defStrs[i].placed){
                 for(var j = 0; j < this.enemies.sprite.length; j++){
                     let defX = this.defStrs[i].sprite.x;
                     let defY = this.defStrs[i].sprite.y;
