@@ -15,6 +15,8 @@ export class NightDefenseStructure{
         this.anims = data.anims;
         this.active = true; //FIXME: remove this
         this.shoots = data.shoots;
+        this.cooldown = data.cooldown;
+        this.prevTime = 0;
         this.create();
 
         
@@ -41,6 +43,9 @@ export class NightDefenseStructure{
     }
 
     update(time){
+        if(Math.floor(time/1000) - Math.floor(this.prevTime/1000) >= this.cooldown){
+
+        }
         /*
         for(var i = 0; i < this.sprite.length; i++){
             if(this.sprite[i].active){

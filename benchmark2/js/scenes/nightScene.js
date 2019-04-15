@@ -26,6 +26,8 @@ export class NightScene extends Phaser.Scene {
         this.minX = 470;
         this.minY = 60;
 
+        this.minAttackDistance;
+
         this.justPaused = false;
 
         this.money = data.money;
@@ -87,19 +89,18 @@ export class NightScene extends Phaser.Scene {
 
         //Create defense structure group
         this.defStrGroup = this.physics.add.group();
-
+        this.enemyGroup = this.physics.add.group();
         //add button events
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
         
             //Create the enemies
-            this.enemyGroup = this.physics.add.group();
             for(var i = 0; i < this.slimeCount; i++){
                 this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);         
                 this.enemyGroup.add(this.enemySprite);
                 this.enemies = new NightEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
-                "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+                "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":400,"enemyType":ENEMIES.SLIME, "anims":this.anims});
                 this.enemySprite.user = this.enemies;
             }
 
@@ -132,7 +133,7 @@ export class NightScene extends Phaser.Scene {
 
                 this.defStrGroup.add(this.cannon);
                 this.defStr = new NightDefenseStructure({"sprite":this.cannon,"physics":this.physics,"keyboard":this.input.keyboard,
-                "health":3,"basicAttack":1,"speed":128,"defstrType":DEFSTR.CANNON, "anims":this.anims, "shoots":true});
+                "health":3,"basicAttack":1,"speed":128,"defstrType":DEFSTR.CANNON, "anims":this.anims, "shoots":true, "cooldown":5});
             
                 this.defStrs.push(this.defStr);
             }
@@ -167,7 +168,7 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
             if(this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY){
-
+                
 
                 //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
 /*
@@ -202,15 +203,36 @@ export class NightScene extends Phaser.Scene {
         if(this.enemies){
             this.enemies.update(time);
         }
-        /*for(var i = 0; i < this.defStrs.length; i++){
+        for(var i = 0; i < this.defStrs.length; i++){
             let min = -1;
-            for(var j = 0; j < this.enemies.sprite.length; j++){
-                if(min == -1){
-                    min = Math.sqrt( Math.pow((this.defStrs[i].x - this.enemies.sprite[j].x),2) 
-                    - Math.pow(this.defStrs[i].y - this.enemies.sprite[j].y,2) ); 
+            let targetIndex = -1;
+            if(this.enemies && this.enemies.sprite.length > 0){
+                for(var j = 0; j < this.enemies.sprite.length; j++){
+                    let defX = this.defStrs[i].sprite.x;
+                    let defY = this.defStrs[i].sprite.y;
+                    let enemX = this.enemies.sprite[j].x;
+                    let enemY = this.enemies.sprite[j].y;
+                    //console.log(enemX);
+                   // console.log(enemY);
+                   // console.log(defX);
+                    //console.log(defY);
+                    let possibleMin = Math.sqrt( Math.pow((defX - enemX),2)  + Math.pow((defY - enemY),2) ); 
+                    //console.log(possibleMin);
+                    if(min == -1 || min > possibleMin){
+                        min = possibleMin;
+                        targetIndex = j;
+                    }
+                }
+                //console.log(min);
+                if(min <= this.minAttackDistance){
+                    //console.log("enemy nearby");
+                    if(Math.floor(time/1000) - Math.floor(this.defStrs[i].prevTime/1000) >= this.defStrs[i].cooldown){
+                        this.enemies.sprite.splice(targetIndex,1)[0].destroy();
+                        this.defStrs[i].prevTime = time;
+                    }
                 }
             }
-        }*/
+        }
         this.moneyText.setText(":" + this.money);
         //console.log(this.chosenDefStr);
 
