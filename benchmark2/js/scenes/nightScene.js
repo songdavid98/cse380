@@ -1,6 +1,7 @@
-import {
-    SCENES
-} from "../constants/SceneNames.js";
+import {SCENES} from "../constants/SceneNames.js";
+import {ENEMIES} from "../constants/EnemyTypes.js";
+import {NightEnemy} from "../gamePlay/NightEnemy.js";
+
 export class NightScene extends Phaser.Scene {
     constructor() {
         super({
@@ -20,6 +21,14 @@ export class NightScene extends Phaser.Scene {
         this.buttonX = 150;
 
         this.justPaused = false;
+
+        this.money = data.money;
+
+        this.slimeSpawnArr = [
+            [1600,160],
+            [1600,320]
+        ];
+        this.slimeCount = this.slimeSpawnArr.length;
     }
 
     preload() {
@@ -33,6 +42,12 @@ export class NightScene extends Phaser.Scene {
         this.load.tilemapTiledJSON("night-map1", "assets/tilemaps/nightmap.json");
         this.mapLevel = "night-map1";
         console.log("Welcome to level " + this.level);
+
+
+        //Load the enemy images
+        this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
+
+
 
 
     }
@@ -56,25 +71,47 @@ export class NightScene extends Phaser.Scene {
 
 
 
+
         //add button events
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
-            console.log("startwave pressed")
+            console.log("startwave pressed");
+        
+            //Create the enemies
+            this.enemyGroup = this.physics.add.group();
+            for(var i = 0; i < this.slimeCount; i++){
+                this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);         
+                this.enemyGroup.add(this.enemySprite);
+                this.enemies = new NightEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
+                "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+                this.enemySprite.user = this.enemies;
+            }
+
+            //Set collisions
+            this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+
+
+
         });
 
         buywall.setInteractive();
         buywall.on("pointerdown", () => {
-            console.log("buywall pressed")
+            console.log("buywall pressed");
         });
 
         buyarrow.setInteractive();
         buyarrow.on("pointerdown", () => {
-            console.log("buyarray pressed")
+            console.log("buyArrow pressed");
         });
 
         buycannon.setInteractive();
         buycannon.on("pointerdown", () => {
-            console.log("buycannon pressed")
+            console.log("buycannon pressed");
+
+            this.money -= 10;
+            
+
+
         });
         this.input.keyboard.addKeys('Esc');
     }
@@ -83,9 +120,18 @@ export class NightScene extends Phaser.Scene {
             this.justPaused = true
             this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.NIGHT]});
             this.scene.pause();
-        }else if(this.input.keyboard.keys[27].isUp){
+        }
+        else if(this.input.keyboard.keys[27].isUp){
             this.justPaused = false;
         }
+
+        if(this.enemies){
+            this.enemies.update(time);
+        }
+
+
+
+
     }
 
 }

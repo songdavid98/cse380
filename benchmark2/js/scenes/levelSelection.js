@@ -53,7 +53,7 @@ export class LevelSelectionScene extends Phaser.Scene{
             this.scene.start(SCENES.DAY, data);
         });
         nightLevel1Button.on("pointerdown", ()=>{
-            let data = {"level":1}
+            let data = {"level":1, "money":1000}        //Change this to make sure money comes from day time
             this.scene.start(SCENES.NIGHT, data);
         });
         backButton.on("pointerdown", ()=>{
