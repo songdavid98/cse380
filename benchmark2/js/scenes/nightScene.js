@@ -23,6 +23,9 @@ export class NightScene extends Phaser.Scene {
         this.buttonYinc = 100;
         this.buttonX = 150;
 
+        this.minX = 470;
+        this.minY = 60;
+
         this.justPaused = false;
 
         this.money = data.money;
@@ -147,7 +150,7 @@ export class NightScene extends Phaser.Scene {
                     //console.log("Pressed button");
                    
                 }
-                if(this.scene.cannon.x <= 300 || pointer.y <= 100){
+                if(this.scene.cannon.x <= this.scene.minX || pointer.y <= this.scene.minY){
                     this.scene.cannon.alpha = 0.5;
                 }else{
                     this.scene.cannon.alpha = 1;
@@ -159,7 +162,7 @@ export class NightScene extends Phaser.Scene {
 
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
-            if(this.chosenDefStr != null && pointer.x > 300 && pointer.y > 100){
+            if(this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY){
 
 
                 //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
