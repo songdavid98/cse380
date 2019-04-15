@@ -1,6 +1,9 @@
 import {SCENES} from "../constants/SceneNames.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
+import {DEFSTR} from "../constants/DefenseStructureTypes.js";
 import {NightEnemy} from "../gamePlay/NightEnemy.js";
+import {NightDefenseStructure} from "../gamePlay/NightDefenseStructure.js";
+
 
 export class NightScene extends Phaser.Scene {
     constructor() {
@@ -29,6 +32,9 @@ export class NightScene extends Phaser.Scene {
             [1600,320]
         ];
         this.slimeCount = this.slimeSpawnArr.length;
+
+        this.defStrs = new Array();
+        this.chosenDefStr = null;
     }
 
     preload() {
@@ -47,6 +53,8 @@ export class NightScene extends Phaser.Scene {
         //Load the enemy images
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
 
+        //Load defense structure images
+        this.load.multiatlas(DEFSTR.CANNON, 'assets/images/defenseStructure/cannon.json', "assets/images/defenseStructure");
 
 
 
@@ -70,7 +78,8 @@ export class NightScene extends Phaser.Scene {
         let buycannon = this.add.image(this.buttonX, this.buttonYinc * 5, "buycannon").setDepth(3).setScale(1.5, 1.5);
 
 
-
+        //Create defense structure group
+        this.defStrGroup = this.physics.add.group();
 
         //add button events
         startwave.setInteractive();
@@ -89,9 +98,6 @@ export class NightScene extends Phaser.Scene {
 
             //Set collisions
             this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
-
-
-
         });
 
         buywall.setInteractive();
@@ -108,11 +114,65 @@ export class NightScene extends Phaser.Scene {
         buycannon.on("pointerdown", () => {
             console.log("buycannon pressed");
 
-            this.money -= 10;
+
+            //if(!this.alreadyClicked){
+                this.chosenDefStr = DEFSTR.CANNON;
+                this.money -= 10;
+                console.log(this.money);
+                this.startDragging = true;
+
+                this.cannon = this.physics.add.sprite(400, 500, DEFSTR.CANNON, '0001.png').setScale(5, 5);
+
+                this.defStrGroup.add(this.cannon);
+                this.defStr = new NightDefenseStructure({"sprite":this.cannon,"physics":this.physics,"keyboard":this.input.keyboard,
+                "health":3,"basicAttack":1,"speed":128,"defstrType":DEFSTR.CANNON, "anims":this.anims, "shoots":true});
             
+                this.defStrs.push(this.defStr);
+            //}
+
+
 
 
         });
+
+        this.input.on("pointermove", function (pointer) {
+
+            if(this.startDragging){
+                if(this.chosenDefStr == DEFSTR.CANNON){
+                
+                    this.cannon.body.x = pointer.x;
+                    this.cannon.body.y = pointer.y;
+
+                    console.log("Pressed button");
+
+                   
+                }
+            }
+        });
+
+
+        this.groundLayer.setInteractive();
+        this.groundLayer.on("pointerdown", (e) => {
+            if(this.chosenDefStr != null){
+
+
+                //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
+/*
+                if(this.chosenDefStr == DEFSTR.CANNON){
+                
+                    this.cannon.body.x = pointer.x;
+                    this.cannon.body.y = pointer.y;
+
+                }
+                */
+                console.log("placed");
+                this.startDragging = false;
+                this.chosenDefStr = null;
+            }
+        });
+
+
+
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta){
@@ -129,6 +189,7 @@ export class NightScene extends Phaser.Scene {
             this.enemies.update(time);
         }
 
+        //console.log(this.chosenDefStr);
 
 
 
