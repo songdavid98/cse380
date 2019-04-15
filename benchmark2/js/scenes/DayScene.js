@@ -19,7 +19,7 @@ export class DayScene extends Phaser.Scene{
         this.level = data.level;
         this.mapLevel;
         this.angle;
-        this.cooldown = 5;
+        this.cooldown = 2;
         this.slimeSpawnArr = [
             [160,160],
             [320,320],
@@ -27,7 +27,7 @@ export class DayScene extends Phaser.Scene{
             [700,1200],
             [1600,3200],
             [1900,1000],
-            [1670,1200],
+            [167,1200],
             [500,3520],
             [1500,1000],
             [165,1560]
@@ -103,13 +103,13 @@ export class DayScene extends Phaser.Scene{
             this.enemyGroup.add(this.enemySprite);
             this.enemies = new DayEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
             "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+            this.enemySprite.user = this.enemies;
         }
 
         //Create the heroes
 
         this.sprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
         //this.sprite = this.physics.add.sprite(600, 400, HEROES.SWORD_HERO, 'swordHero/down/0001.png').setScale(5, 5);
-        console.log("comes here");
 
 
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
@@ -152,11 +152,12 @@ export class DayScene extends Phaser.Scene{
                 pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
 
                 this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
-                
+                this.shieldBeamSprite.user = this.hero;
                 //this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
                 this.physics.add.overlap(this.shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
                     o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
                     o2.active = false;
+                    o1.user.getMoney(o2);
                     o2.destroy();
                     if(!o1.colliding){
                         o1.colliding = [];
@@ -168,9 +169,9 @@ export class DayScene extends Phaser.Scene{
                 let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
 
                 this.shieldBeamSprite.body.setSize(xx, yy);
-                console.log(this.shieldBeamSprite.x);
-                console.log(this.shieldBeamSprite.body.position.x);
-                console.log(this.shieldBeamSprite.body.offset);
+                //console.log(this.shieldBeamSprite.x);
+                //console.log(this.shieldBeamSprite.body.position.x);
+                //console.log(this.shieldBeamSprite.body.offset);
                 this.shieldBeamSprite.body.setOffset(this.shieldBeamSprite.body.offset.x-60, this.shieldBeamSprite.body.offset.y-20)
                 //this.shieldBeamSprite.body.reset(this.shieldBeamSprite.x, this.shieldBeamSprite.y);
 

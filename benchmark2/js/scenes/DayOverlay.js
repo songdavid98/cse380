@@ -1,4 +1,6 @@
 import {SCENES} from "../constants/SceneNames.js";
+import {ENEMIES} from "../constants/EnemyTypes.js";
+
 export class DayOverlayScene extends Phaser.Scene{
     constructor(){
         super({
@@ -9,7 +11,9 @@ export class DayOverlayScene extends Phaser.Scene{
         console.log(data);
         this.hero = data["hero"];
         this.hearts = [];
-        console.log("entered help") ;
+        this.moneyText;
+        this.checkIfMoneyIsSame = 0;
+        console.log("entered help");
     }
     create(){
 
@@ -20,6 +24,8 @@ export class DayOverlayScene extends Phaser.Scene{
         }
         this.health = this.hero.health;
 
+        this.moneyText = this.add.text(900, 32, 'score: 0', { fontSize: '75px', fill: '#ffffff' });
+
         //add button events
         
         //add keyboard keys
@@ -28,11 +34,21 @@ export class DayOverlayScene extends Phaser.Scene{
         if(this.hero.health > this.health){
             this.hearts.push(this.add.image(50 + this.health*75,100, "heart").setScale(2,2));
             this.health++;
-        }else if(this.hero.health < this.health){
+        }
+        else if(this.hero.health < this.health){
             while(this.health > this.hero.health){
                 this.hearts.pop().destroy();
                 this.health--;    
             }
+        } 
+        if(this.checkIfMoneyIsSame != this.hero.money){    
+            this.moneyText.setText('MONEY: ' + this.hero.money);
+            this.checkIfMoneyIsSame = this.hero.money;
+        }
+        else{
+
         }
     }
+
+
 }

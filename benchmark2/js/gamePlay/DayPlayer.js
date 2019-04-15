@@ -1,5 +1,6 @@
 //Day time player
 import {HEROES} from "../constants/PlayerTypes.js";
+import {ENEMIES} from "../constants/EnemyTypes.js";
 export class DayPlayer{
 
     constructor(data){
@@ -14,7 +15,10 @@ export class DayPlayer{
         this.keyboard = data.keyboard;
         this.physics = data.physics;
         this.anims = data.anims;
+        this.money = 0;
+
         this.active = true; //FIXME: remove this
+
         this.create();
     }
     init(){
@@ -182,6 +186,17 @@ export class DayPlayer{
 
  
         
+    }
+
+    getMoney(monster){
+        if(this.money < 99999){
+            if(monster.user.enemyType == ENEMIES.SLIME){
+                this.money += 10;
+            }
+        }
+        else{
+            this.money = "MAXED_OUT";
+        }
     }
 
     animationStopped(){
