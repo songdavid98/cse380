@@ -71,6 +71,10 @@ export class NightScene extends Phaser.Scene {
         this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(5, 3);
         this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(5, 3);
 
+        //add money info
+        this.add.image(1300,100,"coin").setScale(1.2,1.2).setDepth(1);
+        this.moneyText = this.add.text(1335, 68, ':' + this.money, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
+         
         //create buttons
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
 
@@ -116,11 +120,11 @@ export class NightScene extends Phaser.Scene {
         buycannon.setInteractive();
         buycannon.on("pointerdown", () => {
             console.log("buycannon pressed");
-            console.log(this);
+            //console.log(this);
 
-            if(!this.alreadyClicked){
+            if(!this.alreadyClicked && this.money >= 200){
                 this.chosenDefStr = DEFSTR.CANNON;
-                this.money -= 10;
+                this.money -= 200;
                 console.log(this.money);
                 this.startDragging = true;
 
@@ -198,7 +202,7 @@ export class NightScene extends Phaser.Scene {
         if(this.enemies){
             this.enemies.update(time);
         }
-
+        this.moneyText.setText(":" + this.money);
         //console.log(this.chosenDefStr);
 
 
