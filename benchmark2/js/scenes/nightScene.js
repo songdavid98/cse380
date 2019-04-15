@@ -64,9 +64,9 @@ export class NightScene extends Phaser.Scene {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         let terrain = this.map.addTilesetImage("tileset", "terrain1");
-        this.groundLayer = this.map.createStaticLayer("background ground", [terrain], 0, 0).setScale(3, 3);
-        this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(3, 3);
-        this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(3, 3);
+        this.groundLayer = this.map.createStaticLayer("background ground", [terrain], 0, 0).setScale(5, 3);
+        this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(5, 3);
+        this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(5, 3);
 
         //create buttons
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
