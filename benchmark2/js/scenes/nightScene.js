@@ -145,7 +145,8 @@ export class NightScene extends Phaser.Scene {
             console.log("buycannon pressed");
             //console.log(this);
 
-            if (!this.alreadyClicked && this.money >= 200) {
+            if (!this.alreadyClicked && this.money >= 200 && !this.startDragging) {
+
                 this.chosenDefStr = DEFSTR.CANNON;
                 this.money -= 200;
                 console.log(this.money);
@@ -241,6 +242,16 @@ export class NightScene extends Phaser.Scene {
         //        }
         //        after towers update, check for dead enemies and remove them
 
+
+        /*for(var i = 0; i < this.defStrs.length; i++){
+            let min = -1;
+            for(var j = 0; j < this.enemies.sprite.length; j++){
+                if(min == -1){
+                    min = Math.sqrt( Math.pow((this.defStrs[i].x - this.enemies.sprite[j].x),2) 
+                    - Math.pow(this.defStrs[i].y - this.enemies.sprite[j].y,2) ); 
+                }
+            }
+        }*/
 
         this.moneyText.setText(":" + this.money);
         //console.log(this.chosenDefStr);
