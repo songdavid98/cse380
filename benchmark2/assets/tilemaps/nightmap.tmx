@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
- <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="3520" columns="44">
+  <image source="../images/tiles.png" width="705" height="1280"/>
+ </tileset>
  <layer id="1" name="background ground" width="24" height="24">
   <data encoding="csv">
 230,230,230,54,54,2644,2645,2646,2647,2648,2644,2645,2646,2647,2644,2645,2646,2647,2648,2648,2645,2646,2647,2648,

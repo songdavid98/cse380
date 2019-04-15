@@ -7,7 +7,7 @@ export class PauseScene extends Phaser.Scene{
     }
     init(data){
         console.log(data);
-        console.log("entered pause");
+        this.scenes = data["scenes"];
     }
     create(){
         this.justPaused = true;
@@ -30,14 +30,16 @@ export class PauseScene extends Phaser.Scene{
         
         //set button event handlers
         continueButton.on("pointerdown", ()=>{
-            this.scene.resume(SCENES.DAY_OVERLAY);
-            this.scene.resume(SCENES.DAY);
+            for(var i = 0; i < this.scenes.length; i++){
+                this.scene.resume(this.scenes[i]);
+            }
             this.scene.stop();
         });
         exitButton.on("pointerdown", ()=>{
             let data = "main menu from level help"
-            this.scene.stop(SCENES.DAY_OVERLAY);
-            this.scene.stop(SCENES.DAY);
+            for(var i = 0; i < this.scenes.length; i++){
+                this.scene.stop(this.scenes[i]);
+            }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
 
@@ -47,7 +49,9 @@ export class PauseScene extends Phaser.Scene{
     update(time,delta){
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             console.log("unpausing");
-            this.scene.resume(SCENES.DAY);
+            for(var i = 0; i < this.scenes.length; i++){
+                this.scene.resume(this.scenes[i]);
+            }
             this.scene.stop();
         }else if(this.input.keyboard.keys[27].isDown){
             this.justPaused = false;
