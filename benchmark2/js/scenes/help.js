@@ -23,27 +23,38 @@ export class HelpScene extends Phaser.Scene{
         this.add.text(this.game.renderer.width*.46, this.game.renderer.height*.2,"Help", {fontSize: 64, color: "#000000"}).setDepth(3); //title
         this.add.text(this.game.renderer.width*.12, this.game.renderer.height*.1,"Story", {fontSize: 32, color: "#000000"}).setDepth(3); //story tab
         this.add.text(this.game.renderer.width*.22, this.game.renderer.height*.09,"Shield\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //shield tab
-        this.add.text(this.game.renderer.width*.32, this.game.renderer.height*.09,"Sword\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //sword tab
-        this.add.text(this.game.renderer.width*.425, this.game.renderer.height*.09,"Magic\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //magic tab
-        let storyText = this.add.text(this.game.renderer.width*.12,this.game.renderer.height*.4, "This is the story of an old man named Jesus. Jesus was just a \nlittle ol'boy who had nothing but the ability to turn into a \nslime. Aruuh he, he turned into a spider. The end.\nThat's the story.", {fontSize: 32, color: "#000000"}).setDepth(3);
-        let shieldText = this.add.text(this.game.renderer.width*.12,this.game.renderer.height*.4, "Fake hero stuff go here.", {fontSize: 32, color: "#000000"}).setDepth(3);
-        let swordText = this.add.text(this.game.renderer.width*.12,this.game.renderer.height*.4, "Swordsman stuff go here.", {fontSize: 32, color: "#000000"}).setDepth(3);
+        //this.add.text(this.game.renderer.width*.32, this.game.renderer.height*.09,"Sword\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //sword tab
+        //this.add.text(this.game.renderer.width*.425, this.game.renderer.height*.09,"Magic\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //magic tab
+        let storyString = "This is the story of an \nold man named Jesus.\n"
+        + "Jesus was just a \nlittle ol'boy who had nothing \nbut the ability to turn into a \nslime. Aruuh he, he turned \ninto a spider. The end.\nThat's the story.";
+        let storyText = this.add.text(this.game.renderer.width*.5,this.game.renderer.height*.4, storyString, {fontSize: 32, color: "#000000"}).setDepth(3);
+        let shieldText = this.add.text(this.game.renderer.width*.5,this.game.renderer.height*.4, "Fake hero stuff go here.", {fontSize: 32, color: "#000000"}).setDepth(3);
+        let tba1 = this.add.image(this.game.renderer.width*.35, this.game.renderer.height*.12, "tba").setDepth(3).setScale(1,.8);
+        let tba2 = this.add.image(this.game.renderer.width*.45, this.game.renderer.height*.12, "tba").setDepth(3).setScale(1,.8);
+        let thumbTitleBar = this.add.image(this.game.renderer.width*.227, this.game.renderer.height*.7,"blueBar").setDepth(5);
+        let shieldThumbText = this.add.text(this.game.renderer.width*.172, this.game.renderer.height*.69,"Shield Hero", {fontSize: 24, color: "#000000"}).setDepth(7); 
+        let shieldThumb = this.add.image(this.game.renderer.width*.22, this.game.renderer.height*.45, "shieldThumb").setDepth(6).setScale(8,8);
+        /*let swordText = this.add.text(this.game.renderer.width*.12,this.game.renderer.height*.4, "Swordsman stuff go here.", {fontSize: 32, color: "#000000"}).setDepth(3);
         let magicText = this.add.text(this.game.renderer.width*.12,this.game.renderer.height*.4, "Magician stuff go here.", {fontSize: 32, color: "#000000"}).setDepth(3);
-
+        */
         //alphas
         shieldText.alpha = 0;
-        swordText.alpha = 0;
-        magicText.alpha = 0;
+        /*swordText.alpha = 0;
+        magicText.alpha = 0;*/
         helpBox.alpha = 1;
         tab1.alpha = 0.75;
+        shieldThumb.alpha = 0;
+        shieldThumbText.alpha = 0;
+        thumbTitleBar.alpha = 0;
 
         //add button events
         backButton.setInteractive();
         tab1.setInteractive();
         tab2.setInteractive();
-        tab3.setInteractive();
+        
+        /*tab3.setInteractive();
         tab4.setInteractive();
-
+        */
         backButton.on("pointerdown", ()=>{
             console.log("hello");
             let data = "main menu from level help"
@@ -56,8 +67,11 @@ export class HelpScene extends Phaser.Scene{
             tab4.alpha = 1;
             storyText.alpha = 1;
             shieldText.alpha = 0;
-            swordText.alpha = 0;
-            magicText.alpha = 0;
+            shieldThumb.alpha = 0;
+            shieldThumbText.alpha = 0;
+            thumbTitleBar.alpha = 0;
+            /*swordText.alpha = 0;
+            magicText.alpha = 0;*/
         });
         tab2.on('pointerdown', ()=>{
             tab1.alpha = 1;
@@ -66,10 +80,13 @@ export class HelpScene extends Phaser.Scene{
             tab4.alpha = 1;
             storyText.alpha = 0;
             shieldText.alpha = 1;
-            swordText.alpha = 0;
-            magicText.alpha = 0;
+            shieldThumb.alpha = 1;
+            shieldThumbText.alpha = 1;
+            thumbTitleBar.alpha = 1;
+            /*swordText.alpha = 0;
+            magicText.alpha = 0;*/
         });
-        tab3.on('pointerdown', ()=>{
+        /*tab3.on('pointerdown', ()=>{
             tab1.alpha = 1;
             tab2.alpha = 1;
             tab3.alpha = 0.75;
@@ -89,7 +106,7 @@ export class HelpScene extends Phaser.Scene{
             swordText.alpha = 0;
             magicText.alpha = 1;
         });
-        
+        */
         //add keyboard keys
         this.input.keyboard.addKeys('Esc');
     }
