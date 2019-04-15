@@ -206,7 +206,7 @@ export class DayScene extends Phaser.Scene{
                 this.hero.attackSpecial(pointer, this.angle);
             }
         }, this);
-
+        this.input.mouse.disableContextMenu();
 
 
 
@@ -221,7 +221,6 @@ export class DayScene extends Phaser.Scene{
 
         this.hero.update(this.angle, time);
         this.enemies.update(time);
-
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             this.justPaused = true
             this.input.keyboard.keys[68].isDown = false
