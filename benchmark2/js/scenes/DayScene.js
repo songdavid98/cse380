@@ -113,7 +113,7 @@ export class DayScene extends Phaser.Scene{
 
 
         this.hero = new DayPlayer({"sprite":this.sprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":3,"basicAttack":1, "basicAttackSpeed":80,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        "health":3,"basicAttack":1, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
         this.scene.launch(SCENES.DAY_OVERLAY, {"hero":this.hero});
 
 
