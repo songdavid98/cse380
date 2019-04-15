@@ -113,9 +113,9 @@ export class NightScene extends Phaser.Scene {
         buycannon.setInteractive();
         buycannon.on("pointerdown", () => {
             console.log("buycannon pressed");
+            console.log(this);
 
-
-            //if(!this.alreadyClicked){
+            if(!this.alreadyClicked){
                 this.chosenDefStr = DEFSTR.CANNON;
                 this.money -= 10;
                 console.log(this.money);
@@ -128,7 +128,7 @@ export class NightScene extends Phaser.Scene {
                 "health":3,"basicAttack":1,"speed":128,"defstrType":DEFSTR.CANNON, "anims":this.anims, "shoots":true});
             
                 this.defStrs.push(this.defStr);
-            //}
+            }
 
 
 
@@ -136,12 +136,13 @@ export class NightScene extends Phaser.Scene {
         });
 
         this.input.on("pointermove", function (pointer) {
-
-            if(this.startDragging){
-                if(this.chosenDefStr == DEFSTR.CANNON){
+            //console.log(this);
+            if(this.scene.startDragging){
+                //console.log("hello");
+                if(this.scene.chosenDefStr == DEFSTR.CANNON){
                 
-                    this.cannon.body.x = pointer.x;
-                    this.cannon.body.y = pointer.y;
+                    this.scene.cannon.x = pointer.x;
+                    this.scene.cannon.y = pointer.y;
 
                     console.log("Pressed button");
 
