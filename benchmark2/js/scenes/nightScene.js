@@ -26,7 +26,7 @@ export class NightScene extends Phaser.Scene {
         this.minX = 470;
         this.minY = 60;
 
-        this.minAttackDistance;
+        this.minAttackDistance = 500;
 
         this.justPaused = false;
 
