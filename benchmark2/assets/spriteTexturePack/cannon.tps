@@ -163,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -181,10 +181,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/defenseStructure/cannon/0001.png</key>
-            <key type="filename">../images/defenseStructure/cannon/0002.png</key>
-            <key type="filename">../images/defenseStructure/cannon/0003.png</key>
-            <key type="filename">../images/defenseStructure/cannon/0004.png</key>
+            <key type="filename">../images/defenseStructure/cannon/right/0001.png</key>
+            <key type="filename">../images/defenseStructure/cannon/right/0002.png</key>
+            <key type="filename">../images/defenseStructure/cannon/right/0003.png</key>
+            <key type="filename">../images/defenseStructure/cannon/right/0004.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -40,7 +40,6 @@ export class DayScene extends Phaser.Scene{
     }
     preload(){
         this.load.image("terrain", "assets/images/tiles/tiles.png");
-        this.load.image("heart", "assets/images/icons/heart.png");
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
         //this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
