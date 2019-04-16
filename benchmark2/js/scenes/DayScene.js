@@ -252,7 +252,7 @@ export class DayScene extends Phaser.Scene{
             this.justPaused = false;
         }
 
-
+        
  
 
     }

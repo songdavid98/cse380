@@ -34,6 +34,7 @@ export class DayOverlayScene extends Phaser.Scene{
         //add keyboard keys
     }
     update(time, delta){
+        console.log(this.hero.health);
         if(this.hero.health > this.health){
             this.hearts.push(this.add.image(50 + this.health*75,100, "heart").setScale(2,2).setDepth(1));
             this.health++;

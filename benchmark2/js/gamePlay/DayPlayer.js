@@ -221,7 +221,7 @@ export class DayPlayer{
     damage(monster){
         if(this.health > 0){
             if(monster.class.enemyType == ENEMIES.SLIME){
-                this.money += 10;
+                this.health -= 1;
             }
         }
         else{
