@@ -26,8 +26,8 @@ export class NightDefenseStructure {
         //this.movement = new Array(this.sprite.length).fill(Math.random()*100);
         //this.goX = new Array(this.sprite.length).fill(true);
         //this.goY = new Array(this.sprite.length).fill(true);
-
     }
+
     init() {}
 
     create() {
@@ -41,10 +41,9 @@ export class NightDefenseStructure {
         this.anims.create({
             key: 'rightCannon',
             frames: rightFrames,
-            frameRate: 5,
-            repeat: -1
+            frameRate: 15,
+            repeat: 0
         });
-
     }
 
     update(time) {

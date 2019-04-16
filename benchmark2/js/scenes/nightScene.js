@@ -187,7 +187,7 @@ export class NightScene extends Phaser.Scene {
                 console.log(this.money);
                 this.startDragging = true;
 
-                this.cannon = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0001.png').setScale(5, 5);
+                this.cannon = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
                 this.defStrGroup.add(this.cannon);
                 this.defStr = new NightDefenseStructure({
                     "sprite": this.cannon,
@@ -233,6 +233,11 @@ export class NightScene extends Phaser.Scene {
             pointer = null;
         });
 
+
+
+
+
+
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
@@ -272,12 +277,14 @@ export class NightScene extends Phaser.Scene {
                 }       
             }
         }
-        console.log(this.villageHealth);
+        //console.log(this.villageHealth);
+
         for (var i = 0; i < this.defStrs.length; i++) {
             let min = -1;
             let targetIndex = -1;
             if (this.enemies && this.enemies.sprite.length > 0 && this.defStrs[i].placed) {
                 for (var j = 0; j < this.enemies.sprite.length; j++) {
+                    
 
                     let defX = this.defStrs[i].sprite.x;
                     let defY = this.defStrs[i].sprite.y;
@@ -296,10 +303,15 @@ export class NightScene extends Phaser.Scene {
                 }
                 //console.log(min);
                 if (min <= this.minAttackDistance) {
+                    //this.defStrs[i].sprite.anims.play("rightCannon");
+
+                    //let animRef = .animationReference.isPlaying;
+                    
                     //console.log("enemy nearby");
                     if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
 
-                        this.defStrs[i].sprite.anims.play("rightCannon");
+
+
 
                         this.enemies.sprite.splice(targetIndex, 1)[0].destroy();
                         this.defStrs[i].prevTime = time;
