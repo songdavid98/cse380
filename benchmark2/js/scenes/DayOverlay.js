@@ -26,12 +26,11 @@ export class DayOverlayScene extends Phaser.Scene{
         this.add.image(1300,100,"coin").setScale(1.2,1.2).setDepth(1);
         
         //add timer
-        this.add.image(150, 200, "blueBar").setScale(.5,2).setDepth(1);
         let seconds = this.timer % 60;
         if(seconds < 10){
             seconds = "0" + seconds;
         }
-        this.timerText = this.add.text(150, 20, Math.floor(this.timer/60) + ':' + seconds, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
+        this.timerText = this.add.text(20, 150, Math.floor(this.timer/60) + ':' + seconds, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
 
         //variables
         this.health = this.hero.health;
