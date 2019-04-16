@@ -101,7 +101,7 @@ export class NightScene extends Phaser.Scene {
                 this.enemyGroup.add(this.enemySprite);
                 this.enemies = new NightEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
                 "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":400,"enemyType":ENEMIES.SLIME, "anims":this.anims});
-                this.enemySprite.user = this.enemies;
+                this.enemySprite.class = this.enemies;
             }
 
             //Set collisions
