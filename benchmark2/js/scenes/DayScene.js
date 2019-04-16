@@ -50,7 +50,7 @@ export class DayScene extends Phaser.Scene{
 
         switch(this.level){
             case 1: 
-                this.load.tilemapTiledJSON("map1", "assets/tilemaps/dungeon3.json");
+                this.load.tilemapTiledJSON("map1", "assets/tilemaps/Dungeon3.json");
                 this.mapLevel = "map1";
                 console.log("Welcome to level 1");
                 break;
@@ -60,7 +60,7 @@ export class DayScene extends Phaser.Scene{
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
             case 3: 
-                this.load.tilemapTiledJSON("map3", "assets/tilemaps/dungeon3.json");
+                this.load.tilemapTiledJSON("map3", "assets/tilemaps/Dungeon3.json");
                 this.mapLevel = "map3";
                 console.log("make suer this dungeon even exits, dumbo");
                 break;
