@@ -40,6 +40,7 @@ export class DayOverlayScene extends Phaser.Scene{
         }
         else if(this.hero.health < this.health){
             while(this.health > this.hero.health){
+                console.log("not coming");
                 this.hearts.pop().destroy();
                 this.health--;    
             }

@@ -8,6 +8,7 @@ export class DayPlayer{
         this.playerType = data.playerType; //Sword, mage, shield?
         this.health = data.health;
         this.basicAttack = data.basicAttack;
+        this.attackCooldown = 1;
         this.basicAttackSpeed = data.basicAttackSpeed;
         this.specialAttack = data.specialAttack;
         this.specialAttackSpeed = data.specialAttackSpeed;
@@ -16,6 +17,10 @@ export class DayPlayer{
         this.physics = data.physics;
         this.anims = data.anims;
         this.money = 0;
+        this.dead = false;
+        this.previousTime = 0;
+        this.damageCooldown = 3;
+        this.lastDamaged = 0;
 
         this.active = true; //FIXME: remove this
 
@@ -70,7 +75,6 @@ export class DayPlayer{
     update(angle, time){
         //Gets the time of the game and stores it as a variable
         this.time = time;   
-
 
         if(this.active === true){
             //if either are released, set velocityX to 0 for now
@@ -139,8 +143,6 @@ export class DayPlayer{
                 this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
                 this.sprite.body.angle = angle - Math.PI/2;     //Rotates the box (playerclass)
             }
-            //console.log(angle/ (Math.PI/180));
-
 
             //Stopping animation
             if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
@@ -190,7 +192,7 @@ export class DayPlayer{
 
     getMoney(monster){
         if(this.money < 99999){
-            if(monster.user.enemyType == ENEMIES.SLIME){
+            if(monster.class.enemyType == ENEMIES.SLIME){
                 this.money += 10;
             }
         }
@@ -217,9 +219,14 @@ export class DayPlayer{
 
     }
     damage(monster){
-        
-
-
+        if(this.health > 0){
+            if(monster.class.enemyType == ENEMIES.SLIME){
+                this.money += 10;
+            }
+        }
+        else{
+            this.dead = true;
+        }
     }
 
 
