@@ -60,14 +60,14 @@ export class NightScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("terrain1", "assets/images/tiles.png");
+        this.load.image("terrain1", "assets/images/tiles/tiles.png");
 
         this.load.image("buyarrow", "assets/images/buttons/buyarrowturret.JPG");
         this.load.image("buycannon", "assets/images/buttons/buycannonturret.JPG");
         this.load.image("buywall", "assets/images/buttons/buywall.JPG");
         this.load.image("startwave", "assets/images/buttons/startwave.JPG");
 
-        this.load.tilemapTiledJSON("night-map1", "assets/tilemaps/nightmap.json");
+        this.load.tilemapTiledJSON("night-map1", "assets/tilemaps/nightMap1.json");
         this.mapLevel = "night-map1";
         console.log("Welcome to level " + this.level);
 
@@ -85,7 +85,7 @@ export class NightScene extends Phaser.Scene {
     create() {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
-        let terrain = this.map.addTilesetImage("tileset", "terrain1");
+        let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain1");
         this.groundLayer = this.map.createStaticLayer("background ground", [terrain], 0, 0).setScale(5, 3);
         this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(5, 3);
         this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(5, 3);
@@ -187,8 +187,7 @@ export class NightScene extends Phaser.Scene {
                 console.log(this.money);
                 this.startDragging = true;
 
-                this.cannon = this.physics.add.sprite(400, 500, DEFSTR.CANNON, '0001.png').setScale(5, 5);
-
+                this.cannon = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0001.png').setScale(5, 5);
                 this.defStrGroup.add(this.cannon);
                 this.defStr = new NightDefenseStructure({
                     "sprite": this.cannon,
@@ -209,16 +208,10 @@ export class NightScene extends Phaser.Scene {
         });
 
         this.input.on("pointermove", function (pointer) {
-            //console.log(this);
             if (this.scene.startDragging) {
-                //console.log("hello");
                 if (this.scene.chosenDefStr == DEFSTR.CANNON) {
-
                     this.scene.cannon.x = pointer.x;
                     this.scene.cannon.y = pointer.y;
-
-                    //console.log("Pressed button");
-
                 }
                 if (this.scene.cannon.x <= this.scene.minX || pointer.y <= this.scene.minY) {
                     this.scene.cannon.alpha = 0.5;
@@ -234,17 +227,6 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.on("pointerdown", (pointer) => {
             if (this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY) {
                 this.defStr.placed = true;
-
-                //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
-                /*
-                                if(this.chosenDefStr == DEFSTR.CANNON){
-
-                                    this.cannon.body.x = pointer.x;
-                                    this.cannon.body.y = pointer.y;
-
-                                }
-                                */
-                console.log("placed");
                 this.startDragging = false;
                 this.chosenDefStr = null;
             }
@@ -316,6 +298,9 @@ export class NightScene extends Phaser.Scene {
                 if (min <= this.minAttackDistance) {
                     //console.log("enemy nearby");
                     if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
+
+                        this.defStrs[i].sprite.anims.play("rightCannon");
+
                         this.enemies.sprite.splice(targetIndex, 1)[0].destroy();
                         this.defStrs[i].prevTime = time;
                     }
