@@ -15,10 +15,10 @@ export class LevelSelectionScene extends Phaser.Scene{
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         this.cameras.main.setBackgroundColor('#008080')
         let backButton = this.add.image(this.game.renderer.width*.05,this.game.renderer.height*.1,"backButton").setDepth(1).setScale(2,2);
-        let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.38,"level1Button").setDepth(2).setScale(1,1);
+        let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.38,"dungeon3Thumb").setDepth(2).setScale(1,1);
         this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level2
         this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level3
-        let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.68,"level1Button").setDepth(2).setScale(1,1);
+        let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.68,"nightmap2Thumb").setDepth(2).setScale(1,1);
         this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.68,"greyBox").setDepth(2).setScale(3,3); //n-level2
         this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.68,"greyBox").setDepth(2).setScale(3,3); //n-level3
         let levelsBox = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.5,'blueBox').setDepth(1).setScale(4,2);
