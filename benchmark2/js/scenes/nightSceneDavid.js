@@ -30,27 +30,29 @@ export class NightScene extends Phaser.Scene {
         this.level = data.level;
         this.mapLevel;
 
+        //to place buttons
         this.buttonYinc = 100;
         this.buttonX = 150;
 
+        //the limits on where you can place a tower
         this.minX = 470;
         this.minY = 60;
 
-        this.minAttackDistance = 500;
+        this.maxAttackDistance = 500;
 
         this.justPaused = false;
 
         this.money = data.money;
 
-        this.defStrs = new Array();
+        this.enemies = new Array();
 
+        this.defStrs = new Array();
         this.chosenDefStr = null;
 
         this.defStrSpritesGroup = this.physics.add.group();
         this.enemySpritesGroup = this.physics.add.group(); //a bunch of enemy sprites
 
-        this.defStructuresArray = new Array();
-        this.enemies = new Array();
+
     }
 
     preload() {
@@ -106,11 +108,10 @@ export class NightScene extends Phaser.Scene {
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
 
-
             //make a swtich case, to spawn different things for each level
+            //Create the enemies
             switch (this.level) {
                 case 1:
-
                     let slimeSpawnArr = [
                         [1600, 160],
                         [1600, 320]
@@ -118,11 +119,8 @@ export class NightScene extends Phaser.Scene {
                     let slimeCount = slimeSpawnArr.length;
 
                     for (let i = 0; i < this.slimeCount; i++) {
-
                         let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-
                         this.enemySpritesGroup.add(enemySprite);
-
                         this.enemies = new NightEnemy({
                             "x": slimeSpawnArr[i][0],
                             "y": slimeSpawnArr[i][1],
@@ -149,8 +147,6 @@ export class NightScene extends Phaser.Scene {
 
                     break;
             }
-
-            //Create the enemies
 
         });
 
@@ -282,7 +278,7 @@ export class NightScene extends Phaser.Scene {
                     }
                 }
                 //console.log(min);
-                if (min <= this.minAttackDistance) {
+                if (min <= this.maxAttackDistance) {
                     //console.log("enemy nearby");
                     if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
                         this.enemies.sprite.splice(targetIndex, 1)[0].destroy();

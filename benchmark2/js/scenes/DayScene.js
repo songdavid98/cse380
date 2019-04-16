@@ -22,7 +22,7 @@ export class DayScene extends Phaser.Scene{
          //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
-            [160,160],
+            [800,600],
             [320,320],
             [500,500],
             [750,1300],
@@ -106,8 +106,7 @@ export class DayScene extends Phaser.Scene{
         }
 
         //Create the heroes
-
-        this.heroSprite = this.physics.add.sprite(600, 400, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
+        this.heroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
         //this.sprite = this.physics.add.sprite(600, 400, HEROES.SWORD_HERO, 'swordHero/down/0001.png').setScale(5, 5);
         this.hero = new DayPlayer({"sprite":this.heroSprite,"physics":this.physics,"keyboard":this.input.keyboard,
         "health":3,"basicAttack":1, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2.5*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
