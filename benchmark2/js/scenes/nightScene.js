@@ -27,6 +27,8 @@ export class NightScene extends Phaser.Scene {
         this.time;
         this.map;
 
+        this.wintime = -1;
+        
         this.monsterArray;
 
         this.level = data.level;
@@ -34,6 +36,7 @@ export class NightScene extends Phaser.Scene {
 
         this.buttonYinc = 100;
         this.buttonX = 150;
+        this.wavesLeft = 3;
 
         this.minX = 470;
         this.minY = 60;
@@ -124,28 +127,31 @@ export class NightScene extends Phaser.Scene {
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
 
-
             //make a swtich case, to spawn different things for each level
             switch (this.level) {
                 case 1:
-                    for (var i = 0; i < this.slimeCount; i++) {
-                        this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-                        this.enemyGroup.add(this.enemySprite);
-                        this.enemies = new NightEnemy({
-                            "sprite": this.enemyGroup.getChildren(),
-                            "physics": this.physics,
-                            "keyboard": this.input.keyboard,
-                            "health": 5,
-                            "basicAttack": 1,
-                            "basicAttackSpeed": 80,
-                            "speed": 400,
-                            "enemyType": ENEMIES.SLIME,
-                            "anims": this.anims
-                        });
-                        this.enemySprite.class = this.enemies;
+                    if(this.wavesLeft > 0){
+                        this.wavesLeft--;
+                        for (var i = 0; i < this.slimeCount; i++) {
+                            this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+                            this.enemyGroup.add(this.enemySprite);
+                            this.enemies = new NightEnemy({
+                                "sprite": this.enemyGroup.getChildren(),
+                                "physics": this.physics,
+                                "keyboard": this.input.keyboard,
+                                "health": 5,
+                                "basicAttack": 1,
+                                "basicAttackSpeed": 80,
+                                "speed": 400,
+                                "enemyType": ENEMIES.SLIME,
+                                "anims": this.anims
+                            });
+                            this.enemySprite.class = this.enemies;
+                        }
+                    
+                        //Set collisions
+                        this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
                     }
-                    //Set collisions
-                    this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
                     break;
                 case 2:
                     break;
@@ -248,6 +254,18 @@ export class NightScene extends Phaser.Scene {
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
+        if(this.wintime != -1 && Math.floor((time - this.wintime)/1000) >= 5){
+            this.scene.start(SCENES.SPLASH);
+            this.scene.stop();
+        }else if(this.wintime == -1 && this.enemies && this.enemies.sprite.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0){
+            this.add.text(this.game.renderer.width*.4,this.game.renderer.height*.45,"You win!", {
+                fontSize: '65px',
+                fill: '#fff',
+                strokeThickness: 10,
+                stroke: "#000000"
+            });
+            this.wintime = time;
+        }
         if(this.villageHealth <= 0){
             this.scene.start(SCENES.MAIN_MENU);
             this.scene.stop();
