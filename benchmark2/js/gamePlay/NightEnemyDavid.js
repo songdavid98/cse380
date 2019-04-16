@@ -26,52 +26,7 @@ export class NightEnemy {
     }
     init() {}
 
-    create() {
-
-        var downFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/down/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'downSlime',
-            frames: downFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var upFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/up/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'upSlime',
-            frames: upFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var leftFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/left/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'leftSlime',
-            frames: leftFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-
-        //var rightFrames = this.anims.generateFrameNames(this.enemyType, { start: 1, end: 6, zeroPad: 4, prefix:'slime/right/', suffix:'.png' });
-        //this.anims.create({ key: 'rightSlime', frames: rightFrames, frameRate: 5, repeat: -1 });
-
-    }
+    create() {}
 
     update(time) {
         for (var i = 0; i < this.sprite.length; i++) {

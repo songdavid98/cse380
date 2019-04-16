@@ -5,13 +5,13 @@ import {
 export class Slime extends NightEnemy {
 
     constructor(data) {
-        this.sprite = data.sprite;
         this.enemyType = ENEMIES.SLIME; // like slime
         this.health = 5;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 400;
 
+        this.sprite = data.sprite;
         this.physics = data.physics;
         this.anims = data.anims;
 
@@ -65,18 +65,27 @@ export class Slime extends NightEnemy {
             frameRate: 5,
             repeat: -1
         });
-        //var rightFrames = this.anims.generateFrameNames(this.enemyType, { start: 1, end: 6, zeroPad: 4, prefix:'slime/right/', suffix:'.png' });
-        //this.anims.create({ key: 'rightSlime', frames: rightFrames, frameRate: 5, repeat: -1 });
+        var rightFrames = this.anims.generateFrameNames(this.enemyType, {
+            start: 1,
+            end: 6,
+            zeroPad: 4,
+            prefix: 'slime/right/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'rightSlime',
+            frames: rightFrames,
+            frameRate: 5,
+            repeat: -1
+        });
 
     }
 
     update(time) {
-        for (var i = 0; i < this.sprite.length; i++) {
-            if (this.sprite[i].active) {
-                this.sprite[i].body.setVelocityX(-1 * this.speed);
-                this.sprite[i].body.setVelocityY(0);
-                this.sprite[i].anims.play("leftSlime", true);
-            }
+        if (this.active) {
+            this.sprite.body.setVelocityX(-1 * this.speed);
+            this.sprite.body.setVelocityY(0);
+            this.sprite.anims.play("leftSlime", true);
         }
     }
 

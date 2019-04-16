@@ -184,7 +184,7 @@ export class NightScene extends Phaser.Scene {
                     "defstrType": DEFSTR.CANNON,
                     "anims": this.anims,
                     "shoots": true,
-                    "cooldown": 5
+                    "cooldown": 1
                 });
                 this.defStr.placed = false;
                 this.defStrs.push(this.defStr);
