@@ -118,10 +118,9 @@ export class NightScene extends Phaser.Scene {
             //make a swtich case, to spawn different things for each level
             switch (this.level) {
                 case 1:
-                    for (let i = 0; i < this.slimeCount; i++) {
+                    for (var i = 0; i < this.slimeCount; i++) {
                         this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
                         this.enemyGroup.add(this.enemySprite);
-
                         this.enemies = new NightEnemy({
                             "sprite": this.enemyGroup.getChildren(),
                             "physics": this.physics,
@@ -133,13 +132,11 @@ export class NightScene extends Phaser.Scene {
                             "enemyType": ENEMIES.SLIME,
                             "anims": this.anims
                         });
-                        this.enemySprite.user = this.enemies;
+                        this.enemySprite.class = this.enemies;
                     }
-
                     //Set collisions
                     this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
                     break;
-
                 case 2:
                     break;
                 case 3:
@@ -149,12 +146,8 @@ export class NightScene extends Phaser.Scene {
                 case 5:
                     break;
                 default:
-
                     break;
             }
-
-            //Create the enemies
-
         });
 
         buywall.setInteractive();
@@ -193,12 +186,9 @@ export class NightScene extends Phaser.Scene {
                     "shoots": true,
                     "cooldown": 5
                 });
-
+                this.defStr.placed = false;
                 this.defStrs.push(this.defStr);
             }
-
-
-
 
         });
 
@@ -227,12 +217,12 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
             if (this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY) {
-
+                this.defStr.placed = true;
 
                 //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
                 /*
                                 if(this.chosenDefStr == DEFSTR.CANNON){
-                                
+
                                     this.cannon.body.x = pointer.x;
                                     this.cannon.body.y = pointer.y;
 
@@ -244,8 +234,6 @@ export class NightScene extends Phaser.Scene {
             }
             pointer = null;
         });
-
-
 
         this.input.keyboard.addKeys('Esc');
     }
@@ -267,8 +255,9 @@ export class NightScene extends Phaser.Scene {
         for (var i = 0; i < this.defStrs.length; i++) {
             let min = -1;
             let targetIndex = -1;
-            if (this.enemies && this.enemies.sprite.length > 0) {
+            if (this.enemies && this.enemies.sprite.length > 0 && this.defStrs[i].placed) {
                 for (var j = 0; j < this.enemies.sprite.length; j++) {
+
                     let defX = this.defStrs[i].sprite.x;
                     let defY = this.defStrs[i].sprite.y;
                     let enemX = this.enemies.sprite[j].x;
@@ -296,8 +285,6 @@ export class NightScene extends Phaser.Scene {
         }
         this.moneyText.setText(":" + this.money);
         //console.log(this.chosenDefStr);
-
-
 
     }
 
