@@ -4,13 +4,13 @@
 			"image": "cannon.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 24,
-				"h": 85
+				"w": 22,
+				"h": 77
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "0002.png",
+					"filename": "right/0002.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -24,14 +24,14 @@
 						"h": 21
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 0,
+						"y": 0,
 						"w": 22,
 						"h": 21
 					}
 				},
 				{
-					"filename": "0003.png",
+					"filename": "right/0003.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -45,14 +45,14 @@
 						"h": 21
 					},
 					"frame": {
-						"x": 1,
-						"y": 24,
+						"x": 0,
+						"y": 21,
 						"w": 22,
 						"h": 21
 					}
 				},
 				{
-					"filename": "0001.png",
+					"filename": "right/0004.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -66,14 +66,14 @@
 						"h": 19
 					},
 					"frame": {
-						"x": 1,
-						"y": 47,
+						"x": 0,
+						"y": 42,
 						"w": 21,
 						"h": 19
 					}
 				},
 				{
-					"filename": "0004.png",
+					"filename": "right/0001.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -87,8 +87,8 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 1,
-						"y": 68,
+						"x": 0,
+						"y": 61,
 						"w": 18,
 						"h": 16
 					}
@@ -99,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:55ec457af80ed9712ff3fe1431fb427b:1389cb8d5d803aea8956b90ea188968d:04cb5dc856bc81e347b78c6c8de94f8a$"
+		"smartupdate": "$TexturePacker:SmartUpdate:5747597c7e85ba8cb967dfce1aecc6c3:9c44649cee3c0ffef5a343016631b5ab:04cb5dc856bc81e347b78c6c8de94f8a$"
 	}
 }
