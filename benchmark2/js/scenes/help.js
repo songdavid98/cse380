@@ -36,14 +36,14 @@ export class HelpScene extends Phaser.Scene {
         }).setDepth(3); //shield tab
         //this.add.text(this.game.renderer.width*.32, this.game.renderer.height*.09,"Sword\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //sword tab
         //this.add.text(this.game.renderer.width*.425, this.game.renderer.height*.09,"Magic\nHero", {fontSize: 24, color: "#000000"}).setDepth(3); //magic tab
-        let storyString = "You have to defend \n your village!\n" +
+        let storyString = "You have to defend \nyour village!\n" +
             "Enemies are coming\nfrom several dungeons that\nhave suddenly appeared around\nthe village. Kill during\nthe day.\nDefend during the night";
 
         let storyText = this.add.text(this.game.renderer.width * .5, this.game.renderer.height * .4, storyString, {
             fontSize: 32,
             color: "#000000"
         }).setDepth(3);
-        let shieldText = this.add.text(this.game.renderer.width * .5, this.game.renderer.height * .4, "Fake hero stuff go here.", {
+        let shieldText = this.add.text(this.game.renderer.width * .5, this.game.renderer.height * .4, "You bear the shield. Do not \nunderestimate its power. You can\nsafely attack from a short\ndistance via a magical wave.", {
             fontSize: 32,
             color: "#000000"
         }).setDepth(3);
