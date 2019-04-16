@@ -42,7 +42,10 @@ export class HelpScene extends Phaser.Scene{
         /*swordText.alpha = 0;
         magicText.alpha = 0;*/
         helpBox.alpha = 1;
-        tab1.alpha = 0.75;
+        tab1.alpha = 1;
+        tab2.alpha = 0.75;
+        tab3.alpha = 0.75;
+        tab4.alpha = 0.75;
         shieldThumb.alpha = 0;
         shieldThumbText.alpha = 0;
         thumbTitleBar.alpha = 0;
@@ -61,10 +64,10 @@ export class HelpScene extends Phaser.Scene{
             this.scene.start(SCENES.MAIN_MENU, data);
         });
         tab1.on('pointerdown', ()=>{
-            tab1.alpha = 0.75;
-            tab2.alpha = 1;
-            tab3.alpha = 1;
-            tab4.alpha = 1;
+            tab1.alpha = 1;
+            tab2.alpha = 0.75;
+            tab3.alpha = 0.75;
+            tab4.alpha = 0.75;
             storyText.alpha = 1;
             shieldText.alpha = 0;
             shieldThumb.alpha = 0;
@@ -74,10 +77,10 @@ export class HelpScene extends Phaser.Scene{
             magicText.alpha = 0;*/
         });
         tab2.on('pointerdown', ()=>{
-            tab1.alpha = 1;
-            tab2.alpha = 0.75;
-            tab3.alpha = 1;
-            tab4.alpha = 1;
+            tab1.alpha = 0.75;
+            tab2.alpha = 1;
+            tab3.alpha = 0.75;
+            tab4.alpha = 0.75;
             storyText.alpha = 0;
             shieldText.alpha = 1;
             shieldThumb.alpha = 1;
