@@ -31,7 +31,7 @@ export class NightDefenseStructure{
     create(){
 
         var rightFrames = this.anims.generateFrameNames(this.defstrType, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightCannon', frames: rightFrames, frameRate: 5, repeat: -1 });
+        this.anims.create({ key: 'rightCannon', frames: rightFrames, frameRate: 15, repeat: 0 });
 
     }
 

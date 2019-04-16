@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "right/0002.png",
+					"filename": "right/0001.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "right/0003.png",
+					"filename": "right/0002.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "right/0001.png",
+					"filename": "right/0003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -99,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:5747597c7e85ba8cb967dfce1aecc6c3:9c44649cee3c0ffef5a343016631b5ab:04cb5dc856bc81e347b78c6c8de94f8a$"
+		"smartupdate": "$TexturePacker:SmartUpdate:2d5921798b2249037837e298a5b0080c:576bdc6491f3682c4d74b29c9356c0f0:04cb5dc856bc81e347b78c6c8de94f8a$"
 	}
 }
