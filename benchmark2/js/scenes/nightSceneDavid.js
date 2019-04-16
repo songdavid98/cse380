@@ -27,6 +27,9 @@ export class NightScene extends Phaser.Scene {
         this.time;
         this.map;
 
+        this.wintime = -1;
+        this.wavesLeft = 3;
+
         this.level = data.level;
         this.mapLevel;
 
@@ -44,6 +47,7 @@ export class NightScene extends Phaser.Scene {
         this.justPaused = false;
 
         this.money = data.money;
+        this.villageHealth = 5;
 
         this.enemies = new Array();
 
@@ -130,6 +134,8 @@ export class NightScene extends Phaser.Scene {
 
                     //Set collisions
                     this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
+
+                    this.wavesLeft = 3;
                     break;
 
                 case 2:
@@ -229,6 +235,26 @@ export class NightScene extends Phaser.Scene {
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
+        // you get sent back to teh splash screen after 5 seconds pass after you've won
+        if (this.wintime != -1 && Math.floor((time - this.wintime) / 1000) >= 5) {
+            this.scene.start(SCENES.SPLASH);
+            this.scene.stop();
+        }
+        //you win after you've defeating everything and village still alive
+        else if (this.wintime == -1 && this.enemies && this.enemies.sprite.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+            this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
+                fontSize: '65px',
+                fill: '#fff',
+                strokeThickness: 10,
+                stroke: "#000000"
+            });
+            this.wintime = time;
+        }
+
+        if (this.villageHealth <= 0) {
+            this.scene.start(SCENES.MAIN_MENU);
+            this.scene.stop();
+        }
         if (this.input.keyboard.keys[27].isDown && !this.justPaused) {
             this.justPaused = true
             this.scene.launch(SCENES.PAUSE, {
@@ -244,45 +270,49 @@ export class NightScene extends Phaser.Scene {
                 this.enemies[i].update(time);
         }
 
-        //        if (this.defStrs) {
-        //            for (let i = 0; i < this.defStrs.length; i++)
-        //                this.enemies[i].update(time);
-        //        }
+        if (this.defStrs) {
+            for (let i = 0; i < this.defStrs.length; i++)
+                this.enemies[i].update(time);
+        }
 
         //tower's update
-        for (var i = 0; i < this.defStrs.length; i++) {
-            let min = -1;
-            let targetIndex = -1;
-            if (this.enemies && this.enemies.sprite.length > 0) {
-                for (var j = 0; j < this.enemies.sprite.length; j++) {
-                    let defX = this.defStrs[i].sprite.x;
-                    let defY = this.defStrs[i].sprite.y;
-                    let enemX = this.enemies.sprite[j].x;
-                    let enemY = this.enemies.sprite[j].y;
-                    //console.log(enemX);
-                    // console.log(enemY);
-                    // console.log(defX);
-                    //console.log(defY);
-                    let possibleMin = Math.sqrt(Math.pow((defX - enemX), 2) + Math.pow((defY - enemY), 2));
-                    //console.log(possibleMin);
-                    if (min == -1 || min > possibleMin) {
-                        min = possibleMin;
-                        targetIndex = j;
-                    }
-                }
-                //console.log(min);
-                if (min <= this.maxAttackDistance) {
-                    //console.log("enemy nearby");
-                    if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
-                        this.enemies.sprite.splice(targetIndex, 1)[0].destroy();
-                        this.defStrs[i].prevTime = time;
-                    }
-                }
-            }
-        }
+        //        for (var i = 0; i < this.defStrs.length; i++) {
+        //            let min = -1;
+        //            let targetIndex = -1;
+        //            if (this.enemies && this.enemies.sprite.length > 0) {
+        //                for (var j = 0; j < this.enemies.sprite.length; j++) {
+        //                    let defX = this.defStrs[i].sprite.x;
+        //                    let defY = this.defStrs[i].sprite.y;
+        //                    let enemX = this.enemies.sprite[j].x;
+        //                    let enemY = this.enemies.sprite[j].y;
+        //                    //console.log(enemX);
+        //                    // console.log(enemY);
+        //                    // console.log(defX);
+        //                    //console.log(defY);
+        //                    let possibleMin = Math.sqrt(Math.pow((defX - enemX), 2) + Math.pow((defY - enemY), 2));
+        //                    //console.log(possibleMin);
+        //                    if (min == -1 || min > possibleMin) {
+        //                        min = possibleMin;
+        //                        targetIndex = j;
+        //                    }
+        //                }
+        //                //console.log(min);
+        //                if (min <= this.maxAttackDistance) {
+        //                    //console.log("enemy nearby");
+        //                    if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
+        //                        this.enemies.sprite.splice(targetIndex, 1)[0].destroy();
+        //                        this.defStrs[i].prevTime = time;
+        //                    }
+        //                }
+        //            }
+        //        }
         this.moneyText.setText(":" + this.money);
         //console.log(this.chosenDefStr);
-
+        if (this.villageHealth <= 0) {
+            this.heartText.setText(0);
+        } else {
+            this.heartText.setText(this.villageHealth);
+        }
 
 
     }

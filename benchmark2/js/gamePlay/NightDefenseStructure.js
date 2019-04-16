@@ -1,10 +1,12 @@
 //Night time defense structure
 
 //Day time enemy
-import {DEFSTR} from "../constants/DefenseStructureTypes.js";
+import {
+    DEFSTR
+} from "../constants/DefenseStructureTypes.js";
 
-export class NightDefenseStructure{    
-    constructor(data){
+export class NightDefenseStructure {
+    constructor(data) {
         this.sprite = data.sprite;
         this.defstrType = data.defstrType;
         this.health = data.health;
@@ -19,23 +21,33 @@ export class NightDefenseStructure{
         this.prevTime = 0;
         this.create();
 
-        
+
         //this.moveCounter = new Array(this.sprite.length).fill(0);
         //this.movement = new Array(this.sprite.length).fill(Math.random()*100);
         //this.goX = new Array(this.sprite.length).fill(true);
         //this.goY = new Array(this.sprite.length).fill(true);
-        
-    }
-    init(){}
-    
-    create(){
-
-        var rightFrames = this.anims.generateFrameNames(this.defstrType, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightCannon', frames: rightFrames, frameRate: 5, repeat: -1 });
 
     }
+    init() {}
 
-    update(time){
+    create() {
+        var rightFrames = this.anims.generateFrameNames(this.defstrType, {
+            start: 1,
+            end: 4,
+            zeroPad: 4,
+            prefix: 'right/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'rightCannon',
+            frames: rightFrames,
+            frameRate: 5,
+            repeat: -1
+        });
+
+    }
+
+    update(time) {
 
         /*
         if(Math.floor(time/1000) - Math.floor(this.prevTime/1000) >= this.cooldown){
@@ -94,18 +106,6 @@ export class NightDefenseStructure{
         */
 
     }
-    
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
