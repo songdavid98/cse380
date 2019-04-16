@@ -43,6 +43,7 @@ export class NightScene extends Phaser.Scene {
         this.justPaused = false;
 
         this.money = data.money;
+        this.villageHealth = 5;
 
         this.slimeSpawnArr = [
             [1600, 160],
@@ -90,6 +91,15 @@ export class NightScene extends Phaser.Scene {
         this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(1);
         this.moneyText = this.add.text(1335, 68, ':' + this.money, {
             fontSize: '70px',
+            fill: '#fff',
+            strokeThickness: 10,
+            stroke: "#000000"
+        });
+
+        //add heart
+        this.add.image(100,100,"heart").setDepth(3).setScale(2,2);
+        this.heartText = this.add.text(150, 70, this.villageHealth, {
+            fontSize: '65px',
             fill: '#fff',
             strokeThickness: 10,
             stroke: "#000000"
@@ -238,6 +248,10 @@ export class NightScene extends Phaser.Scene {
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
+        if(this.villageHealth <= 0){
+            this.scene.start(SCENES.MAIN_MENU);
+            this.scene.stop();
+        }
         if (this.input.keyboard.keys[27].isDown && !this.justPaused) {
             this.justPaused = true
             this.scene.launch(SCENES.PAUSE, {
@@ -250,8 +264,15 @@ export class NightScene extends Phaser.Scene {
 
         if (this.enemies) {
             this.enemies.update(time);
+            for(var i = 0; i < this.enemies.sprite.length; i++){
+                if(this.enemies.sprite[i].x <= 0){
+                    this.enemies.sprite.splice(i,1)[0].destroy();
+                    this.villageHealth--;
+                    i--;
+                }       
+            }
         }
-
+        console.log(this.villageHealth);
         for (var i = 0; i < this.defStrs.length; i++) {
             let min = -1;
             let targetIndex = -1;
@@ -284,6 +305,11 @@ export class NightScene extends Phaser.Scene {
             }
         }
         this.moneyText.setText(":" + this.money);
+        if(this.villageHealth <= 0){
+            this.heartText.setText(0);
+        }else{
+            this.heartText.setText(this.villageHealth);
+        }
         //console.log(this.chosenDefStr);
 
     }
