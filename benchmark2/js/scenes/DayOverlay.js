@@ -36,8 +36,10 @@ export class DayOverlayScene extends Phaser.Scene{
         //variables
         this.health = this.hero.health;
 
+        //Initialize text stuff
         this.moneyText = this.add.text(1335, 68, ':' + this.hero.money, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
-
+        this.deathText = null;
+        
         //add button events
         
         //add keyboard keys
@@ -53,11 +55,16 @@ export class DayOverlayScene extends Phaser.Scene{
         }
         else if(this.hero.health < this.health){
             while(this.health > this.hero.health){
-                console.log("not coming");
                 this.hearts.pop().destroy();
                 this.health--;    
             }
         } 
+
+        if(this.hero.health <= 0 && this.deathText == null){
+            this.deathText = this.add.text(600, 400, 'You are dead', { fontSize: '70px', fill: '#a700ff', strokeThickness: 10, stroke:"#ffffff"});
+        }
+
+
         if(this.checkIfMoneyIsSame != this.hero.money){    
             this.moneyText.setText(':' + this.hero.money);
             this.checkIfMoneyIsSame = this.hero.money;

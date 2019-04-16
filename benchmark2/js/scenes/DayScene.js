@@ -20,7 +20,7 @@ export class DayScene extends Phaser.Scene{
         this.mapLevel;
         this.angle;
          //This variable is used for attack cooldowns as well as time in between damages from monsters
-
+        this.deathSceneLength = 5;
         this.slimeSpawnArr = [
             [160,160],
             [320,320],
@@ -126,8 +126,6 @@ export class DayScene extends Phaser.Scene{
 
         //Damaging the player
         this.physics.add.overlap(this.heroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-
-            
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.hero.lastDamaged/1000) >= o1.scene.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 console.log("You are getting hurt");
                 o1.scene.hero.damage(o2);                               //Decrease the health (from the hero CLASS) when overlaps with enemy
@@ -235,25 +233,40 @@ export class DayScene extends Phaser.Scene{
 
     }
     update(time, delta){
-        //this.time = Math.floor(time/1000);
+        if(this.hero.dead && this.timeOfDeath == null){     //Kill the player and get the time of death
+            this.hero.active = false;
+            this.hero.sprite.destroy();
+            this.timeOfDeath = time;
+            console.log(time);
+            console.log(Math.floor(this.timeOfDeath/1000));
 
-        this.hero.update(this.angle, time);
-        this.enemies.update(time);
-        if(this.input.keyboard.keys[27].isDown && !this.justPaused){
-            this.justPaused = true
-            this.input.keyboard.keys[68].isDown = false
-            this.input.keyboard.keys[65].isDown = false
-            this.input.keyboard.keys[87].isDown = false
-            this.input.keyboard.keys[83].isDown = false
-            this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY, SCENES.DAY_OVERLAY]});
-            this.scene.pause(SCENES.DAY_OVERLAY)
-            this.scene.pause();
-        }else if(this.input.keyboard.keys[27].isUp){
-            this.justPaused = false;
+        }
+        else if(this.hero.dead && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
+            //Shows the game going without the hero for x amount of seconds before it sends the game to the main menu
+            this.timeOfDeath = null;
+            console.log("come here");
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.MAIN_MENU, 'dead');
+            this.scene.stop(SCENES.DAY);
+        }
+        else{
+            this.hero.update(this.angle, time);
+
+            if(this.input.keyboard.keys[27].isDown && !this.justPaused){
+                this.justPaused = true
+                this.input.keyboard.keys[68].isDown = false
+                this.input.keyboard.keys[65].isDown = false
+                this.input.keyboard.keys[87].isDown = false
+                this.input.keyboard.keys[83].isDown = false
+                this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY, SCENES.DAY_OVERLAY]});
+                this.scene.pause(SCENES.DAY_OVERLAY)
+                this.scene.pause();
+            }else if(this.input.keyboard.keys[27].isUp){
+                this.justPaused = false;
+            }
         }
 
-        
- 
+        this.enemies.update(time);
 
     }
 }

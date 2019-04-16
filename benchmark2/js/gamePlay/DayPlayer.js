@@ -148,6 +148,7 @@ export class DayPlayer{
             if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
                 //this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
             }
+            
         } 
     }
 
@@ -222,10 +223,12 @@ export class DayPlayer{
         if(this.health > 0){
             if(monster.class.enemyType == ENEMIES.SLIME){
                 this.health -= 1;
+                console.log(this.health);
+                if(this.health <= 0){
+                    console.log("dead");
+                    this.dead = true;
+                }
             }
-        }
-        else{
-            this.dead = true;
         }
     }
 
