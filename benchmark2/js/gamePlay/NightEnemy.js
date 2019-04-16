@@ -77,13 +77,4 @@ export class NightEnemy {
         }
     }
 
-    //    what update should be
-    //    update(time) {
-    //        if (this.sprite.active) {
-    //            this.sprite.body.setVelocityX(-1 * this.speed);
-    //            this.sprite.body.setVelocityY(0);
-    //            this.sprite.anims.play("leftSlime", true);
-    //        }
-    //    }
-
 }

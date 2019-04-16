@@ -38,6 +38,7 @@ export class NightScene extends Phaser.Scene {
         this.minX = 470;
         this.minY = 60;
 
+        //for tower test
         this.maxAttackDistance = 500;
 
         this.justPaused = false;
@@ -49,7 +50,7 @@ export class NightScene extends Phaser.Scene {
         this.defStrs = new Array();
         this.chosenDefStr = null;
 
-        this.defStrSpritesGroup = this.physics.add.group();
+        this.defStrsSpritesGroup = this.physics.add.group();
         this.enemySpritesGroup = this.physics.add.group(); //a bunch of enemy sprites
 
 
@@ -95,13 +96,9 @@ export class NightScene extends Phaser.Scene {
 
         //create buttons
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
-
         let buywall = this.add.image(this.buttonX, this.buttonYinc * 3, "buywall").setDepth(3).setScale(1.5, 1.5);
-
         let buyarrow = this.add.image(this.buttonX, this.buttonYinc * 4, "buyarrow").setDepth(3).setScale(1.5, 1.5);
-
         let buycannon = this.add.image(this.buttonX, this.buttonYinc * 5, "buycannon").setDepth(3).setScale(1.5, 1.5);
-
 
         //add button events
         startwave.setInteractive();
@@ -121,14 +118,14 @@ export class NightScene extends Phaser.Scene {
                     for (let i = 0; i < this.slimeCount; i++) {
                         let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
                         this.enemySpritesGroup.add(enemySprite);
-                        this.enemies = new NightEnemy({
-                            "x": slimeSpawnArr[i][0],
-                            "y": slimeSpawnArr[i][1],
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        enemySprite.user = this.enemies;
+                        this.enemies.push(
+                            new NightEnemy({
+                                "x": slimeSpawnArr[i][0],
+                                "y": slimeSpawnArr[i][1],
+                                "sprite": enemySprite,
+                                "physics": this.physics,
+                                "anims": this.anims
+                            }));
                     }
 
                     //Set collisions
@@ -171,27 +168,17 @@ export class NightScene extends Phaser.Scene {
                 console.log(this.money);
                 this.startDragging = true;
 
-                this.cannon = this.physics.add.sprite(400, 500, DEFSTR.CANNON, '0001.png').setScale(5, 5);
+                let cannonSprite = this.physics.add.sprite(400, 500, DEFSTR.CANNON, '0001.png').setScale(5, 5);
 
-                this.defStrSpriteGroup.add(this.cannon);
-                this.defStr = new NightDefenseStructure({
-                    "sprite": this.cannon,
+                this.defStrsSpriteGroup.add(cannonSprite);
+
+                this.defStrs = new NightDefenseStructure({
+                    "sprite": cannonSprite,
                     "physics": this.physics,
-                    "keyboard": this.input.keyboard,
-                    "health": 3,
-                    "basicAttack": 1,
-                    "speed": 128,
-                    "defstrType": DEFSTR.CANNON,
-                    "anims": this.anims,
-                    "shoots": true,
-                    "cooldown": 5
+                    "anims": this.anims
                 });
-
                 this.defStrs.push(this.defStr);
             }
-
-
-
 
         });
 
@@ -220,7 +207,6 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
             if (this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY) {
-
 
                 //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
                 /*
@@ -254,9 +240,16 @@ export class NightScene extends Phaser.Scene {
         }
 
         if (this.enemies) {
-            this.enemies.update(time);
+            for (let i = 0; i < this.enemies.length; i++)
+                this.enemies[i].update(time);
         }
 
+        //        if (this.defStrs) {
+        //            for (let i = 0; i < this.defStrs.length; i++)
+        //                this.enemies[i].update(time);
+        //        }
+
+        //tower's update
         for (var i = 0; i < this.defStrs.length; i++) {
             let min = -1;
             let targetIndex = -1;
