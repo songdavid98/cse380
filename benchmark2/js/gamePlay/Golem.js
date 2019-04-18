@@ -10,6 +10,7 @@ export class Golem extends NightEnemy {
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 100;
+        this.money = 30;
 
         this.sprite = data.sprite;
         this.physics = data.physics;
