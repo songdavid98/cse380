@@ -14,6 +14,11 @@ import {
     NightDefenseStructure
 } from "../gamePlay/NightDefenseStructure.js";
 
+
+import {
+    Slime
+} from "../gamePlay/Slime.js";
+
 import {
     Cannon
 } from "../gamePlay/Cannon.js";
@@ -54,8 +59,8 @@ export class NightScene extends Phaser.Scene {
         this.villageHealth = 5;
 
         this.enemies = new Array();
-
         this.defStrs = new Array();
+
         this.chosenDefStr = null;
 
         this.defStrsSpritesGroup = this.physics.add.group();
@@ -127,7 +132,7 @@ export class NightScene extends Phaser.Scene {
                         let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
                         this.enemySpritesGroup.add(enemySprite);
                         this.enemies.push(
-                            new NightEnemy({
+                            new Slime({
                                 "x": slimeSpawnArr[i][0],
                                 "y": slimeSpawnArr[i][1],
                                 "sprite": enemySprite,
@@ -259,14 +264,14 @@ export class NightScene extends Phaser.Scene {
             this.justPaused = false;
         }
 
+        if (this.defStrs) {
+            for (let i = 0; i < this.defStrs.length; i++)
+                this.defStrs[i].update(time, this.enemies);
+        }
+
         if (this.enemies) {
             for (let i = 0; i < this.enemies.length; i++)
                 this.enemies[i].update(time);
-        }
-
-        if (this.defStrs) {
-            for (let i = 0; i < this.defStrs.length; i++)
-                this.enemies[i].update(time, this.enemies);
         }
 
         this.moneyText.setText(":" + this.money);
