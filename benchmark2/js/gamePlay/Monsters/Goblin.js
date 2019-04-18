@@ -10,6 +10,7 @@ export class Goblin extends NightEnemy {
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 150;
+        this.money = 20;
 
         this.sprite = data.sprite;
         this.physics = data.physics;

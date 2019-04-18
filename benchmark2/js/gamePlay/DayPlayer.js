@@ -193,9 +193,7 @@ export class DayPlayer{
 
     getMoney(monster){
         if(this.money < 99999){
-            if(monster.class.enemyType == ENEMIES.SLIME){
-                this.money += 10;
-            }
+            this.money += monster.class.money;
         }
         else{
             this.money = "MAXED_OUT";
@@ -221,13 +219,9 @@ export class DayPlayer{
     }
     damage(monster){
         if(this.health > 0){
-            if(monster.class.enemyType == ENEMIES.SLIME){
-                this.health -= 1;
-                console.log(this.health);
-                if(this.health <= 0){
-                    console.log("dead");
-                    this.dead = true;
-                }
+            this.health -= monster.class.basicAttack;
+            if(this.health <= 0){
+                this.dead = true;
             }
         }
     }
