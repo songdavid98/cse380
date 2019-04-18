@@ -2,7 +2,7 @@ import {
     ENEMIES
 } from "../constants/EnemyTypes.js";
 
-export class Goblin extends NightEnemy {
+export class Goblin extends Enemy {
 
     constructor(data) {
         this.enemyType = ENEMIES.GOBLIN; // like slime
