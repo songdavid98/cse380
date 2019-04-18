@@ -42,11 +42,10 @@ export class DayScene extends Phaser.Scene{
         this.load.image("terrain", "assets/images/tiles/tiles.png");
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
-        //this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
 
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
 
-        //this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/cityscene.json', "assets/images");
 
         switch(this.level){
             case 1: 
@@ -89,11 +88,9 @@ export class DayScene extends Phaser.Scene{
         let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain");
         this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(5,5);
         this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(5,5); 
-        console.log("tiles");
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D');
-        this.input.keyboard.addKeys('Esc');
+        this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
@@ -107,7 +104,6 @@ export class DayScene extends Phaser.Scene{
 
         //Create the heroes
         this.heroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
-        //this.sprite = this.physics.add.sprite(600, 400, HEROES.SWORD_HERO, 'swordHero/down/0001.png').setScale(5, 5);
         this.hero = new DayPlayer({"sprite":this.heroSprite,"physics":this.physics,"keyboard":this.input.keyboard,
         "health":3,"basicAttack":1, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2.5*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
         this.heroSprite.class = this.hero;
@@ -119,7 +115,6 @@ export class DayScene extends Phaser.Scene{
 	    this.wallLayer.setCollision(2);     //Change this if you want a different tile set. This is the ID.
         this.physics.add.collider(this.heroSprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
-                                       //This variable is used to store the previous time of the clock - used for attack cooldown and damage cooldown
 
 
         //Damaging the player
@@ -135,15 +130,21 @@ export class DayScene extends Phaser.Scene{
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
         this.cameras.main.startFollow(this.heroSprite);
 
+
+
+
+        //Keyboard space - keycode = 32 
+        //if you use phaser's keyboard.keys, its an if statement, not an event listener
+        //if you don't, it is
+        
+
+
+
         //Event Listeners
         this.input.on('pointermove', function (pointer) {
             let cursor = pointer;
             this.angle = Phaser.Math.Angle.Between(this.heroSprite.x, this.heroSprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
-            //console.log((Math.PI/2-this.angle) / (Math.PI/180));
         }, this);
-
-
-
     
         this.input.on('pointerdown', function (pointer) {
             if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.hero.previousTime >= this.hero.attackCooldown ){
@@ -173,15 +174,6 @@ export class DayScene extends Phaser.Scene{
 
                 //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
                 this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
-
-                /*
-                this.physics.add.overlap(this.wallLayer, this.shieldBeamSprite, function(o1, o2){
-                
-                    o2.destroy();
-                    console.log("It's overlapping????");
-                });
-                */
-
 
                 let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.angle)));
                 let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
@@ -235,20 +227,41 @@ export class DayScene extends Phaser.Scene{
             this.hero.active = false;
             this.hero.sprite.destroy();
             this.timeOfDeath = time;
-            console.log(time);
-            console.log(Math.floor(this.timeOfDeath/1000));
+            //console.log(time);
+            //console.log(Math.floor(this.timeOfDeath/1000));
 
         }
         else if(this.hero.dead && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
             //Shows the game going without the hero for x amount of seconds before it sends the game to the main menu
             this.timeOfDeath = null;
-            console.log("come here");
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.MAIN_MENU, 'dead');
             this.scene.stop(SCENES.DAY);
         }
         else{
             this.hero.update(this.angle, time);
+
+            //Space bar for swapping heroes
+            if(this.input.keyboard.keys[32].isDown && !this.justSwapped){
+
+                //Create the heroes
+                if(this.hero.playerType == HEROES.SHIELD_HERO){
+                    this.heroSprite = this.physics.add.sprite(600, 400, HEROES.SWORD_HERO, 'swordHero/down/0001.png').setScale(5, 5);
+                    let toDestroy = this.hero.sprite;
+                    
+                    this.hero = new DayPlayer({"sprite":this.heroSprite,"physics":this.physics,"keyboard":this.input.keyboard,
+                    "health":3,"basicAttack":3, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2.5*128,"playerType":HEROES.SWORD_HERO, "anims":this.anims});
+                    toDestroy.destroy();
+                    
+                    this.heroSprite.class = this.hero;
+                }
+
+
+
+                this.scene.launch(SCENES.DAY_OVERLAY, {"hero":this.hero});
+                
+
+            }
 
             if(this.input.keyboard.keys[27].isDown && !this.justPaused){
                 this.justPaused = true
