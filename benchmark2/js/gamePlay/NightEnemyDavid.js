@@ -6,18 +6,16 @@ import {
 export class NightEnemy {
     constructor(data) {
 
-        this.x = data.x;
-        this.y = data.y;
-
         this.distanceTraveled = 0;
 
         this.sprite = data.sprite;
+        //sprite has attributes x and y
+
         this.enemyType = data.enemyType; // like slime
         this.health = data.health;
         this.basicAttack = data.basicAttack;
         this.basicAttackSpeed = data.basicAttackSpeed;
         this.speed = data.speed;
-        this.keyboard = data.keyboard;
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true;

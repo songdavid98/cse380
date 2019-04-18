@@ -11,7 +11,6 @@ export class NightEnemy {
         this.basicAttack = data.basicAttack;
         this.basicAttackSpeed = data.basicAttackSpeed;
         this.speed = data.speed;
-        this.keyboard = data.keyboard;
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true; //FIXME: remove this

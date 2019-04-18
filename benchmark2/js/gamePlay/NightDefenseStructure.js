@@ -12,7 +12,6 @@ export class NightDefenseStructure {
         this.health = data.health;
         this.basicAttack = data.basicAttack;
         this.speed = data.speed;
-        this.keyboard = data.keyboard;
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true; //FIXME: remove this

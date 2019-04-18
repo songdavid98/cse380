@@ -28,7 +28,7 @@ export class NightScene extends Phaser.Scene {
         this.map;
 
         this.wintime = -1;
-        
+
         this.monsterArray;
 
         this.level = data.level;
@@ -100,7 +100,7 @@ export class NightScene extends Phaser.Scene {
         });
 
         //add heart
-        this.add.image(100,100,"heart").setDepth(3).setScale(2,2);
+        this.add.image(100, 100, "heart").setDepth(3).setScale(2, 2);
         this.heartText = this.add.text(150, 70, this.villageHealth, {
             fontSize: '65px',
             fill: '#fff',
@@ -130,7 +130,7 @@ export class NightScene extends Phaser.Scene {
             //make a swtich case, to spawn different things for each level
             switch (this.level) {
                 case 1:
-                    if(this.wavesLeft > 0){
+                    if (this.wavesLeft > 0) {
                         this.wavesLeft--;
                         for (var i = 0; i < this.slimeCount; i++) {
                             this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
@@ -148,7 +148,7 @@ export class NightScene extends Phaser.Scene {
                             });
                             this.enemySprite.class = this.enemies;
                         }
-                    
+
                         //Set collisions
                         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
                     }
@@ -241,11 +241,11 @@ export class NightScene extends Phaser.Scene {
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
-        if(this.wintime != -1 && Math.floor((time - this.wintime)/1000) >= 5){
+        if (this.wintime != -1 && Math.floor((time - this.wintime) / 1000) >= 5) {
             this.scene.start(SCENES.SPLASH);
             this.scene.stop();
-        }else if(this.wintime == -1 && this.enemies && this.enemies.sprite.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0){
-            this.add.text(this.game.renderer.width*.4,this.game.renderer.height*.45,"You win!", {
+        } else if (this.wintime == -1 && this.enemies && this.enemies.sprite.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+            this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
                 strokeThickness: 10,
@@ -253,7 +253,7 @@ export class NightScene extends Phaser.Scene {
             });
             this.wintime = time;
         }
-        if(this.villageHealth <= 0){
+        if (this.villageHealth <= 0) {
             this.scene.start(SCENES.MAIN_MENU);
             this.scene.stop();
         }
@@ -269,12 +269,12 @@ export class NightScene extends Phaser.Scene {
 
         if (this.enemies) {
             this.enemies.update(time);
-            for(var i = 0; i < this.enemies.sprite.length; i++){
-                if(this.enemies.sprite[i].x <= 0){
-                    this.enemies.sprite.splice(i,1)[0].destroy();
+            for (var i = 0; i < this.enemies.sprite.length; i++) {
+                if (this.enemies.sprite[i].x <= 0) {
+                    this.enemies.sprite.splice(i, 1)[0].destroy();
                     this.villageHealth--;
                     i--;
-                }       
+                }
             }
         }
         //console.log(this.villageHealth);
@@ -284,7 +284,7 @@ export class NightScene extends Phaser.Scene {
             let targetIndex = -1;
             if (this.enemies && this.enemies.sprite.length > 0 && this.defStrs[i].placed) {
                 for (var j = 0; j < this.enemies.sprite.length; j++) {
-                    
+
 
                     let defX = this.defStrs[i].sprite.x;
                     let defY = this.defStrs[i].sprite.y;
@@ -306,7 +306,7 @@ export class NightScene extends Phaser.Scene {
                     //this.defStrs[i].sprite.anims.play("rightCannon");
 
                     //let animRef = .animationReference.isPlaying;
-                    
+
                     //console.log("enemy nearby");
                     if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
 
@@ -320,9 +320,9 @@ export class NightScene extends Phaser.Scene {
             }
         }
         this.moneyText.setText(":" + this.money);
-        if(this.villageHealth <= 0){
+        if (this.villageHealth <= 0) {
             this.heartText.setText(0);
-        }else{
+        } else {
             this.heartText.setText(this.villageHealth);
         }
         //console.log(this.chosenDefStr);

@@ -14,6 +14,10 @@ import {
     NightDefenseStructure
 } from "../gamePlay/NightDefenseStructure.js";
 
+import {
+    Cannon
+} from "../gamePlay/Cannon.js";
+
 
 export class NightScene extends Phaser.Scene {
     constructor() {
@@ -171,35 +175,35 @@ export class NightScene extends Phaser.Scene {
             if (!this.alreadyClicked && this.money >= 200 && !this.startDragging) {
                 this.chosenDefStr = DEFSTR.CANNON;
                 this.money -= 200;
-                console.log(this.money);
                 this.startDragging = true;
 
                 let cannonSprite = this.physics.add.sprite(400, 500, DEFSTR.CANNON, '0001.png').setScale(5, 5);
 
                 this.defStrsSpriteGroup.add(cannonSprite);
 
-                this.defStrs = new NightDefenseStructure({
+                this.towerToBePlaced = new Cannon({
                     "sprite": cannonSprite,
                     "physics": this.physics,
                     "anims": this.anims
+
                 });
-                this.defStrs.push(this.defStr);
+
+                //tower.placed = false;
+                //placed will be false by default on creation
+
+                this.defStrs.push(this.towerToBePlaced);
+
             }
 
         });
 
         this.input.on("pointermove", function (pointer) {
-            //console.log(this);
             if (this.scene.startDragging) {
-                //console.log("hello");
                 if (this.scene.chosenDefStr == DEFSTR.CANNON) {
-
                     this.scene.cannon.x = pointer.x;
                     this.scene.cannon.y = pointer.y;
-
-                    //console.log("Pressed button");
-
                 }
+                //if the pointer is not in bounds
                 if (this.scene.cannon.x <= this.scene.minX || pointer.y <= this.scene.minY) {
                     this.scene.cannon.alpha = 0.5;
                 } else {
@@ -212,18 +216,9 @@ export class NightScene extends Phaser.Scene {
 
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
+            //if pointer is in bounds and a tower is chosen
             if (this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY) {
-
-                //HOW DO YOU GRAB MOUSE POINTER??????????????????????????
-                /*
-                                if(this.chosenDefStr == DEFSTR.CANNON){
-                                
-                                    this.cannon.body.x = pointer.x;
-                                    this.cannon.body.y = pointer.y;
-
-                                }
-                                */
-                console.log("placed");
+                this.towerToBePlaced.placed = true;
                 this.startDragging = false;
                 this.chosenDefStr = null;
             }
@@ -231,17 +226,16 @@ export class NightScene extends Phaser.Scene {
         });
 
 
-
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
-        // you get sent back to teh splash screen after 5 seconds pass after you've won
+        // you get sent back to the splash screen after 5 seconds pass after you've won
         if (this.wintime != -1 && Math.floor((time - this.wintime) / 1000) >= 5) {
             this.scene.start(SCENES.SPLASH);
             this.scene.stop();
         }
         //you win after you've defeating everything and village still alive
-        else if (this.wintime == -1 && this.enemies && this.enemies.sprite.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+        else if (this.wintime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
             this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
@@ -272,40 +266,9 @@ export class NightScene extends Phaser.Scene {
 
         if (this.defStrs) {
             for (let i = 0; i < this.defStrs.length; i++)
-                this.enemies[i].update(time);
+                this.enemies[i].update(time, this.enemies);
         }
 
-        //tower's update
-        //        for (var i = 0; i < this.defStrs.length; i++) {
-        //            let min = -1;
-        //            let targetIndex = -1;
-        //            if (this.enemies && this.enemies.sprite.length > 0) {
-        //                for (var j = 0; j < this.enemies.sprite.length; j++) {
-        //                    let defX = this.defStrs[i].sprite.x;
-        //                    let defY = this.defStrs[i].sprite.y;
-        //                    let enemX = this.enemies.sprite[j].x;
-        //                    let enemY = this.enemies.sprite[j].y;
-        //                    //console.log(enemX);
-        //                    // console.log(enemY);
-        //                    // console.log(defX);
-        //                    //console.log(defY);
-        //                    let possibleMin = Math.sqrt(Math.pow((defX - enemX), 2) + Math.pow((defY - enemY), 2));
-        //                    //console.log(possibleMin);
-        //                    if (min == -1 || min > possibleMin) {
-        //                        min = possibleMin;
-        //                        targetIndex = j;
-        //                    }
-        //                }
-        //                //console.log(min);
-        //                if (min <= this.maxAttackDistance) {
-        //                    //console.log("enemy nearby");
-        //                    if (Math.floor(time / 1000) - Math.floor(this.defStrs[i].prevTime / 1000) >= this.defStrs[i].cooldown) {
-        //                        this.enemies.sprite.splice(targetIndex, 1)[0].destroy();
-        //                        this.defStrs[i].prevTime = time;
-        //                    }
-        //                }
-        //            }
-        //        }
         this.moneyText.setText(":" + this.money);
         //console.log(this.chosenDefStr);
         if (this.villageHealth <= 0) {

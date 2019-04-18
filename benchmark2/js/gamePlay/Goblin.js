@@ -2,14 +2,14 @@ import {
     ENEMIES
 } from "../constants/EnemyTypes.js";
 
-export class Slime extends NightEnemy {
+export class Goblin extends NightEnemy {
 
     constructor(data) {
-        this.enemyType = ENEMIES.SLIME; // like slime
-        this.health = 5;
+        this.enemyType = ENEMIES.GOBLIN; // like slime
+        this.health = 6;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
-        this.speed = 100;
+        this.speed = 150;
 
         this.sprite = data.sprite;
         this.physics = data.physics;
