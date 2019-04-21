@@ -238,17 +238,20 @@ export class NightScene extends Phaser.Scene {
         this.input.keyboard.addKeys('Esc');
     }
     update(time, delta) {
-        // you get sent back to the splash screen after 5 seconds pass after you've won
-        if (this.gameEndTime != -1 && ((time - this.gameEndTime) / 1000) >= 5) {
-            this.scene.start(SCENES.SPLASH);
-            this.scene.stop();
+        // if the game is over
+        if (this.gameEndTime != -1) {
+            //  if 5 seconds has passed
+            if (((time - this.gameEndTime) / 1000) >= 5) {
+                this.scene.start(SCENES.SPLASH);
+                this.scene.stop();
+            }
+            //  do nothing and wait until the 5 seconds has passed
+            else
+                return;
         }
 
-        if (this.gameEndTime == -1) {
-
-        }
         //you win after you've defeating everything and village still alive
-        else if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+        if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
             this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
