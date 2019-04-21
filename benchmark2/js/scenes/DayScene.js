@@ -107,7 +107,6 @@ export class DayScene extends Phaser.Scene{
         //Create the heroes
         this.shieldHeroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
         this.swordHeroSprite = this.physics.add.sprite(200,200, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
-        //**********************Make sure that you change Mage hero to Mage, below~!~~~ */
         this.mageHeroSprite = this.physics.add.sprite(200,200, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
         
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
@@ -270,6 +269,13 @@ export class DayScene extends Phaser.Scene{
                 this.player.sprite.y = tempY;
                 this.cameras.main.startFollow(this.player.sprite);
                 this.physics.add.collider(this.player.sprite,this.wallLayer);
+                //Damaging the player
+                this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
+                    if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+                        o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
+                        o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
+                    }
+                });
                 this.player.lastSwapped = Math.floor(time/1000);
             }
             if(this.input.keyboard.keys[27].isDown && !this.justPaused){

@@ -106,7 +106,7 @@ export class DayPlayer{
          var downBasicAttackFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'attackDown/', suffix:'.png' });
          this.anims.create({ key: 'downBasicAttackSword', frames: downBasicAttackFrame, frameRate: 5, repeat: 0 });
 
-         /*
+        
         // Mage animation
         var leftFrames = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftMage', frames: leftFrames, frameRate: 5, repeat: -1 });
@@ -128,7 +128,7 @@ export class DayPlayer{
         this.anims.create({ key: 'upIdleMage', frames: upIdleFrame, frameRate: 5, repeat: -1 });
         var upBasicAttackFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 1, zeroPad: 4, prefix:'attackUp/', suffix:'.png' });
         this.anims.create({ key: 'upBasicAttackMage', frames: upBasicAttackFrame, frameRate: 5, repeat: 0 });
-        */
+       
         var downFrames = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
         this.anims.create({ key: 'downMage', frames: downFrames, frameRate: 5, repeat: -1 });
         var downIdleFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
@@ -185,14 +185,14 @@ export class DayPlayer{
                     switch(this.playerType){
                         case HEROES.SHIELD_HERO: this.sprite.anims.play("rightIdleShield"); break;
                         case HEROES.SWORD_HERO: this.sprite.anims.play("rightIdleSword"); break;
-                        //case HEROES.MAGE_HERO: this.sprite.anims.play("rightIdleMage"); break;
+                        case HEROES.MAGE_HERO: this.sprite.anims.play("rightIdleMage"); break;
                     }
                     
                 }else{
                     switch(this.playerType){
                         case HEROES.SHIELD_HERO: this.sprite.anims.play("rightShield",true); break;
                         case HEROES.SWORD_HERO: this.sprite.anims.play("rightSword",true); break;
-                        //case HEROES.MAGE_HERO: this.sprite.anims.play("rightMage",true); break;
+                        case HEROES.MAGE_HERO: this.sprite.anims.play("rightMage",true); break;
                     }
                 }
                 this.sprite.setRotation(this.angle);                //Rotates the image
@@ -203,13 +203,13 @@ export class DayPlayer{
                     switch(this.playerType){
                         case HEROES.SHIELD_HERO: this.sprite.anims.play("upIdleShield"); break;
                         case HEROES.SWORD_HERO: this.sprite.anims.play("upIdleSword"); break;
-                        //case HEROES.MAGE_HERO: this.sprite.anims.play("upIdleMage"); break;
+                        case HEROES.MAGE_HERO: this.sprite.anims.play("upIdleMage"); break;
                     }
                 }else{
                     switch(this.playerType){
                         case HEROES.SHIELD_HERO: this.sprite.anims.play("upShield",true); break;
                         case HEROES.SWORD_HERO: this.sprite.anims.play("upSword",true); break;
-                        //case HEROES.MAGE_HERO: this.sprite.anims.play("upMage",true); break;
+                        case HEROES.MAGE_HERO: this.sprite.anims.play("upMage",true); break;
                     }
                 }
                 this.sprite.setRotation(this.angle + Math.PI/2);     //Rotates the image
@@ -220,7 +220,7 @@ export class DayPlayer{
                     switch(this.playerType){
                         case HEROES.SHIELD_HERO: this.sprite.anims.play("leftIdleShield"); break;
                         case HEROES.SWORD_HERO: this.sprite.anims.play("leftIdleSword"); break;
-                        //case HEROES.MAGE_HERO: this.sprite.anims.play("leftIdleMage"); break;
+                        case HEROES.MAGE_HERO: this.sprite.anims.play("leftIdleMage"); break;
                     }
                 }else{
                     switch(this.playerType){
