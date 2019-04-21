@@ -1,4 +1,5 @@
 export const ENEMIES = {
     SLIME: "SLIME",
-    GOBLIN: "GOBLIN"
+    GOBLIN: "GOBLIN",
+    GOLEM: "GOLEM"
 }
