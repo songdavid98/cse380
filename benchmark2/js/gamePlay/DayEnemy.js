@@ -15,6 +15,7 @@ export class DayEnemy {
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true; //FIXME: remove this
+        this.money = 10;
         this.create();
 
 

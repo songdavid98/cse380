@@ -8,19 +8,17 @@ export class DayOverlayScene extends Phaser.Scene{
         })
     }
     init(data){
-        console.log(data);
-        this.hero = data["hero"];
+        this.player = data["player"];
         this.hearts = [];
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
         this.timer = 120;
         this.initTime = 0; 
-        console.log("entered help");
     }
     create(){
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
-        for(var i = 0; i < this.hero.health; i++){
+        for(var i = 0; i < this.player.hero.health; i++){
             this.hearts.push(this.add.image(50 + i*75,100, "heart").setScale(2,2).setDepth(1));
         }
         this.add.image(1300,100,"coin").setScale(1.2,1.2).setDepth(1);
@@ -33,10 +31,10 @@ export class DayOverlayScene extends Phaser.Scene{
         this.timerText = this.add.text(20, 150, Math.floor(this.timer/60) + ':' + seconds, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
 
         //variables
-        this.health = this.hero.health;
+        this.health = this.player.hero.health;
 
         //Initialize text stuff
-        this.moneyText = this.add.text(1335, 68, ':' + this.hero.money, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
+        this.moneyText = this.add.text(1335, 68, ':' + this.player.money, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
         this.deathText = null;
         
         //add button events
@@ -47,26 +45,25 @@ export class DayOverlayScene extends Phaser.Scene{
         if(this.initTime == 0){
             this.initTime = this.time.now;
         }
-        console.log(this.hero.health);
-        if(this.hero.health > this.health){
+        if(this.player.hero.health > this.health){
             this.hearts.push(this.add.image(50 + this.health*75,100, "heart").setScale(2,2).setDepth(1));
             this.health++;
         }
-        else if(this.hero.health < this.health){
-            while(this.health > this.hero.health){
+        else if(this.player.hero.health < this.health){
+            while(this.health > this.player.hero.health){
                 this.hearts.pop().destroy();
                 this.health--;    
             }
         } 
 
-        if(this.hero.health <= 0 && this.deathText == null){
+        if(this.player.hero.health <= 0 && this.deathText == null){
             this.deathText = this.add.text(600, 400, 'You are dead', { fontSize: '70px', fill: '#a700ff', strokeThickness: 10, stroke:"#ffffff"});
         }
 
 
-        if(this.checkIfMoneyIsSame != this.hero.money){    
-            this.moneyText.setText(':' + this.hero.money);
-            this.checkIfMoneyIsSame = this.hero.money;
+        if(this.checkIfMoneyIsSame != this.player.money){    
+            this.moneyText.setText(':' + this.player.money);
+            this.checkIfMoneyIsSame = this.player.money;
         }
         else{
 
@@ -81,7 +78,7 @@ export class DayOverlayScene extends Phaser.Scene{
         this.timerText.setText(Math.floor(timeRemaining/60) + ":" + seconds);
         if(timeRemaining <= 0){
             this.scene.stop(SCENES.DAY);
-            this.scene.start(SCENES.NIGHT,{"level":1,"money":this.hero.money+200});
+            this.scene.start(SCENES.NIGHT,{"level":1,"money":this.player.money+200});
             this.scene.stop();
         }
     }
