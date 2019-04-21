@@ -18,7 +18,6 @@ export class DayScene extends Phaser.Scene{
         this.monsterArray;
         this.level = data.level;
         this.mapLevel;
-        this.angle;
          //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
@@ -43,6 +42,9 @@ export class DayScene extends Phaser.Scene{
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.MAGE_HERO, 'assets/images/heroes/mage.json', "assets/images/heroes");
+
+
 
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
 
@@ -103,61 +105,63 @@ export class DayScene extends Phaser.Scene{
         }
 
         //Create the heroes
-        this.heroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
-        this.hero = new DayPlayer({"sprite":this.heroSprite,"physics":this.physics,"keyboard":this.input.keyboard,
-        "health":3,"basicAttack":1, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2.5*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
-        this.heroSprite.class = this.hero;
+        this.shieldHeroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
+        this.swordHeroSprite = this.physics.add.sprite(200,200, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
+        //**********************Make sure that you change Mage hero to Mage, below~!~~~ */
+        this.mageHeroSprite = this.physics.add.sprite(200,200, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
         
-        this.scene.launch(SCENES.DAY_OVERLAY, {"hero":this.hero});
+        let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
+        this.shieldHeroSprite.visible = true;
+        this.swordHeroSprite.visible = false;
+        this.mageHeroSprite.visible = false;
+
+        //First player is always shieldHero
+        //this.player = new DayPlayer({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.player = new DayPlayer({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+
+
+
+
+        //Launch the overlay scene
+        this.scene.launch(SCENES.DAY_OVERLAY, {"player":this.player});
 
 	    //collisions
 	    this.wallLayer.setCollision(2);     //Change this if you want a different tile set. This is the ID.
-        this.physics.add.collider(this.heroSprite,this.wallLayer);
+        this.physics.add.collider(this.player.sprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
-
         //Damaging the player
-        this.physics.add.overlap(this.heroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.hero.lastDamaged/1000) >= o1.scene.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                console.log("You are getting hurt");
-                o1.scene.hero.damage(o2);                               //Decrease the health (from the hero CLASS) when overlaps with enemy
-                o1.scene.hero.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
+        this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
+            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
+                o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
             }
         });
 
         //Camera
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
-        this.cameras.main.startFollow(this.heroSprite);
+        this.cameras.main.startFollow(this.player.sprite);
 
-
-
-
-        //Keyboard space - keycode = 32 
-        //if you use phaser's keyboard.keys, its an if statement, not an event listener
-        //if you don't, it is
-        
-
-
-
-        //Event Listeners
+        //Event Listener
         this.input.on('pointermove', function (pointer) {
             let cursor = pointer;
-            this.angle = Phaser.Math.Angle.Between(this.heroSprite.x, this.heroSprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
+            this.player.angle = Phaser.Math.Angle.Between(this.player.sprite.x, this.player.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
         }, this);
-    
+
+
         this.input.on('pointerdown', function (pointer) {
-            if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.hero.previousTime >= this.hero.attackCooldown ){
-                this.hero.previousTime = Math.floor(this.time.now/1000);
+            if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.hero.attackCooldown ){
+                this.player.previousTime = Math.floor(this.time.now/1000);
                 let pointY;
                 let pointX;
 
                 let dist = 100;
-                pointX = this.heroSprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
-                pointY = this.heroSprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
+                pointX = this.player.sprite.x + dist*(Math.sin(Math.PI/2-this.player.angle)); 
+                pointY = this.player.sprite.y + dist*(Math.cos(Math.PI/2-this.player.angle)); 
 
                 this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
-                this.shieldBeamSprite.class = this.hero;
+                this.shieldBeamSprite.class = this.player;
                 //this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
 
                 //this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
@@ -175,15 +179,14 @@ export class DayScene extends Phaser.Scene{
                 //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
                 this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
 
-                let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.angle)));
-                let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+                let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.player.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.player.angle)));
+                let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.player.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.player.angle + Math.PI/2)));
 
                 this.shieldBeamSprite.body.setSize(xx, yy);
                 this.shieldBeamSprite.body.setOffset(this.shieldBeamSprite.body.offset.x-60, this.shieldBeamSprite.body.offset.y-20)
                 //this.shieldBeamSprite.body.reset(this.shieldBeamSprite.x, this.shieldBeamSprite.y);
 
-
-                this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
+                this.shieldBeamSprite.setRotation(this.player.angle+ Math.PI/2);
 
                 this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
                     this.emit('animationcomplete_' + anim.key, anim, frame);
@@ -198,71 +201,77 @@ export class DayScene extends Phaser.Scene{
                     this.destroy();                   
                 });
 
-                this.heroSprite.on('animationcomplete', function (anim, frame) {
+                this.player.sprite.on('animationcomplete', function (anim, frame) {
                     this.emit('animationcomplete_' + anim.key, anim, frame);
-                }, this.heroSprite);
+                }, this.player.sprite);
                 
-                this.heroSprite.on('animationcomplete_rightBasicAttack', function () {
+                this.player.sprite.on('animationcomplete_rightBasicAttack', function () {
                     //console.log("print");                   
                 });
 
-                this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
+                this.player.attackBasic(pointer, this.player.angle, this.shieldBeamSprite);
+
+
             }
             else if(pointer.rightButtonDown()){
-                this.hero.attackSpecial(pointer, this.angle);
+                this.player.attackSpecial(pointer, this.player.angle);
             }
         }, this);
+
+
         this.input.mouse.disableContextMenu();
-
-        //Taking damage
-
-
-
 
 
 
     }
     update(time, delta){
-        if(this.hero.dead && this.timeOfDeath == null){     //Kill the player and get the time of death
-            this.hero.active = false;
-            this.hero.sprite.destroy();
+        if(this.player.dead && this.timeOfDeath == null){     //Kill the player and get the time of death
+            this.player.active = false;
+            this.player.sprite.destroy();
             this.timeOfDeath = time;
             //console.log(time);
             //console.log(Math.floor(this.timeOfDeath/1000));
 
         }
-        else if(this.hero.dead && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
-            //Shows the game going without the hero for x amount of seconds before it sends the game to the main menu
+        else if(this.player.dead && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
+            //Shows the game going without the Player for x amount of seconds before it sends the game to the main menu
             this.timeOfDeath = null;
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.MAIN_MENU, 'dead');
             this.scene.stop(SCENES.DAY);
         }
         else{
-            this.hero.update(this.angle, time);
+            this.player.update(time);
 
             //Space bar for swapping heroes
-            if(this.input.keyboard.keys[32].isDown && !this.justSwapped){
-
-                //Create the heroes
-                if(this.hero.playerType == HEROES.SHIELD_HERO){
-                    this.heroSprite = this.physics.add.sprite(600, 400, HEROES.SWORD_HERO, 'swordHero/down/0001.png').setScale(5, 5);
-                    let toDestroy = this.hero.sprite;
-                    
-                    this.hero = new DayPlayer({"sprite":this.heroSprite,"physics":this.physics,"keyboard":this.input.keyboard,
-                    "health":3,"basicAttack":3, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2.5*128,"playerType":HEROES.SWORD_HERO, "anims":this.anims});
-                    toDestroy.destroy();
-                    
-                    this.heroSprite.class = this.hero;
+            if(this.input.keyboard.keys[32].isDown && Math.floor(time/1000)-this.player.lastSwapped >= this.player.hero.swapCooldown){
+                //Swap the heroes
+                let tempX = this.player.sprite.x;
+                let tempY = this.player.sprite.y;
+                switch(this.player.swap()){
+                    case HEROES.SHIELD_HERO: 
+                        this.shieldHeroSprite.visible = true;
+                        this.swordHeroSprite.visible = false;
+                        this.mageHeroSprite.visible = false;
+                        break;
+                    case HEROES.SWORD_HERO:
+                        this.shieldHeroSprite.visible = false;
+                        this.swordHeroSprite.visible = true;
+                        this.mageHeroSprite.visible = false;
+                        break;
+                    case HEROES.MAGE_HERO:
+                        this.shieldHeroSprite.visible = false;
+                        this.swordHeroSprite.visible = false;
+                        this.mageHeroSprite.visible = true;
+                        break;
                 }
 
-
-
-                this.scene.launch(SCENES.DAY_OVERLAY, {"hero":this.hero});
-                
-
+                this.player.sprite.x = tempX;
+                this.player.sprite.y = tempY;
+                this.cameras.main.startFollow(this.player.sprite);
+                this.physics.add.collider(this.player.sprite,this.wallLayer);
+                this.player.lastSwapped = Math.floor(time/1000);
             }
-
             if(this.input.keyboard.keys[27].isDown && !this.justPaused){
                 this.justPaused = true
                 this.input.keyboard.keys[68].isDown = false
