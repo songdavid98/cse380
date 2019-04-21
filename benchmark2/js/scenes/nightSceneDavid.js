@@ -7,21 +7,21 @@ import {
 import {
     DEFSTR
 } from "../constants/DefenseStructureTypes.js";
-import {
-    NightEnemy
-} from "../gamePlay/NightEnemy.js";
+//import {
+//    NightEnemy
+//} from "../gamePlay/NightEnemy.js";
 import {
     NightDefenseStructure
-} from "../gamePlay/NightDefenseStructure.js";
+} from "../gamePlay/NightDefenseStructureDavid.js";
 
 
 import {
     Slime
-} from "../gamePlay/Slime.js";
+} from "../gamePlay/Monsters/Slime.js";
 
 import {
     Cannon
-} from "../gamePlay/Cannon.js";
+} from "../gamePlay/Towers/Cannon.js";
 
 
 export class NightScene extends Phaser.Scene {
@@ -32,11 +32,11 @@ export class NightScene extends Phaser.Scene {
     }
     init(data) {
         console.log(data);
-        console.log("entered night");
+        console.log("entered night scene david");
         this.time;
         this.map;
 
-        this.wintime = -1;
+        this.gameEndTime = -1;
         this.wavesLeft = 3;
 
         this.level = data.level;
@@ -61,12 +61,11 @@ export class NightScene extends Phaser.Scene {
         this.enemies = new Array();
         this.defStrs = new Array();
 
-        this.chosenDefStr = null;
-
         this.defStrsSpritesGroup = this.physics.add.group();
         this.enemySpritesGroup = this.physics.add.group(); //a bunch of enemy sprites
 
-
+        this.towerToBePlaced = null;
+        this.towerSpriteForBuying = null;
     }
 
     preload() {
@@ -107,6 +106,15 @@ export class NightScene extends Phaser.Scene {
             stroke: "#000000"
         });
 
+        //add heart
+        this.add.image(100, 100, "heart").setDepth(3).setScale(2, 2);
+        this.heartText = this.add.text(150, 70, this.villageHealth, {
+            fontSize: '65px',
+            fill: '#fff',
+            strokeThickness: 10,
+            stroke: "#000000"
+        });
+
         //create buttons
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
         let buywall = this.add.image(this.buttonX, this.buttonYinc * 3, "buywall").setDepth(3).setScale(1.5, 1.5);
@@ -117,7 +125,9 @@ export class NightScene extends Phaser.Scene {
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
-
+            if (this.wavesLeft < 1)
+                return;
+            this.wavesLeft--;
             //make a swtich case, to spawn different things for each level
             //Create the enemies
             switch (this.level) {
@@ -127,24 +137,21 @@ export class NightScene extends Phaser.Scene {
                         [1600, 320]
                     ];
                     let slimeCount = slimeSpawnArr.length;
-
-                    for (let i = 0; i < this.slimeCount; i++) {
+                    for (let i = 0; i < slimeCount; i++) {
                         let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
                         this.enemySpritesGroup.add(enemySprite);
-                        this.enemies.push(
-                            new Slime({
-                                "x": slimeSpawnArr[i][0],
-                                "y": slimeSpawnArr[i][1],
-                                "sprite": enemySprite,
-                                "physics": this.physics,
-                                "anims": this.anims
-                            }));
+                        let newSlime = new Slime({
+                            //                            "x": slimeSpawnArr[i][0],
+                            //                            "y": slimeSpawnArr[i][1],
+                            "sprite": enemySprite,
+                            "physics": this.physics,
+                            "anims": this.anims
+                        });
+                        this.enemies.push(newSlime);
                     }
-
                     //Set collisions
                     this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
 
-                    this.wavesLeft = 3;
                     break;
 
                 case 2:
@@ -178,24 +185,20 @@ export class NightScene extends Phaser.Scene {
             //console.log(this);
 
             if (!this.alreadyClicked && this.money >= 200 && !this.startDragging) {
-                this.chosenDefStr = DEFSTR.CANNON;
+
+                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
+                this.towerToBePlaced = new Cannon({
+                    "sprite": this.towerSpriteForBuying,
+                    "physics": this.physics,
+                    "anims": this.anims
+                });
+
+                this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
                 this.money -= 200;
                 this.startDragging = true;
 
-                let cannonSprite = this.physics.add.sprite(400, 500, DEFSTR.CANNON, '0001.png').setScale(5, 5);
-
-                this.defStrsSpriteGroup.add(cannonSprite);
-
-                this.towerToBePlaced = new Cannon({
-                    "sprite": cannonSprite,
-                    "physics": this.physics,
-                    "anims": this.anims
-
-                });
-
                 //tower.placed = false;
                 //placed will be false by default on creation
-
                 this.defStrs.push(this.towerToBePlaced);
 
             }
@@ -204,15 +207,15 @@ export class NightScene extends Phaser.Scene {
 
         this.input.on("pointermove", function (pointer) {
             if (this.scene.startDragging) {
-                if (this.scene.chosenDefStr == DEFSTR.CANNON) {
-                    this.scene.cannon.x = pointer.x;
-                    this.scene.cannon.y = pointer.y;
+                if (this.scene.towerToBePlaced.defStrType == DEFSTR.CANNON) {
+                    this.scene.towerSpriteForBuying.x = pointer.x;
+                    this.scene.towerSpriteForBuying.y = pointer.y;
                 }
                 //if the pointer is not in bounds
-                if (this.scene.cannon.x <= this.scene.minX || pointer.y <= this.scene.minY) {
-                    this.scene.cannon.alpha = 0.5;
+                if (pointer.x <= this.scene.minX || pointer.y <= this.scene.minY) {
+                    this.scene.towerSpriteForBuying.alpha = 0.5;
                 } else {
-                    this.scene.cannon.alpha = 1;
+                    this.scene.towerSpriteForBuying.alpha = 1;
                 }
             }
             pointer = null;
@@ -222,10 +225,11 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
             //if pointer is in bounds and a tower is chosen
-            if (this.chosenDefStr != null && pointer.x > this.minX && pointer.y > this.minY) {
+            if (this.towerToBePlaced != null && pointer.x > this.minX && pointer.y > this.minY) {
                 this.towerToBePlaced.placed = true;
                 this.startDragging = false;
-                this.chosenDefStr = null;
+                this.towerToBePlaced = null;
+                this.towerSpriteForBuying = null;
             }
             pointer = null;
         });
@@ -235,25 +239,36 @@ export class NightScene extends Phaser.Scene {
     }
     update(time, delta) {
         // you get sent back to the splash screen after 5 seconds pass after you've won
-        if (this.wintime != -1 && Math.floor((time - this.wintime) / 1000) >= 5) {
+        if (this.gameEndTime != -1 && ((time - this.gameEndTime) / 1000) >= 5) {
             this.scene.start(SCENES.SPLASH);
             this.scene.stop();
         }
+
+        if (this.gameEndTime == -1) {
+
+        }
         //you win after you've defeating everything and village still alive
-        else if (this.wintime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+        else if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
             this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
                 strokeThickness: 10,
                 stroke: "#000000"
             });
-            this.wintime = time;
+            this.gameEndTime = time;
         }
 
-        if (this.villageHealth <= 0) {
-            this.scene.start(SCENES.MAIN_MENU);
-            this.scene.stop();
+        //obviously lose here
+        if (this.gameEndTime == -1 && this.villageHealth <= 0) {
+            this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You lose!", {
+                fontSize: '65px',
+                fill: '#fff',
+                strokeThickness: 10,
+                stroke: "#000000"
+            });
+            this.gameEndTime = time;
         }
+
         if (this.input.keyboard.keys[27].isDown && !this.justPaused) {
             this.justPaused = true
             this.scene.launch(SCENES.PAUSE, {
@@ -270,12 +285,23 @@ export class NightScene extends Phaser.Scene {
         }
 
         if (this.enemies) {
-            for (let i = 0; i < this.enemies.length; i++)
-                this.enemies[i].update(time);
+            for (let i = 0; i < this.enemies.length; i++) {
+                let enem = this.enemies[i];
+                if (enem.sprite.x <= 0) {
+                    this.villageHealth--;
+                    enem.health = 0;
+                }
+                if (enem.health <= 0) {
+                    enem.sprite.destroy();
+                    enem.active = false;
+                    this.enemies.splice(i, 1);
+                    i--;
+                } else
+                    enem.nightUpdate(time);
+            }
         }
 
         this.moneyText.setText(":" + this.money);
-        //console.log(this.chosenDefStr);
         if (this.villageHealth <= 0) {
             this.heartText.setText(0);
         } else {

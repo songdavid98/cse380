@@ -1,10 +1,15 @@
 import {
     ENEMIES
-} from "../constants/EnemyTypes.js";
+} from "../../constants/EnemyTypes.js";
+
+import {
+    Enemy
+} from "../EnemyDavid.js";
 
 export class Slime extends Enemy {
 
     constructor(data) {
+        super(data);
         this.enemyType = ENEMIES.SLIME; // like slime
         this.health = 5;
         this.basicAttack = 1;
@@ -12,11 +17,12 @@ export class Slime extends Enemy {
         this.speed = 100;
         this.money = 10;
 
-        this.sprite = data.sprite;
-        this.physics = data.physics;
-        this.anims = data.anims;
-
-        this.active = true; //FIXME: remove this
+        //taken care of in super constructor
+        //        this.sprite = data.sprite;
+        //        this.physics = data.physics;
+        //        this.anims = data.anims;
+        //        this.distanceTraveled = 0;
+        //        this.active = true;
 
         this.create();
 
@@ -86,11 +92,12 @@ export class Slime extends Enemy {
         //have dayscene activity here
     }
     nightUpdate(time) {
-        if (this.active) {
-            this.sprite.body.setVelocityX(-1 * this.speed);
-            this.sprite.body.setVelocityY(0);
-            this.sprite.anims.play("leftSlime", true);
-        }
+        super.nightUpdate(time);
+        //        if (this.active) {
+        //            this.sprite.body.setVelocityX(-1 * this.speed);
+        //            this.sprite.body.setVelocityY(0);
+        //            this.sprite.anims.play("leftSlime", true);
+        //        }
     }
 
 }

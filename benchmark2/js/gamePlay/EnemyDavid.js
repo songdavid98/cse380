@@ -9,17 +9,18 @@ export class Enemy {
         this.distanceTraveled = 0;
 
         this.sprite = data.sprite;
-        //sprite has attributes x and y
-
-        this.enemyType = data.enemyType; // like slime
-        this.health = data.health;
-        this.basicAttack = data.basicAttack;
-        this.basicAttackSpeed = data.basicAttackSpeed;
-        this.speed = data.speed;
         this.physics = data.physics;
         this.anims = data.anims;
+        //sprite has attributes x and y
+
+        //        this.enemyType = data.enemyType; // like slime
+        //        this.health = data.health;
+        //        this.basicAttack = data.basicAttack;
+        //        this.basicAttackSpeed = data.basicAttackSpeed;
+        //        this.speed = data.speed;
+        //
         this.active = true;
-        this.create();
+        //        this.create();
 
     }
     init() {}
@@ -74,6 +75,7 @@ export class Enemy {
 
     nightUpdate(time) {
         if (this.active) {
+            this.distanceTraveled += this.speed;
             this.sprite.body.setVelocityX(-1 * this.speed);
             this.sprite.body.setVelocityY(0);
             //this.sprite.anims.play("leftSlime", true);

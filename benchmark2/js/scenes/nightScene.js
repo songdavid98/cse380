@@ -54,7 +54,7 @@ export class NightScene extends Phaser.Scene {
         ];
 
         this.slimeCount = this.slimeSpawnArr.length;
-
+        
         this.defStrs = new Array();
         this.chosenDefStr = null;
     }
