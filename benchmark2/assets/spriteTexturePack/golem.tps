@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>phaser</string>
         <key>textureFileName</key>
-        <filename>../images/enemies/slime.png</filename>
+        <filename>../images/enemies/golem.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/enemies/slime.json</filename>
+                <filename>../images/enemies/golem.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -163,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -181,53 +181,32 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/enemies/slime/down/0001.png</key>
-            <key type="filename">../images/enemies/slime/down/0002.png</key>
-            <key type="filename">../images/enemies/slime/down/0003.png</key>
-            <key type="filename">../images/enemies/slime/down/0004.png</key>
-            <key type="filename">../images/enemies/slime/down/0005.png</key>
-            <key type="filename">../images/enemies/slime/down/0006.png</key>
-            <key type="filename">../images/enemies/slime/left/0001.png</key>
-            <key type="filename">../images/enemies/slime/left/0002.png</key>
-            <key type="filename">../images/enemies/slime/left/0003.png</key>
-            <key type="filename">../images/enemies/slime/left/0004.png</key>
-            <key type="filename">../images/enemies/slime/left/0005.png</key>
-            <key type="filename">../images/enemies/slime/left/0006.png</key>
-            <key type="filename">../images/enemies/slime/right/0001.png</key>
-            <key type="filename">../images/enemies/slime/right/0002.png</key>
-            <key type="filename">../images/enemies/slime/right/0003.png</key>
-            <key type="filename">../images/enemies/slime/right/0004.png</key>
-            <key type="filename">../images/enemies/slime/right/0005.png</key>
-            <key type="filename">../images/enemies/slime/right/0006.png</key>
-            <key type="filename">../images/enemies/slime/up/0001.png</key>
-            <key type="filename">../images/enemies/slime/up/0002.png</key>
-            <key type="filename">../images/enemies/slime/up/0003.png</key>
-            <key type="filename">../images/enemies/slime/up/0004.png</key>
-            <key type="filename">../images/enemies/slime/up/0005.png</key>
-            <key type="filename">../images/enemies/slime/up/0006.png</key>
+            <key type="filename">../images/enemies/golem/down/0001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>4,3,7,5</rect>
+                <rect>8,8,16,16</rect>
                 <key>scale9Paddings</key>
-                <rect>4,3,7,5</rect>
+                <rect>8,8,16,16</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/enemies/slime</filename>
+            <filename>../images/enemies/golem</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array/>
+        <array>
+            <string>phaser3-exporter-beta</string>
+        </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>

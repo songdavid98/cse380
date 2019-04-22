@@ -15,7 +15,7 @@ export class DayScene extends Phaser.Scene{
     init(data){
         this.timer;         //Day Countdown timer ~ 2min?
         this.map;
-        this.monsterArray;
+        this.monsterArray = new Array();
         this.level = data.level;
         this.mapLevel;
          //This variable is used for attack cooldowns as well as time in between damages from monsters
@@ -105,15 +105,15 @@ export class DayScene extends Phaser.Scene{
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
         for(var i = 0; i < this.slimeCount; i++){
-            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
             this.enemyGroup.add(slimeSprite);
             this.slime = new DayEnemy({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
             this.monsterArray.push(this.slime);
         }
 
         for(var i = 0; i < this.golemCount; i++){
-            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'golem/down/0001.png').setScale(5, 5);
-            this.enemyGroup.add(this.golemSprite);
+            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
+            this.enemyGroup.add(golemSprite);
             this.golem = new DayEnemy({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
             this.monsterArray.push(this.golem);
         }
@@ -305,7 +305,7 @@ export class DayScene extends Phaser.Scene{
                     this.justPaused = false;
                 }
 
-            for(let i = 0; i < this.monsterArray.size(); i++){
+            for(let i = 0; i < this.monsterArray.length; i++){
                 this.monsterArray[i].update(time);
             }
         }

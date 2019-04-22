@@ -37,7 +37,7 @@ export class Slime extends Enemy {
             start: 1,
             end: 6,
             zeroPad: 4,
-            prefix: 'slime/down/',
+            prefix: 'down/',
             suffix: '.png'
         });
         this.anims.create({
@@ -50,7 +50,7 @@ export class Slime extends Enemy {
             start: 1,
             end: 6,
             zeroPad: 4,
-            prefix: 'slime/up/',
+            prefix: 'up/',
             suffix: '.png'
         });
         this.anims.create({
@@ -63,7 +63,7 @@ export class Slime extends Enemy {
             start: 1,
             end: 6,
             zeroPad: 4,
-            prefix: 'slime/left/',
+            prefix: 'left/',
             suffix: '.png'
         });
         this.anims.create({
@@ -76,7 +76,7 @@ export class Slime extends Enemy {
             start: 1,
             end: 6,
             zeroPad: 4,
-            prefix: 'slime/right/',
+            prefix: 'right/',
             suffix: '.png'
         });
         this.anims.create({
