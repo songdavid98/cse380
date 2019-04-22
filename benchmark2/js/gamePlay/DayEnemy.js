@@ -7,17 +7,17 @@ export class DayEnemy {
     constructor(data) {
         this.sprite = data.sprite;
         this.enemyType = data.enemyType; //Sword, mage, shield?
-        this.health = data.health;
-        this.basicAttack = data.basicAttack;
-        this.basicAttackSpeed = data.basicAttackSpeed;
-        this.speed = data.speed;
-        //this.keyboard = data.keyboard;
+        this.allEnemySprites = data.allEnemySprites;
+
+        //this.keyboard = data.keyboard;        //Do monsters need keyboard? I THINK NOT!!
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true; //FIXME: remove this
-        this.money = 10;
-        this.create();
+        this.dead = false;
+        this.angle = 0;
 
+
+        this.create();
 
         this.moveCounter = new Array(this.sprite.length).fill(0);
         this.movement = new Array(this.sprite.length).fill(Math.random() * 100);

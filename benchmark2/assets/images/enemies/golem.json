@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "golem.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 34,
+				"h": 32
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "down/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 32,
+						"h": 30
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 32,
+						"h": 30
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:2b5fededb10afd3e6b7804245cb34fba:0a4e031a77bb03cbc922f8a8693fd553:4ac9190e07869895319abdaddf310eff$"
+	}
+}

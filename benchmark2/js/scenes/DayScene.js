@@ -35,6 +35,14 @@ export class DayScene extends Phaser.Scene{
 
         this.slimeCount = this.slimeSpawnArr.length;
 
+        this.golemSpawnArr = [
+            [700,1000],
+            [300,400],
+ 
+        ];
+
+        this.golemCount = this.golemSpawnArr.length;
+
 
     }
     preload(){
@@ -45,7 +53,7 @@ export class DayScene extends Phaser.Scene{
         this.load.multiatlas(HEROES.MAGE_HERO, 'assets/images/heroes/mage.json', "assets/images/heroes");
 
 
-
+        this.load.multiatlas(ENEMIES.GOLEM, 'assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
 
 
@@ -97,11 +105,17 @@ export class DayScene extends Phaser.Scene{
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
         for(var i = 0; i < this.slimeCount; i++){
-            this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-            this.enemyGroup.add(this.enemySprite);
-            this.enemies = new DayEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
-            "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
-            this.enemySprite.class = this.enemies;  //Getting the class (to get the features) from the image (sprite)
+            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+            this.enemyGroup.add(slimeSprite);
+            this.slime = new DayEnemy({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+            this.monsterArray.push(this.slime);
+        }
+
+        for(var i = 0; i < this.golemCount; i++){
+            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'golem/down/0001.png').setScale(5, 5);
+            this.enemyGroup.add(this.golemSprite);
+            this.golem = new DayEnemy({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
+            this.monsterArray.push(this.golem);
         }
 
         //Create the heroes
@@ -278,33 +292,22 @@ export class DayScene extends Phaser.Scene{
                 });
                 this.player.lastSwapped = Math.floor(time/1000);
             }
-            if(this.input.keyboard.keys[27].isDown && !this.justPaused){
-                this.justPaused = true
-                this.input.keyboard.keys[68].isDown = false
-                this.input.keyboard.keys[65].isDown = false
-                this.input.keyboard.keys[87].isDown = false
-                this.input.keyboard.keys[83].isDown = false
-                this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY, SCENES.DAY_OVERLAY]});
-                this.scene.pause(SCENES.DAY_OVERLAY)
-                this.scene.pause();
-            }else if(this.input.keyboard.keys[27].isUp){
-                this.justPaused = false;
+                if(this.input.keyboard.keys[27].isDown && !this.justPaused){
+                    this.justPaused = true
+                    this.input.keyboard.keys[68].isDown = false
+                    this.input.keyboard.keys[65].isDown = false
+                    this.input.keyboard.keys[87].isDown = false
+                    this.input.keyboard.keys[83].isDown = false
+                    this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY, SCENES.DAY_OVERLAY]});
+                    this.scene.pause(SCENES.DAY_OVERLAY)
+                    this.scene.pause();
+                }else if(this.input.keyboard.keys[27].isUp){
+                    this.justPaused = false;
+                }
+
+            for(let i = 0; i < this.monsterArray.size(); i++){
+                this.monsterArray[i].update(time);
             }
         }
-
-        this.enemies.update(time);
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
