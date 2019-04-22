@@ -4,7 +4,7 @@ import {
 
 import {
     Enemy
-} from "../EnemyDavid.js";
+} from "../Enemy.js";
 
 export class Golem extends Enemy {
 

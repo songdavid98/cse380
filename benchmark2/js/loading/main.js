@@ -21,7 +21,7 @@ import {
 } from "../scenes/DayScene.js"
 import {
     NightScene
-} from "../scenes/nightSceneDavid.js"
+} from "../scenes/nightScene.js"
 import {
     PauseScene
 } from "../scenes/PauseScene.js"

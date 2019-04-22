@@ -7,7 +7,7 @@ import {
 
 import {
     NightDefenseStructure
-} from "../NightDefenseStructureDavid.js";
+} from "../NightDefenseStructure.js";
 
 export class Cannon extends NightDefenseStructure {
     constructor(data) {

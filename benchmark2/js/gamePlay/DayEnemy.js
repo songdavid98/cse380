@@ -6,10 +6,9 @@ import {
 export class DayEnemy {
     constructor(data) {
         this.sprite = data.sprite;
-        this.enemyType = data.enemyType; //Sword, mage, shield?
+        this.enemyType = data.enemyType;
         this.allEnemySprites = data.allEnemySprites;
 
-        //this.keyboard = data.keyboard;        //Do monsters need keyboard? I THINK NOT!!
         this.physics = data.physics;
         this.anims = data.anims;
         this.active = true; //FIXME: remove this

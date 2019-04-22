@@ -4,7 +4,7 @@ import {
 
 import {
     Enemy
-} from "../EnemyDavid.js";
+} from "../Enemy.js";
 
 export class Slime extends Enemy {
 
@@ -90,6 +90,49 @@ export class Slime extends Enemy {
 
     dayUpdate(time) {
         //have dayscene activity here
+        if (this.sprite.active) {
+            if (this.goX[i] && this.goY[i]) {
+                this.sprite.body.setVelocityX(this.movement[i]);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play("rightSlime", true);
+                this.moveCounter[i]++;
+                if (this.moveCounter[i] >= 50) {
+                    this.goX[i] = false;
+                    this.goY[i] = false;
+                    this.moveCounter[i] = 0;
+                }
+            } else if (this.goX[i] == false && this.goY[i] == false) {
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(this.movement[i]);
+                this.sprite.anims.play("downSlime", true);
+                this.moveCounter[i]++;
+                if (this.moveCounter[i] >= 50) {
+                    this.goX[i] = true;
+                    this.goY[i] = false;
+                    this.moveCounter[i] = 0;
+                }
+            } else if (this.goX[i] == true && this.goY[i] == false) {
+                this.sprite.body.setVelocityX(-this.movement[i]);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play("leftSlime", true);
+                this.moveCounter[i]--;
+                if (this.moveCounter[i] <= -50) {
+                    this.goX[i] = false;
+                    this.goY[i] = true;
+                    this.moveCounter[i] = 0;
+                }
+            } else if (this.goX[i] == false && this.goY[i] == true) {
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(-this.movement[i]);
+                this.sprite.anims.play("upSlime", true);
+                this.moveCounter[i]--;
+                if (this.moveCounter[i] <= -50) {
+                    this.goX[i] = true;
+                    this.goY[i] = true;
+                    this.moveCounter[i] = 0;
+                }
+            }
+        }
     }
     nightUpdate(time) {
         super.nightUpdate(time);
