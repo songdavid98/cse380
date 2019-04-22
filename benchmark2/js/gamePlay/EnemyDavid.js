@@ -5,27 +5,80 @@ import {
 
 export class Enemy {
     constructor(data) {
-
-        this.distanceTraveled = 0;
-
+        this.distanceTraveled = 0;              //Night stuff
         this.sprite = data.sprite;
+        this.enemyType = data.enemyType;        
+        this.allEnemySprites = data.allEnemySprites;
+
         this.physics = data.physics;
         this.anims = data.anims;
+        this.dead = false;
+        this.angle = 0;
+
         //sprite has attributes x and y
 
-        //        this.enemyType = data.enemyType; // like slime
-        //        this.health = data.health;
-        //        this.basicAttack = data.basicAttack;
-        //        this.basicAttackSpeed = data.basicAttackSpeed;
-        //        this.speed = data.speed;
-        //
         this.active = true;
         //        this.create();
 
     }
     init() {}
 
-    create() {}
+    create() {
+
+        var downFrames = this.anims.generateFrameNames(this.enemyType, {
+            start: 1,
+            end: 6,
+            zeroPad: 4,
+            prefix: 'slime/down/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'downSlime',
+            frames: downFrames,
+            frameRate: 5,
+            repeat: -1
+        });
+        var upFrames = this.anims.generateFrameNames(this.enemyType, {
+            start: 1,
+            end: 6,
+            zeroPad: 4,
+            prefix: 'slime/up/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'upSlime',
+            frames: upFrames,
+            frameRate: 5,
+            repeat: -1
+        });
+        var leftFrames = this.anims.generateFrameNames(this.enemyType, {
+            start: 1,
+            end: 6,
+            zeroPad: 4,
+            prefix: 'slime/left/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'leftSlime',
+            frames: leftFrames,
+            frameRate: 5,
+            repeat: -1
+        });
+        var rightFrames = this.anims.generateFrameNames(this.enemyType, {
+            start: 1,
+            end: 6,
+            zeroPad: 4,
+            prefix: 'slime/right/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'rightSlime',
+            frames: rightFrames,
+            frameRate: 5,
+            repeat: -1
+        });
+
+    }
 
     dayUpdate() {
         if (this.sprite.active) {
