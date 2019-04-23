@@ -11,6 +11,7 @@ export class Slime extends Enemy{       // ---- someone fix this~
         this.basicAttackSpeed = 80;
         this.speed = 20;
         this.movement = 60; //Monster keeps moving in square pattern for now
+        this.killCost = 10;
         
         //taken care of in super constructor
         //        this.sprite = data.sprite;

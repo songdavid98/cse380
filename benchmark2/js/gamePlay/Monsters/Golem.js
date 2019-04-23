@@ -11,6 +11,8 @@ export class Golem extends Enemy{       //   ---- Someone fix this~
         this.basicAttackSpeed = 80;
         this.speed = 20;
         this.movement = 80; //Monster keeps moving in square pattern for now
+        this.killCost = 20;
+
 
         //taken care of in super constructor
         //        this.sprite = data.sprite;

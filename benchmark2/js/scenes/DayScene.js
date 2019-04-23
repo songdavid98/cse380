@@ -3,10 +3,14 @@
 import {SCENES} from "../constants/SceneNames.js";
 import {HEROES} from "../constants/PlayerTypes.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
-import {DayPlayer} from "../gamePlay/DayPlayer.js";
+//import {DayPlayer} from "../gamePlay/DayPlayer.js";   //Don't use this!!!!!!!!!
 //import {Enemy} from "../gamePlay/Enemy.js";           //Don't use this!!!!!!!!!
 import {Slime} from "../gamePlay/Monsters/Slime.js";
 import {Golem} from "../gamePlay/Monsters/Golem.js";
+import { ShieldHero } from "../gamePlay/Heroes/ShieldHero.js";
+import { SwordHero } from "../gamePlay/Heroes/SwordHero.js";
+import { MageHero } from "../gamePlay/Heroes/MageHero.js";
+
 
 
 export class DayScene extends Phaser.Scene{
@@ -111,6 +115,7 @@ export class DayScene extends Phaser.Scene{
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+            slimeSprite.class = slime;
             this.monsterArray.push(slime);
         }
 
@@ -118,6 +123,7 @@ export class DayScene extends Phaser.Scene{
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
             this.enemyGroup.add(golemSprite);
             let golem = new Golem({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
+            golemSprite.class = golem;
             this.monsterArray.push(golem);
         }
 
@@ -133,11 +139,11 @@ export class DayScene extends Phaser.Scene{
         this.mageHeroSprite.visible = false;
 
         //First player is always shieldHero
-        //this.player = new DayPlayer({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
-        this.player = new DayPlayer({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.swordHero = new SwordHero({"playerType":HEROES.SWORD_HERO,"sprite":this.swordHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.mageHero = new MageHero({"playerType":HEROES.MAGE_HERO,"sprite":this.mageHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
 
-
-
+        this.player = this.shieldHero;
 
         //Launch the overlay scene
         this.scene.launch(SCENES.DAY_OVERLAY, {"player":this.player});
@@ -149,7 +155,7 @@ export class DayScene extends Phaser.Scene{
 
         //Damaging the player
         this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
             }
@@ -167,7 +173,7 @@ export class DayScene extends Phaser.Scene{
 
 
         this.input.on('pointerdown', function (pointer) {
-            if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.hero.attackCooldown ){
+            if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.attackCooldown ){
                 this.player.previousTime = Math.floor(this.time.now/1000);
                 let pointY;
                 let pointX;
@@ -183,7 +189,7 @@ export class DayScene extends Phaser.Scene{
                 //this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
                 this.physics.add.overlap(this.shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
                     o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
-                    o2.active = false;
+                    o2.class.active = false;
                     o1.class.getMoney(o2);
                     o2.destroy();
                     if(!o1.colliding){
@@ -211,7 +217,7 @@ export class DayScene extends Phaser.Scene{
                 this.shieldBeamSprite.on('animationcomplete_shield', function (o1) {
                     if(this.colliding){
                         for(var i = 0; i < this.colliding.length; i++){
-                            this.colliding[i].active = true;
+                            this.colliding[i].class.active = true;
                         }
                     }
                     this.destroy();                   
@@ -260,22 +266,27 @@ export class DayScene extends Phaser.Scene{
             this.player.update(time);
 
             //Space bar for swapping heroes
-            if(this.input.keyboard.keys[32].isDown && Math.floor(time/1000)-this.player.lastSwapped >= this.player.hero.swapCooldown){
+            if(this.input.keyboard.keys[32].isDown && Math.floor(time/1000)-this.player.lastSwapped >= this.player.swapCooldown){
                 //Swap the heroes
                 let tempX = this.player.sprite.x;
                 let tempY = this.player.sprite.y;
                 switch(this.player.swap()){
                     case HEROES.SHIELD_HERO: 
+                        this.player = this.shieldHero;
+                        this.player.create();
                         this.shieldHeroSprite.visible = true;
                         this.swordHeroSprite.visible = false;
                         this.mageHeroSprite.visible = false;
                         break;
                     case HEROES.SWORD_HERO:
+                        this.player = this.swordHero;
                         this.shieldHeroSprite.visible = false;
                         this.swordHeroSprite.visible = true;
                         this.mageHeroSprite.visible = false;
                         break;
                     case HEROES.MAGE_HERO:
+                        this.player = this.mageHero;
+                        this.player.create();
                         this.shieldHeroSprite.visible = false;
                         this.swordHeroSprite.visible = false;
                         this.mageHeroSprite.visible = true;
@@ -288,7 +299,7 @@ export class DayScene extends Phaser.Scene{
                 this.physics.add.collider(this.player.sprite,this.wallLayer);
                 //Damaging the player
                 this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
-                    if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+                    if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                         o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                         o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
                     }

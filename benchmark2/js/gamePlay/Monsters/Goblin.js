@@ -15,7 +15,8 @@ export class Goblin extends Enemy {
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 100;
-        this.money = 10;
+        this.killCost = 15;
+
 
         //taken care of in super constructor
         //        this.sprite = data.sprite;
