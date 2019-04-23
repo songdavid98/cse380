@@ -4,7 +4,8 @@ import {SCENES} from "../constants/SceneNames.js";
 import {HEROES} from "../constants/PlayerTypes.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
 import {DayPlayer} from "../gamePlay/DayPlayer.js";
-import {DayEnemy} from "../gamePlay/DayEnemy.js";
+import {Enemy} from "../gamePlay/Enemy.js";
+
 
 export class DayScene extends Phaser.Scene{
     constructor(){
@@ -36,8 +37,8 @@ export class DayScene extends Phaser.Scene{
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
-            [700,1000],
-            [300,400],
+            [300,2000],
+            [1400,1500],
  
         ];
 
@@ -107,14 +108,14 @@ export class DayScene extends Phaser.Scene{
         for(var i = 0; i < this.slimeCount; i++){
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
             this.enemyGroup.add(slimeSprite);
-            this.slime = new DayEnemy({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+            this.slime = new Enemy({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
             this.monsterArray.push(this.slime);
         }
 
         for(var i = 0; i < this.golemCount; i++){
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
             this.enemyGroup.add(golemSprite);
-            this.golem = new DayEnemy({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
+            this.golem = new Enemy({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
             this.monsterArray.push(this.golem);
         }
 
@@ -306,7 +307,7 @@ export class DayScene extends Phaser.Scene{
                 }
 
             for(let i = 0; i < this.monsterArray.length; i++){
-                this.monsterArray[i].update(time);
+                var monster = this.monsterArray[i].dayUpdate(time);
             }
         }
     }

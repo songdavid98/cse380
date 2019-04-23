@@ -6,7 +6,7 @@ import {
     Enemy
 } from "../Enemy.js";
 
-export class Golem extends Enemy {
+export class Golem extends Enemy{       //   ---- Someone fix this~
 
     constructor(data) {
         super(data);
@@ -15,12 +15,11 @@ export class Golem extends Enemy {
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 100;
-        this.money = 10;
-
+        this.movement = 100; //Monster keeps moving in square pattern for now
         //taken care of in super constructor
-        //        this.sprite = data.sprite;
+                this.sprite = data.sprite;
         //        this.physics = data.physics;
-        //        this.anims = data.anims;
+                this.anims = data.anims;
         //        this.distanceTraveled = 0;
         //        this.active = true;
 
@@ -33,58 +32,7 @@ export class Golem extends Enemy {
 
     create() {
 
-        var downFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/down/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'downSlime',
-            frames: downFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var upFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/up/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'upSlime',
-            frames: upFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var leftFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/left/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'leftSlime',
-            frames: leftFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var rightFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'slime/right/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'rightSlime',
-            frames: rightFrames,
-            frameRate: 5,
-            repeat: -1
-        });
+       
 
     }
 

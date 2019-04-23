@@ -6,7 +6,7 @@ import {
     Enemy
 } from "../Enemy.js";
 
-export class Slime extends Enemy {
+export class Slime extends Enemy{       // ---- someone fix this~
 
     constructor(data) {
         super(data);
@@ -14,8 +14,8 @@ export class Slime extends Enemy {
         this.health = 5;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
-        this.speed = 100;
-        this.money = 10;
+        this.speed = 10;
+        this.movement = 50; //Monster keeps moving in square pattern for now
 
         //taken care of in super constructor
         //        this.sprite = data.sprite;
