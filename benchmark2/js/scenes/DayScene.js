@@ -4,7 +4,9 @@ import {SCENES} from "../constants/SceneNames.js";
 import {HEROES} from "../constants/PlayerTypes.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
 import {DayPlayer} from "../gamePlay/DayPlayer.js";
-import {Enemy} from "../gamePlay/Enemy.js";
+//import {Enemy} from "../gamePlay/Enemy.js";           //Don't use this!!!!!!!!!
+import {Slime} from "../gamePlay/Monsters/Slime.js";
+import {Golem} from "../gamePlay/Monsters/Golem.js";
 
 
 export class DayScene extends Phaser.Scene{
@@ -38,7 +40,7 @@ export class DayScene extends Phaser.Scene{
 
         this.golemSpawnArr = [
             [300,2000],
-            [1400,1500],
+            [1400,1500]
  
         ];
 
@@ -108,15 +110,15 @@ export class DayScene extends Phaser.Scene{
         for(var i = 0; i < this.slimeCount; i++){
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
             this.enemyGroup.add(slimeSprite);
-            this.slime = new Enemy({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
-            this.monsterArray.push(this.slime);
+            let slime = new Slime({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+            this.monsterArray.push(slime);
         }
 
         for(var i = 0; i < this.golemCount; i++){
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
             this.enemyGroup.add(golemSprite);
-            this.golem = new Enemy({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
-            this.monsterArray.push(this.golem);
+            let golem = new Golem({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
+            this.monsterArray.push(golem);
         }
 
         //Create the heroes

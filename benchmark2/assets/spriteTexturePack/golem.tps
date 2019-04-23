@@ -182,6 +182,21 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">../images/enemies/golem/down/0001.png</key>
+            <key type="filename">../images/enemies/golem/down/0002.png</key>
+            <key type="filename">../images/enemies/golem/down/0003.png</key>
+            <key type="filename">../images/enemies/golem/down/0004.png</key>
+            <key type="filename">../images/enemies/golem/left/0001.png</key>
+            <key type="filename">../images/enemies/golem/left/0002.png</key>
+            <key type="filename">../images/enemies/golem/left/0003.png</key>
+            <key type="filename">../images/enemies/golem/left/0004.png</key>
+            <key type="filename">../images/enemies/golem/right/0001.png</key>
+            <key type="filename">../images/enemies/golem/right/0002.png</key>
+            <key type="filename">../images/enemies/golem/right/0003.png</key>
+            <key type="filename">../images/enemies/golem/right/0004.png</key>
+            <key type="filename">../images/enemies/golem/up/0001.png</key>
+            <key type="filename">../images/enemies/golem/up/0002.png</key>
+            <key type="filename">../images/enemies/golem/up/0003.png</key>
+            <key type="filename">../images/enemies/golem/up/0004.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -204,9 +219,7 @@
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array>
-            <string>phaser3-exporter-beta</string>
-        </array>
+        <array/>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>

@@ -1,10 +1,5 @@
-import {
-    ENEMIES
-} from "../../constants/EnemyTypes.js";
-
-import {
-    Enemy
-} from "../Enemy.js";
+import {ENEMIES} from "../../constants/EnemyTypes.js";
+import {Enemy} from "../Enemy.js";
 
 export class Slime extends Enemy{       // ---- someone fix this~
 
@@ -14,9 +9,9 @@ export class Slime extends Enemy{       // ---- someone fix this~
         this.health = 5;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
-        this.speed = 10;
-        this.movement = 50; //Monster keeps moving in square pattern for now
-
+        this.speed = 20;
+        this.movement = 60; //Monster keeps moving in square pattern for now
+        
         //taken care of in super constructor
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;
@@ -24,7 +19,7 @@ export class Slime extends Enemy{       // ---- someone fix this~
         //        this.distanceTraveled = 0;
         //        this.active = true;
 
-        this.create();
+        //this.create();
 
     }
 
@@ -32,106 +27,74 @@ export class Slime extends Enemy{       // ---- someone fix this~
     init() {}
 
     create() {
+    
+        var frameRate = 5;          //Frame rate has to be defined here (with var)
 
-        var downFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'down/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'downSlime',
-            frames: downFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var upFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'up/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'upSlime',
-            frames: upFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var leftFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'left/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'leftSlime',
-            frames: leftFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-        var rightFrames = this.anims.generateFrameNames(this.enemyType, {
-            start: 1,
-            end: 6,
-            zeroPad: 4,
-            prefix: 'right/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'rightSlime',
-            frames: rightFrames,
-            frameRate: 5,
-            repeat: -1
-        });
-
+        var leftFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        this.anims.create({ key: 'leftSlime', frames: leftFramesSlime, frameRate: frameRate, repeat: -1 });
+        var leftIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        this.anims.create({ key: 'leftIdleSlime', frames: leftIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+    
+        var rightFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        this.anims.create({ key: 'rightSlime', frames: rightFramesSlime, frameRate: frameRate, repeat: -1 });
+        var rightIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        this.anims.create({ key: 'rightIdleSlime', frames: rightIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+        
+        var upFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
+        this.anims.create({ key: 'upSlime', frames: upFramesSlime, frameRate: frameRate, repeat: -1 });
+        var upIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
+        this.anims.create({ key: 'upIdleSlime', frames: upIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+    
+        var downFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
+        this.anims.create({ key: 'downSlime', frames: downFramesSlime, frameRate: frameRate, repeat: -1 });
+        var downIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
+        this.anims.create({ key: 'downIdleSlime', frames: downIdleFrameSlime, frameRate: frameRate, repeat: -1 });
     }
 
     dayUpdate(time) {
-        //have dayscene activity here
-        if (this.sprite.active) {
-            if (this.goX[i] && this.goY[i]) {
-                this.sprite.body.setVelocityX(this.movement[i]);
-                this.sprite.body.setVelocityY(0);
-                this.sprite.anims.play("rightSlime", true);
-                this.moveCounter[i]++;
-                if (this.moveCounter[i] >= 50) {
-                    this.goX[i] = false;
-                    this.goY[i] = false;
-                    this.moveCounter[i] = 0;
-                }
-            } else if (this.goX[i] == false && this.goY[i] == false) {
+        if(this.active){
+            if (this.direction == 1) {
                 this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(this.movement[i]);
-                this.sprite.anims.play("downSlime", true);
-                this.moveCounter[i]++;
-                if (this.moveCounter[i] >= 50) {
-                    this.goX[i] = true;
-                    this.goY[i] = false;
-                    this.moveCounter[i] = 0;
-                }
-            } else if (this.goX[i] == true && this.goY[i] == false) {
-                this.sprite.body.setVelocityX(-this.movement[i]);
-                this.sprite.body.setVelocityY(0);
-                this.sprite.anims.play("leftSlime", true);
-                this.moveCounter[i]--;
-                if (this.moveCounter[i] <= -50) {
-                    this.goX[i] = false;
-                    this.goY[i] = true;
-                    this.moveCounter[i] = 0;
-                }
-            } else if (this.goX[i] == false && this.goY[i] == true) {
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(-this.movement[i]);
+                this.sprite.body.setVelocityY(-this.speed);
                 this.sprite.anims.play("upSlime", true);
-                this.moveCounter[i]--;
-                if (this.moveCounter[i] <= -50) {
-                    this.goX[i] = true;
-                    this.goY[i] = true;
-                    this.moveCounter[i] = 0;
+                this.moveCounter++;
+                if(this.moveCounter >= this.movement){
+                    this.direction = 2;
+                    this.moveCounter = 0;
                 }
             }
+
+            else if (this.direction == 2) {
+                this.sprite.body.setVelocityX(-this.speed);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play("leftSlime", true);
+                this.moveCounter++;
+                if(this.moveCounter >= this.movement){
+                    this.direction = 3;
+                    this.moveCounter = 0;
+                }
+            }
+            else if (this.direction == 3) {
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(this.speed);
+                this.sprite.anims.play("downSlime", true);
+                this.moveCounter++;
+                if(this.moveCounter >= this.movement){
+                    this.direction = 4;
+                    this.moveCounter = 0;
+                }
+            }  
+            else if (this.direction == 4) {
+                this.sprite.body.setVelocityX(this.speed);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play("rightSlime", true);
+                this.moveCounter++;
+                if(this.moveCounter >= this.movement){
+                    this.direction = 1;
+                    this.moveCounter = 0;
+                }
+            }
+            
         }
     }
     nightUpdate(time) {
