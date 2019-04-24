@@ -7,6 +7,8 @@ import {ENEMIES} from "../constants/EnemyTypes.js";
 //import {Enemy} from "../gamePlay/Enemy.js";           //Don't use this!!!!!!!!!
 import {Slime} from "../gamePlay/Monsters/Slime.js";
 import {Golem} from "../gamePlay/Monsters/Golem.js";
+import {Goblin} from "../gamePlay/Monsters/Goblin.js";
+
 import { ShieldHero } from "../gamePlay/Heroes/ShieldHero.js";
 import { SwordHero } from "../gamePlay/Heroes/SwordHero.js";
 import { MageHero } from "../gamePlay/Heroes/MageHero.js";
@@ -39,16 +41,19 @@ export class DayScene extends Phaser.Scene{
             [1500,1000],
             [165,1560]
         ];
-
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
             [300,2000],
             [1400,1500]
- 
         ];
-
         this.golemCount = this.golemSpawnArr.length;
+
+        this.goblinSpawnArr = [
+            [320,400],
+            [400,700]
+        ];
+        this.goblinCount = this.goblinSpawnArr.length;
 
 
     }
@@ -62,6 +67,7 @@ export class DayScene extends Phaser.Scene{
 
         this.load.multiatlas(ENEMIES.GOLEM, 'assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.GOBLIN, 'assets/images/enemies/goblin.json', "assets/images/enemies");
 
 
         switch(this.level){
@@ -125,6 +131,16 @@ export class DayScene extends Phaser.Scene{
             let golem = new Golem({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims});
             golemSprite.class = golem;
             this.monsterArray.push(golem);
+        }
+
+        for(var i = 0; i < this.goblinCount; i++){
+            let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
+            let zzzSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0]+100, this.goblinSpawnArr[i][1]-100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+
+            this.enemyGroup.add(goblinSprite);
+            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims, "zzzSprite":zzzSprite});
+            goblinSprite.class = goblin;
+            this.monsterArray.push(goblin);
         }
 
         //Create the heroes
