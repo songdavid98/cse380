@@ -15,8 +15,10 @@ export class Goblin extends Enemy {
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 100;
+        this.movement = 60; //Monster keeps moving in square pattern for now
+        this.scene = data.scene;
         this.killCost = 15;
-
+        this.state = "sleeping"; //The behavioral states of the goblin
         this.zzzSprite = data.zzzSprite; //I need this to make the sleeping animation (zzz)
 
         //taken care of in super constructor
@@ -65,17 +67,276 @@ export class Goblin extends Enemy {
 
     }
 
-    dayUpdate(time) {
+
+    withinVacinity(playerX, playerY, enemyX, enemyY){
+
+    }
+
+    dayUpdate(time, player) {
         //have dayscene activity here
-
         if(this.active){
-            this.sprite.anims.play("sleepGoblin", true);
-            this.zzzSprite.anims.play("zzz",true);
+            switch(this.state){
+                case "sleeping":
+                    this.sprite.anims.play("sleepGoblin", true);
+                    this.zzzSprite.anims.play("zzz",true);
+                    this.zzzSprite.x = this.sprite.x+100;
+                    this.zzzSprite.y = this.sprite.y-100;
 
+                    if(this.beenAttacked){
+                        this.state = "patrolling";
+                    }
+
+                    break;
+                case "patrolling":
+                    this.zzzSprite.visible = false;
+
+                    if(this.withinVacinity(player.sprite.x, player.sprite.y, this.sprite.x,this.sprite.y)){
+                        this.state = "attacking";
+                    }
+
+                    if (this.direction == 1) {
+                        this.sprite.body.setVelocityX(0);
+                        this.sprite.body.setVelocityY(-this.speed);
+                        this.sprite.anims.play("upGoblin", true);
+                        this.moveCounter++;
+                        if(this.moveCounter >= this.movement){
+                            this.direction =  2;
+                            this.moveCounter = 0;
+                        }
+                    } 
+                    else if (this.direction == 2) {
+                        this.sprite.body.setVelocityX(-this.speed);
+                        this.sprite.body.setVelocityY(0);
+                        this.sprite.anims.play("leftGoblin", true);
+                        this.moveCounter++;
+                        if(this.moveCounter >= this.movement){
+                            this.direction = 3;
+                            this.moveCounter = 0;
+                        }
+                    }
+                    else if (this.direction == 3) {
+                        this.sprite.body.setVelocityX(0);
+                        this.sprite.body.setVelocityY(this.speed);
+                        this.sprite.anims.play("downGoblin", true);
+                        this.moveCounter++;
+                        if(this.moveCounter >= this.movement){
+                            this.direction = 4;
+                            this.moveCounter = 0;
+                        }
+                    } 
+                    else if (this.direction == 4) {
+                        this.sprite.body.setVelocityX(this.speed);
+                        this.sprite.body.setVelocityY(0);
+                        this.sprite.anims.play("rightGoblin", true);
+                        this.moveCounter++;
+                        if(this.moveCounter >= this.movement){
+                            this.direction = 1;
+                            this.moveCounter = 0;
+                        }
+                    }
+                    break;
+                case "attacking":
+
+                if(!this.withinVacinity(player.sprite.x, player.sprite.y, this.sprite.x,this.sprite.y)){
+                    this.state = "patrolling";
+                }
+                let gobX = Math.floor(this.scene.map.worldToTileX(this.sprite.x));
+                let gobY = Math.floor(this.scene.map.worldToTileY(this.sprite.y));
+                let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.x));
+                let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.y));
+
+
+
+
+                    //console.log(gobX," ",gobY," ",heroX," ",heroY);
+
+
+                    this.attack(gobX, gobY, heroX, heroY);
+
+                    break;
+
+            }
+
+        }
+    }
+
+
+            
+
+                            
+
+
+    attack(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile){
+        let currentNextPointX = null;
+        let currentNextPointY = null;
+        let enemyAnimation = "";
+        let enemyDirection = "";
+        this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path ) {
+            
+            console.log(path);
+            
+            if (path === null) {
+                console.log("The path to the destination point was not found.");
+            }
+            if (path) {
+                currentNextPointX = path[1].x;
+                currentNextPointY = path[1].y;
+            }
+
+            if (currentNextPointX < currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
+                //console.log("GO LEFT UP");
+                enemyAnimation = "leftGoblin";
+                enemyDirection = "leftUp";
+            }
+            else if (currentNextPointX == currentGoblinXtile && currentNextPointY < currentGoblinYtile){
+                //console.log("GO UP");
+                enemyDirection = "up";
+                enemyAnimation = "upGoblin";
+            }
+            else if (currentNextPointX > currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
+                //console.log("GO RIGHT UP");
+                enemyDirection = "rightUp";
+                enemyAnimation = "rightGoblin";
+            }
+            else if (currentNextPointX < currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
+                //console.log("GO LEFT");
+                enemyDirection = "left";
+                enemyAnimation = "leftGoblin";
+            }
+            else if (currentNextPointX > currentGoblinXtile && currentNextPointY == currentGoblinYtile){
+                //console.log("GO RIGHT");
+                enemyDirection = "right";
+                enemyAnimation = "rightGoblin";
+            }
+            else if (currentNextPointX > currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
+                //console.log("GO RIGHT DOWN");
+                enemyDirection = "rightDown";
+                enemyAnimation = "rightGoblin";
+            }
+            else if (currentNextPointX == currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
+                //console.log("GO DOWN");
+                enemyDirection = "down";
+                enemyAnimation = "downGoblin";
+                
+            }
+            else if (currentNextPointX < currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
+                //console.log("GO LEFT DOWN");
+                enemyDirection = "leftDown";
+                enemyAnimation = "leftGoblin";
+            }
+            else{
+                enemyDirection = "";
+                enemyAnimation = "";
+            }
+            
+           
+                            
+        });
+        
+        this.scene.easystar.calculate();
+        
+
+        switch(enemyDirection){
+            case "leftUp":
+                this.sprite.body.setVelocityX(-this.speed);
+                this.sprite.body.setVelocityY(-this.speed);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "up":
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(-this.speed);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "rightUp":
+                this.sprite.body.setVelocityX(this.speed);
+                this.sprite.body.setVelocityY(-this.speed);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "left":
+                this.sprite.body.setVelocityX(-this.speed);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "right":
+                this.sprite.body.setVelocityX(this.speed);
+                this.sprite.body.setVelocityY(0);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "rightDown":
+                this.sprite.body.setVelocityX(this.speed);
+                this.sprite.body.setVelocityY(this.speed);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "down":
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(this.speed);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            case "leftDown":
+                this.sprite.body.setVelocityX(-this.speed);
+                this.sprite.body.setVelocityY(this.speed);
+                this.sprite.anims.play(enemyAnimation);
+                break;
+            default:
+                this.sprite.body.setVelocityX(0);
+                this.sprite.body.setVelocityY(0);
+                
         }
 
 
+        /*
+            //Pathfinding stuff
+            var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
+            var pointerTileX = this.map.worldToTileX(worldPoint.x);
+            var pointerTileY = this.map.worldToTileY(worldPoint.y);
+            this.marker.x = this.map.tileToWorldX(pointerTileX);
+            this.marker.y = this.map.tileToWorldY(pointerTileY);
+            this.marker.setVisible(!this.checkCollision(pointerTileX,pointerTileY));
+
+            var x = Game.camera.scrollX + pointer.x;
+            var y = Game.camera.scrollY + pointer.y;
+            var toX = Math.floor(x/32);
+            var toY = Math.floor(y/32);
+            var fromX = Math.floor(Game.player.x/32);
+            var fromY = Math.floor(Game.player.y/32);
+            console.log('going from ('+fromX+','+fromY+') to ('+toX+','+toY+')');
+        
+            Game.finder.findPath(fromX, fromY, toX, toY, function( path ) {
+                if (path === null) {
+                    console.warn("Path was not found.");
+                } else {
+                    console.log(path);
+                    Game.moveCharacter(path);
+                }
+            });
+            Game.finder.calculate();
+            
+
+
+            var tweens = [];
+            for(var i = 0; i < path.length-1; i++){
+                var ex = path[i+1].x;
+                var ey = path[i+1].y;
+                tweens.push({
+                    targets: Game.player,
+                    x: {value: ex*Game.map.tileWidth, duration: 200},
+                    y: {value: ey*Game.map.tileHeight, duration: 200}
+                });
+            }
+
+            Game.scene.tweens.timeline({
+                tweens: tweens
+            });
+
+            */
+
+
     }
+
+    
+
+
+
     nightUpdate(time) {
         super.nightUpdate(time);
         //        if (this.active) {

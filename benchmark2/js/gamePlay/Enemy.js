@@ -13,6 +13,11 @@ export class Enemy {
         this.dead = false;
         this.angle = 0;
 
+        this.lastDamaged = 0;
+        this.beenAttacked = false; //Need this to change behaviour
+
+
+
         this.direction = 2; // up, down, left, right;  Please replace this with a better algorithm
         this.moveCounter = 0;
 
@@ -26,6 +31,24 @@ export class Enemy {
 
        
 
+    }
+
+
+
+    //When the hero tries to kill the monster
+    damaged(hero){
+        if(this.health > 0){
+            this.health -= hero.basicAttack;        //For now, it's only the basic attack...
+            this.beenAttacked = true;
+            if(this.health <= 0){
+                this.dead = true;
+                this.active = false;
+                hero.getMoney(this.killCost);
+                this.sprite.destroy();
+            }
+            console.log(this.health);
+
+        }
     }
 
     dayUpdate(time) {

@@ -6,13 +6,13 @@ export class Slime extends Enemy{       // ---- someone fix this~
     constructor(data) {
         super(data);
         this.enemyType = ENEMIES.SLIME; // like slime
-        this.health = 5;
+        this.health = 1;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 20;
         this.movement = 60; //Monster keeps moving in square pattern for now
         this.killCost = 10;
-        
+
         //taken care of in super constructor
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;

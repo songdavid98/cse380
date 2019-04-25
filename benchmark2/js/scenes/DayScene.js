@@ -27,6 +27,9 @@ export class DayScene extends Phaser.Scene{
         this.monsterArray = new Array();
         this.level = data.level;
         this.mapLevel;
+        this.easystar;
+
+
          //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
@@ -51,14 +54,20 @@ export class DayScene extends Phaser.Scene{
 
         this.goblinSpawnArr = [
             [320,400],
-            [400,700]
+            [400,600],
+            [500,400],
+            [600,1000],
+            [700,900],
+            [800,800],
+
         ];
         this.goblinCount = this.goblinSpawnArr.length;
 
 
     }
     preload(){
-        this.load.image("terrain", "assets/images/tiles/tiles.png");
+        this.load.image("terrain", "assets/images/tiles/addableTiles.png");
+
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
@@ -72,7 +81,10 @@ export class DayScene extends Phaser.Scene{
 
         switch(this.level){
             case 1: 
-                this.load.tilemapTiledJSON("map1", "assets/tilemaps/Dungeon3.json");
+            this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/IceRoom.json");
+
+                this.load.tilemapTiledJSON("map1", "assets/tilemaps/IceRoom.json");
+
                 this.mapLevel = "map1";
                 console.log("Welcome to level 1");
                 break;
@@ -107,10 +119,13 @@ export class DayScene extends Phaser.Scene{
     }
     create(){
         //Generate map
+
         this.map = this.add.tilemap(this.mapLevel);
-        let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain");
-        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(5,5); 
+
+        this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
+        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
+
 
         //Keyboard stuff
         this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
@@ -136,9 +151,8 @@ export class DayScene extends Phaser.Scene{
         for(var i = 0; i < this.goblinCount; i++){
             let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
             let zzzSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0]+100, this.goblinSpawnArr[i][1]-100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
-
             this.enemyGroup.add(goblinSprite);
-            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims, "zzzSprite":zzzSprite});
+            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims, "zzzSprite":zzzSprite, "scene":this});
             goblinSprite.class = goblin;
             this.monsterArray.push(goblin);
         }
@@ -148,6 +162,10 @@ export class DayScene extends Phaser.Scene{
         this.swordHeroSprite = this.physics.add.sprite(200,200, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
         this.mageHeroSprite = this.physics.add.sprite(200,200, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
         
+        console.log(this.shieldHeroSprite.anims);
+
+
+
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
         this.shieldHeroSprite.visible = true;
@@ -165,9 +183,16 @@ export class DayScene extends Phaser.Scene{
         this.scene.launch(SCENES.DAY_OVERLAY, {"player":this.player});
 
 	    //collisions
-	    this.wallLayer.setCollision(2);     //Change this if you want a different tile set. This is the ID.
+	    //this.wallLayer.setCollision(5); //dungeon level     //Change this if you want a different tile set. This is the ID.
+        
+        this.wallLayer.setCollision(6);     //Snow level
+        
         this.physics.add.collider(this.player.sprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+
+        this.door = this.map.objects[0];
+        //this.createFromTiles(0, null,this.doors,this.scene);
+
 
         //Damaging the player
         this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
@@ -176,6 +201,7 @@ export class DayScene extends Phaser.Scene{
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
             }
         });
+
 
         //Camera
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
@@ -187,27 +213,36 @@ export class DayScene extends Phaser.Scene{
             this.player.angle = Phaser.Math.Angle.Between(this.player.sprite.x, this.player.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
         }, this);
 
+        console.log(this);
+
 
         this.input.on('pointerdown', function (pointer) {
             if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.attackCooldown ){
                 this.player.previousTime = Math.floor(this.time.now/1000);
                 let pointY;
                 let pointX;
+                let clickedOnce = true;
 
                 let dist = 100;
                 pointX = this.player.sprite.x + dist*(Math.sin(Math.PI/2-this.player.angle)); 
                 pointY = this.player.sprite.y + dist*(Math.cos(Math.PI/2-this.player.angle)); 
 
-                this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
-                this.shieldBeamSprite.class = this.player;
-                //this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
+                console.log(this);
 
-                //this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
-                this.physics.add.overlap(this.shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
+                let shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
+                shieldBeamSprite.class = this.player;
+
+
+
+                //The beam attacked
+                this.physics.add.overlap(shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
                     o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
-                    o2.class.active = false;
-                    o1.class.getMoney(o2);
-                    o2.destroy();
+                    if(clickedOnce){
+                        o2.class.damaged(o1.class);
+                        console.log(o2.texture," got hit");
+                        o2.class.lastDamaged = o1.scene.time.now;
+                        clickedOnce = false; 
+                    }
                     if(!o1.colliding){
                         o1.colliding = [];
                     }
@@ -215,22 +250,22 @@ export class DayScene extends Phaser.Scene{
                 });
 
                 //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
-                this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
+                this.physics.add.collider(shieldBeamSprite,this.wallLayer);
 
-                let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.player.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.player.angle)));
-                let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.player.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.player.angle + Math.PI/2)));
+                let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.player.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.player.angle)));
+                let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.player.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.player.angle + Math.PI/2)));
 
-                this.shieldBeamSprite.body.setSize(xx, yy);
-                this.shieldBeamSprite.body.setOffset(this.shieldBeamSprite.body.offset.x-60, this.shieldBeamSprite.body.offset.y-20)
-                //this.shieldBeamSprite.body.reset(this.shieldBeamSprite.x, this.shieldBeamSprite.y);
+                shieldBeamSprite.body.setSize(xx, yy);
+                shieldBeamSprite.body.setOffset(shieldBeamSprite.body.offset.x-60, shieldBeamSprite.body.offset.y-20)
+                //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
 
-                this.shieldBeamSprite.setRotation(this.player.angle+ Math.PI/2);
+                shieldBeamSprite.setRotation(this.player.angle+ Math.PI/2);
 
-                this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+                shieldBeamSprite.on('animationcomplete', function (anim, frame) {
                     this.emit('animationcomplete_' + anim.key, anim, frame);
-                }, this.shieldBeamSprite);
+                }, shieldBeamSprite);
                 
-                this.shieldBeamSprite.on('animationcomplete_shield', function (o1) {
+                shieldBeamSprite.on('animationcomplete_shield', function (o1) {
                     if(this.colliding){
                         for(var i = 0; i < this.colliding.length; i++){
                             this.colliding[i].class.active = true;
@@ -247,7 +282,8 @@ export class DayScene extends Phaser.Scene{
                     //console.log("print");                   
                 });
 
-                this.player.attackBasic(pointer, this.player.angle, this.shieldBeamSprite);
+
+                this.player.attackBasic(pointer, this.player.angle, shieldBeamSprite);
 
 
             }
@@ -258,10 +294,68 @@ export class DayScene extends Phaser.Scene{
 
 
         this.input.mouse.disableContextMenu();
-
-
-
+        this.map.currentLayer = this.baseLayer;
+        this.pathFinding();
     }
+
+
+    pathFinding(){
+        this.easystar = new EasyStar.js();
+        var grid = [];
+        for(var y = 0; y < this.map.height; y++){
+            var col = [];
+            for(var x = 0; x < this.map.width; x++){
+                // In each cell we store the ID of the tile, which corresponds
+                // to its index in the tileset of the map ("ID" field in Tiled)
+                col.push(this.getTileID(x,y));
+            }
+            grid.push(col);
+        }
+
+        this.easystar.setGrid(grid);
+        this.easystar.enableDiagonals();
+
+        var tileset = this.map.tilesets[0];
+        var properties = tileset.tileProperties;
+        var acceptableTiles = [];
+    
+        // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
+        // and see what properties have been entered in Tiled.
+        for(var i = tileset.firstgid-1; i < this.terrain.total; i++){ // firstgid and total are fields from Tiled that indicate the range of IDs that the tiles can take in that tileset
+            if(!properties.hasOwnProperty(i)) {
+                // If there is no property indicated at all, it means it's a walkable tile
+                acceptableTiles.push(i+1);
+                continue;
+            }
+            if(!properties[i].collide) acceptableTiles.push(i+1);
+            if(properties[i].cost) this.easystar.setTileCost(i+1, properties[i].cost); // If there is a cost attached to the tile, let's register it
+        }
+        this.easystar.setAcceptableTiles(acceptableTiles);
+    }
+
+    //Used in pathfinding
+    getTileID(x,y){
+        var tile = this.map.getTileAt(x, y,true);
+        return tile.index;
+    }
+    checkCollision(x,y){
+        var tile = this.map.getTileAt(x, y,true);
+        return tile.properties.collide == true;
+    }
+
+    swapMaps(currentMap){
+        console.log("Swapped");
+
+        /*
+        this.map = this.add.tilemap("iceMap1");
+        let iceTerrain = this.map.addTilesetImage("ice", "iceTerrain");
+        this.baseLayer = this.map.createStaticLayer("base", [iceTerrain], 0, 0).setScale(5,5);
+        this.wallLayer = this.map.createStaticLayer("walls", [iceTerrain], 1, 0).setScale(5,5); 
+        this.doorLayer = this.map.createStaticLayer("door", [iceTerrain], 2, 0).setScale(5,5); 
+*/
+    }
+
+
     update(time, delta){
         if(this.player.dead && this.timeOfDeath == null){     //Kill the player and get the time of death
             this.player.active = false;
@@ -322,21 +416,40 @@ export class DayScene extends Phaser.Scene{
                 });
                 this.player.lastSwapped = Math.floor(time/1000);
             }
-                if(this.input.keyboard.keys[27].isDown && !this.justPaused){
-                    this.justPaused = true
-                    this.input.keyboard.keys[68].isDown = false
-                    this.input.keyboard.keys[65].isDown = false
-                    this.input.keyboard.keys[87].isDown = false
-                    this.input.keyboard.keys[83].isDown = false
-                    this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY, SCENES.DAY_OVERLAY]});
-                    this.scene.pause(SCENES.DAY_OVERLAY)
-                    this.scene.pause();
-                }else if(this.input.keyboard.keys[27].isUp){
-                    this.justPaused = false;
-                }
+
+
+
+
+
+
+            //Pause stuff
+            if(this.input.keyboard.keys[27].isDown && !this.justPaused){
+                this.justPaused = true
+                this.input.keyboard.keys[68].isDown = false
+                this.input.keyboard.keys[65].isDown = false
+                this.input.keyboard.keys[87].isDown = false
+                this.input.keyboard.keys[83].isDown = false
+                this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY, SCENES.DAY_OVERLAY]});
+                this.scene.pause(SCENES.DAY_OVERLAY)
+                this.scene.pause();
+            }else if(this.input.keyboard.keys[27].isUp){
+                this.justPaused = false;
+            }
+
+            //Player enters door
+
+            /*
+            console.log(this.player.sprite);
+            console.log(this.door);
+
+            console.log(this.door.sprite);
+            this.swapMaps();
+            this.physics.arcade.overlap(this.player.sprite, this.doors.sprite, this.swapMaps(), null, this);
+*/
+
 
             for(let i = 0; i < this.monsterArray.length; i++){
-                var monster = this.monsterArray[i].dayUpdate(time);
+                var monster = this.monsterArray[i].dayUpdate(time, this.player);
             }
         }
     }

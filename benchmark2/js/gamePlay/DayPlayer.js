@@ -126,9 +126,9 @@ export class DayPlayer{
    
     }
 
-    getMoney(monster){
+    getMoney(money){
         if(this.money < 99999){
-            this.money += monster.class.killCost;
+            this.money += money;
         }
         else{
             this.money = "MAXED_OUT";

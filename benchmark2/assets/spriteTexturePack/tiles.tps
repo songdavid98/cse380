@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.12.1</string>
+        <string>4.9.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/tiles/tiles.json</filename>
+                <filename>../images/tiles/addableTiles.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,11 +181,24 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/tiles/tileImages/0001.png</key>
-            <key type="filename">../images/tiles/tileImages/0002.png</key>
-            <key type="filename">../images/tiles/tileImages/0003.png</key>
-            <key type="filename">../images/tiles/tileImages/0004.png</key>
-            <key type="filename">../images/tiles/tileImages/0005.png</key>
+            <key type="filename">../images/tiles/newerTileImages/caveDoor.png</key>
+            <key type="filename">../images/tiles/newerTileImages/dirt.png</key>
+            <key type="filename">../images/tiles/newerTileImages/ice.png</key>
+            <key type="filename">../images/tiles/newerTileImages/iceCrystal.png</key>
+            <key type="filename">../images/tiles/newerTileImages/rock.png</key>
+            <key type="filename">../images/tiles/newerTileImages/rockIce.png</key>
+            <key type="filename">../images/tiles/newerTileImages/shortGrass.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowBottom.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowCenter.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowLeft.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowLeftBottom.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowLeftTop.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowRight.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowRightBottom.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowRightTop.png</key>
+            <key type="filename">../images/tiles/newerTileImages/snowTop.png</key>
+            <key type="filename">../images/tiles/newerTileImages/stoneWall.png</key>
+            <key type="filename">../images/tiles/newerTileImages/tallGrass.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -201,7 +214,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/tiles/tileImages</filename>
+            <filename>../images/tiles/newerTileImages</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
