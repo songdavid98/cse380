@@ -7,7 +7,7 @@ export class ShieldHero extends DayPlayer{
     constructor(data){
         super(data);
         this.playerType = HEROES.SHIELD_HERO; //Sword, mage, shield?
-        this.health = 10;
+        this.health = 1;
         this.basicAttack = 1;
         this.basicAttackSpeed = 300;
         this.specialAttack = 2;
@@ -18,7 +18,6 @@ export class ShieldHero extends DayPlayer{
         this.attackCooldown = 1;
         this.swapCooldown = 2;
 
-        this.scene = data.scene;
 
 
         this.create();
@@ -61,12 +60,9 @@ export class ShieldHero extends DayPlayer{
         var shieldFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
         console.log(shieldFrame);
         this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
-        this.sprite.on('animationcomplete', function (anim, frame) {
-            this.emit('animationcomplete_' + anim.key, anim, frame);
-        }, this.sprite);
-        this.sprite.on('animationcomplete_rightBasicAttack', function () {
-            //console.log("print");                   
-        });
+
+        var shieldExplosionFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 2, zeroPad: 4, prefix:'shieldExplosion/', suffix:'.png' });
+        this.anims.create({ key: 'shieldExp', frames: shieldExplosionFrame, frameRate: 10, repeat: 0 });
         
 
     }
@@ -173,10 +169,21 @@ export class ShieldHero extends DayPlayer{
         shieldBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
         shieldBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
         //console.log(shieldSprite);        
-        shieldBeamSprite.anims.play("shield");
+        shieldSprite.anims.play("shield");   
+    }
 
+    explosion(shieldSprite){
+        //console.log(shieldSprite);
+        shieldSprite.anims.play("shieldExp");   
+
+        shieldSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, shieldSprite);
         
-   
+        shieldSprite.on('animationcomplete_shieldExp', function (o1) {
+            enemySprite.class.justGotHit = false; 
+            shieldSprite.destroy();                   
+        });
     }
 
 

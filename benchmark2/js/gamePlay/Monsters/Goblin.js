@@ -16,7 +16,6 @@ export class Goblin extends Enemy {
         this.basicAttackSpeed = 80;
         this.speed = 100;
         this.movement = 60;                 //Monster keeps moving in square pattern for now
-        this.scene = data.scene;
         this.killCost = 15;
         this.state = "sleeping";            //The behavioral states of the goblin
         this.zzzSprite = data.zzzSprite;    //I need this to make the sleeping animation (zzz)
@@ -73,7 +72,7 @@ export class Goblin extends Enemy {
 
     dayUpdate(time, player) {
         //have dayscene activity here
-        if(this.active){
+        if(this.active && !this.dead){
             switch(this.state){
                 case "sleeping":
                     this.sprite.anims.play("sleepGoblin", true);
@@ -144,13 +143,11 @@ export class Goblin extends Enemy {
                     let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.x));
                     let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.y));
                         //console.log(gobX," ",gobY," ",heroX," ",heroY);
-
-
                     this.attack(gobX, gobY, heroX, heroY);
-
                     break;
             }
         }
+
     }
 
     withinVacinity(playerSprite, enemySprite){
@@ -178,10 +175,10 @@ export class Goblin extends Enemy {
         let enemyDirection = "";
         this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path ) {
             
-            console.log(path);
+            //console.log(path);
             
             if (path === null) {
-                console.log("The path to the destination point was not found.");
+                //console.log("The path to the destination point was not found.");
             }
             if (path) {
                 currentNextPointX = path[1].x;

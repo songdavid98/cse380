@@ -10,6 +10,7 @@ export class Enemy {
 
         this.physics = data.physics;
         this.anims = data.anims;
+        this.scene = data.scene;
         this.dead = false;
         this.angle = 0;
 
@@ -32,22 +33,32 @@ export class Enemy {
 
     //When the hero tries to kill the monster
     damaged(intDamageTaken){
+        this.active = false;
+        //console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         if(this.health > 0){
             this.health -= intDamageTaken;        //For now, it's only the basic attack...
             this.beenAttacked = true;
+            //console.log("damaged");
             if(this.health <= 0){
                 this.dead = true;
                 this.active = false;
-                //hero.getMoney(this.killCost);
+                console.log("killed");
+                this.scene.getMoney(this.killCost);
                 this.sprite.destroy();
             }
-            console.log(this.health);
+        }
 
+        console.log(this.active);
+    }
+
+    damagedSuspensionState(){
+        if(!this.active && !this.dead){     //Get damaged state
+            
         }
     }
 
     dayUpdate(time) {
-       
+        
         
     }
 
