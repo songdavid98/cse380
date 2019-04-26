@@ -221,7 +221,6 @@ export class DayScene extends Phaser.Scene{
                 this.player.previousTime = Math.floor(this.time.now/1000);
                 let pointY;
                 let pointX;
-                let clickedOnce = true;
 
                 let dist = 100;
                 pointX = this.player.sprite.x + dist*(Math.sin(Math.PI/2-this.player.angle)); 
@@ -234,7 +233,6 @@ export class DayScene extends Phaser.Scene{
 
                 //The beam attacked
                 this.physics.add.overlap(shieldBeamSprite,this.enemyGroup.getChildren(), function(o1,o2){
-                    console.log(this);
                     o1.scene.hitMe(o1,o2);    
                 });
                 
@@ -289,18 +287,18 @@ export class DayScene extends Phaser.Scene{
     }
 
 
-    hitMe(shieldBeamSprite, enemySpriteChildren){
-        enemySpriteChildren.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
-        if(clickedOnce){
-            enemySpriteChildren.class.damaged(shieldBeamSprite.class);
-            console.log(enemySpriteChildren.texture," got hit");
-            enemySpriteChildren.class.lastDamaged = shieldBeamSprite.scene.time.now;
-            clickedOnce = false; 
+    hitMe(shieldBeamSprite, enemySprite){
+        enemySprite.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
+        if(enemySprite.class.justGotHit){
+            enemySprite.class.damaged(shieldBeamSprite.class);
+            console.log(enemySprite.texture," got hit");
+            enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now;
+            enemySprite.class.justGotHit = true; 
         }
         if(!shieldBeamSprite.colliding){
             shieldBeamSprite.colliding = [];
         }
-        shieldBeamSprite.colliding.push(enemySpriteChildren);
+        shieldBeamSprite.colliding.push(enemySprite);
     }
 
 

@@ -17,7 +17,7 @@ export class Enemy {
         this.beenAttacked = false;  //Need this to change behaviour
 
 
-
+        this.justGotHit = false;
         this.direction = 2;             // up, down, left, right;  Please replace this with a better algorithm
         this.moveCounter = 0;
 
@@ -28,12 +28,7 @@ export class Enemy {
     init() {}
 
     create() {
-
-       
-
     }
-
-
 
     //When the hero tries to kill the monster
     damaged(intDamageTaken){
