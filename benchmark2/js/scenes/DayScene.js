@@ -195,11 +195,11 @@ export class DayScene extends Phaser.Scene{
 
 
         //Damaging the player
-        this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log(o2);
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-                o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
+        this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(playerSprite, enemySprite){
+            console.log(enemySprite);
+            if(Math.floor((playerSprite.scene.time.now/1000))-Math.floor(playerSprite.scene.player.lastDamaged/1000) >= playerSprite.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+                playerSprite.scene.player.damage(enemySprite);                               //Decrease the health (from the player CLASS) when overlaps with enemy
+                playerSprite.scene.player.lastDamaged = playerSprite.scene.time.now;                               //Set the prevTime to current time
             }
         });
 
@@ -219,61 +219,7 @@ export class DayScene extends Phaser.Scene{
         this.input.on('pointerdown', function (pointer) {
             if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.attackCooldown ){
                 this.player.previousTime = Math.floor(this.time.now/1000);
-                let pointY;
-                let pointX;
-
-                let dist = 100;
-                pointX = this.player.sprite.x + dist*(Math.sin(Math.PI/2-this.player.angle)); 
-                pointY = this.player.sprite.y + dist*(Math.cos(Math.PI/2-this.player.angle)); 
-
-
-                let shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
-                shieldBeamSprite.class = this.player;
-
-
-                //The beam attacked
-                this.physics.add.overlap(shieldBeamSprite,this.enemyGroup.getChildren(), function(o1,o2){
-                    o1.scene.hitMe(o1,o2);    
-                });
-                
-               
-                //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
-                this.physics.add.collider(shieldBeamSprite,this.wallLayer);
-
-                let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.player.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.player.angle)));
-                let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.player.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.player.angle + Math.PI/2)));
-
-                shieldBeamSprite.body.setSize(xx, yy);
-                shieldBeamSprite.body.setOffset(shieldBeamSprite.body.offset.x-60, shieldBeamSprite.body.offset.y-20)
-                //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
-
-                shieldBeamSprite.setRotation(this.player.angle+ Math.PI/2);
-
-                shieldBeamSprite.on('animationcomplete', function (anim, frame) {
-                    this.emit('animationcomplete_' + anim.key, anim, frame);
-                }, shieldBeamSprite);
-                
-                shieldBeamSprite.on('animationcomplete_shield', function (o1) {
-                    if(this.colliding){
-                        for(var i = 0; i < this.colliding.length; i++){
-                            this.colliding[i].class.active = true;
-                        }
-                    }
-                    this.destroy();                   
-                });
-
-                this.player.sprite.on('animationcomplete', function (anim, frame) {
-                    this.emit('animationcomplete_' + anim.key, anim, frame);
-                }, this.player.sprite);
-                
-                this.player.sprite.on('animationcomplete_rightBasicAttack', function () {
-                    //console.log("print");                   
-                });
-
-
-                this.player.attackBasic(pointer, this.player.angle, shieldBeamSprite);
-
-
+                this.player.attackBasic(pointer);
             }
             else if(pointer.rightButtonDown()){
                 this.player.attackSpecial(pointer, this.player.angle);

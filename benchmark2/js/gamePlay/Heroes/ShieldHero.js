@@ -58,11 +58,15 @@ export class ShieldHero extends DayPlayer{
  
         // animation
         
-        var shieldFrame = this.anims.generateFrameNames(HEROES.SHEILD_HERO, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
+        var shieldFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
         console.log(shieldFrame);
         this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
-
-
+        this.sprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, this.sprite);
+        this.sprite.on('animationcomplete_rightBasicAttack', function () {
+            //console.log("print");                   
+        });
         
 
     }
@@ -79,6 +83,7 @@ export class ShieldHero extends DayPlayer{
                     this.sprite.anims.play("rightShield",true);
                 }
                 this.sprite.setRotation(this.angle);                //Rotates the image
+                this.rotation = this.angle;
                 this.sprite.body.angle = this.angle;                 //Rotates the box (playerclass)
             }
             else if(this.angle > -3*Math.PI/4 && this.angle <= -Math.PI/4){
@@ -89,6 +94,7 @@ export class ShieldHero extends DayPlayer{
                     this.sprite.anims.play("upShield",true);
                 }
                 this.sprite.setRotation(this.angle + Math.PI/2);     //Rotates the image
+                this.rotation = this.angle + Math.PI/2
                 this.sprite.body.angle = this.angle + Math.PI/2;     //Rotates the box (playerclass)
             }
             else if((this.angle > 3*Math.PI/4 && this.angle <= Math.PI) ||  (this.angle <= -3*Math.PI/4 && this.angle >= -Math.PI)){
@@ -99,6 +105,7 @@ export class ShieldHero extends DayPlayer{
                     this.sprite.anims.play("leftShield",true);
                 }
                 this.sprite.setRotation(this.angle - Math.PI);       //Rotates the image
+                this.rotation = this.angle - Math.PI;
                 this.sprite.body.angle = this.angle - Math.PI;       //Rotates the box (playerclass)
             }
             else if(this.angle <= 3*Math.PI/4 && this.angle > Math.PI/4){
@@ -110,21 +117,63 @@ export class ShieldHero extends DayPlayer{
                     //console.log(this.sprite.anims); 
                 }
                 this.sprite.setRotation(this.angle - Math.PI/2);     //Rotates the image
+                this.rotation = this.angle - Math.PI/2;
                 this.sprite.body.angle = this.angle - Math.PI/2;     //Rotates the box (playerclass)
             }
         }
     }
 
     //When this is called, for now, launch a projectile with the correct animation
-    attackBasic(cursor, angle, shieldSprite){
+    attackBasic(cursor){
         //  console.log(shieldSprite);
         //tempSprite.anims.play("shield", true);
+        let pointY;
+        let pointX;
+
+        let dist = 100;
+        pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
+        pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle));
+        
+        let shieldBeamSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
+        shieldBeamSprite.class = this;
+
+
+        //The beam attacked
+        this.scene.physics.add.overlap(shieldBeamSprite,this.scene.enemyGroup.getChildren(), function(o1,o2){
+            o1.scene.hitMe(o1,o2);    
+        });
+        
+       
+        //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
+        this.scene.physics.add.collider(shieldBeamSprite,this.scene.wallLayer);
+
+        let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.angle)));
+        let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+
+        shieldBeamSprite.body.setSize(xx, yy);
+        shieldBeamSprite.body.setOffset(shieldBeamSprite.body.offset.x-60, shieldBeamSprite.body.offset.y-20)
+        //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
+
+        shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
+
+        shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, shieldBeamSprite);
+        
+        shieldBeamSprite.on('animationcomplete_shield', function (o1) {
+            if(this.colliding){
+                for(var i = 0; i < this.colliding.length; i++){
+                    this.colliding[i].class.active = true;
+                }
+            }
+            this.destroy();                   
+        });
         
 
-        shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
-        shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+        shieldBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
+        shieldBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
         //console.log(shieldSprite);        
-        shieldSprite.anims.play("shield");
+        shieldBeamSprite.anims.play("shield");
 
         
    
