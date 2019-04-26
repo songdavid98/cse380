@@ -10,7 +10,6 @@ export class DayPlayer{
         this.keyboard = data.keyboard;
         this.physics = data.physics;
         this.anims = data.anims;
-        this.money = 0;
         this.dead = false;
         this.angle = 0;
 
@@ -125,14 +124,7 @@ export class DayPlayer{
    
     }
 
-    getMoney(money){
-        if(this.money < 99999){
-            this.money += money;
-        }
-        else{
-            this.money = "MAXED_OUT";
-        }
-    }
+
 
     animationStopped(){
         console.log("destroyeeed");
@@ -168,6 +160,7 @@ export class DayPlayer{
             if(this.health <= 0){
                 this.dead = true;
                 monster.class.active = false;
+                
             }
         }
     }

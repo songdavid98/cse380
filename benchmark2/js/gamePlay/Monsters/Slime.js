@@ -6,7 +6,7 @@ export class Slime extends Enemy{       // ---- someone fix this~
     constructor(data) {
         super(data);
         this.enemyType = ENEMIES.SLIME; // like slime
-        this.health = 1;
+        this.health = 2;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 20;
@@ -53,7 +53,7 @@ export class Slime extends Enemy{       // ---- someone fix this~
     }
 
     dayUpdate(time) {
-        if(this.active){
+        if(this.active && !this.dead){
             if (this.direction == 1) {
                 this.sprite.body.setVelocityX(0);
                 this.sprite.body.setVelocityY(-this.speed);
