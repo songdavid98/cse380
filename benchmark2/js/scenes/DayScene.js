@@ -173,9 +173,9 @@ export class DayScene extends Phaser.Scene{
         this.mageHeroSprite.visible = false;
 
         //First player is always shieldHero
-        this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
-        this.swordHero = new SwordHero({"playerType":HEROES.SWORD_HERO,"sprite":this.swordHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
-        this.mageHero = new MageHero({"playerType":HEROES.MAGE_HERO,"sprite":this.mageHeroSprite,"allHeroSprites":allHeroSprites,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.swordHero = new SwordHero({"playerType":HEROES.SWORD_HERO,"sprite":this.swordHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
+        this.mageHero = new MageHero({"playerType":HEROES.MAGE_HERO,"sprite":this.mageHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
 
         this.player = this.shieldHero;
 
@@ -196,6 +196,7 @@ export class DayScene extends Phaser.Scene{
 
         //Damaging the player
         this.physics.add.overlap(this.player.sprite,this.enemyGroup.getChildren(), function(o1, o2){
+            console.log(o2);
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
@@ -213,7 +214,6 @@ export class DayScene extends Phaser.Scene{
             this.player.angle = Phaser.Math.Angle.Between(this.player.sprite.x, this.player.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
         }, this);
 
-        console.log(this);
 
 
         this.input.on('pointerdown', function (pointer) {
@@ -227,28 +227,18 @@ export class DayScene extends Phaser.Scene{
                 pointX = this.player.sprite.x + dist*(Math.sin(Math.PI/2-this.player.angle)); 
                 pointY = this.player.sprite.y + dist*(Math.cos(Math.PI/2-this.player.angle)); 
 
-                console.log(this);
 
                 let shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
                 shieldBeamSprite.class = this.player;
 
 
-
                 //The beam attacked
-                this.physics.add.overlap(shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
-                    o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
-                    if(clickedOnce){
-                        o2.class.damaged(o1.class);
-                        console.log(o2.texture," got hit");
-                        o2.class.lastDamaged = o1.scene.time.now;
-                        clickedOnce = false; 
-                    }
-                    if(!o1.colliding){
-                        o1.colliding = [];
-                    }
-                    o1.colliding.push(o2);
+                this.physics.add.overlap(shieldBeamSprite,this.enemyGroup.getChildren(), function(o1,o2){
+                    console.log(this);
+                    o1.scene.hitMe(o1,o2);    
                 });
-
+                
+               
                 //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
                 this.physics.add.collider(shieldBeamSprite,this.wallLayer);
 
@@ -299,6 +289,22 @@ export class DayScene extends Phaser.Scene{
     }
 
 
+    hitMe(shieldBeamSprite, enemySpriteChildren){
+        enemySpriteChildren.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
+        if(clickedOnce){
+            enemySpriteChildren.class.damaged(shieldBeamSprite.class);
+            console.log(enemySpriteChildren.texture," got hit");
+            enemySpriteChildren.class.lastDamaged = shieldBeamSprite.scene.time.now;
+            clickedOnce = false; 
+        }
+        if(!shieldBeamSprite.colliding){
+            shieldBeamSprite.colliding = [];
+        }
+        shieldBeamSprite.colliding.push(enemySpriteChildren);
+    }
+
+
+    //Setting up pathfinding
     pathFinding(){
         this.easystar = new EasyStar.js();
         var grid = [];
@@ -383,7 +389,6 @@ export class DayScene extends Phaser.Scene{
                 switch(this.player.swap()){
                     case HEROES.SHIELD_HERO: 
                         this.player = this.shieldHero;
-                        this.player.create();
                         this.shieldHeroSprite.visible = true;
                         this.swordHeroSprite.visible = false;
                         this.mageHeroSprite.visible = false;
@@ -396,7 +401,6 @@ export class DayScene extends Phaser.Scene{
                         break;
                     case HEROES.MAGE_HERO:
                         this.player = this.mageHero;
-                        this.player.create();
                         this.shieldHeroSprite.visible = false;
                         this.swordHeroSprite.visible = false;
                         this.mageHeroSprite.visible = true;

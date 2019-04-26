@@ -10,16 +10,17 @@ export class Goblin extends Enemy {
 
     constructor(data) {
         super(data);
-        this.enemyType = ENEMIES.GOBLIN; // like slime
+        this.enemyType = ENEMIES.GOBLIN;    // like slime
         this.health = 5;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 100;
-        this.movement = 60; //Monster keeps moving in square pattern for now
+        this.movement = 60;                 //Monster keeps moving in square pattern for now
         this.scene = data.scene;
         this.killCost = 15;
-        this.state = "sleeping"; //The behavioral states of the goblin
-        this.zzzSprite = data.zzzSprite; //I need this to make the sleeping animation (zzz)
+        this.state = "sleeping";            //The behavioral states of the goblin
+        this.zzzSprite = data.zzzSprite;    //I need this to make the sleeping animation (zzz)
+        this.detectionRange = 10;           //Need this to know how far away the player has to be to get detected
 
         //taken care of in super constructor
         //        this.sprite = data.sprite;
@@ -68,9 +69,7 @@ export class Goblin extends Enemy {
     }
 
 
-    withinVacinity(playerX, playerY, enemyX, enemyY){
-
-    }
+  
 
     dayUpdate(time, player) {
         //have dayscene activity here
@@ -137,30 +136,36 @@ export class Goblin extends Enemy {
                     break;
                 case "attacking":
 
-                if(!this.withinVacinity(player.sprite.x, player.sprite.y, this.sprite.x,this.sprite.y)){
-                    this.state = "patrolling";
-                }
-                let gobX = Math.floor(this.scene.map.worldToTileX(this.sprite.x));
-                let gobY = Math.floor(this.scene.map.worldToTileY(this.sprite.y));
-                let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.x));
-                let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.y));
-
-
-
-
-                    //console.log(gobX," ",gobY," ",heroX," ",heroY);
+                    if(!this.withinVacinity(player.sprite, this.sprite)){
+                        this.state = "patrolling";
+                    }
+                    let gobX = Math.floor(this.scene.map.worldToTileX(this.sprite.x));
+                    let gobY = Math.floor(this.scene.map.worldToTileY(this.sprite.y));
+                    let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.x));
+                    let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.y));
+                        //console.log(gobX," ",gobY," ",heroX," ",heroY);
 
 
                     this.attack(gobX, gobY, heroX, heroY);
 
                     break;
-
             }
-
         }
     }
 
+    withinVacinity(playerSprite, enemySprite){
+        let distX = (playerSprite.x - enemySprite.x);
+        let distY = (playerSprite.y - enemySprite.y);
 
+        let dist = Math.sqrt(distX^2 - distY^2);
+
+        if(dist < this.detectionRange){
+            return true;
+        }
+        else{
+            return false;   
+        }
+    }
             
 
                             

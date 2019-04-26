@@ -117,7 +117,7 @@ export class ShieldHero extends DayPlayer{
 
     //When this is called, for now, launch a projectile with the correct animation
     attackBasic(cursor, angle, shieldSprite){
-        //console.log(shieldSprite);
+        //  console.log(shieldSprite);
         //tempSprite.anims.play("shield", true);
         
 

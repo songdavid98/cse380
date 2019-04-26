@@ -6,7 +6,6 @@ import {ENEMIES} from "../constants/EnemyTypes.js";
 export class DayPlayer{
 
     constructor(data){
-        this.allHeroSprites = data.allHeroSprites;
         this.sprite = data.sprite;               //The current sprite is the 'sprite' variable in this class
         this.keyboard = data.keyboard;
         this.physics = data.physics;
@@ -147,18 +146,14 @@ export class DayPlayer{
     //ShieldHero => SwordHero => MageHero
     swap(playerType){
         switch(playerType){
-            
             case HEROES.SHIELD_HERO: 
                 playerType = HEROES.SWORD_HERO;        //Set player type
-                this.sprite = this.allHeroSprites[1];       //Set sprite
                 break;
             case HEROES.SWORD_HERO:
                 playerType = HEROES.MAGE_HERO;         //Set player type
-                this.sprite = this.allHeroSprites[2];       //Set sprite
                 break;
             case HEROES.MAGE_HERO:
                 playerType = HEROES.SHIELD_HERO;       //Set player type
-                this.sprite = this.allHeroSprites[0];       //Set sprite
                 break;
             default:
                 console.log("SWAAAAAAAAAAPPPPPPPPPPING ERRRRRRRRRRRRORRRRRRRRRRRRR");

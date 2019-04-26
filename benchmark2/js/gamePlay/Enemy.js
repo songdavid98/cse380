@@ -13,16 +13,16 @@ export class Enemy {
         this.dead = false;
         this.angle = 0;
 
-        this.lastDamaged = 0;
-        this.beenAttacked = false; //Need this to change behaviour
+        this.lastDamaged = 0;       //Timer thing
+        this.beenAttacked = false;  //Need this to change behaviour
 
 
 
-        this.direction = 2; // up, down, left, right;  Please replace this with a better algorithm
+        this.direction = 2;             // up, down, left, right;  Please replace this with a better algorithm
         this.moveCounter = 0;
 
         this.active = true;
-        this.create();          //Must call create ... that's odd?
+        this.create();                  //Must call create ... that's odd?
 
     }
     init() {}
@@ -36,14 +36,14 @@ export class Enemy {
 
 
     //When the hero tries to kill the monster
-    damaged(hero){
+    damaged(intDamageTaken){
         if(this.health > 0){
-            this.health -= hero.basicAttack;        //For now, it's only the basic attack...
+            this.health -= intDamageTaken;        //For now, it's only the basic attack...
             this.beenAttacked = true;
             if(this.health <= 0){
                 this.dead = true;
                 this.active = false;
-                hero.getMoney(this.killCost);
+                //hero.getMoney(this.killCost);
                 this.sprite.destroy();
             }
             console.log(this.health);
