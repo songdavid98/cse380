@@ -54,7 +54,7 @@ export class Golem extends Enemy{       //   ---- Someone fix this~
 
     dayUpdate(time) {
         //have dayscene activity here
-        if(this.active && !this.dead){
+        if(this.active){
             if (this.direction == 1) {
                 this.sprite.body.setVelocityX(0);
                 this.sprite.body.setVelocityY(-this.speed);
