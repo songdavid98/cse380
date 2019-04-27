@@ -172,6 +172,7 @@ export class ShieldHero extends DayPlayer{
         this.scene.physics.add.overlap(shieldBeamSprite,this.scene.enemyGroup.getChildren(), function(shieldBeamSprite,enemySprite){
             if(!shieldBeamSprite.enemiesHit.includes(enemySprite)){
                 shieldBeamSprite.enemiesHit.push(enemySprite);
+                console.log(enemySprite);
                 shieldBeamSprite.scene.hitMe(shieldBeamSprite,enemySprite);    
             }
         });

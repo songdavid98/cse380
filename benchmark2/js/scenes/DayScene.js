@@ -157,8 +157,8 @@ export class DayScene extends Phaser.Scene{
             goblinContainer.add([goblinSprite, zzzSprite]);
             this.enemyGroup.add(goblinSprite);
 
-            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims, "zzzSprite":zzzSprite, "scene":this});
-            goblinContainer.class = goblin;
+            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims,"goblinContainer":goblinContainer, "scene":this});
+            goblinSprite.class = goblin;
             this.monsterArray.push(goblin);
         }
 
@@ -271,7 +271,6 @@ export class DayScene extends Phaser.Scene{
 
     hitMe(shieldBeamSprite, enemySprite){
 
-        if(enemySprite )
 
 
         if(!shieldBeamSprite.anims){
