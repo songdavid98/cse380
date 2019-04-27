@@ -135,7 +135,7 @@ export class ShieldHero extends DayPlayer{
         shieldBeamSprite.enemiesHit = [];
         //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
         this.scene.physics.add.collider(shieldBeamSprite,this.scene.wallLayer);
-        this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
+        //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
 
         let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.angle)));
         let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
@@ -153,9 +153,12 @@ export class ShieldHero extends DayPlayer{
         shieldBeamSprite.on('animationcomplete_shield', function (o1) {
             if(this.colliding){
                 for(var i = 0; i < this.colliding.length; i++){
-                    this.colliding[i].class.active = true;
+                    if(this.colliding[i]){
+                        this.colliding[i].class.active = true;
+                    }
                 }
             }
+            this.colliding = null;
             this.enemiesHit = null;
             this.destroy();                   
         });
