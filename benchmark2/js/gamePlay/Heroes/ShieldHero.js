@@ -7,7 +7,7 @@ export class ShieldHero extends DayPlayer{
     constructor(data){
         super(data);
         this.playerType = HEROES.SHIELD_HERO; //Sword, mage, shield?
-        this.health = 1;
+        this.health = 3;
         this.basicAttack = 1;
         this.basicAttackSpeed = 300;
         this.specialAttack = 2;
@@ -56,9 +56,7 @@ export class ShieldHero extends DayPlayer{
         this.anims.create({ key: 'downBasicAttackShield', frames: downBasicAttackFrame, frameRate: 5, repeat: 0 });
  
         // animation
-        
         var shieldFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
-        console.log(shieldFrame);
         this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
 
         var shieldExplosionFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 2, zeroPad: 4, prefix:'shieldExplosion/', suffix:'.png' });
@@ -172,7 +170,6 @@ export class ShieldHero extends DayPlayer{
         this.scene.physics.add.overlap(shieldBeamSprite,this.scene.enemyGroup.getChildren(), function(shieldBeamSprite,enemySprite){
             if(!shieldBeamSprite.enemiesHit.includes(enemySprite)){
                 shieldBeamSprite.enemiesHit.push(enemySprite);
-                console.log(enemySprite);
                 shieldBeamSprite.scene.hitMe(shieldBeamSprite,enemySprite);    
             }
         });

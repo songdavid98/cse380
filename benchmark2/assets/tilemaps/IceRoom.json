@@ -19,6 +19,12 @@
          "id":2,
          "name":"walls",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"collide",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":32,
@@ -31,6 +37,12 @@
          "id":3,
          "name":"crystals",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"collide",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":32,
@@ -78,6 +90,34 @@
          "spacing":0,
          "tilecount":18,
          "tileheight":16,
+         "tiles":[
+                {
+                 "id":3,
+                 "properties":[
+                        {
+                         "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":4,
+                 "properties":[
+                        {
+                         "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":5,
+                 "properties":[
+                        {
+                         "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }],
          "tilewidth":16
         }],
  "tilewidth":16,

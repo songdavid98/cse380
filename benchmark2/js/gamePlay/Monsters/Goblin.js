@@ -74,7 +74,6 @@ export class Goblin extends Enemy {
         if(this.active && !this.dead){
             switch(this.state){
                 case "sleeping":
-                    console.log(this.sprite);
                     this.sprite.anims.play("sleepGoblin", true);
                     this.goblinContainer.list[1].anims.play("zzz",true);
 
@@ -84,10 +83,11 @@ export class Goblin extends Enemy {
 
                     break;
                 case "patrolling":
+
                     this.goblinContainer.list[1].visible = false;
 
                     if(this.withinVacinity(player.sprite.x, player.sprite.y, this.sprite.x,this.sprite.y)){
-                        //this.state = "attacking";
+                        this.state = "attacking";
                     }
 
                     if (this.direction == 1) {
@@ -134,13 +134,17 @@ export class Goblin extends Enemy {
                 case "attacking":
 
                     if(!this.withinVacinity(player.sprite, this.sprite)){
-                        this.state = "patrolling";
+                        //this.state = "patrolling";
                     }
-                    let gobX = Math.floor(this.scene.map.worldToTileX(this.sprite.x));
-                    let gobY = Math.floor(this.scene.map.worldToTileY(this.sprite.y));
-                    let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.x));
-                    let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.y));
-                        //console.log(gobX," ",gobY," ",heroX," ",heroY);
+
+
+
+                    let gobX = Math.floor(this.sprite.body.position.x/80);
+                    let gobY = Math.floor(this.sprite.body.position.y/80);
+                    let heroX = Math.floor(player.sprite.body.position.x/80);
+                    let heroY = Math.floor(player.sprite.body.position.y/80);
+
+                    //console.log(heroX, " ", heroY, " ", gobX, " ", gobY);
                     this.attack(gobX, gobY, heroX, heroY);
                     break;
             }
@@ -167,16 +171,18 @@ export class Goblin extends Enemy {
 
 
     attack(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile){
-        let currentNextPointX = null;
-        let currentNextPointY = null;
         let enemyAnimation = "";
         let enemyDirection = "";
-        this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path ) {
-            
-            //console.log(path);
-            
+        let gobClass = this;
+        //console.log(this);
+        //currentGoblinXtile.killMe = "Do not kill";
+        //console.log(currentGoblinXtile, " ",currentGoblinYtile," ", currentPlayerXtile, " ",currentPlayerYtile);
+        this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path) {
+            let currentNextPointX = null;
+            let currentNextPointY = null;
+        
             if (path === null) {
-                //console.log("The path to the destination point was not found.");
+                console.log("The path to the destination point was not found.");
             }
             if (path) {
                 currentNextPointX = path[1].x;
@@ -185,103 +191,68 @@ export class Goblin extends Enemy {
 
             if (currentNextPointX < currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
                 //console.log("GO LEFT UP");
-                enemyAnimation = "leftGoblin";
-                enemyDirection = "leftUp";
+                gobClass.sprite.body.setVelocityX(-gobClass.speed);
+                gobClass.sprite.body.setVelocityY(-gobClass.speed);
+                gobClass.sprite.anims.play("leftGoblin",true);
             }
             else if (currentNextPointX == currentGoblinXtile && currentNextPointY < currentGoblinYtile){
                 //console.log("GO UP");
-                enemyDirection = "up";
-                enemyAnimation = "upGoblin";
+                gobClass.sprite.body.setVelocityX(0);
+                gobClass.sprite.body.setVelocityY(-gobClass.speed);
+                gobClass.sprite.anims.play("upGoblin",true);                      
             }
             else if (currentNextPointX > currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
-                //console.log("GO RIGHT UP");
-                enemyDirection = "rightUp";
-                enemyAnimation = "rightGoblin";
+                //console.log("GO RIGHT UP");                     
+                gobClass.sprite.body.setVelocityX(gobClass.speed);
+                gobClass.sprite.body.setVelocityY(-gobClass.speed);
+                gobClass.sprite.anims.play("rightGoblin",true);
             }
             else if (currentNextPointX < currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
-                //console.log("GO LEFT");
-                enemyDirection = "left";
-                enemyAnimation = "leftGoblin";
+                //console.log("GO LEFT");                     
+                gobClass.sprite.body.setVelocityX(-gobClass.speed);
+                gobClass.sprite.body.setVelocityY(0);
+                gobClass.sprite.anims.play("leftGoblin",true);
             }
             else if (currentNextPointX > currentGoblinXtile && currentNextPointY == currentGoblinYtile){
-                //console.log("GO RIGHT");
-                enemyDirection = "right";
-                enemyAnimation = "rightGoblin";
+                //console.log("GO RIGHT");                         
+                gobClass.sprite.body.setVelocityX(gobClass.speed);
+                gobClass.sprite.body.setVelocityY(0);
+                gobClass.sprite.anims.play("rightGoblin",true);
+
             }
             else if (currentNextPointX > currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                //console.log("GO RIGHT DOWN");
-                enemyDirection = "rightDown";
-                enemyAnimation = "rightGoblin";
+                //console.log("GO RIGHT DOWN");                       
+                gobClass.sprite.body.setVelocityX(gobClass.speed);
+                gobClass.sprite.body.setVelocityY(gobClass.speed);
+                gobClass.sprite.anims.play("rightGoblin",true);
+
             }
             else if (currentNextPointX == currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                //console.log("GO DOWN");
-                enemyDirection = "down";
-                enemyAnimation = "downGoblin";
+                //console.log("GO DOWN");                        
+                gobClass.sprite.body.setVelocityX(0);
+                gobClass.sprite.body.setVelocityY(gobClass.speed);
+                gobClass.sprite.anims.play("downGoblin",true);
                 
             }
             else if (currentNextPointX < currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                //console.log("GO LEFT DOWN");
-                enemyDirection = "leftDown";
-                enemyAnimation = "leftGoblin";
+                //console.log("GO LEFT DOWN");    
+                gobClass.sprite.body.setVelocityX(-gobClass.speed);
+                gobClass.sprite.body.setVelocityY(gobClass.speed);
+                gobClass.sprite.anims.play("leftGoblin",true);
             }
             else{
-                enemyDirection = "";
-                enemyAnimation = "";
+                gobClass.sprite.body.setVelocityX(0);
+                gobClass.sprite.body.setVelocityY(0); 
+                gobClass.sprite.anims.play("downIdleGoblin");
             }
-            
-           
-                            
         });
         
-        this.scene.easystar.calculate();
         
+        //console.log(currentGoblinXtile.killMe);
 
-        switch(enemyDirection){
-            case "leftUp":
-                this.sprite.body.setVelocityX(-this.speed);
-                this.sprite.body.setVelocityY(-this.speed);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            case "up":
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(-this.speed);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            case "rightUp":
-                this.sprite.body.setVelocityX(this.speed);
-                this.sprite.body.setVelocityY(-this.speed);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            case "left":
-                this.sprite.body.setVelocityX(-this.speed);
-                this.sprite.body.setVelocityY(0);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            case "right":
-                this.sprite.body.setVelocityX(this.speed);
-                this.sprite.body.setVelocityY(0);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            case "rightDown":
-                this.sprite.body.setVelocityX(this.speed);
-                this.sprite.body.setVelocityY(this.speed);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            case "down":
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(this.speed);
-                this.sprit.anims.play(enemyAnimation);
-                break;
-            case "leftDown":
-                this.sprite.body.setVelocityX(-this.speed);
-                this.sprite.body.setVelocityY(this.speed);
-                this.sprite.anims.play(enemyAnimation);
-                break;
-            default:
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(0);
-                
-        }
+
+        this.scene.easystar.calculate();
+
 
 
         /*

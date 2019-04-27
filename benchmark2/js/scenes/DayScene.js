@@ -129,6 +129,7 @@ export class DayScene extends Phaser.Scene{
         this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
 
 
+
         //Keyboard stuff
         this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
 
@@ -166,10 +167,6 @@ export class DayScene extends Phaser.Scene{
         this.shieldHeroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
         this.swordHeroSprite = this.physics.add.sprite(200,200, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
         this.mageHeroSprite = this.physics.add.sprite(200,200, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
-        
-        console.log(this.shieldHeroSprite.anims);
-
-
 
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
@@ -270,9 +267,6 @@ export class DayScene extends Phaser.Scene{
 
 
     hitMe(shieldBeamSprite, enemySprite){
-
-
-
         if(!shieldBeamSprite.anims){
             return;
         }
@@ -308,8 +302,11 @@ export class DayScene extends Phaser.Scene{
         this.easystar.setGrid(grid);
         this.easystar.enableDiagonals();
 
+        console.log(this.map);
+
         var tileset = this.map.tilesets[0];
         var properties = tileset.tileProperties;
+        console.log(properties);
         var acceptableTiles = [];
     
         // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
@@ -323,12 +320,19 @@ export class DayScene extends Phaser.Scene{
             if(!properties[i].collide) acceptableTiles.push(i+1);
             if(properties[i].cost) this.easystar.setTileCost(i+1, properties[i].cost); // If there is a cost attached to the tile, let's register it
         }
+
+        console.log(acceptableTiles);
+        console.log(grid);
+
         this.easystar.setAcceptableTiles(acceptableTiles);
     }
 
     //Used in pathfinding
     getTileID(x,y){
-        var tile = this.map.getTileAt(x, y,true);
+        var tile = this.map.getTileAt(x, y,true,'walls');
+        if(tile.index == -1){
+            tile = this.map.getTileAt(x,y,true,'base');
+        }
         return tile.index;
     }
     checkCollision(x,y){

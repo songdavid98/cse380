@@ -72,7 +72,6 @@ export class SwordHero extends DayPlayer{
             this.class.attacking = false;                   
         });
        
-        console.log("SHOULD HAVE CAME HERE");
         // animation
         /*
         var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });

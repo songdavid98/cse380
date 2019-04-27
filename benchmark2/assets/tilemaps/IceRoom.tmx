@@ -2,6 +2,21 @@
 <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="3">
  <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="18" columns="18">
   <image source="../images/tiles/addableTiles.png" width="288" height="16"/>
+  <tile id="3">
+   <properties>
+    <property name="collide" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="collide" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="collide" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer id="1" name="base" width="32" height="32" locked="1">
   <data encoding="csv">
@@ -40,6 +55,9 @@
 </data>
  </layer>
  <layer id="2" name="walls" width="32" height="32" locked="1">
+  <properties>
+   <property name="collide" type="bool" value="true"/>
+  </properties>
   <data encoding="csv">
 6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
 6,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,0,6,6,6,0,0,0,0,0,0,0,0,0,0,0,6,
@@ -76,6 +94,9 @@
 </data>
  </layer>
  <layer id="3" name="crystals" width="32" height="32" locked="1">
+  <properties>
+   <property name="collide" type="bool" value="true"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

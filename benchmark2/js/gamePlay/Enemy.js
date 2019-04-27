@@ -33,7 +33,7 @@ export class Enemy {
 
     //When the hero tries to kill the monster
     damaged(intDamageTaken){
-        this.active = false;
+        this.active = false;          //FIX THIS LATTTTTTTTTTTTTTTER
         //console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         if(this.health > 0){
             this.health -= intDamageTaken;        //For now, it's only the basic attack...
@@ -48,7 +48,7 @@ export class Enemy {
             }
         }
 
-        console.log(this.active);
+        //console.log(this.active);
     }
 
     damagedSuspensionState(){
