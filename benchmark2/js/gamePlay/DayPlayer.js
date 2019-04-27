@@ -160,10 +160,28 @@ export class DayPlayer{
             if(this.health <= 0){
                 this.dead = true;
                 monster.class.active = false;
-                
             }
         }
     }
+
+    grayScale(srcKey,method) {
+        var bmd = game.make.bitmapData();
+        bmd.load(srcKey);
+        bmd.processPixelRGB(forEachPixel, this);
+      return bmd;
+    }
+    
+    forEachPixel(pixel) {		
+      var gray = (pixel.r+pixel.g+pixel.b )/3; //average
+      //var gray = (pixel.r * 0.2126  + pixel.g * 0.7152 + pixel.b * 0.0722); //luma
+      //var gray = (Math.max(pixel.r,pixel.g,pixel.b) + Math.min(pixel.r,pixel.g,pixel.b))/2;//desaturate
+      pixel.r =  gray;
+      pixel.g = gray;
+      pixel.b = gray;
+    
+        return pixel;
+    }
+    
 
 
 
