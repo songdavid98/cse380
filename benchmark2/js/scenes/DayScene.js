@@ -250,7 +250,7 @@ export class DayScene extends Phaser.Scene{
 
         this.input.on('pointerdown', function (pointer) {
             if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.attackCooldown ){
-
+                this.player.previousTime = Math.floor(this.time.now/1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
 
