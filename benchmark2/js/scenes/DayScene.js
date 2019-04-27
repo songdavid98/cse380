@@ -151,11 +151,14 @@ export class DayScene extends Phaser.Scene{
         }
 
         for(var i = 0; i < this.goblinCount; i++){
-            let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
-            let zzzSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0]+100, this.goblinSpawnArr[i][1]-100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+            let goblinContainer = this.add.container(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]);
+            let goblinSprite = this.physics.add.sprite(0, 0, ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
+            let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+            goblinContainer.add([goblinSprite, zzzSprite]);
             this.enemyGroup.add(goblinSprite);
+
             let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims, "zzzSprite":zzzSprite, "scene":this});
-            goblinSprite.class = goblin;
+            goblinContainer.class = goblin;
             this.monsterArray.push(goblin);
         }
 
@@ -267,6 +270,10 @@ export class DayScene extends Phaser.Scene{
 
 
     hitMe(shieldBeamSprite, enemySprite){
+
+        if(enemySprite )
+
+
         if(!shieldBeamSprite.anims){
             return;
         }
@@ -277,13 +284,10 @@ export class DayScene extends Phaser.Scene{
         enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now;        //Need this for damage cooldown
         enemySprite.class.justGotHit = true; 
 
-
-
         if(!shieldBeamSprite.colliding){
             shieldBeamSprite.colliding = [];
         }
         shieldBeamSprite.colliding.push(enemySprite);
-
         
     }
 

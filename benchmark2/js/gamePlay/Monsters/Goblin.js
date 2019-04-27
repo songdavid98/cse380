@@ -18,7 +18,6 @@ export class Goblin extends Enemy {
         this.movement = 60;                 //Monster keeps moving in square pattern for now
         this.killCost = 15;
         this.state = "sleeping";            //The behavioral states of the goblin
-        this.zzzSprite = data.zzzSprite;    //I need this to make the sleeping animation (zzz)
         this.detectionRange = 10;           //Need this to know how far away the player has to be to get detected
 
         //taken care of in super constructor
@@ -75,10 +74,9 @@ export class Goblin extends Enemy {
         if(this.active && !this.dead){
             switch(this.state){
                 case "sleeping":
-                    this.sprite.anims.play("sleepGoblin", true);
-                    this.zzzSprite.anims.play("zzz",true);
-                    this.zzzSprite.x = this.sprite.x+100;
-                    this.zzzSprite.y = this.sprite.y-100;
+                    console.log(this.sprite.list[0]);
+                    this.sprite.list[0].anims.play("sleepGoblin", true);
+                    this.sprite.list[1].anims.play("zzz",true);
 
                     if(this.beenAttacked){
                         this.state = "patrolling";
@@ -86,16 +84,16 @@ export class Goblin extends Enemy {
 
                     break;
                 case "patrolling":
-                    this.zzzSprite.visible = false;
+                    this.sprite.list[1].visible = false;
 
-                    if(this.withinVacinity(player.sprite.x, player.sprite.y, this.sprite.x,this.sprite.y)){
+                    if(this.withinVacinity(player.sprite.list[0].x, player.sprite.list[0].y, this.spsprite.list[0].x,this.sprite.list[0].y)){
                         this.state = "attacking";
                     }
 
                     if (this.direction == 1) {
-                        this.sprite.body.setVelocityX(0);
-                        this.sprite.body.setVelocityY(-this.speed);
-                        this.sprite.anims.play("upGoblin", true);
+                        this.sprite.list[0].body.setVelocityX(0);
+                        this.sprite.list[0].body.setVelocityY(-this.speed);
+                        this.sprite.list[0].anims.play("upGoblin", true);
                         this.moveCounter++;
                         if(this.moveCounter >= this.movement){
                             this.direction =  2;
@@ -103,9 +101,9 @@ export class Goblin extends Enemy {
                         }
                     } 
                     else if (this.direction == 2) {
-                        this.sprite.body.setVelocityX(-this.speed);
-                        this.sprite.body.setVelocityY(0);
-                        this.sprite.anims.play("leftGoblin", true);
+                        this.sprite.list[0].body.setVelocityX(-this.speed);
+                        this.sprite.list[0].body.setVelocityY(0);
+                        this.sprite.list[0].anims.play("leftGoblin", true);
                         this.moveCounter++;
                         if(this.moveCounter >= this.movement){
                             this.direction = 3;
@@ -113,9 +111,9 @@ export class Goblin extends Enemy {
                         }
                     }
                     else if (this.direction == 3) {
-                        this.sprite.body.setVelocityX(0);
-                        this.sprite.body.setVelocityY(this.speed);
-                        this.sprite.anims.play("downGoblin", true);
+                        this.sprite.list[0].body.setVelocityX(0);
+                        this.sprite.list[0].body.setVelocityY(this.speed);
+                        this.sprite.list[0].anims.play("downGoblin", true);
                         this.moveCounter++;
                         if(this.moveCounter >= this.movement){
                             this.direction = 4;
@@ -123,9 +121,9 @@ export class Goblin extends Enemy {
                         }
                     } 
                     else if (this.direction == 4) {
-                        this.sprite.body.setVelocityX(this.speed);
-                        this.sprite.body.setVelocityY(0);
-                        this.sprite.anims.play("rightGoblin", true);
+                        this.sprite.list[0].body.setVelocityX(this.speed);
+                        this.sprite.list[0].body.setVelocityY(0);
+                        this.sprite.list[0].anims.play("rightGoblin", true);
                         this.moveCounter++;
                         if(this.moveCounter >= this.movement){
                             this.direction = 1;
@@ -135,13 +133,13 @@ export class Goblin extends Enemy {
                     break;
                 case "attacking":
 
-                    if(!this.withinVacinity(player.sprite, this.sprite)){
+                    if(!this.withinVacinity(player.sprite.list[0], this.sprite.list[0])){
                         this.state = "patrolling";
                     }
-                    let gobX = Math.floor(this.scene.map.worldToTileX(this.sprite.x));
-                    let gobY = Math.floor(this.scene.map.worldToTileY(this.sprite.y));
-                    let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.x));
-                    let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.y));
+                    let gobX = Math.floor(this.scene.map.worldToTileX(this.sprite.list[0].x));
+                    let gobY = Math.floor(this.scene.map.worldToTileY(this.sprite.list[0].y));
+                    let heroX = Math.floor(this.scene.map.worldToTileX(player.sprite.list[0].x));
+                    let heroY = Math.floor(this.scene.map.worldToTileY(player.sprite.list[0].y));
                         //console.log(gobX," ",gobY," ",heroX," ",heroY);
                     this.attack(gobX, gobY, heroX, heroY);
                     break;
@@ -240,48 +238,48 @@ export class Goblin extends Enemy {
 
         switch(enemyDirection){
             case "leftUp":
-                this.sprite.body.setVelocityX(-this.speed);
-                this.sprite.body.setVelocityY(-this.speed);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(-this.speed);
+                this.sprite.list[0].body.setVelocityY(-this.speed);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "up":
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(-this.speed);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(0);
+                this.sprite.list[0].body.setVelocityY(-this.speed);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "rightUp":
-                this.sprite.body.setVelocityX(this.speed);
-                this.sprite.body.setVelocityY(-this.speed);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(this.speed);
+                this.sprite.list[0].body.setVelocityY(-this.speed);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "left":
-                this.sprite.body.setVelocityX(-this.speed);
-                this.sprite.body.setVelocityY(0);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(-this.speed);
+                this.sprite.list[0].body.setVelocityY(0);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "right":
-                this.sprite.body.setVelocityX(this.speed);
-                this.sprite.body.setVelocityY(0);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(this.speed);
+                this.sprite.list[0].body.setVelocityY(0);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "rightDown":
-                this.sprite.body.setVelocityX(this.speed);
-                this.sprite.body.setVelocityY(this.speed);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(this.speed);
+                this.sprite.list[0].body.setVelocityY(this.speed);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "down":
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(this.speed);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(0);
+                this.sprite.list[0].body.setVelocityY(this.speed);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             case "leftDown":
-                this.sprite.body.setVelocityX(-this.speed);
-                this.sprite.body.setVelocityY(this.speed);
-                this.sprite.anims.play(enemyAnimation);
+                this.sprite.list[0].body.setVelocityX(-this.speed);
+                this.sprite.list[0].body.setVelocityY(this.speed);
+                this.sprite.list[0].anims.play(enemyAnimation);
                 break;
             default:
-                this.sprite.body.setVelocityX(0);
-                this.sprite.body.setVelocityY(0);
+                this.sprite.list[0].body.setVelocityX(0);
+                this.sprite.list[0].body.setVelocityY(0);
                 
         }
 
