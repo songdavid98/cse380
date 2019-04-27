@@ -87,7 +87,7 @@ export class Goblin extends Enemy {
                     this.goblinContainer.list[1].visible = false;
 
                     if(this.withinVacinity(player.sprite.x, player.sprite.y, this.sprite.x,this.sprite.y)){
-                        this.state = "attacking";
+                        //this.state = "attacking";
                     }
 
                     if (this.direction == 1) {
