@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.12.1</string>
+        <string>4.9.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -163,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -189,6 +189,19 @@
             <key type="filename">../images/heroes/mageHero/left/0002.png</key>
             <key type="filename">../images/heroes/mageHero/left/0003.png</key>
             <key type="filename">../images/heroes/mageHero/left/0004.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0001.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0002.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0003.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0004.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0005.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0006.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0007.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0008.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0009.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0010.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0011.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0012.png</key>
+            <key type="filename">../images/heroes/mageHero/magic/0013.png</key>
             <key type="filename">../images/heroes/mageHero/right/0001.png</key>
             <key type="filename">../images/heroes/mageHero/right/0002.png</key>
             <key type="filename">../images/heroes/mageHero/right/0003.png</key>

@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.12.1</string>
+        <string>4.9.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -180,84 +180,9 @@
             <false/>
         </struct>
         <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/heroes/shieldHero/attackDown/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackDown/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackDown/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackDown/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackLeft/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackLeft/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackLeft/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackLeft/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackRight/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackRight/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackRight/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackRight/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackUp/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackUp/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackUp/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/attackUp/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/down/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/down/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/down/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/down/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/left/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/left/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/left/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/left/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/right/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/right/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/right/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/right/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0004.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0005.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0006.png</key>
-            <key type="filename">../images/heroes/shieldHero/up/0001.png</key>
-            <key type="filename">../images/heroes/shieldHero/up/0002.png</key>
-            <key type="filename">../images/heroes/shieldHero/up/0003.png</key>
-            <key type="filename">../images/heroes/shieldHero/up/0004.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,8,16,16</rect>
-                <key>scale9Paddings</key>
-                <rect>8,8,16,16</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../images/heroes/shieldHero/shield/0007.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0008.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0009.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0010.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0011.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0012.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0013.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0014.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0015.png</key>
-            <key type="filename">../images/heroes/shieldHero/shield/0016.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,3,15,5</rect>
-                <key>scale9Paddings</key>
-                <rect>8,3,15,5</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-        </map>
+        <map type="IndividualSpriteSettingsMap"/>
         <key>fileList</key>
-        <array>
-            <filename>../images/heroes</filename>
-        </array>
+        <array/>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>

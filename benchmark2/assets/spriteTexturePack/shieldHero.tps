@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.12.1</string>
+        <string>4.9.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -241,6 +241,8 @@
             <key type="filename">../images/heroes/shieldHero/shield/0014.png</key>
             <key type="filename">../images/heroes/shieldHero/shield/0015.png</key>
             <key type="filename">../images/heroes/shieldHero/shield/0016.png</key>
+            <key type="filename">../images/heroes/shieldHero/shieldExplosion/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/shieldExplosion/0002.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
