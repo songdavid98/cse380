@@ -250,63 +250,10 @@ export class DayScene extends Phaser.Scene{
 
         this.input.on('pointerdown', function (pointer) {
             if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.attackCooldown ){
-                this.player.previousTime = Math.floor(this.time.now/1000);
-                let pointY;
-                let pointX;
-
-                let dist = 100;
-                pointX = this.player.sprite.x + dist*(Math.sin(Math.PI/2-this.player.angle)); 
-                pointY = this.player.sprite.y + dist*(Math.cos(Math.PI/2-this.player.angle)); 
-
-
-                let shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
-                shieldBeamSprite.class = this.player;
-                shieldBeamSprite.enemiesHit = [];
-                //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
-                this.physics.add.collider(shieldBeamSprite,this.wallLayer);
-                this.physics.add.collider(shieldBeamSprite,this.enemyGroup.getChildren());
-
-
-                let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.player.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.player.angle)));
-                let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.player.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.player.angle + Math.PI/2)));
-
-                shieldBeamSprite.body.setSize(xx, yy);
-                shieldBeamSprite.body.setOffset(shieldBeamSprite.body.offset.x-60, shieldBeamSprite.body.offset.y-20)
-
-                shieldBeamSprite.setRotation(this.player.angle+ Math.PI/2);
-
-                shieldBeamSprite.on('animationcomplete', function (anim, frame) {
-                    this.emit('animationcomplete_' + anim.key, anim, frame);
-                }, shieldBeamSprite);
-                
-                shieldBeamSprite.on('animationcomplete_shield', function (o1) {
-                    if(this.colliding){
-                        for(var i = 0; i < this.colliding.length; i++){
-                            this.colliding[i].class.active = true;
-                        }
-                    }
-                    this.enemiesHit = null;
-                    this.destroy();                   
-                });
-
-                this.player.sprite.on('animationcomplete', function (anim, frame) {
-                    this.emit('animationcomplete_' + anim.key, anim, frame);
-                }, this.player.sprite);
-                
-                this.player.sprite.on('animationcomplete_rightBasicAttack', function () {
-                    //console.log("print");                   
-                });
 
                 //Call the player's attack 
-                this.player.attackBasic(pointer, this.player.angle, shieldBeamSprite);
+                this.player.attackBasic(pointer);
 
-                //The beam attacked
-                this.physics.add.overlap(shieldBeamSprite,this.enemyGroup.getChildren(), function(shieldBeamSprite,enemySprite){
-                    if(!shieldBeamSprite.enemiesHit.includes(enemySprite)){
-                        shieldBeamSprite.enemiesHit.push(enemySprite);
-                        shieldBeamSprite.scene.hitMe(shieldBeamSprite,enemySprite);    
-                    }
-                });
             }
             else if(pointer.rightButtonDown()){
                 this.player.attackSpecial(pointer, this.player.angle);
