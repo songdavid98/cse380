@@ -14,28 +14,28 @@ export class Beginning extends Phaser.Scene{
     preload(){
         console.log("Beginning Cutscene");
         this.load.image("terrain", "assets/images/tiles/addableTiles.png");
-        this.load.image("sky", "assets/images/tiles/sky.png");
+        this.load.image("skyImg", "assets/images/tiles/bigsky.png");
 
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.MAGE_HERO, 'assets/images/heroes/mage.json', "assets/images/heroes");
 
-        this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/beginningCutscene.json");
+        this.load.tilemapTiledJSON("beginningCutscene", "assets/tilemaps/beginningCutscene.json");
 
 
     }
     create(){
         
-        this.map = this.add.tilemap(this.mapLevel);
+        this.map = this.add.tilemap("beginningCutscene");
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
-        this.sky = this.map.addTilesetImage("sky", "sky"); //Variable used in pathfinding
+        this.skyImg = this.map.addTilesetImage("bigsky", "skyImg"); //Variable used in pathfinding
         
-        this.skyLayer = this.map.createStaticLayer("sky", [this.sky], 0, 0).setScale(5,5); 
-        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
-        this.grassLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
+        this.skyLayer = this.map.createStaticLayer("sky", [this.skyImg], 0, 0).setScale(5,5); 
+        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 1, 0).setScale(5,5);
+        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 2, 0).setScale(5,5); 
 
-
+        this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
 
 
         console.log("Beginning Cutscene");
