@@ -204,8 +204,10 @@ export class DayScene extends Phaser.Scene{
 	    //collisions
 	    //this.wallLayer.setCollision(5); //dungeon level     //Change this if you want a different tile set. This is the ID.
         
-        this.wallLayer.setCollision(6);     //Snow level
-        
+        this.wallLayer.setCollision(7);     //Snow level
+        this.wallLayer.setCollision(5);     //Snow level
+
+
         this.physics.add.collider(this.player.sprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 

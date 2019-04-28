@@ -29,15 +29,15 @@ export class DayOverlayScene extends Phaser.Scene{
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         for(var i = 0; i < this.shieldHero.health; i++){
-            this.shieldHearts.push(this.add.image(50 + i*75,100, "heart1").setScale(2,2).setDepth(3));
+            this.shieldHearts.push(this.add.image(50 + i*75,110, "heart1").setScale(2,2).setDepth(3));
         }
 
         for(var i = 0; i < this.swordHero.health; i++){
-            this.swordHearts.push(this.add.image(50 + i*75,120, "heart2").setScale(2,2).setDepth(2));
+            this.swordHearts.push(this.add.image(50 + i*75,130, "heart2").setScale(2,2).setDepth(2));
         }
 
         for(var i = 0; i < this.mageHero.health; i++){
-            this.mageHearts.push(this.add.image(50 + i*75,140, "heart3").setScale(2,2).setDepth(1));
+            this.mageHearts.push(this.add.image(50 + i*75,150, "heart3").setScale(2,2).setDepth(1));
         }
 
 
@@ -48,7 +48,7 @@ export class DayOverlayScene extends Phaser.Scene{
         if(seconds < 10){
             seconds = "0" + seconds;
         }
-        this.timerText = this.add.text(20, 150, Math.floor(this.timer/60) + ':' + seconds, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
+        this.timerText = this.add.text(20, 10, Math.floor(this.timer/60) + ':' + seconds, { fontSize: '70px', fill: '#fff', strokeThickness: 10, stroke:"#000000"});
 
         //variables
         this.shieldHealth = this.shieldHero.health;
@@ -70,13 +70,13 @@ export class DayOverlayScene extends Phaser.Scene{
         let heartDepth;       //Shield, Sword, Mage   [depth, depth, depth, yPos, yPos, yPos]
         switch(this.dayScene.player.playerType){
             case HEROES.SHIELD_HERO:
-                heartDepth = [3,2,1, 140,120,100];
+                heartDepth = [3,2,1, 150,130,110];
                 break;
             case HEROES.SWORD_HERO:
-                heartDepth = [1,3,2, 100,140,120];
+                heartDepth = [1,3,2, 110,150,130];
                 break;
             case HEROES.MAGE_HERO:
-                heartDepth = [2,1,3, 120,100,140];
+                heartDepth = [2,1,3, 130,110,150];
                 break;
         }
         for(let i = 0; i < this.shieldHero.health; i++){

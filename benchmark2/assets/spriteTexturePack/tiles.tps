@@ -181,6 +181,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../images/tiles/newerTileImages/barrel.png</key>
             <key type="filename">../images/tiles/newerTileImages/caveDoor.png</key>
             <key type="filename">../images/tiles/newerTileImages/dirt.png</key>
             <key type="filename">../images/tiles/newerTileImages/ice.png</key>
@@ -199,6 +200,7 @@
             <key type="filename">../images/tiles/newerTileImages/snowTop.png</key>
             <key type="filename">../images/tiles/newerTileImages/stoneWall.png</key>
             <key type="filename">../images/tiles/newerTileImages/tallGrass.png</key>
+            <key type="filename">../images/tiles/newerTileImages/treasure.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
