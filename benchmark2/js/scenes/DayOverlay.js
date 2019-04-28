@@ -22,7 +22,7 @@ export class DayOverlayScene extends Phaser.Scene{
 
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
-        this.timer = 120;
+        this.timer = 360;
         this.initTime = 0; 
     }
     create(){

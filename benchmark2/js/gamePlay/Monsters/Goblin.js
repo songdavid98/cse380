@@ -20,7 +20,7 @@ export class Goblin extends Enemy {
         this.state = "sleeping";            //The behavioral states of the goblin
         this.detectionRange = 500;           //Need this to know how far away the player has to be to get detected
         this.goblinContainer = data.goblinContainer;
-
+        this.frmRt = 10;
         this.behaviourCounter = 0;
         //taken care of in super constructor
         //        this.sprite = data.sprite;
@@ -37,33 +37,32 @@ export class Goblin extends Enemy {
     init() {}
 
     create() {
-        var frameRate = 3;      //Frame rate has to be defined here (with var)
-
+        this.frameRate = 3;      //Frame rate has to be defined here (with var)
         var leftFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
-        this.anims.create({ key: 'leftGoblin', frames: leftFramesGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'leftGoblin', frames: leftFramesGoblin, frameRate: this.frameRate, repeat: -1 });
         var leftIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
-        this.anims.create({ key: 'leftIdleGoblin', frames: leftIdleFrameGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'leftIdleGoblin', frames: leftIdleFrameGoblin, frameRate: this.frameRate, repeat: -1 });
 
         var rightFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightGoblin', frames: rightFramesGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'rightGoblin', frames: rightFramesGoblin, frameRate: this.frameRate, repeat: -1 });
         var rightIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightIdleGoblin', frames: rightIdleFrameGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'rightIdleGoblin', frames: rightIdleFrameGoblin, frameRate: this.frameRate, repeat: -1 });
      
         var upFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
-        this.anims.create({ key: 'upGoblin', frames: upFramesGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'upGoblin', frames: upFramesGoblin, frameRate: this.frameRate, repeat: -1 });
         var upIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
-        this.anims.create({ key: 'upIdleGoblin', frames: upIdleFrameGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'upIdleGoblin', frames: upIdleFrameGoblin, frameRate: this.frameRate, repeat: -1 });
        
         var downFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
-        this.anims.create({ key: 'downGoblin', frames: downFramesGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'downGoblin', frames: downFramesGoblin, frameRate: this.frameRate, repeat: -1 });
         var downIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
-        this.anims.create({ key: 'downIdleGoblin', frames: downIdleFrameGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'downIdleGoblin', frames: downIdleFrameGoblin, frameRate: this.frameRate, repeat: -1 });
  
         var sleepFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 4, zeroPad: 4, prefix:'sleep/', suffix:'.png' });
-        this.anims.create({ key: 'sleepGoblin', frames: sleepFramesGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'sleepGoblin', frames: sleepFramesGoblin, frameRate: this.frameRate, repeat: -1 });
 
         var zzzFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, { start: 1, end: 3, zeroPad: 4, prefix:'zzz/', suffix:'.png' });
-        this.anims.create({ key: 'zzz', frames: zzzFramesGoblin, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'zzz', frames: zzzFramesGoblin, frameRate: this.frameRate, repeat: -1 });
 
 
     }

@@ -8,7 +8,7 @@ export class ShieldHero extends DayPlayer{
         super(data);
         this.playerType = HEROES.SHIELD_HERO; //Sword, mage, shield?
         this.health = 3;
-        this.basicAttack = 1;
+        this.basicAttack = 0;
         this.basicAttackSpeed = 300;
         this.specialAttack = 2;
         this.specialAttackSpeed = 3;
@@ -218,7 +218,7 @@ export class ShieldHero extends DayPlayer{
         this.scene.physics.add.overlap(shieldBeamSprite,this.scene.enemyGroup.getChildren(), function(shieldBeamSprite,enemySprite){
             if(!shieldBeamSprite.enemiesHit.includes(enemySprite)){
                 shieldBeamSprite.enemiesHit.push(enemySprite);
-                shieldBeamSprite.scene.hitMe(shieldBeamSprite,enemySprite);    
+                shieldBeamSprite.scene.hittingWithShieldBeam(shieldBeamSprite,enemySprite);    
             }
         });
     }

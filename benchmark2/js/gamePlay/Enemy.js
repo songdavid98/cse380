@@ -16,7 +16,7 @@ export class Enemy {
 
         this.lastDamaged = 0;       //Timer thing
         this.beenAttacked = false;  //Need this to change behaviour
-
+        this.notTakenEffect = true;
 
         this.justGotHit = false;
         this.direction = 2;             // up, down, left, right;  Please replace this with a better algorithm
@@ -34,7 +34,9 @@ export class Enemy {
     //When the hero tries to kill the monster
     damaged(intDamageTaken){
         this.active = false;          //FIX THIS LATTTTTTTTTTTTTTTER
-        //console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        console.log(intDamageTaken);
+        console.log(this.enemyType);
+        console.log(this.health);
         if(this.health > 0){
             this.health -= intDamageTaken;        //For now, it's only the basic attack...
             this.beenAttacked = true;
@@ -47,9 +49,18 @@ export class Enemy {
                 this.sprite.destroy();
             }
         }
-
-        //console.log(this.active);
     }
+
+    slowDown(){
+        if(this.notTakenEffect){
+            this.speed = Math.floor(this.speed/2);
+            this.frameRate = Math.floor(this.frameRate/2);
+            console.log(this.frameRate);
+            this.notTakenEffect = false;
+        }
+    }
+
+
 
     damagedSuspensionState(){
         if(!this.active && !this.dead){     //Get damaged state

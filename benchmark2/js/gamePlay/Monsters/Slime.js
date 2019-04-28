@@ -29,27 +29,27 @@ export class Slime extends Enemy{       // ---- someone fix this~
 
     create() {
     
-        var frameRate = 5;          //Frame rate has to be defined here (with var)
+        this.frameRate = 5;          //Frame rate has to be defined here (with var)
 
         var leftFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
-        this.anims.create({ key: 'leftSlime', frames: leftFramesSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'leftSlime', frames: leftFramesSlime, frameRate: this.frameRate, repeat: -1 });
         var leftIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
-        this.anims.create({ key: 'leftIdleSlime', frames: leftIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'leftIdleSlime', frames: leftIdleFrameSlime, frameRate: this.frameRate, repeat: -1 });
     
         var rightFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightSlime', frames: rightFramesSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'rightSlime', frames: rightFramesSlime, frameRate: this.frameRate, repeat: -1 });
         var rightIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightIdleSlime', frames: rightIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'rightIdleSlime', frames: rightIdleFrameSlime, frameRate: this.frameRate, repeat: -1 });
         
         var upFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
-        this.anims.create({ key: 'upSlime', frames: upFramesSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'upSlime', frames: upFramesSlime, frameRate: this.frameRate, repeat: -1 });
         var upIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
-        this.anims.create({ key: 'upIdleSlime', frames: upIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'upIdleSlime', frames: upIdleFrameSlime, frameRate: this.frameRate, repeat: -1 });
     
         var downFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
-        this.anims.create({ key: 'downSlime', frames: downFramesSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'downSlime', frames: downFramesSlime, frameRate: this.frameRate, repeat: -1 });
         var downIdleFrameSlime = this.anims.generateFrameNames(ENEMIES.SLIME, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
-        this.anims.create({ key: 'downIdleSlime', frames: downIdleFrameSlime, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'downIdleSlime', frames: downIdleFrameSlime, frameRate: this.frameRate, repeat: -1 });
     }
 
     dayUpdate(time) {

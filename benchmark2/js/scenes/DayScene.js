@@ -279,12 +279,12 @@ export class DayScene extends Phaser.Scene{
     }
 
 
-    hitMe(shieldBeamSprite, enemySprite){
+    hittingWithShieldBeam(shieldBeamSprite, enemySprite){
         if(!shieldBeamSprite.anims){
             return;
         }
         enemySprite.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
-        enemySprite.class.damaged(shieldBeamSprite.class.attackBasic);
+        enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
 
         //console.log(enemySprite.texture," got hit");
         enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now;        //Need this for damage cooldown
@@ -294,7 +294,27 @@ export class DayScene extends Phaser.Scene{
             shieldBeamSprite.colliding = [];
         }
         shieldBeamSprite.colliding.push(enemySprite);
-        
+    }
+
+    hittingWithMagicBeam(magicBeamSprite, enemySprite){
+        if(!magicBeamSprite.anims){
+            return;
+        }
+        console.log(magicBeamSprite.class.basicAttack);
+        enemySprite.class.damaged(magicBeamSprite.class.basicAttack);
+
+        //Slows the enemy down by half the speed
+        enemySprite.class.slowDown();
+
+
+
+        enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now;        //Need this for damage cooldown
+        enemySprite.class.justGotHit = true; 
+
+        if(!magicBeamSprite.colliding){
+            magicBeamSprite.colliding = [];
+        }
+        magicBeamSprite.colliding.push(enemySprite);
     }
 
 

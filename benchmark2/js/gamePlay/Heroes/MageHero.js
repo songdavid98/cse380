@@ -8,13 +8,14 @@ export class MageHero extends DayPlayer{
         super(data);
         this.playerType = HEROES.MAGE_HERO; //Sword, mage, shield?
         this.health = 3;
-        this.basicAttack = 3;
+        this.basicAttack = 1;
         this.basicAttackSpeed = 100;
+
         this.specialAttack = 5;
         this.specialAttackSpeed = 5;
         this.speed = 300;
 
-        this.attackCooldown = 1;
+        this.attackCooldown = 2;
         this.damageCooldown = 3;
         this.swapCooldown = 2;
         this.create();
@@ -113,8 +114,6 @@ export class MageHero extends DayPlayer{
     //When this is called, for now, launch a projectile with the correct animation
     attackBasic(cursor){
         this.isAttacking = true;       //Need this for animation
-        //  console.log(shieldSprite);
-        //tempSprite.anims.play("shield", true);
         let pointY;
         let pointX;
 
@@ -152,7 +151,7 @@ export class MageHero extends DayPlayer{
         let yy = Math.abs(magicBeamSprite.width * (Math.cos(this.angle))) + Math.abs(magicBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
 
         magicBeamSprite.body.setSize(xx, yy);
-        magicBeamSprite.body.setOffset(magicBeamSprite.body.offset.x-60, magicBeamSprite.body.offset.y-20)
+        magicBeamSprite.body.setOffset(magicBeamSprite.body.offset.x-35, magicBeamSprite.body.offset.y-50);
         //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
 
         magicBeamSprite.setRotation(this.angle);
@@ -180,14 +179,13 @@ export class MageHero extends DayPlayer{
         magicBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
         magicBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
         magicBeamSprite.anims.play("magic");  
-        console.log(magicBeamSprite);
         //The beam attacked
         this.scene.physics.add.overlap(magicBeamSprite,this.scene.enemyGroup.getChildren(), function(magicBeamSprite,enemySprite){
             if(!magicBeamSprite.enemiesHit.includes(enemySprite)){
                 magicBeamSprite.enemiesHit.push(enemySprite);
-                magicBeamSprite.scene.hitMe(magicBeamSprite,enemySprite);    
+                magicBeamSprite.scene.hittingWithMagicBeam(magicBeamSprite,enemySprite);    
             }
-            console.log(this);
+            //console.log(this);
         });  
         
 

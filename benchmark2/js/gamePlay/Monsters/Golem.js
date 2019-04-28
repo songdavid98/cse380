@@ -29,27 +29,27 @@ export class Golem extends Enemy{       //   ---- Someone fix this~
 
     create() {
 
-        var frameRate = 3;      //Frame rate has to be defined here (with var)
+        this.frameRate = 3;      //Frame rate has to be defined here (with var)
 
         var leftFramesGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
-        this.anims.create({ key: 'leftGolem', frames: leftFramesGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'leftGolem', frames: leftFramesGolem, frameRate: this.frameRate, repeat: -1 });
         var leftIdleFrameGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
-        this.anims.create({ key: 'leftIdleGolem', frames: leftIdleFrameGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'leftIdleGolem', frames: leftIdleFrameGolem, frameRate: this.frameRate, repeat: -1 });
 
         var rightFramesGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightGolem', frames: rightFramesGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'rightGolem', frames: rightFramesGolem, frameRate: this.frameRate, repeat: -1 });
         var rightIdleFrameGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
-        this.anims.create({ key: 'rightIdleGolem', frames: rightIdleFrameGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'rightIdleGolem', frames: rightIdleFrameGolem, frameRate: this.frameRate, repeat: -1 });
      
         var upFramesGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
-        this.anims.create({ key: 'upGolem', frames: upFramesGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'upGolem', frames: upFramesGolem, frameRate: this.frameRate, repeat: -1 });
         var upIdleFrameGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
-        this.anims.create({ key: 'upIdleGolem', frames: upIdleFrameGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'upIdleGolem', frames: upIdleFrameGolem, frameRate: this.frameRate, repeat: -1 });
        
         var downFramesGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
-        this.anims.create({ key: 'downGolem', frames: downFramesGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'downGolem', frames: downFramesGolem, frameRate: this.frameRate, repeat: -1 });
         var downIdleFrameGolem = this.anims.generateFrameNames(ENEMIES.GOLEM, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
-        this.anims.create({ key: 'downIdleGolem', frames: downIdleFrameGolem, frameRate: frameRate, repeat: -1 });
+        this.anims.create({ key: 'downIdleGolem', frames: downIdleFrameGolem, frameRate: this.frameRate, repeat: -1 });
     }
 
     dayUpdate(time) {
