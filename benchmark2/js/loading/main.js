@@ -32,12 +32,14 @@ import {
     Dungeon4
 } from "../scenes/Dungeon4.js"
 
+import { Beginning } from "../cutScenes/beginning.js"; //Testing a cut scene
+
 //Main
 let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene: [
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene,Dungeon4, DayOverlayScene, PauseScene 
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, Dungeon4, Beginning, DayOverlayScene, PauseScene
     ],
 
     //----------------------------------mine 
