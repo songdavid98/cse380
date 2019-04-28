@@ -196,6 +196,15 @@ export class MageHero extends DayPlayer{
         });  
         
         magicBeamSprite.on('animationcomplete_magicExp', function (o1) {
+            if(this.colliding){
+                for(var i = 0; i < this.colliding.length; i++){
+                    if(this.colliding[i]){
+                        this.colliding[i].class.active = true;
+                    }
+                }
+            }
+            this.colliding = null;
+            this.enemiesHit = null;
             this.destroy();
         });
  
