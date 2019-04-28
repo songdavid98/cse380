@@ -59,7 +59,8 @@ export class MageHero extends DayPlayer{
         this.anims.create({ key: 'magic', frames: magicFrame, frameRate: 10, repeat: 0 });
 
         var magicExplosionFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 12, end: 13, zeroPad: 4, prefix:'magic/', suffix:'.png' });
-        this.anims.create({ key: 'magicExp', frames: magicExplosionFrame, frameRate: 10, repeat: 0 });
+        this.anims.create({ key: 'magicExp', frames: magicExplosionFrame, frameRate: 7, repeat: 0 });
+        console.log(magicExplosionFrame);
         
 
     }
@@ -161,16 +162,18 @@ export class MageHero extends DayPlayer{
         }, magicBeamSprite);
         
         magicBeamSprite.on('animationcomplete_magic', function (o1) {
-            if(this.colliding){
-                for(var i = 0; i < this.colliding.length; i++){
-                    if(this.colliding[i]){
-                        this.colliding[i].class.active = true;
+            if(!this.exploding){
+                if(this.colliding){
+                    for(var i = 0; i < this.colliding.length; i++){
+                        if(this.colliding[i]){
+                            this.colliding[i].class.active = true;
+                        }
                     }
                 }
+                this.colliding = null;
+                this.enemiesHit = null;
+                this.destroy();
             }
-            this.colliding = null;
-            this.enemiesHit = null;
-            this.destroy();
         });
 
 
@@ -178,9 +181,16 @@ export class MageHero extends DayPlayer{
 
         magicBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
         magicBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
-        magicBeamSprite.anims.play("magic");  
+        magicBeamSprite.anims.play("magic");
         //The beam attacked
+        console.log(magicBeamSprite);
         this.scene.physics.add.overlap(magicBeamSprite,this.scene.enemyGroup.getChildren(), function(magicBeamSprite,enemySprite){
+            if(!magicBeamSprite.exploding){
+                magicBeamSprite.exploding = true;
+                magicBeamSprite.anims.play("magicExp");
+                magicBeamSprite.body.setSize(32, 32);
+                magicBeamSprite.body.setOffset(0,0);
+            }
             if(!magicBeamSprite.enemiesHit.includes(enemySprite)){
                 magicBeamSprite.enemiesHit.push(enemySprite);
                 magicBeamSprite.scene.hittingWithMagicBeam(magicBeamSprite,enemySprite);    

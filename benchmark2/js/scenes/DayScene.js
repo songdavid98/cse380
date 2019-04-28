@@ -76,6 +76,7 @@ export class DayScene extends Phaser.Scene{
     preload(){
         this.load.image("terrain", "assets/images/tiles/addableTiles.png");
         this.load.image("door", "assets/images/tiles/newerTileImages/caveDoor.png");
+        this.load.image("treasure", "assets/images/tiles/newerTileImages/treasure.png");
 
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
@@ -213,13 +214,17 @@ export class DayScene extends Phaser.Scene{
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
         //add cave door
-        this.door = this.map.objects[0].objects[0];
-        this.door.width *= 5;
-        this.door.height *= 5;
-        this.door.x *= 5;
-        this.door.y *= 5;
+        this.items = this.map.objects[0].objects;
+        for(var i = 0; i < this.items.length; i++){
+            this.items[i].width *= 5;
+            this.items[i].height *= 5;
+            this.items[i].x *= 5;
+            this.items[i].y *= 5;
+        }
         console.log(this.door);
+        this.map.createFromObjects('objectsLayer',20, {key:'treasure'});
         this.door = this.map.createFromObjects('objectsLayer',2,{key:'door'});
+        
         //this.createFromTiles(0, null,this.doors,this.scene);
 
 
