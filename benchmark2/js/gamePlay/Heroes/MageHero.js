@@ -53,7 +53,6 @@ export class MageHero extends DayPlayer{
         this.anims.create({ key: 'downIdleMage', frames: downIdleFrame, frameRate: 5, repeat: -1 });
         var downBasicAttackFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'attackDown/', suffix:'.png' });
         this.anims.create({ key: 'downBasicAttackMage', frames: downBasicAttackFrame, frameRate: 5, repeat: 0 });
-
         
         var magicFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 11, zeroPad: 4, prefix:'magic/', suffix:'.png' });
         this.anims.create({ key: 'magic', frames: magicFrame, frameRate: 10, repeat: 0 });
@@ -192,7 +191,7 @@ export class MageHero extends DayPlayer{
                 magicBeamSprite.enemiesHit.push(enemySprite);
                 magicBeamSprite.scene.hittingWithMagicBeam(magicBeamSprite,enemySprite);    
             }
-            //console.log(this);
+            console.log(magicBeamSprite);
         });  
         
         magicBeamSprite.on('animationcomplete_magicExp', function (o1) {

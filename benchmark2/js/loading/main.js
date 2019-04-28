@@ -29,12 +29,14 @@ import {
     DayOverlayScene
 } from "../scenes/DayOverlay.js"
 
+import { Beginning } from "../cutScenes/beginning.js"; //Testing a cut scene
+
 //Main
 let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene: [
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, PauseScene, DayOverlayScene
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, PauseScene, DayOverlayScene, Beginning
     ],
 
     //----------------------------------mine 
