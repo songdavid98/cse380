@@ -176,9 +176,6 @@ export class MageHero extends DayPlayer{
             }
         });
 
-
-        
-
         magicBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
         magicBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
         magicBeamSprite.anims.play("magic");
@@ -198,7 +195,6 @@ export class MageHero extends DayPlayer{
             //console.log(this);
         });  
         
-
         magicBeamSprite.on('animationcomplete_magicExp', function (o1) {
             this.destroy();
         });
