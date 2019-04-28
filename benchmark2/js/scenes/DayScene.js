@@ -61,6 +61,12 @@ export class DayScene extends Phaser.Scene{
             [600,1000],
             [700,900],
             [800,800],
+            [670,400],
+            [830,600],
+            [1220,300],
+            [1600,600],
+            [1740,900],
+            [1800,800]
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -302,11 +308,8 @@ export class DayScene extends Phaser.Scene{
         this.easystar.setGrid(grid);
         this.easystar.enableDiagonals();
 
-        console.log(this.map);
-
         var tileset = this.map.tilesets[0];
         var properties = tileset.tileProperties;
-        console.log(properties);
         var acceptableTiles = [];
     
         // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
@@ -320,9 +323,6 @@ export class DayScene extends Phaser.Scene{
             if(!properties[i].collide) acceptableTiles.push(i+1);
             if(properties[i].cost) this.easystar.setTileCost(i+1, properties[i].cost); // If there is a cost attached to the tile, let's register it
         }
-
-        console.log(acceptableTiles);
-        console.log(grid);
 
         this.easystar.setAcceptableTiles(acceptableTiles);
     }
@@ -423,7 +423,7 @@ export class DayScene extends Phaser.Scene{
         }
         else{
             this.player.update(time);
-
+            console.log(this.money);
             //Space bar for swapping heroes
             if(this.input.keyboard.keys[32].isDown && Math.floor(time/1000)-this.player.lastSwapped >= this.player.swapCooldown){
 

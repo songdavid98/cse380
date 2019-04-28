@@ -108,9 +108,13 @@ export class DayOverlayScene extends Phaser.Scene{
         }
 
         //--------------------------- Money Stuff -------------------------
-        if(this.checkIfMoneyIsSame != this.scene.money){    
-            this.moneyText.setText(':' + this.scene.money);
-            this.checkIfMoneyIsSame = this.scene.money;
+        console.log(this.dayScene.money); 
+
+        if(this.checkIfMoneyIsSame != this.dayScene.money){   
+            console.log(this.dayScene.money); 
+            console.log(this.checkIfMoneyIsSame);
+            this.moneyText.setText(':' + this.dayScene.money);
+            this.checkIfMoneyIsSame = this.dayScene.money;
         }
         
         
