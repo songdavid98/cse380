@@ -20,6 +20,8 @@ export class Goblin extends Enemy {
         this.state = "sleeping";            //The behavioral states of the goblin
         this.detectionRange = 500;           //Need this to know how far away the player has to be to get detected
         this.goblinContainer = data.goblinContainer;
+
+        this.behaviourCounter = 0;
         //taken care of in super constructor
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;
@@ -83,11 +85,15 @@ export class Goblin extends Enemy {
 
                     break;
                 case "patrolling":
-
+                    //console.log("patrolling");
                     this.goblinContainer.list[1].visible = false;
 
-                    if(this.withinVacinity(player.sprite, player.sprite, this.sprite,this.sprite)){
+                    if(this.withinVacinity(player.sprite, this.sprite) && this.behaviourCounter > 100){
                         this.state = "attacking";
+                        this.behaviourCounter = 0;
+                    }
+                    else{
+                        this.behaviourCounter++;
                     }
 
                     if (this.direction == 1) {
@@ -132,10 +138,14 @@ export class Goblin extends Enemy {
                     }
                     break;
                 case "attacking":
-
+                    //console.log("Attacking");
                     try{
-                        if(!this.withinVacinity(player.sprite, this.sprite)){
+                        if(!this.withinVacinity(player.sprite, this.sprite) && this.behaviourCounter > 100){
                             this.state = "patrolling";
+                            this.behaviourCounter = 0;
+                        }
+                        else{
+                            this.behaviourCounter++;
                         }
 
                         let gobX = Math.floor(this.sprite.body.position.x/80);
@@ -163,9 +173,9 @@ export class Goblin extends Enemy {
         if(playerSprite.body){
             let distX = (playerSprite.body.position.x - enemySprite.body.position.x);
             let distY = (playerSprite.body.position.y - enemySprite.body.position.y);
-
-            let dist = Math.sqrt(distX^2 - distY^2);
-
+            
+            let dist = Math.sqrt(Math.pow(distX,2) + Math.pow(distY,2));
+            //console.log(dist);
             if(dist < this.detectionRange){
                 return true;
             }

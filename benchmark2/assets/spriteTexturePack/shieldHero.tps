@@ -201,6 +201,8 @@
             <key type="filename">../images/heroes/shieldHero/down/0002.png</key>
             <key type="filename">../images/heroes/shieldHero/down/0003.png</key>
             <key type="filename">../images/heroes/shieldHero/down/0004.png</key>
+            <key type="filename">../images/heroes/shieldHero/idleLeft/0001.png</key>
+            <key type="filename">../images/heroes/shieldHero/idleRight/0001.png</key>
             <key type="filename">../images/heroes/shieldHero/left/0001.png</key>
             <key type="filename">../images/heroes/shieldHero/left/0002.png</key>
             <key type="filename">../images/heroes/shieldHero/left/0003.png</key>

@@ -176,20 +176,27 @@ export class DayScene extends Phaser.Scene{
 
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
-        this.shieldHeroSprite.visible = true;
+        this.shieldHeroSprite.visible = false;
+        this.shieldHeroSprite.setVelocity(0,0);
+        this.shieldHeroSprite.setPosition(-100,0);
         this.swordHeroSprite.visible = false;
-         this.swordHeroSprite.setVelocity(0,0);
+        this.swordHeroSprite.setVelocity(0,0);
         this.swordHeroSprite.setPosition(-100,0);
-        this.mageHeroSprite.visible = false;
-        this.mageHeroSprite.setVelocity(0,0);
-        this.mageHeroSprite.setPosition(-100,0);
+        this.mageHeroSprite.visible = true;
+        //this.mageHeroSprite.setVelocity(0,0);
+        //this.mageHeroSprite.setPosition(59,0);
 
         //First player is always shieldHero
         this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
         this.swordHero = new SwordHero({"playerType":HEROES.SWORD_HERO,"sprite":this.swordHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
         this.mageHero = new MageHero({"playerType":HEROES.MAGE_HERO,"sprite":this.mageHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
 
-        this.player = this.shieldHero;
+        this.player = this.mageHero;
+
+        //Setting the .class method of sprite to the sprite's class (the hero class)
+        this.shieldHeroSprite.class = this.shieldHero;
+        this.swordHeroSprite.class = this.swordHero;
+        this.mageHeroSprite.class = this.mageHero;
 
         //Launch the overlay scene
         this.scene.launch(SCENES.DAY_OVERLAY, {"dayScene":this,"shieldHero":this.shieldHero,"swordHero":this.swordHero,"mageHero":this.mageHero});
@@ -277,7 +284,7 @@ export class DayScene extends Phaser.Scene{
             return;
         }
         enemySprite.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
-        enemySprite.class.damaged(1);
+        enemySprite.class.damaged(shieldBeamSprite.class.attackBasic);
 
         //console.log(enemySprite.texture," got hit");
         enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now;        //Need this for damage cooldown
@@ -423,7 +430,6 @@ export class DayScene extends Phaser.Scene{
         }
         else{
             this.player.update(time);
-            console.log(this.money);
             //Space bar for swapping heroes
             if(this.input.keyboard.keys[32].isDown && Math.floor(time/1000)-this.player.lastSwapped >= this.player.swapCooldown){
 

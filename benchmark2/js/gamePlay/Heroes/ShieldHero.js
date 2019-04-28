@@ -29,31 +29,31 @@ export class ShieldHero extends DayPlayer{
         // Shield animation
         var leftFrames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftShield', frames: leftFrames, frameRate: 5, repeat: -1 });
-        var leftIdleFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        var leftIdleFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 1, zeroPad: 4, prefix:'idleLeft/', suffix:'.png' });
         this.anims.create({ key: 'leftIdleShield', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
         var leftBasicAttackFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'attackLeft/', suffix:'.png' });
-        this.anims.create({ key: 'leftBasicAttackShield', frames: leftBasicAttackFrame, frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'leftBasicAttackShield', frames: leftBasicAttackFrame, frameRate: 10, repeat: 0 });
 
         var rightFrames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'rightShield', frames: rightFrames, frameRate: 5, repeat: -1 });
-        var rightIdleFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        var rightIdleFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 1, zeroPad: 4, prefix:'idleRight/', suffix:'.png' });
         this.anims.create({ key: 'rightIdleShield', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
         var rightBasicAttackFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'attackRight/', suffix:'.png' });
-        this.anims.create({ key: 'rightBasicAttackShield', frames: rightBasicAttackFrame, frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'rightBasicAttackShield', frames: rightBasicAttackFrame, frameRate: 10, repeat: 0 });
 
         var upFrames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
         this.anims.create({ key: 'upShield', frames: upFrames, frameRate: 5, repeat: -1 });
         var upIdleFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
         this.anims.create({ key: 'upIdleShield', frames: upIdleFrame, frameRate: 5, repeat: -1 });
         var upBasicAttackFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'attackUp/', suffix:'.png' });
-        this.anims.create({ key: 'upBasicAttackShield', frames: upBasicAttackFrame, frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'upBasicAttackShield', frames: upBasicAttackFrame, frameRate: 10, repeat: 0 });
 
         var downFrames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
         this.anims.create({ key: 'downShield', frames: downFrames, frameRate: 5, repeat: -1 });
         var downIdleFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
         this.anims.create({ key: 'downIdleShield', frames: downIdleFrame, frameRate: 5, repeat: -1 });
         var downBasicAttackFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'attackDown/', suffix:'.png' });
-        this.anims.create({ key: 'downBasicAttackShield', frames: downBasicAttackFrame, frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'downBasicAttackShield', frames: downBasicAttackFrame, frameRate: 10, repeat: 0 });
  
         // animation
         var shieldFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
@@ -70,45 +70,72 @@ export class ShieldHero extends DayPlayer{
 
             
             if(this.angle > -Math.PI/4 && this.angle <= Math.PI/4){
-                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                    this.sprite.anims.play("rightIdleShield");  
+                if(this.isAttacking){
+                    this.sprite.anims.play("rightBasicAttackShield",true);
+                    console.log("Comes here");
                 }
                 else{
-                    this.sprite.anims.play("rightShield",true);
+                    if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                        this.sprite.anims.play("rightIdleShield");  
+                    }
+                    else{
+                        this.sprite.anims.play("rightShield",true);
+                    }
                 }
                 this.sprite.setRotation(this.angle);                //Rotates the image
                 this.rotation = this.angle;
                 this.sprite.body.angle = this.angle;                 //Rotates the box (playerclass)
             }
             else if(this.angle > -3*Math.PI/4 && this.angle <= -Math.PI/4){
-                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                    this.sprite.anims.play("upIdleShield"); 
+                if(this.isAttacking){
+                    this.sprite.anims.play("upBasicAttackShield",true);
+                    console.log("Comes here");
+
                 }
                 else{
-                    this.sprite.anims.play("upShield",true);
+                    if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                        this.sprite.anims.play("upIdleShield"); 
+                    }
+                    else{
+                        this.sprite.anims.play("upShield",true);
+                    }
                 }
                 this.sprite.setRotation(this.angle + Math.PI/2);     //Rotates the image
                 this.rotation = this.angle + Math.PI/2
                 this.sprite.body.angle = this.angle + Math.PI/2;     //Rotates the box (playerclass)
             }
             else if((this.angle > 3*Math.PI/4 && this.angle <= Math.PI) ||  (this.angle <= -3*Math.PI/4 && this.angle >= -Math.PI)){
-                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                    this.sprite.anims.play("leftIdleShield"); 
+                if(this.isAttacking){
+                    this.sprite.anims.play("leftBasicAttackShield",true);
+                    console.log("Comes here");
+
                 }
                 else{
-                    this.sprite.anims.play("leftShield",true);
+                    if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                        this.sprite.anims.play("leftIdleShield"); 
+                    }
+                    else{
+                        this.sprite.anims.play("leftShield",true);
+                    }
                 }
                 this.sprite.setRotation(this.angle - Math.PI);       //Rotates the image
                 this.rotation = this.angle - Math.PI;
                 this.sprite.body.angle = this.angle - Math.PI;       //Rotates the box (playerclass)
             }
             else if(this.angle <= 3*Math.PI/4 && this.angle > Math.PI/4){
-                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
-                    this.sprite.anims.play("downIdleShield"); 
+                if(this.isAttacking){
+                    this.sprite.anims.play("downBasicAttackShield",true);
+                    console.log("Comes here");
+
                 }
                 else{
-                    this.sprite.anims.play("downShield",true);
-                    //console.log(this.sprite.anims); 
+                    if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                        this.sprite.anims.play("downIdleShield"); 
+                    }
+                    else{
+                        this.sprite.anims.play("downShield",true);
+                        //console.log(this.sprite.anims); 
+                    }
                 }
                 this.sprite.setRotation(this.angle - Math.PI/2);     //Rotates the image
                 this.rotation = this.angle - Math.PI/2;
@@ -119,6 +146,8 @@ export class ShieldHero extends DayPlayer{
 
     //When this is called, for now, launch a projectile with the correct animation
     attackBasic(cursor){
+        this.isAttacking = true;       //Need this for animation
+        console.log("attttacking");
         //  console.log(shieldSprite);
         //tempSprite.anims.play("shield", true);
         let pointY;
@@ -127,10 +156,28 @@ export class ShieldHero extends DayPlayer{
         let dist = 100;
         pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
         pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle));
+
+        this.sprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, this.sprite);
+        this.sprite.on('animationcomplete_upBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_rightBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_leftBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_downBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
         
+
         let shieldBeamSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
         shieldBeamSprite.class = this;
         shieldBeamSprite.enemiesHit = [];
+
         //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
         this.scene.physics.add.collider(shieldBeamSprite,this.scene.wallLayer);
         //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
@@ -144,6 +191,7 @@ export class ShieldHero extends DayPlayer{
 
         shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
 
+    
         shieldBeamSprite.on('animationcomplete', function (anim, frame) {
             this.emit('animationcomplete_' + anim.key, anim, frame);
         }, shieldBeamSprite);
@@ -175,19 +223,7 @@ export class ShieldHero extends DayPlayer{
         });
     }
 
-    explosion(shieldSprite){
-        //console.log(shieldSprite);
-        shieldSprite.anims.play("shieldExp");   
 
-        shieldSprite.on('animationcomplete', function (anim, frame) {
-            this.emit('animationcomplete_' + anim.key, anim, frame);
-        }, shieldSprite);
-        
-        shieldSprite.on('animationcomplete_shieldExp', function (o1) {
-            enemySprite.class.justGotHit = false; 
-            shieldSprite.destroy();                   
-        });
-    }
 
 
 

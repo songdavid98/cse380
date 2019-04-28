@@ -9,7 +9,7 @@ export class MageHero extends DayPlayer{
         this.playerType = HEROES.MAGE_HERO; //Sword, mage, shield?
         this.health = 3;
         this.basicAttack = 3;
-        this.basicAttackSpeed = 3;
+        this.basicAttackSpeed = 100;
         this.specialAttack = 5;
         this.specialAttackSpeed = 5;
         this.speed = 300;
@@ -111,15 +111,108 @@ export class MageHero extends DayPlayer{
     }
 
     //When this is called, for now, launch a projectile with the correct animation
-    attackBasic(cursor, angle, shieldSprite){
+    attackBasic(cursor){
+        this.isAttacking = true;       //Need this for animation
+        //  console.log(shieldSprite);
+        //tempSprite.anims.play("shield", true);
+        let pointY;
+        let pointX;
+
+        let dist = 140;
+        pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
+        pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle));
+
         /*
-        shieldSprite.anims.play("shield", true);
-        shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
-        shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+        this.sprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, this.sprite);
+        this.sprite.on('animationcomplete_upBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_rightBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_leftBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_downBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
         */
+
+        let magicBeamSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'magic/0001.png').setScale(5, 5);
+        magicBeamSprite.class = this;
+        magicBeamSprite.enemiesHit = [];
+        this.beam = magicBeamSprite;
+        //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
+        //this.scene.physics.add.collider(magicBeamSprite,this.scene.wallLayer);
+        //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
+
+        let xx = Math.abs(magicBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(magicBeamSprite.width * (Math.sin(this.angle)));
+        let yy = Math.abs(magicBeamSprite.width * (Math.cos(this.angle))) + Math.abs(magicBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+
+        magicBeamSprite.body.setSize(xx, yy);
+        magicBeamSprite.body.setOffset(magicBeamSprite.body.offset.x-60, magicBeamSprite.body.offset.y-20)
+        //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
+
+        magicBeamSprite.setRotation(this.angle);
+
+        magicBeamSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, magicBeamSprite);
+        
+        magicBeamSprite.on('animationcomplete_magic', function (o1) {
+            if(this.colliding){
+                for(var i = 0; i < this.colliding.length; i++){
+                    if(this.colliding[i]){
+                        this.colliding[i].class.active = true;
+                    }
+                }
+            }
+            this.colliding = null;
+            this.enemiesHit = null;
+            this.destroy();
+        });
+
+
+        
+
+        magicBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
+        magicBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
+        magicBeamSprite.anims.play("magic");  
+        console.log(magicBeamSprite);
+        //The beam attacked
+        this.scene.physics.add.overlap(magicBeamSprite,this.scene.enemyGroup.getChildren(), function(magicBeamSprite,enemySprite){
+            if(!magicBeamSprite.enemiesHit.includes(enemySprite)){
+                magicBeamSprite.enemiesHit.push(enemySprite);
+                magicBeamSprite.scene.hitMe(magicBeamSprite,enemySprite);    
+            }
+            console.log(this);
+        });  
+        
+
+        magicBeamSprite.on('animationcomplete_magicExp', function (o1) {
+            this.destroy();
+        });
  
         
     }
+
+    /*
+    explosion(magicBeamSprite){
+        //console.log(shieldSprite);
+        magicBeamSprite.anims.play("magicExp");   
+
+        magicBeamSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, magicBeamSprite);
+        
+        magicBeamSprite.on('animationcomplete_shieldExp', function (o1) {
+            enemySprite.class.justGotHit = false; 
+            magicBeamSprite.destroy();                   
+        });
+    }
+*/
 
     attackSpecial(cursor, angle){
 
