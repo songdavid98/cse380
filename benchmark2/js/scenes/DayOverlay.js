@@ -1,5 +1,6 @@
 import {SCENES} from "../constants/SceneNames.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
+import { HEROES } from "../constants/PlayerTypes.js";
 
 export class DayOverlayScene extends Phaser.Scene{
     constructor(){
@@ -28,15 +29,15 @@ export class DayOverlayScene extends Phaser.Scene{
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         for(var i = 0; i < this.shieldHero.health; i++){
-            this.shieldHearts.push(this.add.image(50 + i*75,100, "heart").setScale(2,2).setDepth(1));
+            this.shieldHearts.push(this.add.image(50 + i*75,100, "heart1").setScale(2,2).setDepth(3));
         }
 
         for(var i = 0; i < this.swordHero.health; i++){
-            this.swordHearts.push(this.add.image(50 + i*75,120, "heart").setScale(2,2).setDepth(1));
+            this.swordHearts.push(this.add.image(50 + i*75,120, "heart2").setScale(2,2).setDepth(2));
         }
 
         for(var i = 0; i < this.mageHero.health; i++){
-            this.mageHearts.push(this.add.image(50 + i*75,140, "heart").setScale(2,2).setDepth(1));
+            this.mageHearts.push(this.add.image(50 + i*75,140, "heart3").setScale(2,2).setDepth(1));
         }
 
 
@@ -65,11 +66,40 @@ export class DayOverlayScene extends Phaser.Scene{
     }
     update(time, delta){
 
+        //Change position of hearts depending on the currentHero
+        let heartDepth;       //Shield, Sword, Mage   [depth, depth, depth, yPos, yPos, yPos]
+        switch(this.dayScene.player.playerType){
+            case HEROES.SHIELD_HERO:
+                heartDepth = [3,2,1, 140,120,100];
+                break;
+            case HEROES.SWORD_HERO:
+                heartDepth = [1,3,2, 100,140,120];
+                break;
+            case HEROES.MAGE_HERO:
+                heartDepth = [2,1,3, 120,100,140];
+                break;
+        }
+        for(let i = 0; i < this.shieldHero.health; i++){
+            this.shieldHearts[i].setDepth(heartDepth[0]);
+            this.shieldHearts[i].y = heartDepth[3];
+        }
+        for(let i = 0; i < this.swordHero.health; i++){
+            this.swordHearts[i].setDepth(heartDepth[1]);
+            this.swordHearts[i].y = heartDepth[4];
+        }
+        for(let i = 0; i < this.mageHero.health; i++){
+            this.mageHearts[i].setDepth(heartDepth[2]);
+            this.mageHearts[i].y = heartDepth[5];
+        }
+
+    
+
+
         if(this.initTime == 0){
             this.initTime = this.time.now;
         }
         if(this.shieldHero.health > this.shieldHealth){
-            this.shieldHearts.push(this.add.image(50 + this.shieldHealth*75,100, "heart").setScale(2,2).setDepth(1));
+            this.shieldHearts.push(this.add.image(50 + this.shieldHealth*75,100, "heart1").setScale(2,2).setDepth(1));
             this.shieldHealth++;
         }
         else if(this.shieldHero.health < this.shieldHealth){
@@ -80,7 +110,7 @@ export class DayOverlayScene extends Phaser.Scene{
         } 
 
         if(this.swordHero.health > this.swordHealth){
-            this.swordHearts.push(this.add.image(50 + this.swordHealth*75,120, "heart").setScale(2,2).setDepth(1));
+            this.swordHearts.push(this.add.image(50 + this.swordHealth*75,120, "heart2").setScale(2,2).setDepth(1));
             this.swordHealth++;
         }
         else if(this.swordHero.health < this.swordHealth){
@@ -91,7 +121,7 @@ export class DayOverlayScene extends Phaser.Scene{
         } 
 
         if(this.mageHero.health > this.mageHealth){
-            this.mageHearts.push(this.add.image(50 + this.mageHealth*75,140, "heart").setScale(2,2).setDepth(1));
+            this.mageHearts.push(this.add.image(50 + this.mageHealth*75,140, "heart3").setScale(2,2).setDepth(1));
             this.mageHealth++;
         }
         else if(this.mageHero.health < this.mageHealth){
