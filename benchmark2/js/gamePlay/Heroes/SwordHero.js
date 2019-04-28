@@ -142,14 +142,80 @@ export class SwordHero extends DayPlayer{
             this.sprite.anims.play("downBasicAttackSword", true);
         }
         
-        //shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
-        //shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+        console.log("attttacking");
+        //  console.log(shieldSprite);
+        //tempSprite.anims.play("shield", true);
+        let pointY;
+        let pointX;
+
+        let dist = 100;
+        pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
+        pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle));
+
+        this.sprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, this.sprite);
+        this.sprite.on('animationcomplete_upBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_rightBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_leftBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
+        this.sprite.on('animationcomplete_downBasicAttackShield', function (o1) {
+            this.class.isAttacking = false;
+        });
         
 
+        let shieldBeamSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
+        shieldBeamSprite.class = this;
+        shieldBeamSprite.enemiesHit = [];
+
+        //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
+        this.scene.physics.add.collider(shieldBeamSprite,this.scene.wallLayer);
+        //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
+
+        let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.angle)));
+        let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+
+        shieldBeamSprite.body.setSize(xx, yy);
+        shieldBeamSprite.body.setOffset(shieldBeamSprite.body.offset.x-60, shieldBeamSprite.body.offset.y-20)
+        //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
+
+        shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
 
     
- 
+        shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, shieldBeamSprite);
         
+        shieldBeamSprite.on('animationcomplete_shield', function (o1) {
+            if(this.colliding){
+                for(var i = 0; i < this.colliding.length; i++){
+                    if(this.colliding[i]){
+                        this.colliding[i].class.active = true;
+                    }
+                }
+            }
+            this.colliding = null;
+            this.enemiesHit = null;
+            this.destroy();                   
+        });
+        
+
+        shieldBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
+        shieldBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
+        //console.log(shieldSprite);        
+        shieldBeamSprite.anims.play("shield");  
+        //The beam attacked
+        this.scene.physics.add.overlap(shieldBeamSprite,this.scene.enemyGroup.getChildren(), function(shieldBeamSprite,enemySprite){
+            if(!shieldBeamSprite.enemiesHit.includes(enemySprite)){
+                shieldBeamSprite.enemiesHit.push(enemySprite);
+                shieldBeamSprite.scene.hittingWithShieldBeam(shieldBeamSprite,enemySprite);    
+            }
+        });
     }
 
     attackSpecial(cursor, angle){
