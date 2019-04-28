@@ -19,10 +19,11 @@ export class DayOverlayScene extends Phaser.Scene{
         this.shieldHealth;
         this.swordHealth;
         this.mageHealth;
+        this.sceneKey = data.sceneKey;
 
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
-        this.timer = 360;
+        this.timer = data.timer || 360;
         this.initTime = 0; 
     }
     create(){
@@ -154,7 +155,7 @@ export class DayOverlayScene extends Phaser.Scene{
         }
         this.timerText.setText(Math.floor(timeRemaining/60) + ":" + seconds);
         if(timeRemaining <= 0){
-            this.scene.stop(SCENES.DAY);
+            this.scene.stop(sceneKey);
             this.scene.start(SCENES.NIGHT,{"level":1,"money":this.scene.money+200});
             this.scene.stop();
         }

@@ -28,7 +28,7 @@ export class DayScene extends Phaser.Scene{
         this.level = data.level;
         this.mapLevel;
         this.easystar;
-        this.money = 0;
+        this.money = data['money'] || 0;
 
 
 
@@ -201,7 +201,7 @@ export class DayScene extends Phaser.Scene{
         this.mageHeroSprite.class = this.mageHero;
 
         //Launch the overlay scene
-        this.scene.launch(SCENES.DAY_OVERLAY, {"dayScene":this,"shieldHero":this.shieldHero,"swordHero":this.swordHero,"mageHero":this.mageHero});
+        this.scene.launch(SCENES.DAY_OVERLAY, {"dayScene":this,"sceneKey":SCENES.DAY,"shieldHero":this.shieldHero,"swordHero":this.swordHero,"mageHero":this.mageHero});
 
 	    //collisions
 	    //this.wallLayer.setCollision(5); //dungeon level     //Change this if you want a different tile set. This is the ID.
@@ -221,10 +221,29 @@ export class DayScene extends Phaser.Scene{
             this.items[i].x *= 5;
             this.items[i].y *= 5;
         }
-        console.log(this.door);
         this.map.createFromObjects('objectsLayer',20, {key:'treasure'});
-        this.door = this.map.createFromObjects('objectsLayer',2,{key:'door'});
-        
+        this.door = this.map.createFromObjects('objectsLayer',2,{key:'door'})[0];
+        this.door = this.physics.add.existing(this.door);
+        this.door.body.setSize(this.door.body.width,this.door.body.height);
+        this.door.body.setOffset(0,0);
+        this.physics.add.overlap(this.door, this.shieldHeroSprite, function(o1){
+            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+            o1.scene.scene.start(SCENES.DUNGEON4, {"money":this.money,"level":4});
+            o1.scene.scene.stop();
+            console.log("hello");
+        });
+        this.physics.add.overlap(this.door, this.swordHeroSprite, function(o1){
+            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+            o1.scene.scene.start(SCENES.DUNGEON4, {"money":this.money,"level":4});
+            o1.scene.scene.stop();
+            console.log("hello");
+        });
+        this.physics.add.overlap(this.door, this.mageHeroSprite, function(o1){
+            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+            o1.scene.scene.start(SCENES.DUNGEON4, {"money":this.money,"level":4});
+            o1.scene.scene.stop();
+            console.log("hello");
+        });
         //this.createFromTiles(0, null,this.doors,this.scene);
 
 

@@ -8,5 +8,6 @@ export const SCENES = {
     SPLASH: "SPLASH",
     DAY: "DAY",
     NIGHT: "NIGHT",
-    DAY_OVERLAY:"DAY_OVERLAY"
+    DAY_OVERLAY:"DAY_OVERLAY",
+    DUNGEON4:"DUNGEON4"
 }
