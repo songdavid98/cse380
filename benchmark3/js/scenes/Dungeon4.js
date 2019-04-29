@@ -171,10 +171,8 @@ export class Dungeon4 extends Phaser.Scene{
         this.scene.launch(SCENES.DAY_OVERLAY, {"dayScene":this,"sceneKey":SCENES.DUNGEON4,"shieldHero":this.shieldHero,"swordHero":this.swordHero,"mageHero":this.mageHero});
 
 	    //collisions
-	    //this.wallLayer.setCollision(5); //dungeon level     //Change this if you want a different tile set. This is the ID.
-        
-        this.wallLayer.setCollision(7);     //Snow level
-        this.wallLayer.setCollision(5);     //Snow level
+	    this.wallLayer.setCollision(6); //dungeon level     //Change this if you want a different tile set. This is the ID.
+
 
 
         this.physics.add.collider(this.player.sprite,this.wallLayer);
