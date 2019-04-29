@@ -3,17 +3,8 @@
 import {SCENES} from "../constants/SceneNames.js";
 import {HEROES} from "../constants/PlayerTypes.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
-//import {DayPlayer} from "../gamePlay/DayPlayer.js";   //Don't use this!!!!!!!!!
-//import {Enemy} from "../gamePlay/Enemy.js";           //Don't use this!!!!!!!!!
-import {Slime} from "../gamePlay/Monsters/Slime.js";
-import {Golem} from "../gamePlay/Monsters/Golem.js";
-import {Goblin} from "../gamePlay/Monsters/Goblin.js";
-
-import { ShieldHero } from "../gamePlay/Heroes/ShieldHero.js";
-import { SwordHero } from "../gamePlay/Heroes/SwordHero.js";
-import { MageHero } from "../gamePlay/Heroes/MageHero.js";
-
-
+import {DayPlayer} from "../gamePlay/DayPlayer.js";
+import {DayEnemy} from "../gamePlay/DayEnemy.js";
 
 export class DayScene extends Phaser.Scene{
     constructor(){
@@ -24,14 +15,10 @@ export class DayScene extends Phaser.Scene{
     init(data){
         this.timer;         //Day Countdown timer ~ 2min?
         this.map;
-        this.monsterArray = new Array();
+        this.monsterArray;
         this.level = data.level;
         this.mapLevel;
-        this.easystar;
-        this.money = data['money'] || 0;
-
-
-
+        this.angle;
          //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
@@ -46,55 +33,24 @@ export class DayScene extends Phaser.Scene{
             [1500,1000],
             [165,1560]
         ];
+
         this.slimeCount = this.slimeSpawnArr.length;
-
-        this.golemSpawnArr = [
-            [300,2000],
-            [1400,1500]
-        ];
-        this.golemCount = this.golemSpawnArr.length;
-
-        this.goblinSpawnArr = [
-            [320,400],
-            [400,600],
-            [500,400],
-            [600,1000],
-            [700,900],
-            [800,800],
-            [670,400],
-            [830,600],
-            [1220,300],
-            [1600,600],
-            [1740,900],
-            [1800,800]
-
-        ];
-        this.goblinCount = this.goblinSpawnArr.length;
 
 
     }
     preload(){
-        this.load.image("terrain", "assets/images/tiles/addableTiles.png");
-        this.load.image("door", "assets/images/tiles/newerTileImages/caveDoor.png");
-        this.load.image("treasure", "assets/images/tiles/newerTileImages/treasure.png");
-
+        this.load.image("terrain", "assets/images/tiles/tiles.png");
 
         this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
-        this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
-        this.load.multiatlas(HEROES.MAGE_HERO, 'assets/images/heroes/mage.json', "assets/images/heroes");
+        //this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
 
-
-        this.load.multiatlas(ENEMIES.GOLEM, 'assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.GOBLIN, 'assets/images/enemies/goblin.json', "assets/images/enemies");
 
+        //this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/cityscene.json', "assets/images");
 
         switch(this.level){
             case 1: 
-            this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/IceRoom.json");
-
-                this.load.tilemapTiledJSON("map1", "assets/tilemaps/IceRoom.json");
-
+                this.load.tilemapTiledJSON("map1", "assets/tilemaps/Dungeon3.json");
                 this.mapLevel = "map1";
                 console.log("Welcome to level 1");
                 break;
@@ -129,373 +85,171 @@ export class DayScene extends Phaser.Scene{
     }
     create(){
         //Generate map
-
         this.map = this.add.tilemap(this.mapLevel);
-
-        this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
-        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
-
-
+        let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain");
+        this.baseLayer = this.map.createStaticLayer("base", [terrain], 0, 0).setScale(5,5);
+        this.wallLayer = this.map.createStaticLayer("walls", [terrain], 1, 0).setScale(5,5); 
+        console.log("tiles");
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
+        this.input.keyboard.addKeys('W,S,A,D');
+        this.input.keyboard.addKeys('Esc');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
         for(var i = 0; i < this.slimeCount; i++){
-            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
-            this.enemyGroup.add(slimeSprite);
-            let slime = new Slime({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims,"scene":this});
-            slimeSprite.class = slime;
-            this.monsterArray.push(slime);
-        }
-
-        for(var i = 0; i < this.golemCount; i++){
-            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
-            this.enemyGroup.add(golemSprite);
-            let golem = new Golem({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims,"scene":this});
-            golemSprite.class = golem;
-            this.monsterArray.push(golem);
-        }
-
-        for(var i = 0; i < this.goblinCount; i++){
-            let goblinContainer = this.add.container(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]);
-            let goblinSprite = this.physics.add.sprite(0, 0, ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
-            let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
-            goblinContainer.add([goblinSprite, zzzSprite]);
-            this.enemyGroup.add(goblinSprite);
-
-            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims,"goblinContainer":goblinContainer, "scene":this});
-            goblinSprite.class = goblin;
-            this.monsterArray.push(goblin);
+            this.enemySprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+            this.enemyGroup.add(this.enemySprite);
+            this.enemies = new DayEnemy({"sprite":this.enemyGroup.getChildren(),"physics":this.physics,"keyboard":this.input.keyboard,
+            "health":5,"basicAttack":1, "basicAttackSpeed":80,"speed":2*128,"enemyType":ENEMIES.SLIME, "anims":this.anims});
+            this.enemySprite.class = this.enemies;  //Getting the class (to get the features) from the image (sprite)
         }
 
         //Create the heroes
-        this.shieldHeroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
-        this.swordHeroSprite = this.physics.add.sprite(200,200, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
-        this.mageHeroSprite = this.physics.add.sprite(200,200, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
+        this.heroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
+        //this.sprite = this.physics.add.sprite(600, 400, HEROES.SWORD_HERO, 'swordHero/down/0001.png').setScale(5, 5);
+        this.hero = new DayPlayer({"sprite":this.heroSprite,"physics":this.physics,"keyboard":this.input.keyboard,
+        "health":3,"basicAttack":1, "basicAttackSpeed":80*2,"specialAttack":2,"specialAttackSpeed":20,"speed":2.5*128,"playerType":HEROES.SHIELD_HERO, "anims":this.anims});
+        this.heroSprite.class = this.hero;
+        
+        this.scene.launch(SCENES.DAY_OVERLAY, {"hero":this.hero});
 
-        let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
-
-        this.shieldHeroSprite.visible = false;
-        this.shieldHeroSprite.setVelocity(0,0);
-        this.shieldHeroSprite.setPosition(-100,0);
-        this.swordHeroSprite.visible = true;
-        //this.swordHeroSprite.setVelocity(0,0);
-        //this.swordHeroSprite.setPosition(-100,0);
-        this.mageHeroSprite.visible = false;
-        this.mageHeroSprite.setVelocity(0,0);
-        this.mageHeroSprite.setPosition(-100,0);
-
-        //First player is always shieldHero
-        this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
-        this.swordHero = new SwordHero({"playerType":HEROES.SWORD_HERO,"sprite":this.swordHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
-        this.mageHero = new MageHero({"playerType":HEROES.MAGE_HERO,"sprite":this.mageHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
-
-        this.player = this.swordHero;
-
-        //Setting the .class method of sprite to the sprite's class (the hero class)
-        this.shieldHeroSprite.class = this.shieldHero;
-        this.swordHeroSprite.class = this.swordHero;
-        this.mageHeroSprite.class = this.mageHero;
-
-        //Launch the overlay scene
-        this.scene.launch(SCENES.DAY_OVERLAY, {"dayScene":this,"sceneKey":SCENES.DAY,"shieldHero":this.shieldHero,"swordHero":this.swordHero,"mageHero":this.mageHero});
 
 	    //collisions
-	    //this.wallLayer.setCollision(5); //dungeon level     //Change this if you want a different tile set. This is the ID.
-        
-        this.wallLayer.setCollision(7);     //Snow level
-        this.wallLayer.setCollision(5);     //Snow level
-
-
-        this.physics.add.collider(this.player.sprite,this.wallLayer);
+	    this.wallLayer.setCollision(2);     //Change this if you want a different tile set. This is the ID.
+        this.physics.add.collider(this.heroSprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
-
-        //add cave door
-        this.items = this.map.objects[0].objects;
-        for(var i = 0; i < this.items.length; i++){
-            this.items[i].width *= 5;
-            this.items[i].height *= 5;
-            this.items[i].x *= 5;
-            this.items[i].y *= 5;
-        }
-        this.map.createFromObjects('objectsLayer',20, {key:'treasure'});
-        this.door = this.map.createFromObjects('objectsLayer',2,{key:'door'})[0];
-        this.door = this.physics.add.existing(this.door);
-        this.door.body.setSize(this.door.body.width,this.door.body.height);
-        this.door.body.setOffset(0,0);
-        this.physics.add.overlap(this.door, this.shieldHeroSprite, function(o1){
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {"money":this.money,"level":4});
-            o1.scene.scene.stop();
-            console.log("hello");
-        });
-        this.physics.add.overlap(this.door, this.swordHeroSprite, function(o1){
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {"money":this.money,"level":4});
-            o1.scene.scene.stop();
-            console.log("hello");
-        });
-        this.physics.add.overlap(this.door, this.mageHeroSprite, function(o1){
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {"money":this.money,"level":4});
-            o1.scene.scene.stop();
-            console.log("hello");
-        });
-        //this.createFromTiles(0, null,this.doors,this.scene);
+                                       //This variable is used to store the previous time of the clock - used for attack cooldown and damage cooldown
 
 
         //Damaging the player
-        this.physics.add.overlap(this.shieldHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Shield");
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-                o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
-                if(o1.scene.player.dead){
-                    o1.scene.swapHero();
-                    console.log("I'm trying to swap");
-                }
+        this.physics.add.overlap(this.heroSprite,this.enemyGroup.getChildren(), function(o1, o2){
+            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.hero.lastDamaged/1000) >= o1.scene.hero.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+                console.log("You are getting hurt");
+                o1.scene.hero.damage(o2);                               //Decrease the health (from the hero CLASS) when overlaps with enemy
+                o1.scene.hero.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
             }
         });
-        this.physics.add.overlap(this.swordHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Sword");
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-                o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
-                if(o1.scene.player.dead){
-                    o1.scene.swapHero();
-                    console.log("I'm trying to swap");
-                }
-            }
-        });
-        this.physics.add.overlap(this.mageHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Mage");
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-                o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
-                if(o1.scene.player.dead){
-                    o1.scene.swapHero();
-                    console.log("I'm trying to swap");
-                }
-            }
-        });
-
 
         //Camera
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
-        this.cameras.main.startFollow(this.player.sprite);
+        this.cameras.main.startFollow(this.heroSprite);
 
-        //Event Listener
+        //Event Listeners
         this.input.on('pointermove', function (pointer) {
             let cursor = pointer;
-            this.player.angle = Phaser.Math.Angle.Between(this.player.sprite.x, this.player.sprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
+            this.angle = Phaser.Math.Angle.Between(this.heroSprite.x, this.heroSprite.y, cursor.x+this.cameras.main.scrollX, cursor.y+this.cameras.main.scrollY);
+            //console.log((Math.PI/2-this.angle) / (Math.PI/180));
         }, this);
 
 
 
+    
         this.input.on('pointerdown', function (pointer) {
-            if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.player.previousTime >= this.player.attackCooldown ){
-                this.player.previousTime = Math.floor(this.time.now/1000);
-                //Call the player's attack 
-                this.player.attackBasic(pointer);
+            if(pointer.leftButtonDown() && Math.floor(this.time.now/1000)-this.hero.previousTime >= this.hero.attackCooldown ){
+                this.hero.previousTime = Math.floor(this.time.now/1000);
+                let pointY;
+                let pointX;
 
+                let dist = 100;
+                pointX = this.heroSprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
+                pointY = this.heroSprite.y + dist*(Math.cos(Math.PI/2-this.angle)); 
+
+                this.shieldBeamSprite = this.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
+                this.shieldBeamSprite.class = this.hero;
+                //this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
+
+                //this.physics.add.collider(this.shieldBeamSprite,this.enemyGroup.getChildren());
+                this.physics.add.overlap(this.shieldBeamSprite,this.enemyGroup.getChildren(), function(o1, o2){
+                    o2.setVelocity(o1.body.velocity.x,o1.body.velocity.y);
+                    o2.active = false;
+                    o1.class.getMoney(o2);
+                    o2.destroy();
+                    if(!o1.colliding){
+                        o1.colliding = [];
+                    }
+                    o1.colliding.push(o2);
+                });
+
+                //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
+                this.physics.add.collider(this.shieldBeamSprite,this.wallLayer);
+
+                /*
+                this.physics.add.overlap(this.wallLayer, this.shieldBeamSprite, function(o1, o2){
+                
+                    o2.destroy();
+                    console.log("It's overlapping????");
+                });
+                */
+
+
+                let xx = Math.abs( this.shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(this.shieldBeamSprite.width * (Math.sin(this.angle)));
+                let yy = Math.abs(this.shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(this.shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+
+                this.shieldBeamSprite.body.setSize(xx, yy);
+                this.shieldBeamSprite.body.setOffset(this.shieldBeamSprite.body.offset.x-60, this.shieldBeamSprite.body.offset.y-20)
+                //this.shieldBeamSprite.body.reset(this.shieldBeamSprite.x, this.shieldBeamSprite.y);
+
+
+                this.shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
+
+                this.shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+                    this.emit('animationcomplete_' + anim.key, anim, frame);
+                }, this.shieldBeamSprite);
+                
+                this.shieldBeamSprite.on('animationcomplete_shield', function (o1) {
+                    if(this.colliding){
+                        for(var i = 0; i < this.colliding.length; i++){
+                            this.colliding[i].active = true;
+                        }
+                    }
+                    this.destroy();                   
+                });
+
+                this.heroSprite.on('animationcomplete', function (anim, frame) {
+                    this.emit('animationcomplete_' + anim.key, anim, frame);
+                }, this.heroSprite);
+                
+                this.heroSprite.on('animationcomplete_rightBasicAttack', function () {
+                    //console.log("print");                   
+                });
+
+                this.hero.attackBasic(pointer, this.angle, this.shieldBeamSprite);
             }
             else if(pointer.rightButtonDown()){
-                this.player.attackSpecial(pointer, this.player.angle);
+                this.hero.attackSpecial(pointer, this.angle);
             }
         }, this);
-
         this.input.mouse.disableContextMenu();
-        this.map.currentLayer = this.baseLayer;
-        this.pathFinding();
+
+        //Taking damage
+
+
+
+
+
+
     }
-
-
-    hittingWithShieldBeam(shieldBeamSprite, enemySprite){
-        if(!shieldBeamSprite.anims){
-            return;
-        }
-        enemySprite.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
-        enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
-
-        //console.log(enemySprite.texture," got hit");
-        enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now;        //Need this for damage cooldown
-        enemySprite.class.justGotHit = true; 
-
-        if(!shieldBeamSprite.colliding){
-            shieldBeamSprite.colliding = [];
-        }
-        shieldBeamSprite.colliding.push(enemySprite);
-    }
-
-    hittingWithMagicBeam(magicBeamSprite, enemySprite){
-        if(!magicBeamSprite.anims){
-            return;
-        }
-        console.log(magicBeamSprite.class.basicAttack);
-        enemySprite.class.damaged(magicBeamSprite.class.basicAttack);
-
-        //Slows the enemy down by half the speed
-        enemySprite.class.slowDown();
-
-
-
-        enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now;        //Need this for damage cooldown
-        enemySprite.class.justGotHit = true; 
-
-        if(!magicBeamSprite.colliding){
-            magicBeamSprite.colliding = [];
-        }
-        magicBeamSprite.colliding.push(enemySprite);
-    }
-
-
-    //Setting up pathfinding
-    pathFinding(){
-        this.easystar = new EasyStar.js();
-        var grid = [];
-        for(var y = 0; y < this.map.height; y++){
-            var col = [];
-            for(var x = 0; x < this.map.width; x++){
-                // In each cell we store the ID of the tile, which corresponds
-                // to its index in the tileset of the map ("ID" field in Tiled)
-                col.push(this.getTileID(x,y));
-            }
-            grid.push(col);
-        }
-
-        this.easystar.setGrid(grid);
-        this.easystar.enableDiagonals();
-
-        var tileset = this.map.tilesets[0];
-        var properties = tileset.tileProperties;
-        var acceptableTiles = [];
-    
-        // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
-        // and see what properties have been entered in Tiled.
-        for(var i = tileset.firstgid-1; i < this.terrain.total; i++){ // firstgid and total are fields from Tiled that indicate the range of IDs that the tiles can take in that tileset
-            if(!properties.hasOwnProperty(i)) {
-                // If there is no property indicated at all, it means it's a walkable tile
-                acceptableTiles.push(i+1);
-                continue;
-            }
-            if(!properties[i].collide) acceptableTiles.push(i+1);
-            if(properties[i].cost) this.easystar.setTileCost(i+1, properties[i].cost); // If there is a cost attached to the tile, let's register it
-        }
-
-        this.easystar.setAcceptableTiles(acceptableTiles);
-    }
-
-    //Used in pathfinding
-    getTileID(x,y){
-        var tile = this.map.getTileAt(x, y,true,'walls');
-        if(tile.index == -1){
-            tile = this.map.getTileAt(x,y,true,'base');
-        }
-        return tile.index;
-    }
-    checkCollision(x,y){
-        var tile = this.map.getTileAt(x, y,true);
-        return tile.properties.collide == true;
-    }
-
-    swapMaps(currentMap){
-        console.log("Swapped");
-
-        /*
-        this.map = this.add.tilemap("iceMap1");
-        let iceTerrain = this.map.addTilesetImage("ice", "iceTerrain");
-        this.baseLayer = this.map.createStaticLayer("base", [iceTerrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [iceTerrain], 1, 0).setScale(5,5); 
-        this.doorLayer = this.map.createStaticLayer("door", [iceTerrain], 2, 0).setScale(5,5); 
-        */
-    }
-
-    swapHero(){
-
-        let tempX = this.player.sprite.x;   //Save temporary placement of the current hero
-        let tempY = this.player.sprite.y;
-            
-            switch(this.player.swap()){
-                case HEROES.SHIELD_HERO: 
-                    if(!this.shieldHero.dead){
-                        this.player = this.shieldHero;
-                        this.shieldHeroSprite.visible = true;
-                        this.swordHeroSprite.visible = false;
-                        this.mageHeroSprite.visible = false;
-                        this.swordHeroSprite.setVelocity(0,0);
-                        this.swordHeroSprite.setPosition(-100,0);
-                        this.mageHeroSprite.setVelocity(0,0);
-                        this.mageHeroSprite.setPosition(-100,0);
-                        break;
-                    }
-                case HEROES.SWORD_HERO:
-                    if(!this.swordHero.dead){
-                        this.player = this.swordHero;
-                        this.shieldHeroSprite.visible = false;
-                        this.swordHeroSprite.visible = true;
-                        this.mageHeroSprite.visible = false;
-                        this.shieldHeroSprite.setVelocity(0,0);
-                        this.shieldHeroSprite.setPosition(-100,0);
-                        this.mageHeroSprite.setVelocity(0,0);
-                        this.mageHeroSprite.setPosition(-100,0);
-                        break;
-                    }
-                case HEROES.MAGE_HERO:
-                    if(!this.mageHero.dead){
-                        this.player = this.mageHero;
-                        this.shieldHeroSprite.visible = false;
-                        this.swordHeroSprite.visible = false;
-                        this.mageHeroSprite.visible = true;
-                        this.shieldHeroSprite.setVelocity(0,0);
-                        this.shieldHeroSprite.setPosition(-100,0);
-                        this.swordHeroSprite.setVelocity(0,0);
-                        this.swordHeroSprite.setPosition(-100,0);
-                        break;
-                    }
-            }
-
-        this.player.sprite.x = tempX;       //Use the temporary placement of the hero to place new hero
-        this.player.sprite.y = tempY;
-
-        this.cameras.main.startFollow(this.player.sprite);
-        this.physics.add.collider(this.player.sprite,this.wallLayer);
-
-        console.log(this.player);
-    }
-
     update(time, delta){
-        if(this.allThreeDead() && this.timeOfDeath == null){     //Kill the player and get the time of death
-            this.player.active = false;
-            this.player.sprite.destroy();
+        if(this.hero.dead && this.timeOfDeath == null){     //Kill the player and get the time of death
+            this.hero.active = false;
+            this.hero.sprite.destroy();
             this.timeOfDeath = time;
-            //console.log(time);
-            //console.log(Math.floor(this.timeOfDeath/1000));
+            console.log(time);
+            console.log(Math.floor(this.timeOfDeath/1000));
 
         }
-        else if(this.allThreeDead()  && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
-            //Shows the game going without the Player for x amount of seconds before it sends the game to the main menu
+        else if(this.hero.dead && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
+            //Shows the game going without the hero for x amount of seconds before it sends the game to the main menu
             this.timeOfDeath = null;
+            console.log("come here");
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.MAIN_MENU, 'dead');
             this.scene.stop(SCENES.DAY);
         }
         else{
-            this.player.update(time);
-            //Space bar for swapping heroes
-            if(this.input.keyboard.keys[32].isDown && Math.floor(time/1000)-this.player.lastSwapped >= this.player.swapCooldown){
+            this.hero.update(this.angle, time);
 
-                this.swapHero();                    //Swap the heroes by calling the function 
-                this.player.lastSwapped = Math.floor(time/1000);
-
-
-            }
-
-
-
-            //Pause stuff
             if(this.input.keyboard.keys[27].isDown && !this.justPaused){
                 this.justPaused = true
                 this.input.keyboard.keys[68].isDown = false
@@ -508,38 +262,21 @@ export class DayScene extends Phaser.Scene{
             }else if(this.input.keyboard.keys[27].isUp){
                 this.justPaused = false;
             }
-
-            //Player enters door
-
-            /*
-            console.log(this.player.sprite);
-            console.log(this.door);
-
-            console.log(this.door.sprite);
-            this.swapMaps();
-            this.physics.arcade.overlap(this.player.sprite, this.doors.sprite, this.swapMaps(), null, this);
-*/
-
-
-            for(let i = 0; i < this.monsterArray.length; i++){
-                var monster = this.monsterArray[i].dayUpdate(time, this.player);
-            }
         }
-    }
 
-    allThreeDead(){
-        if(this.shieldHero.dead && this.swordHero.dead && this.mageHero.dead){
-            return true;
-        }
-        else return false;
-    }
+        this.enemies.update(time);
 
-    getMoney(money){
-        if(this.money < 99999){
-            this.money += money;
-        }
-        else{
-            this.money = "MAXED_OUT";
-        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

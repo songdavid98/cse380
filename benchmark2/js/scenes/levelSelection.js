@@ -16,7 +16,7 @@ export class LevelSelectionScene extends Phaser.Scene{
         this.cameras.main.setBackgroundColor('#008080')
         let backButton = this.add.image(this.game.renderer.width*.05,this.game.renderer.height*.1,"backButton").setDepth(1).setScale(2,2);
         let level1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.38,"dungeon3Thumb").setDepth(2).setScale(1,1);
-        let level2Button = this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level2
+        this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level2
         this.add.image(this.game.renderer.width*.75, this.game.renderer.height*.38,"greyBox").setDepth(2).setScale(3,3); //level3
         let nightLevel1Button = this.add.image(this.game.renderer.width*.25, this.game.renderer.height*.68,"nightmap2Thumb").setDepth(2).setScale(1,1);
         this.add.image(this.game.renderer.width*.5, this.game.renderer.height*.68,"greyBox").setDepth(2).setScale(3,3); //n-level2
@@ -43,8 +43,6 @@ export class LevelSelectionScene extends Phaser.Scene{
 
         //add button events
         level1Button.setInteractive();
-        level2Button.setInteractive();
-
         nightLevel1Button.setInteractive();
         backButton.setInteractive();
         level1Button.on("pointerover", ()=>{
@@ -53,10 +51,6 @@ export class LevelSelectionScene extends Phaser.Scene{
         level1Button.on("pointerdown", ()=>{
             let data = {"level":1}
             this.scene.start(SCENES.DAY, data);
-        });
-        level2Button.on("pointerdown", ()=>{
-            let data = {"level":2}
-            this.scene.start(SCENES.BEGINNING, data);
         });
         nightLevel1Button.on("pointerdown", ()=>{
             let data = {"level":1, "money":1000}        //Change this to make sure money comes from day time

@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>phaser</string>
         <key>textureFileName</key>
-        <filename>../images/enemies/slime.png</filename>
+        <filename></filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/enemies/slime.json</filename>
+                <filename>../images/enemies/slime/slime.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -217,10 +217,23 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../images/enemies/slime/slime.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,64,7,128</rect>
+                <key>scale9Paddings</key>
+                <rect>4,64,7,128</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/enemies/slime</filename>
+            <filename>../images/enemies</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -1,29 +1,31 @@
 //Day time player
 import {HEROES} from "../constants/PlayerTypes.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
-
-
 export class DayPlayer{
 
     constructor(data){
-        this.sprite = data.sprite;               //The current sprite is the 'sprite' variable in this class
+        this.sprite = data.sprite;
+        this.playerType = data.playerType; //Sword, mage, shield?
+        this.health = data.health;
+        this.basicAttack = data.basicAttack;
+        this.attackCooldown = 1;
+        this.basicAttackSpeed = data.basicAttackSpeed;
+        this.specialAttack = data.specialAttack;
+        this.specialAttackSpeed = data.specialAttackSpeed;
+        this.speed = data.speed;
         this.keyboard = data.keyboard;
         this.physics = data.physics;
         this.anims = data.anims;
+        this.money = 0;
         this.dead = false;
-        this.angle = 0;
-
-        this.scene = data.scene;
         this.previousTime = 0;
+        this.damageCooldown = 3;
         this.lastDamaged = 0;
-        this.lastSwapped = 0;
-        this.isAttacking = false;
-        this.swapCooldown = 1;
 
         this.active = true; //FIXME: remove this
 
+        this.create();
     }
-
     init(){
 
     }
@@ -33,16 +35,44 @@ export class DayPlayer{
 
     }
     create(){
+        
 
-       
-         
-       
-    
+        // animation
+        var leftFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        this.anims.create({ key: 'left', frames: leftFrames, frameRate: 5, repeat: -1 });
+        var leftIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        this.anims.create({ key: 'leftIdle', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
+        var leftBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'attackLeft/', suffix:'.png' });
+        this.anims.create({ key: 'leftBasicAttack', frames: leftBasicAttackFrame, frameRate: 5, repeat: -1 });
+
+        var rightFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        this.anims.create({ key: 'right', frames: rightFrames, frameRate: 5, repeat: -1 });
+        var rightIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        this.anims.create({ key: 'rightIdle', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
+        var rightBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'attackRight/', suffix:'.png' });
+        this.anims.create({ key: 'rightBasicAttack', frames: rightBasicAttackFrame, frameRate: 5, repeat: -1 });
+
+        var upFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
+        this.anims.create({ key: 'up', frames: upFrames, frameRate: 5, repeat: -1 });
+        var upIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'up/', suffix:'.png' });
+        this.anims.create({ key: 'upIdle', frames: upIdleFrame, frameRate: 5, repeat: -1 });
+        var upBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 1, zeroPad: 4, prefix:'attackUp/', suffix:'.png' });
+        this.anims.create({ key: 'upBasicAttack', frames: upBasicAttackFrame, frameRate: 5, repeat: -1 });
+
+        var downFrames = this.anims.generateFrameNames(this.playerType, { start: 1, end: 4, zeroPad: 4, prefix:'down/', suffix:'.png' });
+        this.anims.create({ key: 'down', frames: downFrames, frameRate: 5, repeat: -1 });
+        var downIdleFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
+        this.anims.create({ key: 'downIdle', frames: downIdleFrame, frameRate: 5, repeat: -1 });
+        var downBasicAttackFrame = this.anims.generateFrameNames(this.playerType, { start: 2, end: 2, zeroPad: 4, prefix:'attackDown/', suffix:'.png' });
+        this.anims.create({ key: 'downBasicAttack', frames: downBasicAttackFrame, frameRate: 5, repeat: -1 });
+
+        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
+        this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
 
 
 
     }
-    update(time){
+    update(angle, time){
         //Gets the time of the game and stores it as a variable
         this.time = time;   
 
@@ -77,58 +107,103 @@ export class DayPlayer{
             }
 
             //Rotation of sprite and box
-            
+            if(angle > -Math.PI/4 && angle <= Math.PI/4){
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("rightIdle");
+                }else{
+                    this.sprite.anims.play("right", true);
+                }
+                this.sprite.setRotation(angle );                //Rotates the image
+                this.sprite.body.angle = angle;                 //Rotates the box (playerclass)
+            }
+            else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("upIdle");
+                }else{
+                    this.sprite.anims.play("up", true);
+                }
+                this.sprite.setRotation(angle + Math.PI/2);     //Rotates the image
+                this.sprite.body.angle = angle + Math.PI/2;     //Rotates the box (playerclass)
+            }
+            else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("leftIdle");
+                }else{
+                    this.sprite.anims.play("left", true);
+                }
+                this.sprite.setRotation(angle - Math.PI);       //Rotates the image
+                this.sprite.body.angle = angle - Math.PI;       //Rotates the box (playerclass)
+            }
+            else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
+                if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                    this.sprite.anims.play("downIdle");
+                }else{
+                    this.sprite.anims.play("down", true);
+                }
+                this.sprite.setRotation(angle - Math.PI/2);     //Rotates the image
+                this.sprite.body.angle = angle - Math.PI/2;     //Rotates the box (playerclass)
+            }
 
+            //Stopping animation
+            if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+                //this.sprite.anims.stop(null, true);             //Stops the animation and sets frame to 1
+            }
             
         } 
     }
 
     //When this is called, for now, launch a projectile with the correct animation
-    attackBasic(cursor, angle, tempSprite){
+    attackBasic(cursor, angle, shieldSprite){
         
-        //Call the hero's attackBasic first
-        //tempSprite.anims.play("shield",true);
-        tempSprite.anims = this.anims;
-        console.log(this.anims);
+        shieldSprite.anims.play("shield", true);
+        shieldSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
+        shieldSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+        
 
-        //this.hero.attackBasic(cursor, angle, tempSprite);
-        
+        this.sprite.anims.play("upIdle");
+
         //Rotation of sprite and box
         if(angle > -Math.PI/4 && angle <= Math.PI/4){
-            console.log("atacked");
-            switch(this.playerType){
-                case HEROES.SHIELD_HERO: this.sprite.anims.play("rightBasicAttackShield"); break;
-                case HEROES.SWORD_HERO: this.sprite.anims.play("rightBasicAttackSword"); break;
-                //case HEROES.MAGE_HERO: this.sprite.anims.play("rightBasicAttackMage"); break;
-            }
+            this.sprite.anims.play("rightBasicAttack");
         }
         else if(angle > -3*Math.PI/4 && angle <= -Math.PI/4){
-            switch(this.playerType){
-                case HEROES.SHIELD_HERO: this.sprite.anims.play("upBasicAttackShield"); break;
-                case HEROES.SWORD_HERO: this.sprite.anims.play("upBasicAttackSword"); break;
-                //case HEROES.MAGE_HERO: this.sprite.anims.play("upBasicAttackMage"); break;
-            }
+            this.sprite.anims.play("upBasicAttack");
         }
         else if((angle > 3*Math.PI/4 && angle <= Math.PI) ||  (angle <= -3*Math.PI/4 && angle >= -Math.PI)){
-            switch(this.playerType){
-                case HEROES.SHIELD_HERO: this.sprite.anims.play("leftBasicAttackShield"); break;
-                case HEROES.SWORD_HERO: this.sprite.anims.play("leftBasicAttackSword"); break;
-                //case HEROES.MAGE_HERO: this.sprite.anims.play("leftBasicAttackMage"); break;
-            }
+            this.sprite.anims.play("leftBasicAttack");
         }
         else if(angle <= 3*Math.PI/4 && angle > Math.PI/4){
-            switch(this.playerType){
-                case HEROES.SHIELD_HERO: this.sprite.anims.play("downBasicAttackShield"); break;
-                case HEROES.SWORD_HERO: this.sprite.anims.play("downBasicAttackSword"); break;
-                //case HEROES.MAGE_HERO: this.sprite.anims.play("downBasicAttackMage"); break;
-            }
+            this.sprite.anims.play("rightBasicAttack");
         }
-   
+
+
+        //nextFire = this.time.now + fireRate;
+
+        //var bullet = bullets.getFirstDead();
+
+        //bullet.reset(sprite.x - 8, sprite.y - 8);
+
+        //this.physics.arcade.moveToPointer(shieldSprite, 300);
+
+
+
+ 
+        
     }
 
-
+    getMoney(monster){
+        if(this.money < 99999){
+            if(monster.class.enemyType == ENEMIES.SLIME){
+                this.money += 10;
+            }
+        }
+        else{
+            this.money = "MAXED_OUT";
+        }
+    }
 
     animationStopped(){
+
         console.log("destroyeeed");
     }
 
@@ -137,53 +212,25 @@ export class DayPlayer{
 
     }
 
-    //ShieldHero => SwordHero => MageHero
-    swap(playerType){
-        switch(playerType){
-            case HEROES.SHIELD_HERO: 
-                playerType = HEROES.SWORD_HERO;        //Set player type
-                break;
-            case HEROES.SWORD_HERO:
-                playerType = HEROES.MAGE_HERO;         //Set player type
-                break;
-            case HEROES.MAGE_HERO:
-                playerType = HEROES.SHIELD_HERO;       //Set player type
-                break;
-            default:
-                console.log("SWAAAAAAAAAAPPPPPPPPPPING ERRRRRRRRRRRRORRRRRRRRRRRRR");
-        }
-        return playerType;
+
+    animation(){
+
     }
+    movement(){
 
-
+    }
     damage(monster){
         if(this.health > 0){
-            this.health -= monster.class.basicAttack;
-            if(this.health <= 0){
-                this.dead = true;
-                monster.class.active = false;
+            if(monster.class.enemyType == ENEMIES.SLIME){
+                this.health -= 1;
+                console.log(this.health);
+                if(this.health <= 0){
+                    console.log("dead");
+                    this.dead = true;
+                }
             }
         }
     }
-
-    grayScale(srcKey,method) {
-        var bmd = game.make.bitmapData();
-        bmd.load(srcKey);
-        bmd.processPixelRGB(forEachPixel, this);
-      return bmd;
-    }
-    
-    forEachPixel(pixel) {		
-      var gray = (pixel.r+pixel.g+pixel.b )/3; //average
-      //var gray = (pixel.r * 0.2126  + pixel.g * 0.7152 + pixel.b * 0.0722); //luma
-      //var gray = (Math.max(pixel.r,pixel.g,pixel.b) + Math.min(pixel.r,pixel.g,pixel.b))/2;//desaturate
-      pixel.r =  gray;
-      pixel.g = gray;
-      pixel.b = gray;
-    
-        return pixel;
-    }
-    
 
 
 

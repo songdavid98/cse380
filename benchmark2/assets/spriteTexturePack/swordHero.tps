@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.9.0</string>
+        <string>4.12.1</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -181,34 +181,6 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/heroes/swordHero/attackDown/0001.png</key>
-            <key type="filename">../images/heroes/swordHero/attackDown/0002.png</key>
-            <key type="filename">../images/heroes/swordHero/attackDown/0003.png</key>
-            <key type="filename">../images/heroes/swordHero/attackDown/0004.png</key>
-            <key type="filename">../images/heroes/swordHero/attackLeft/0001.png</key>
-            <key type="filename">../images/heroes/swordHero/attackLeft/0002.png</key>
-            <key type="filename">../images/heroes/swordHero/attackLeft/0003.png</key>
-            <key type="filename">../images/heroes/swordHero/attackLeft/0004.png</key>
-            <key type="filename">../images/heroes/swordHero/attackRight/0001.png</key>
-            <key type="filename">../images/heroes/swordHero/attackRight/0002.png</key>
-            <key type="filename">../images/heroes/swordHero/attackRight/0003.png</key>
-            <key type="filename">../images/heroes/swordHero/attackRight/0004.png</key>
-            <key type="filename">../images/heroes/swordHero/attackUp/0001.png</key>
-            <key type="filename">../images/heroes/swordHero/attackUp/0002.png</key>
-            <key type="filename">../images/heroes/swordHero/attackUp/0003.png</key>
-            <key type="filename">../images/heroes/swordHero/attackUp/0004.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,9,16,19</rect>
-                <key>scale9Paddings</key>
-                <rect>8,9,16,19</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">../images/heroes/swordHero/down/0001.png</key>
             <key type="filename">../images/heroes/swordHero/down/0002.png</key>
             <key type="filename">../images/heroes/swordHero/down/0003.png</key>
