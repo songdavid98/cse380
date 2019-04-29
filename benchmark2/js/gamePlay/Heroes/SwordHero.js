@@ -16,7 +16,6 @@ export class SwordHero extends DayPlayer{
 
         this.attackCooldown = 1;
         this.damageCooldown = 3;
-        this.swapCooldown = 2;
         this.sprite.class = this;
         this.create();
 
@@ -73,10 +72,10 @@ export class SwordHero extends DayPlayer{
         });
        
         // animation
-        /*
-        var shieldFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 16, zeroPad: 4, prefix:'shield/', suffix:'.png' });
-        this.anims.create({ key: 'shield', frames: shieldFrame, frameRate: 10, repeat: 0 });
-        */
+        
+        var swordFrame = this.anims.generateFrameNames(this.playerType, { start: 1, end: 3, zeroPad: 4, prefix:'sword/', suffix:'.png' });
+        this.anims.create({ key: 'sword', frames: swordFrame, frameRate: 10, repeat: 0 });
+        
 
 
     }
@@ -151,47 +150,28 @@ export class SwordHero extends DayPlayer{
         let dist = 100;
         pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-this.angle)); 
         pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-this.angle));
+     
 
-        this.sprite.on('animationcomplete', function (anim, frame) {
-            this.emit('animationcomplete_' + anim.key, anim, frame);
-        }, this.sprite);
-        this.sprite.on('animationcomplete_upBasicAttackShield', function (o1) {
-            this.class.isAttacking = false;
-        });
-        this.sprite.on('animationcomplete_rightBasicAttackShield', function (o1) {
-            this.class.isAttacking = false;
-        });
-        this.sprite.on('animationcomplete_leftBasicAttackShield', function (o1) {
-            this.class.isAttacking = false;
-        });
-        this.sprite.on('animationcomplete_downBasicAttackShield', function (o1) {
-            this.class.isAttacking = false;
-        });
-        
+        let swordSlashSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SWORD_HERO, 'sword/0001.png').setScale(5, 5);
+        swordSlashSprite.class = this;
+        swordSlashSprite.enemiesHit = [];
 
-        let shieldBeamSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
-        shieldBeamSprite.class = this;
-        shieldBeamSprite.enemiesHit = [];
+        this.scene.physics.add.collider(swordSlashSprite,this.scene.wallLayer);
+        //this.scene.physics.add.collider(swordSlashSprite,this.scene.enemyGroup.getChildren());
 
-        //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
-        this.scene.physics.add.collider(shieldBeamSprite,this.scene.wallLayer);
-        //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
+        let xx = Math.abs(swordSlashSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(swordSlashSprite.width * (Math.sin(this.angle)));
+        let yy = Math.abs(swordSlashSprite.width * (Math.cos(this.angle))) + Math.abs(swordSlashSprite.height * (Math.cos(this.angle + Math.PI/2)));
 
-        let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.angle + Math.PI/2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.angle)));
-        let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.angle + Math.PI/2)));
+        swordSlashSprite.body.setSize(xx, yy);
+        swordSlashSprite.body.setOffset(swordSlashSprite.body.offset.x-35, swordSlashSprite.body.offset.y-40);
 
-        shieldBeamSprite.body.setSize(xx, yy);
-        shieldBeamSprite.body.setOffset(shieldBeamSprite.body.offset.x-60, shieldBeamSprite.body.offset.y-20)
-        //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
-
-        shieldBeamSprite.setRotation(this.angle+ Math.PI/2);
-
+        swordSlashSprite.setRotation(this.angle-Math.PI/4);
     
-        shieldBeamSprite.on('animationcomplete', function (anim, frame) {
+        swordSlashSprite.on('animationcomplete', function (anim, frame) {
             this.emit('animationcomplete_' + anim.key, anim, frame);
-        }, shieldBeamSprite);
+        }, swordSlashSprite);
         
-        shieldBeamSprite.on('animationcomplete_shield', function (o1) {
+        swordSlashSprite.on('animationcomplete_sword', function (o1) {
             if(this.colliding){
                 for(var i = 0; i < this.colliding.length; i++){
                     if(this.colliding[i]){
@@ -205,15 +185,15 @@ export class SwordHero extends DayPlayer{
         });
         
 
-        shieldBeamSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
-        shieldBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
+        swordSlashSprite.body.setVelocityY(this.basicAttackSpeed*Math.sin(this.angle));
+        swordSlashSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
         //console.log(shieldSprite);        
-        shieldBeamSprite.anims.play("shield");  
+        swordSlashSprite.anims.play("sword");  
         //The beam attacked
-        this.scene.physics.add.overlap(shieldBeamSprite,this.scene.enemyGroup.getChildren(), function(shieldBeamSprite,enemySprite){
-            if(!shieldBeamSprite.enemiesHit.includes(enemySprite)){
-                shieldBeamSprite.enemiesHit.push(enemySprite);
-                shieldBeamSprite.scene.hittingWithShieldBeam(shieldBeamSprite,enemySprite);    
+        this.scene.physics.add.overlap(swordSlashSprite,this.scene.enemyGroup.getChildren(), function(swordSlashSprite,enemySprite){
+            if(!swordSlashSprite.enemiesHit.includes(enemySprite)){
+                swordSlashSprite.enemiesHit.push(enemySprite);
+                swordSlashSprite.scene.hittingWithShieldBeam(swordSlashSprite,enemySprite);    
             }
         });
     }

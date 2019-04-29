@@ -16,7 +16,6 @@ export class ShieldHero extends DayPlayer{
 
         this.damageCooldown = 3;
         this.attackCooldown = 1;
-        this.swapCooldown = 2;
 
 
 

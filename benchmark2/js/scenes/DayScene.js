@@ -181,19 +181,19 @@ export class DayScene extends Phaser.Scene{
         this.shieldHeroSprite.visible = false;
         this.shieldHeroSprite.setVelocity(0,0);
         this.shieldHeroSprite.setPosition(-100,0);
-        this.swordHeroSprite.visible = false;
-        this.swordHeroSprite.setVelocity(0,0);
-        this.swordHeroSprite.setPosition(-100,0);
-        this.mageHeroSprite.visible = true;
-        //this.mageHeroSprite.setVelocity(0,0);
-        //this.mageHeroSprite.setPosition(59,0);
+        this.swordHeroSprite.visible = true;
+        //this.swordHeroSprite.setVelocity(0,0);
+        //this.swordHeroSprite.setPosition(-100,0);
+        this.mageHeroSprite.visible = false;
+        this.mageHeroSprite.setVelocity(0,0);
+        this.mageHeroSprite.setPosition(-100,0);
 
         //First player is always shieldHero
         this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
         this.swordHero = new SwordHero({"playerType":HEROES.SWORD_HERO,"sprite":this.swordHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
         this.mageHero = new MageHero({"playerType":HEROES.MAGE_HERO,"sprite":this.mageHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});
 
-        this.player = this.mageHero;
+        this.player = this.swordHero;
 
         //Setting the .class method of sprite to the sprite's class (the hero class)
         this.shieldHeroSprite.class = this.shieldHero;

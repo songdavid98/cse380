@@ -18,7 +18,8 @@ export class DayPlayer{
         this.lastDamaged = 0;
         this.lastSwapped = 0;
         this.isAttacking = false;
-        
+        this.swapCooldown = 1;
+
         this.active = true; //FIXME: remove this
 
     }

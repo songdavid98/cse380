@@ -17,7 +17,6 @@ export class MageHero extends DayPlayer{
 
         this.attackCooldown = 2;
         this.damageCooldown = 3;
-        this.swapCooldown = 2;
         this.create();
     }
     init(){}

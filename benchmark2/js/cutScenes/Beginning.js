@@ -36,7 +36,7 @@ export class Beginning extends Phaser.Scene{
         this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 2, 0).setScale(5,5); 
 
         this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
-
+        
 
         console.log("Beginning Cutscene");
         //Show the heroes facing frontwards
