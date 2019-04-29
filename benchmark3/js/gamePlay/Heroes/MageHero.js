@@ -13,7 +13,7 @@ export class MageHero extends DayPlayer{
 
         this.specialAttack = 5;
         this.specialAttackSpeed = 5;
-        this.speed = 300;
+        this.speed = 400;
 
         this.attackCooldown = 2;
         this.damageCooldown = 3;

@@ -12,7 +12,7 @@ export class SwordHero extends DayPlayer{
         this.basicAttackSpeed = 3;
         this.specialAttack = 5;
         this.specialAttackSpeed = 4;
-        this.speed = 300;
+        this.speed = 400;
 
         this.attackCooldown = 1;
         this.damageCooldown = 3;
