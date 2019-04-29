@@ -29,6 +29,9 @@ import {
     DayOverlayScene
 } from "../scenes/DayOverlay.js"
 import {
+    DayDungeon3
+} from "../scenes/DayDungeon3.js"
+import {
     Dungeon4
 } from "../scenes/Dungeon4.js"
 
@@ -39,7 +42,7 @@ let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene: [
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, Dungeon4, Beginning, DayOverlayScene, PauseScene
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, DayScene, NightScene, DayDungeon3, Dungeon4, Beginning, DayOverlayScene, PauseScene
     ],
 
     //----------------------------------mine 

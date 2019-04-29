@@ -12,7 +12,7 @@ export class ShieldHero extends DayPlayer{
         this.basicAttackSpeed = 300;
         this.specialAttack = 2;
         this.specialAttackSpeed = 3;
-        this.speed = 300;
+        this.speed = 400;
 
         this.damageCooldown = 3;
         this.attackCooldown = 1;
