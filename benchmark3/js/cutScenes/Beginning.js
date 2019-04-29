@@ -17,11 +17,11 @@ export class Beginning extends Phaser.Scene{
         this.load.image("skyImg", "assets/images/tiles/bigsky.png");
 
 
-        this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
-        this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
-        this.load.multiatlas(HEROES.MAGE_HERO, 'assets/images/heroes/mage.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
 
-        this.load.tilemapTiledJSON("beginningCutscene", "assets/tilemaps/beginningCutscene.json");
+        this.load.tilemapTiledJSON("beginningCutscene", "./assets/tilemaps/beginningCutscene.json");
 
 
     }

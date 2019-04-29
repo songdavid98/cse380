@@ -75,22 +75,22 @@ export class Dungeon4 extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image("terrain", "assets/images/tiles/addableTiles.png");
-        this.load.image("door", "assets/images/tiles/newerTileImages/caveDoor.png");
-        this.load.image("treasure", "assets/images/tiles/newerTileImages/treasure.png");
+        this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
+        this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
+        this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
 
 
-        this.load.multiatlas(HEROES.SHIELD_HERO, 'assets/images/heroes/shield.json', "assets/images/heroes");
-        this.load.multiatlas(HEROES.SWORD_HERO, 'assets/images/heroes/sword.json', "assets/images/heroes");
-        this.load.multiatlas(HEROES.MAGE_HERO, 'assets/images/heroes/mage.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
+        this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
 
 
-        this.load.multiatlas(ENEMIES.GOLEM, 'assets/images/enemies/golem.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.GOBLIN, 'assets/images/enemies/goblin.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
         
         this.level = 4;
-        this.load.tilemapTiledJSON("map4", "assets/tilemaps/Dungeon4.json");
+        this.load.tilemapTiledJSON("map4", "./assets/tilemaps/Dungeon4.json");
         this.mapLevel = "map4";
         console.log("make suer this dungeon even exits, dumbo");
     }

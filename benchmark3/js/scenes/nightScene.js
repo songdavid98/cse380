@@ -69,23 +69,23 @@ export class NightScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("terrain1", "assets/images/tiles.png");
+        this.load.image("terrain1", "./assets/images/tiles.png");
 
-        this.load.image("buyarrow", "assets/images/buttons/buyarrowturret.JPG");
-        this.load.image("buycannon", "assets/images/buttons/buycannonturret.JPG");
-        this.load.image("buywall", "assets/images/buttons/buywall.JPG");
-        this.load.image("startwave", "assets/images/buttons/startwave.JPG");
+        this.load.image("buyarrow", "./assets/images/buttons/buyarrowturret.JPG");
+        this.load.image("buycannon", "./assets/images/buttons/buycannonturret.JPG");
+        this.load.image("buywall", "./assets/images/buttons/buywall.JPG");
+        this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
-        this.load.tilemapTiledJSON("night-map1", "assets/tilemaps/nightmap.json");
+        this.load.tilemapTiledJSON("night-map1", "./assets/tilemaps/nightmap.json");
         this.mapLevel = "night-map1";
         console.log("Welcome to level " + this.level);
 
 
         //Load the enemy images
-        this.load.multiatlas(ENEMIES.SLIME, 'assets/images/enemies/slime.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "./assets/images/enemies");
 
         //Load defense structure images
-        this.load.multiatlas(DEFSTR.CANNON, 'assets/images/defenseStructure/cannon.json', "assets/images/defenseStructure");
+        this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure");
 
     }
 
