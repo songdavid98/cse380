@@ -74,6 +74,8 @@ export class NightScene extends Phaser.Scene {
 
         this.towerToBePlaced = null;
         this.towerSpriteForBuying = null;
+
+        this.music = null;
     }
 
     preload() {
@@ -95,9 +97,14 @@ export class NightScene extends Phaser.Scene {
         //Load defense structure images
         this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure");
 
+        //Load song
+        this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
     }
 
     create() {
+        this.music = this.sound.add("audiobackgroundsong");
+        this.music.setLoop(true);
+        this.music.play()
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         let terrain = this.map.addTilesetImage("tileset", "terrain1");
@@ -416,6 +423,7 @@ export class NightScene extends Phaser.Scene {
         if (this.gameEndTime != -1) {
             //  if 5 seconds has passed
             if (((time - this.gameEndTime) / 1000) >= 5) {
+                this.music.stop();
                 this.scene.start(SCENES.SPLASH);
                 this.scene.stop();
             }
