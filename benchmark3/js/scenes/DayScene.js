@@ -55,8 +55,8 @@ export class DayScene extends Phaser.Scene{
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            [320,400],
-            [400,600],
+            [320,400] //,
+           /* [400,600],
             [500,400],
             [600,1000],
             [700,900],
@@ -66,7 +66,7 @@ export class DayScene extends Phaser.Scene{
             [1220,300],
             [1600,600],
             [1740,900],
-            [1800,800]
+            [1800,800]*/
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -91,10 +91,8 @@ export class DayScene extends Phaser.Scene{
 
         switch(this.level){
             case 1: 
-            this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/IceRoom.json");
-
+                this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/IceRoom.json");
                 this.load.tilemapTiledJSON("map1", "assets/tilemaps/IceRoom.json");
-
                 this.mapLevel = "map1";
                 console.log("Welcome to level 1");
                 break;
@@ -134,7 +132,7 @@ export class DayScene extends Phaser.Scene{
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5,5); 
 
 
 
@@ -165,7 +163,6 @@ export class DayScene extends Phaser.Scene{
             let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
             goblinContainer.add([goblinSprite, zzzSprite]);
             this.enemyGroup.add(goblinSprite);
-
             let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims,"goblinContainer":goblinContainer, "scene":this});
             goblinSprite.class = goblin;
             this.monsterArray.push(goblin);
@@ -211,7 +208,7 @@ export class DayScene extends Phaser.Scene{
 
 
         this.physics.add.collider(this.player.sprite,this.wallLayer);
-        this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+        //this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
         //add cave door
         this.items = this.map.objects[0].objects;
@@ -249,7 +246,7 @@ export class DayScene extends Phaser.Scene{
 
         //Damaging the player
         this.physics.add.overlap(this.shieldHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Shield");
+            //console.log("Getting hurt Shield");
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o2.lastAttacked = Math.floor(o1.scene.time.now/1000);
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
@@ -261,7 +258,7 @@ export class DayScene extends Phaser.Scene{
             }
         });
         this.physics.add.overlap(this.swordHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Sword");
+            //console.log("Getting hurt Sword");
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
@@ -272,7 +269,7 @@ export class DayScene extends Phaser.Scene{
             }
         });
         this.physics.add.overlap(this.mageHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Mage");
+            //console.log("Getting hurt Mage");
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
@@ -366,12 +363,13 @@ export class DayScene extends Phaser.Scene{
             }
             grid.push(col);
         }
-
+        console.log(this.map);
         this.easystar.setGrid(grid);
         this.easystar.enableDiagonals();
 
         var tileset = this.map.tilesets[0];
         var properties = tileset.tileProperties;
+        console.log(tileset);
         var acceptableTiles = [];
     
         // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
@@ -387,6 +385,9 @@ export class DayScene extends Phaser.Scene{
         }
 
         this.easystar.setAcceptableTiles(acceptableTiles);
+
+        console.log(acceptableTiles);
+        console.log(grid);
     }
 
     //Used in pathfinding

@@ -14,14 +14,19 @@ export class Goblin extends Enemy {
         this.health = 5;
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
-        this.speed = 100;
+        this.speed = 200;
         this.movement = 60;                 //Monster keeps moving in square pattern for now
         this.killCost = 15;
         this.state = "sleeping";            //The behavioral states of the goblin
-        this.detectionRange = 500;           //Need this to know how far away the player has to be to get detected
+        this.detectionRange = 1000;           //Need this to know how far away the player has to be to get detected
         this.goblinContainer = data.goblinContainer;
         this.frmRt = 10;
         this.behaviourCounter = 0;
+
+
+
+
+
         //taken care of in super constructor
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;
@@ -87,12 +92,11 @@ export class Goblin extends Enemy {
                     //console.log("patrolling");
                     this.goblinContainer.list[1].visible = false;
 
-                    if(this.withinVacinity(player.sprite, this.sprite) && this.behaviourCounter > 100){
-                        this.state = "attacking";
-                        this.behaviourCounter = 0;
-                    }
-                    else{
-                        this.behaviourCounter++;
+                    if(this.withinVacinity(player.sprite, this.sprite)){
+                        this.state = "attacking";      
+                        console.log("patrollng");
+                 
+                        break;
                     }
 
                     if (this.direction == 1) {
@@ -137,23 +141,28 @@ export class Goblin extends Enemy {
                     }
                     break;
                 case "attacking":
-                    //console.log("Attacking");
-                    try{
-                        if(!this.withinVacinity(player.sprite, this.sprite) && this.behaviourCounter > 100){
-                            this.state = "patrolling";
-                            this.behaviourCounter = 0;
-                        }
-                        else{
-                            this.behaviourCounter++;
-                        }
 
-                        let gobX = Math.floor(this.sprite.body.position.x/80);
-                        let gobY = Math.floor(this.sprite.body.position.y/80);
+                    if(!player){
+                        console.log("CAN'T detect plaeyer");
+                    }
+                    try{
+                        if(!this.withinVacinity(player.sprite, this.sprite)){
+                            //this.state = "patrolling";
+                            console.log("Player out of bounds");
+                            this.sprite.body.setVelocityX(0);
+                            this.sprite.body.setVelocityY(0);
+                            break;
+                        }
+                        
+                        
+                        let gobX = Math.floor((this.sprite.body.position.x+this.sprite.width/2)/80);
+                        let gobY = Math.floor((this.sprite.body.position.y+this.sprite.height/2)/80);
                         //console.log(player.sprite.body.position);
-                        let heroX = Math.floor(player.sprite.body.position.x/80);
-                        let heroY = Math.floor(player.sprite.body.position.y/80);
+                        let heroX = Math.floor((player.sprite.body.position.x+this.sprite.width/2)/80);
+                        let heroY = Math.floor((player.sprite.body.position.y+this.sprite.height/2)/80);
 
                         if(gobX > 0 && gobY > 0 && heroX > 0 && heroY > 0){
+                            //console.log("Gobling attacking");
                             this.attack(gobX, gobY, heroX, heroY);
                         }
 
@@ -170,8 +179,8 @@ export class Goblin extends Enemy {
 
     withinVacinity(playerSprite, enemySprite){
         if(playerSprite.body){
-            let distX = (playerSprite.body.position.x - enemySprite.body.position.x);
-            let distY = (playerSprite.body.position.y - enemySprite.body.position.y);
+            let distX = ((playerSprite.body.position.x) - (enemySprite.body.position.x));
+            let distY = ((playerSprite.body.position.y) - (enemySprite.body.position.y));
             
             let dist = Math.sqrt(Math.pow(distX,2) + Math.pow(distY,2));
             //console.log(dist);
@@ -190,26 +199,28 @@ export class Goblin extends Enemy {
 
     attack(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile){
         let gobClass = this;
-        //console.log(this);
-        //currentGoblinXtile.killMe = "Do not kill";
-
+        if(!currentPlayerXtile && !currentPlayerYtile){
+            console.log("PLAYER NOT FOUND");
+        }
         if(currentGoblinXtile != currentPlayerXtile && currentGoblinYtile != currentPlayerYtile){
-
-            //console.log(currentGoblinXtile, " ",currentGoblinYtile," ", currentPlayerXtile, " ",currentPlayerYtile);
+            console.log(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile,currentPlayerYtile);
             this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path) {
                 let currentNextPointX = null;
                 let currentNextPointY = null;
-            
+                
                 if (path === null) {
                     console.log("The path to the destination point was not found.");
                 }
                 if (path) {
+                    console.log(path);
                     currentNextPointX = path[1].x;
                     currentNextPointY = path[1].y;
+                    console.log(currentNextPointX);
+                    console.log(currentNextPointY);
                 }
 
                 if (currentNextPointX < currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
-                    //console.log("GO LEFT UP");
+                    console.log("GO LEFT UP");
                     gobClass.sprite.body.setVelocityX(-gobClass.speed);
                     gobClass.sprite.body.setVelocityY(-gobClass.speed);
                     gobClass.sprite.anims.play("leftGoblin",true);
@@ -227,7 +238,7 @@ export class Goblin extends Enemy {
                     gobClass.sprite.anims.play("rightGoblin",true);
                 }
                 else if (currentNextPointX < currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
-                    //console.log("GO LEFT");                     
+                    console.log("GO LEFT");                     
                     gobClass.sprite.body.setVelocityX(-gobClass.speed);
                     gobClass.sprite.body.setVelocityY(0);
                     gobClass.sprite.anims.play("leftGoblin",true);
@@ -251,7 +262,7 @@ export class Goblin extends Enemy {
                     gobClass.sprite.anims.play("downGoblin",true);
                 }
                 else if (currentNextPointX < currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                    //console.log("GO LEFT DOWN");    
+                    console.log("GO LEFT DOWN");    
                     gobClass.sprite.body.setVelocityX(-gobClass.speed);
                     gobClass.sprite.body.setVelocityY(gobClass.speed);
                     gobClass.sprite.anims.play("leftGoblin",true);

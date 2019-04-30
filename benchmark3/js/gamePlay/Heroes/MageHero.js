@@ -9,13 +9,13 @@ export class MageHero extends DayPlayer{
         this.playerType = HEROES.MAGE_HERO; //Sword, mage, shield?
         this.health = 3;
         this.basicAttack = 1;
-        this.basicAttackSpeed = 100;
+        this.basicAttackSpeed = 200;
 
         this.specialAttack = 5;
         this.specialAttackSpeed = 5;
         this.speed = 400;
 
-        this.attackCooldown = 2;
+        this.attackCooldown = 1;
         this.damageCooldown = 3;
         this.create();
     }
@@ -58,7 +58,6 @@ export class MageHero extends DayPlayer{
 
         var magicExplosionFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 12, end: 13, zeroPad: 4, prefix:'magic/', suffix:'.png' });
         this.anims.create({ key: 'magicExp', frames: magicExplosionFrame, frameRate: 7, repeat: 0 });
-        console.log(magicExplosionFrame);
         
 
     }
@@ -178,7 +177,6 @@ export class MageHero extends DayPlayer{
         magicBeamSprite.body.setVelocityX(this.basicAttackSpeed*Math.cos(this.angle));
         magicBeamSprite.anims.play("magic");
         //The beam attacked
-        console.log(magicBeamSprite);
         this.scene.physics.add.overlap(magicBeamSprite,this.scene.enemyGroup.getChildren(), function(magicBeamSprite,enemySprite){
             if(!magicBeamSprite.exploding){
                 magicBeamSprite.exploding = true;
@@ -190,7 +188,6 @@ export class MageHero extends DayPlayer{
                 magicBeamSprite.enemiesHit.push(enemySprite);
                 magicBeamSprite.scene.hittingWithMagicBeam(magicBeamSprite,enemySprite);    
             }
-            console.log(magicBeamSprite);
         });  
         
         magicBeamSprite.on('animationcomplete_magicExp', function (o1) {
