@@ -54,6 +54,7 @@ export class DayScene extends Phaser.Scene {
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
+            /*
             [700,700],
             [1000,1000],
             [1200,1100],
@@ -68,7 +69,7 @@ export class DayScene extends Phaser.Scene {
             [2100,2100],
             [2200,2100],
             [2100,2200],
-            [2200,2200],
+            [2200,2200],*/
             [2300,2000],
 
         ];
@@ -81,6 +82,7 @@ export class DayScene extends Phaser.Scene {
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
+            /*
             [1320, 400] ,
             [1400,600],
             [1500,400],
@@ -92,7 +94,9 @@ export class DayScene extends Phaser.Scene {
             [1220,300],
             [1600,600],
             [1740,900],
-            [1800,800]
+            [1800,800],
+            */
+            [130,215]
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -155,6 +159,8 @@ export class DayScene extends Phaser.Scene {
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
     create() {
+        this.scene.stop(SCENES.DAY_DUNGEON3);
+        this.scene.stop(SCENES.DUNGEON4);
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
         this.music.play();
@@ -169,7 +175,7 @@ export class DayScene extends Phaser.Scene {
 
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
+        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,Two,Three,Four,Five,Six');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
@@ -289,7 +295,7 @@ export class DayScene extends Phaser.Scene {
 
 
         this.physics.add.collider(this.player.sprite, this.wallLayer);
-        //this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+        this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
         //add cave door
         this.items = this.map.objects[0].objects;
@@ -420,9 +426,6 @@ export class DayScene extends Phaser.Scene {
 
         //Slows the enemy down by half the speed
         enemySprite.class.slowDown();
-
-
-
         enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
 
@@ -599,6 +602,52 @@ export class DayScene extends Phaser.Scene {
                 this.justPaused = false;
                 this.music.resume();
             }
+            //cheats
+            if(this.input.keyboard.keys[73].isDown){
+                this.player.invulnerable = true;
+            }
+            if(this.input.keyboard.keys[50].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.DUNGEON4, {
+                    "money": this.money,
+                    "level": 4
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[51].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.DAY_DUNGEON3, {
+                    "money": this.money,
+                    "level": 5
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[52].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 1
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[53].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 2
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[54].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 3
+                });
+                this.scene.stop();
+            }
+
 
             //Player enters door
 

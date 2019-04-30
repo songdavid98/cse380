@@ -62,7 +62,7 @@ export class MageHero extends DayPlayer{
 
     }
     update(angle, time){
-        if(this.active){
+        if(this.active && this.sprite.body){
             super.update(time);
 
 

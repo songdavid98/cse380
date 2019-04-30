@@ -23,6 +23,7 @@ export class DayPlayer {
         this.lastSwapped = 0;
         this.isAttacking = false;
         this.swapCooldown = 1;
+        this.invulnerable = false;
 
         this.active = true; //FIXME: remove this
     }
@@ -39,7 +40,7 @@ export class DayPlayer {
         //Gets the time of the game and stores it as a variable
         this.time = time;
 
-        if (this.active === true) {
+        if (this.active === true && this.sprite.body) {
             //console.log('helo');
             //if either are released, set velocityX to 0 for now
             //what if an enemy makes someone move?
@@ -160,13 +161,12 @@ export class DayPlayer {
 
 
     damage(monster) {
-        if (this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown*1000) { //Uses the cooldown variable to allow time buffer between damages
+        if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown*1000) { //Uses the cooldown variable to allow time buffer between damages
             this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
             if (this.health > 0) {
                 this.health -= monster.class.basicAttack;
                 if (this.health <= 0) {
                     this.dead = true;
-                    monster.class.active = false;
                 }
             }
             this.active = false;

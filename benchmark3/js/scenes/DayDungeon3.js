@@ -42,10 +42,10 @@ export class DayDungeon3 extends Phaser.Scene{
             [2320,300],
             [1500,500],
             [1750,1300],
-            [1700,2200],
+            [1700,1200],
             [1950,1000],
             [1600,1200],
-            [1550,2600],
+            [1550,1600],
             [1500,1000],
             [1600,1500]
         ];
@@ -72,20 +72,9 @@ export class DayDungeon3 extends Phaser.Scene{
             [1800,800],
 
 
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
+           
+
+
 
 
         ];
@@ -119,6 +108,8 @@ export class DayDungeon3 extends Phaser.Scene{
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
     create(){
+        this.scene.stop(SCENES.DUNGEON4);
+        this.scene.stop(SCENES.DAY);
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
         this.music.play();
@@ -153,7 +144,7 @@ export class DayDungeon3 extends Phaser.Scene{
 
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
+        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,One,Two,Four,Five,Six');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
@@ -186,9 +177,9 @@ export class DayDungeon3 extends Phaser.Scene{
         }
 
         //Create the heroes
-        this.shieldHeroSprite = this.physics.add.sprite(800*2,1200*2, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
-        this.swordHeroSprite = this.physics.add.sprite(800*2,1200*2, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
-        this.mageHeroSprite = this.physics.add.sprite(800*2,1200*2, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
+        this.shieldHeroSprite = this.physics.add.sprite(1600,3000, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
+        this.swordHeroSprite = this.physics.add.sprite(1600,3000, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
+        this.mageHeroSprite = this.physics.add.sprite(1600,3000, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
 
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
@@ -468,6 +459,48 @@ export class DayDungeon3 extends Phaser.Scene{
             }else if(this.input.keyboard.keys[27].isUp){
                 this.music.resume();
                 this.justPaused = false;
+            }
+            //cheats
+            if(this.input.keyboard.keys[49].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.DAY, {
+                    "money": this.money,
+                    "level": 4
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[50].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.DUNGEON4, {
+                    "money": this.money,
+                    "level": 5
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[52].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 1
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[53].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 2
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[54].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 3
+                });
+                this.scene.stop();
             }
 
             for(let i = 0; i < this.monsterArray.length; i++){

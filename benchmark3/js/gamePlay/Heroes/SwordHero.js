@@ -224,7 +224,7 @@ export class SwordHero extends DayPlayer {
     }
     update(angle, time) {
 
-        if (this.active) {
+        if (this.active && this.sprite.body) {
             super.update(time);
             if (!this.attacking) {
                 if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
