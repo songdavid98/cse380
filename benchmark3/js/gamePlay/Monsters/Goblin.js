@@ -163,7 +163,7 @@ export class Goblin extends Enemy {
 
                         if(gobX > 0 && gobY > 0 && heroX > 0 && heroY > 0){
                             //console.log("Gobling attacking");
-                            this.attack(gobX, gobY, heroX, heroY);
+                            //this.attack(gobX, gobY, heroX, heroY);
                         }
 
                     }
