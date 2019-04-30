@@ -314,9 +314,9 @@ export class DayScene extends Phaser.Scene {
         this.physics.add.overlap(this.door, this.shieldHeroSprite, function (o1) {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {
+            o1.scene.scene.start(SCENES.DAY_DUNGEON3, {
                 "money": o1.scene.money,
-                "level": 4
+                "level": 5
             });
             o1.scene.scene.stop();
             console.log("hello");
@@ -324,9 +324,9 @@ export class DayScene extends Phaser.Scene {
         this.physics.add.overlap(this.door, this.swordHeroSprite, function (o1) {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {
+            o1.scene.scene.start(SCENES.DAY_DUNGEON3, {
                 "money": o1.scene.money,
-                "level": 4
+                "level": 5
             });
             o1.scene.scene.stop();
             console.log("hello");
@@ -334,9 +334,9 @@ export class DayScene extends Phaser.Scene {
         this.physics.add.overlap(this.door, this.mageHeroSprite, function (o1) {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {
+            o1.scene.scene.start(SCENES.DAY_DUNGEON3, {
                 "money": o1.scene.money,
-                "level": 4
+                "level": 5
             });
             o1.scene.scene.stop();
             console.log("hello");
