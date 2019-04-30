@@ -98,11 +98,11 @@ export class NightScene extends Phaser.Scene {
         this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure");
 
         //Load song
-        this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
+        this.load.audio("audionightbackgroundsong", "./assets/audio/nightbackgroundsong.wav");
     }
 
     create() {
-        this.music = this.sound.add("audiobackgroundsong");
+        this.music = this.sound.add("audionightbackgroundsong");
         this.music.setLoop(true);
         this.music.play()
         //Generate map
@@ -378,8 +378,8 @@ export class NightScene extends Phaser.Scene {
             });
             this.scene.pause();
         } else if (this.input.keyboard.keys[27].isUp) {
-            this.music.resume();
             this.justPaused = false;
+            this.music.resume();
         }
 
         if (this.defStrs) {
