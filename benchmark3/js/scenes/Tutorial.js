@@ -36,7 +36,7 @@ import {
 export class Tutorial extends Phaser.Scene {
     constructor() {
         super({
-            key: SCENES.DAY
+            key: SCENES.TUTORIAL
         })
     }
     init(data) {
@@ -52,49 +52,20 @@ export class Tutorial extends Phaser.Scene {
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
-            /*
-            [700,700],
-            [1000,1000],
-            [1200,1100],
-            [1300,1500],
-            [1300,1200],
-
-            [1400,1200],
-            [1400,1600],
-            [1500,1300],
-            [1600,1400],
-
-            [2100,2100],
-            [2200,2100],
-            [2100,2200],
-            [2200,2200],*/
-            [2300,2000],
+            [600,600]
 
         ];
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
-            [300, 2000],
-            [2000, 1800]
+
+            [200000, 180000]        //Off the map
         ];
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            /*
-            [1320, 400] ,
-            [1400,600],
-            [1500,400],
-            [1600,1000],
-            [1700,1900],
-            [1800,1800],
-            [1670,1400],
-            [1830,1600],
-            [1220,300],
-            [1600,600],
-            [1740,900],
-            [1800,800],
-            */
-            [130,215]
+
+            [13000,21500]           //Off the map
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -102,7 +73,7 @@ export class Tutorial extends Phaser.Scene {
 
     }
     preload() {
-        this.load.image("terrain", "./assets/images/tiles/tile2.png");
+        this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
 
@@ -120,9 +91,9 @@ export class Tutorial extends Phaser.Scene {
         switch (this.level) {
             case 1:
                 //this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/tutorial.json");
-                this.load.tilemapTiledJSON("map1", "assets/tilemaps/tutorial.json");
-                this.mapLevel = "map1";
-                console.log("Welcome to level 1");
+                this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
+                this.mapLevel = "tutorial";
+                console.log("Welcome to Tutorial");
                 break;
             default:
                 this.scene.start(SCENES.Main_MENU, "how");
@@ -133,7 +104,7 @@ export class Tutorial extends Phaser.Scene {
     }
     create() {
         this.scene.stop(SCENES.DAY_DUNGEON3);
-        this.scene.stop(SCENES.DUNGEON4);
+        this.scene.stop(SCENES.DAY);
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
         this.music.play();
@@ -141,9 +112,11 @@ export class Tutorial extends Phaser.Scene {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
 
-        this.terrain = this.map.addTilesetImage("tile2", "terrain"); //Variable used in pathfinding
-        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
+        this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
+        this.baseLayer = this.map.createStaticLayer("groundLayer", [this.terrain], 0, 0).setScale(5, 5);
+        this.grassLayer = this.map.createStaticLayer("grassLayer", [this.terrain], 0, 0).setScale(5, 5);
+
+        this.wallLayer = this.map.createStaticLayer("rockLayer", [this.terrain], 0, 0).setScale(5, 5);
 
 
 
@@ -263,62 +236,16 @@ export class Tutorial extends Phaser.Scene {
         //collisions
         //this.wallLayer.setCollision(5); //dungeon level     //Change this if you want a different tile set. This is the ID.
 
-        this.wallLayer.setCollision(7); //Snow level
-        this.wallLayer.setCollision(5); //Snow level
+        //this.wallLayer.setCollision(7); //Snow level
+        //this.wallLayer.setCollision(5); //Snow level
 
+
+        this.wallLayer.setCollision(6);     //For tutorial
 
         this.physics.add.collider(this.player.sprite, this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
-        //add cave door
-        this.items = this.map.objects[0].objects;
-        for (var i = 0; i < this.items.length; i++) {
-            this.items[i].width *= 5;
-            this.items[i].height *= 5;
-            this.items[i].x *= 5;
-            this.items[i].y *= 5;
-        }
-        this.map.createFromObjects('objectsLayer', 20, {
-            key: 'treasure'
-        });
-        this.door = this.map.createFromObjects('objectsLayer', 2, {
-            key: 'door'
-        })[0];
-        this.door = this.physics.add.existing(this.door);
-        this.door.body.setSize(this.door.body.width, this.door.body.height);
-        this.door.body.setOffset(0, 0);
-        this.physics.add.overlap(this.door, this.shieldHeroSprite, function (o1) {
-            o1.scene.music.pause();
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {
-                "money": this.money,
-                "level": 4
-            });
-            o1.scene.scene.stop();
-            console.log("hello");
-        });
-        this.physics.add.overlap(this.door, this.swordHeroSprite, function (o1) {
-            o1.scene.music.pause();
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {
-                "money": this.money,
-                "level": 4
-            });
-            o1.scene.scene.stop();
-            console.log("hello");
-        });
-        this.physics.add.overlap(this.door, this.mageHeroSprite, function (o1) {
-            o1.scene.music.pause();
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON4, {
-                "money": this.money,
-                "level": 4
-            });
-            o1.scene.scene.stop();
-            console.log("hello");
-        });
-        //this.createFromTiles(0, null,this.doors,this.scene);
-
+    
 
         //Damaging the player
         this.physics.add.overlap(this.shieldHeroSprite, this.enemyGroup.getChildren(), function (o1, o2) {
@@ -369,7 +296,6 @@ export class Tutorial extends Phaser.Scene {
 
         this.input.mouse.disableContextMenu();
         this.map.currentLayer = this.baseLayer;
-        this.pathFinding();
     }
 
 
@@ -409,70 +335,6 @@ export class Tutorial extends Phaser.Scene {
     }
 
 
-    //Setting up pathfinding
-    pathFinding() {
-        this.easystar = new EasyStar.js();
-        var grid = [];
-        for (var y = 0; y < this.map.height; y++) {
-            var col = [];
-            for (var x = 0; x < this.map.width; x++) {
-                // In each cell we store the ID of the tile, which corresponds
-                // to its index in the tileset of the map ("ID" field in Tiled)
-                col.push(this.getTileID(x, y));
-            }
-            grid.push(col);
-        }
-        console.log(this.map);
-        this.easystar.setGrid(grid);
-        this.easystar.enableDiagonals();
-
-        var tileset = this.map.tilesets[0];
-        var properties = tileset.tileProperties;
-        console.log(tileset);
-        var acceptableTiles = [];
-
-        // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
-        // and see what properties have been entered in Tiled.
-        for (var i = tileset.firstgid - 1; i < this.terrain.total; i++) { // firstgid and total are fields from Tiled that indicate the range of IDs that the tiles can take in that tileset
-            if (!properties.hasOwnProperty(i)) {
-                // If there is no property indicated at all, it means it's a walkable tile
-                acceptableTiles.push(i + 1);
-                continue;
-            }
-            if (!properties[i].collide) acceptableTiles.push(i + 1);
-            if (properties[i].cost) this.easystar.setTileCost(i + 1, properties[i].cost); // If there is a cost attached to the tile, let's register it
-        }
-
-        this.easystar.setAcceptableTiles(acceptableTiles);
-
-        console.log(acceptableTiles);
-        console.log(grid);
-    }
-
-    //Used in pathfinding
-    getTileID(x, y) {
-        var tile = this.map.getTileAt(x, y, true, 'walls');
-        if (tile.index == -1) {
-            tile = this.map.getTileAt(x, y, true, 'base');
-        }
-        return tile.index;
-    }
-    checkCollision(x, y) {
-        var tile = this.map.getTileAt(x, y, true);
-        return tile.properties.collide == true;
-    }
-
-    swapMaps(currentMap) {
-        console.log("Swapped");
-
-        /*
-        this.map = this.add.tilemap("iceMap1");
-        let iceTerrain = this.map.addTilesetImage("ice", "iceTerrain");
-        this.baseLayer = this.map.createStaticLayer("base", [iceTerrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [iceTerrain], 1, 0).setScale(5,5); 
-        this.doorLayer = this.map.createStaticLayer("door", [iceTerrain], 2, 0).setScale(5,5); 
-        */
-    }
 
     swapHero() {
 
