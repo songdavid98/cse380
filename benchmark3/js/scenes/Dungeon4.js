@@ -153,12 +153,16 @@ export class Dungeon4 extends Phaser.Scene{
         this.mapLevel = "map4";
         console.log("make suer this dungeon even exits, dumbo");
 
+        this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
     create(){
         //Generate map
-
+        this.music = this.sound.add("audiobackgroundsong");
+        this.music.setLoop(true);
+        this.music.play();
+        
         this.map = this.add.tilemap(this.mapLevel);
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
@@ -449,6 +453,7 @@ export class Dungeon4 extends Phaser.Scene{
         else if(this.allThreeDead()  && Math.floor((time/1000))-Math.floor(this.timeOfDeath/1000) >= this.deathSceneLength ){
             //Shows the game going without the Player for x amount of seconds before it sends the game to the main menu
             this.timeOfDeath = null;
+            this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.MAIN_MENU, 'dead');
             this.scene.stop(SCENES.DAY);
@@ -473,10 +478,12 @@ export class Dungeon4 extends Phaser.Scene{
                 this.input.keyboard.keys[65].isDown = false
                 this.input.keyboard.keys[87].isDown = false
                 this.input.keyboard.keys[83].isDown = false
+                this.music.pause();
                 this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DUNGEON4, SCENES.DAY_OVERLAY]});
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();
             }else if(this.input.keyboard.keys[27].isUp){
+                this.music.resume();
                 this.justPaused = false;
             }
 

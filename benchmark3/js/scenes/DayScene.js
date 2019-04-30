@@ -309,6 +309,7 @@ export class DayScene extends Phaser.Scene {
         this.door.body.setSize(this.door.body.width, this.door.body.height);
         this.door.body.setOffset(0, 0);
         this.physics.add.overlap(this.door, this.shieldHeroSprite, function (o1) {
+            o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
                 "money": this.money,
@@ -318,6 +319,7 @@ export class DayScene extends Phaser.Scene {
             console.log("hello");
         });
         this.physics.add.overlap(this.door, this.swordHeroSprite, function (o1) {
+            o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
                 "money": this.money,
@@ -327,6 +329,7 @@ export class DayScene extends Phaser.Scene {
             console.log("hello");
         });
         this.physics.add.overlap(this.door, this.mageHeroSprite, function (o1) {
+            o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
                 "money": this.money,
@@ -592,7 +595,7 @@ export class DayScene extends Phaser.Scene {
                 });
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();
-            } else if (this.input.keyboard.keys[27].isUp) {
+            } else if (this.input.keyboard.keys[27].isUp && this.justPaused) {
                 this.justPaused = false;
                 this.music.resume();
             }

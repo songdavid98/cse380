@@ -114,10 +114,14 @@ export class DayDungeon3 extends Phaser.Scene{
         this.mapLevel = "map5";
         console.log("make suer this dungeon even exits, dumbo");
 
+        this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
     create(){
+        this.music = this.sound.add("audiobackgroundsong");
+        this.music.setLoop(true);
+        this.music.play();
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
 
@@ -457,10 +461,12 @@ export class DayDungeon3 extends Phaser.Scene{
                 this.input.keyboard.keys[65].isDown = false
                 this.input.keyboard.keys[87].isDown = false
                 this.input.keyboard.keys[83].isDown = false
+                this.music.pause();
                 this.scene.launch(SCENES.PAUSE, {"scenes":[SCENES.DAY_DUNGEON3, SCENES.DAY_OVERLAY]});
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();
             }else if(this.input.keyboard.keys[27].isUp){
+                this.music.resume();
                 this.justPaused = false;
             }
 
