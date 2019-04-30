@@ -138,6 +138,14 @@ export class NightScene extends Phaser.Scene {
         let buyarrow = this.add.image(this.buttonX, this.buttonYinc * 4, "buyarrow").setDepth(3).setScale(1.5, 1.5);
         let buycannon = this.add.image(this.buttonX, this.buttonYinc * 5, "buycannon").setDepth(3).setScale(1.5, 1.5);
 
+
+        this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the the town! Enemies coming from the forest!", {
+            fontSize: '30px',
+            fill: '#fff',
+            strokeThickness: 10,
+            stroke: "#000000"
+        });
+
         //add button events
         startwave.setInteractive();
         startwave.on("pointerdown", () => {

@@ -11,6 +11,9 @@ export class LevelSelectionScene extends Phaser.Scene {
         console.log(data);
         console.log("entered splash");
     }
+    preload() {
+        this.load.audio("audiotitlesong", "./assets/audio/titlesong.wav");
+    }
     create() {
 
         //add images
@@ -77,28 +80,33 @@ export class LevelSelectionScene extends Phaser.Scene {
         nightLevel3Button.setInteractive();
         backButton.setInteractive();
 
-        level1Button.on("pointerover", () => {
-            console.log("woah");
-        });
+        this.music = this.sound.add("audiotitlesong");
+        this.music.setLoop(true);
+        this.music.play();
+
         level1Button.on("pointerdown", () => {
+            this.music.pause();
             let data = {
                 "level": 1
             }
             this.scene.start(SCENES.TUTORIAL, data);
         });
         level2Button.on("pointerdown", () => {
+            this.music.pause();
             let data = {
                 "level": 2
             }
             this.scene.start(SCENES.DAY, data);
         });
         level3Button.on("pointerdown", () => {
+            this.music.pause();
             let data = {
                 "level": 3
             }
             this.scene.start(SCENES.DAY_DUNGEON3, data);
         });
         nightLevel1Button.on("pointerdown", () => {
+            this.music.pause();
             let data = {
                 "level": 1,
                 "money": 1000
@@ -107,6 +115,7 @@ export class LevelSelectionScene extends Phaser.Scene {
         });
 
         nightLevel2Button.on("pointerdown", () => {
+            this.music.pause();
             let data = {
                 "level": 2,
                 "money": 1500
@@ -114,6 +123,7 @@ export class LevelSelectionScene extends Phaser.Scene {
             this.scene.start(SCENES.NIGHT, data);
         });
         nightLevel3Button.on("pointerdown", () => {
+            this.music.pause();
             let data = {
                 "level": 3,
                 "money": 2000
@@ -122,6 +132,7 @@ export class LevelSelectionScene extends Phaser.Scene {
         });
 
         backButton.on("pointerdown", () => {
+            this.music.pause();
             console.log("hello");
             let data = "main menu from level select"
             this.scene.start(SCENES.MAIN_MENU, data);

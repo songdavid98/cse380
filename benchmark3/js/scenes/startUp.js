@@ -11,6 +11,9 @@ export class SplashScene extends Phaser.Scene {
         console.log(data);
         console.log("entered splash");
     }
+    preload() {
+        this.load.audio("audiotitlesong", "./assets/audio/titlesong.wav");
+    }
     create() {
 
         //add images
@@ -19,12 +22,17 @@ export class SplashScene extends Phaser.Scene {
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * .5, "textlogo").setDepth(2).setScale(3, 3);
         let startButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height * .7, "startButton").setDepth(1).setScale(3, 3);
 
+
+        this.music = this.sound.add("audiotitlesong");
+        this.music.setLoop(true);
+        this.music.play();
         //add button events
         startButton.setInteractive();
         startButton.on("pointerover", () => {
             console.log("woah");
         });
         startButton.on("pointerdown", () => {
+            this.music.pause();
             this.scene.start(SCENES.MAIN_MENU, "splashin in ;)");
         });
         //        this.scene.start(SCENES.MAIN_MENU, {
