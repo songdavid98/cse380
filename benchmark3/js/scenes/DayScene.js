@@ -118,7 +118,7 @@ export class DayScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
 
-
+        this.level = 1;
         switch (this.level) {
             case 1:
                 this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/IceRoom.json");
