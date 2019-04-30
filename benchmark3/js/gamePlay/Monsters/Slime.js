@@ -15,7 +15,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         this.enemyType = ENEMIES.SLIME; // like slime
         this.health = 2;
         this.basicAttack = 1;
-        this.basicAttackSpeed = 80;
+        this.basicAttackSpeed = 100;
         this.attackCooldown = 5;
         this.attacking = null;
         this.targetFound = null;
@@ -237,7 +237,7 @@ export class Slime extends Enemy { // ---- someone fix this~
     }
     attack(){
         //calculations
-        let dist = 140;
+        let dist = 50;
         let angle = Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite);
         let pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-angle)); 
         let pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-angle));

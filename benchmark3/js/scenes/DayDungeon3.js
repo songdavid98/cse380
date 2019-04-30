@@ -42,10 +42,10 @@ export class DayDungeon3 extends Phaser.Scene{
             [2320,300],
             [1500,500],
             [1750,1300],
-            [1700,2200],
+            [1700,1200],
             [1950,1000],
             [1600,1200],
-            [1550,2600],
+            [1550,1600],
             [1500,1000],
             [1600,1500]
         ];
@@ -72,20 +72,9 @@ export class DayDungeon3 extends Phaser.Scene{
             [1800,800],
 
 
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
-            [1500,2000],
+           
+
+
 
 
         ];
@@ -188,9 +177,9 @@ export class DayDungeon3 extends Phaser.Scene{
         }
 
         //Create the heroes
-        this.shieldHeroSprite = this.physics.add.sprite(800*2,1200*2, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
-        this.swordHeroSprite = this.physics.add.sprite(800*2,1200*2, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
-        this.mageHeroSprite = this.physics.add.sprite(800*2,1200*2, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
+        this.shieldHeroSprite = this.physics.add.sprite(1600,3000, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
+        this.swordHeroSprite = this.physics.add.sprite(1600,3000, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);        
+        this.mageHeroSprite = this.physics.add.sprite(1600,3000, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
 
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 

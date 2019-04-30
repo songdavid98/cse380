@@ -54,6 +54,7 @@ export class DayScene extends Phaser.Scene {
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
+            /*
             [700,700],
             [1000,1000],
             [1200,1100],
@@ -68,7 +69,7 @@ export class DayScene extends Phaser.Scene {
             [2100,2100],
             [2200,2100],
             [2100,2200],
-            [2200,2200],
+            [2200,2200],*/
             [2300,2000],
 
         ];
@@ -81,6 +82,7 @@ export class DayScene extends Phaser.Scene {
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
+            /*
             [1320, 400] ,
             [1400,600],
             [1500,400],
@@ -92,7 +94,9 @@ export class DayScene extends Phaser.Scene {
             [1220,300],
             [1600,600],
             [1740,900],
-            [1800,800]
+            [1800,800],
+            */
+            [130,215]
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -291,7 +295,7 @@ export class DayScene extends Phaser.Scene {
 
 
         this.physics.add.collider(this.player.sprite, this.wallLayer);
-        //this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+        this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
         //add cave door
         this.items = this.map.objects[0].objects;
@@ -422,9 +426,6 @@ export class DayScene extends Phaser.Scene {
 
         //Slows the enemy down by half the speed
         enemySprite.class.slowDown();
-
-
-
         enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
 
