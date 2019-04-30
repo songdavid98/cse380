@@ -336,7 +336,7 @@ export class NightScene extends Phaser.Scene {
 
 
         this.input.keyboard.addKeys('Esc');
-        this.input.keyboard.addKeys('One,Two,Three,Four,Five,Six');
+        this.input.keyboard.addKeys('One,Two,Three,Four,Five,Six,I');
     }
     update(time, delta) {
         // if the game is over
@@ -395,7 +395,9 @@ export class NightScene extends Phaser.Scene {
             for (let i = 0; i < this.enemies.length; i++) {
                 let enem = this.enemies[i];
                 if (enem.sprite.x <= 0) {
-                    this.villageHealth--;
+                    if(!this.invulnerable){
+                        this.villageHealth--;
+                    }
                     enem.health = 0;
                 }
                 if (enem.health <= 0) {
@@ -413,6 +415,9 @@ export class NightScene extends Phaser.Scene {
             this.heartText.setText(0);
         } else {
             this.heartText.setText(this.villageHealth);
+        }
+        if(this.input.keyboard.keys[73].isDown){
+            this.invulnerable = true;
         }
         if(this.input.keyboard.keys[49].isDown){
             this.music.pause();
