@@ -79,15 +79,15 @@ export class NightScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("terrain1", "./assets/images/tiles.png");
+        this.load.image("terrain1", "./assets/tilemaps/uniqueTileSet.png");
 
         this.load.image("buyarrow", "./assets/images/buttons/buyarrowturret.JPG");
         this.load.image("buycannon", "./assets/images/buttons/buycannonturret.JPG");
         this.load.image("buywall", "./assets/images/buttons/buywall.JPG");
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
-        this.load.tilemapTiledJSON("night-map1", "./assets/tilemaps/nightmap.json");
-        this.mapLevel = "night-map1";
+        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightmap2.json");
+        this.mapLevel = "night-map2";
         console.log("Welcome to level " + this.level);
 
 
@@ -109,7 +109,7 @@ export class NightScene extends Phaser.Scene {
         this.music.play()
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
-        let terrain = this.map.addTilesetImage("tileset", "terrain1");
+        let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain1");
         this.groundLayer = this.map.createStaticLayer("background ground", [terrain], 0, 0).setScale(5, 3);
         this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(5, 3);
         this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(5, 3);
