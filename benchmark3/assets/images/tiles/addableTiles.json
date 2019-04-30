@@ -4,7 +4,7 @@
 			"image": "addableTiles.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 320,
+				"w": 336,
 				"h": 16
 			},
 			"scale": 1,
@@ -428,6 +428,27 @@
 						"w": 16,
 						"h": 16
 					}
+				},
+				{
+					"filename": "zhardgrass.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 320,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					}
 				}
 			]
 		}
@@ -435,6 +456,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:2bf3a3e5db318a69409f8ad770cf2ec4:0def39453198c0c9a41a51f39c0d9cdb:11d06ef642067bb7c73082114d2e6a6f$"
+		"smartupdate": "$TexturePacker:SmartUpdate:dee4b18bd4304274da42e21f91f7c842:5d179335db4fd0972e79e35d8fa53a38:11d06ef642067bb7c73082114d2e6a6f$"
 	}
 }
