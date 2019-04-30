@@ -33,19 +33,28 @@ export class Cannon extends NightDefenseStructure {
     init() {}
 
     create() {
-        var rightFrames = this.anims.generateFrameNames(this.defstrType, {
+        var rightFrames = this.anims.generateFrameNames('CANNON', {
             start: 1,
-            end: 4,
+            end: 5,
             zeroPad: 4,
             prefix: 'right/',
             suffix: '.png'
         });
+        console.log(rightFrames);
         this.anims.create({
             key: 'rightCannon',
             frames: rightFrames,
             frameRate: 15,
             repeat: 0
         });
+        this.sprite.on('animationcomplete', function (anim, frame) {
+            console.log("wata");
+            console.log(this.targetEnem);
+            console.log(this);
+            this.class.targetEnem.health -= this.class.damage;
+            this.class.targetFound = false;
+        }, this.sprite);
+        console.log(this.anims);
     }
 
     update(time, enemies) {
