@@ -94,6 +94,9 @@ export class Dungeon4 extends Phaser.Scene{
         this.load.tilemapTiledJSON("map4", "./assets/tilemaps/Dungeon4.json");
         this.mapLevel = "map4";
         console.log("make suer this dungeon even exits, dumbo");
+
+        this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
+        this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
     create(){
         //Generate map
@@ -252,6 +255,13 @@ export class Dungeon4 extends Phaser.Scene{
                 this.player.previousTime = Math.floor(this.time.now/1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
+                if (this.player.playerType == HEROES.SHIELD_HERO) {
+                    this.sound.play("audiomageattack",{"volume":30});
+                } else if (this.player.playerType == HEROES.MAGE_HERO) {
+                    this.sound.play("audiomageattack",{"volume":30});
+                } else {
+                    this.sound.play("audioswordslice",{"volume":30});
+                }
 
             }
             else if(pointer.rightButtonDown()){
