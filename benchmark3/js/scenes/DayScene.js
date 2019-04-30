@@ -155,6 +155,8 @@ export class DayScene extends Phaser.Scene {
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
     create() {
+        this.scene.stop(SCENES.DAY_DUNGEON3);
+        this.scene.stop(SCENES.DUNGEON4);
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
         this.music.play();
@@ -169,7 +171,7 @@ export class DayScene extends Phaser.Scene {
 
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D,Space,Esc');
+        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,Two,Three,Four,Five,Six');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
@@ -599,6 +601,52 @@ export class DayScene extends Phaser.Scene {
                 this.justPaused = false;
                 this.music.resume();
             }
+            //cheats
+            if(this.input.keyboard.keys[73].isDown){
+                this.player.invulnerable = true;
+            }
+            if(this.input.keyboard.keys[50].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.DUNGEON4, {
+                    "money": this.money,
+                    "level": 4
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[51].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.DAY_DUNGEON3, {
+                    "money": this.money,
+                    "level": 5
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[52].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 1
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[53].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 2
+                });
+                this.scene.stop();
+            }else if(this.input.keyboard.keys[54].isDown){
+                this.music.pause();
+                this.scene.stop(SCENES.DAY_OVERLAY);
+                this.scene.start(SCENES.NIGHT, {
+                    "money": this.money,
+                    "level": 3
+                });
+                this.scene.stop();
+            }
+
 
             //Player enters door
 
