@@ -90,7 +90,7 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "level": 2
             }
-            this.scene.start(SCENES.BEGINNING, data);
+            this.scene.start(SCENES.DUNGEON4, data);
         });
         level3Button.on("pointerdown", () => {
             let data = {
