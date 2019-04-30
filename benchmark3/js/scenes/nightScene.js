@@ -294,7 +294,7 @@ export class NightScene extends Phaser.Scene {
                 this.towerSpriteForBuying.class = this.towerToBePlaced;
 
                 this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
-                this.money -= 200;
+                this.money -= 100;
                 this.startDragging = true;
 
                 //tower.placed = false;
@@ -414,7 +414,7 @@ export class NightScene extends Phaser.Scene {
         } else {
             this.heartText.setText(this.villageHealth);
         }
-        if(this.input.keyboard.keys[49].isDown){
+        if (this.input.keyboard.keys[49].isDown) {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DAY, {
@@ -422,7 +422,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 4
             });
             this.scene.stop();
-        }else if(this.input.keyboard.keys[50].isDown){
+        } else if (this.input.keyboard.keys[50].isDown) {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DUNGEON4, {
@@ -430,7 +430,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 5
             });
             this.scene.stop();
-        }else if(this.input.keyboard.keys[51].isDown){
+        } else if (this.input.keyboard.keys[51].isDown) {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DAY_DUNGEON3, {
@@ -438,7 +438,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 1
             });
             this.scene.stop();
-        }else if(this.input.keyboard.keys[52].isDown){
+        } else if (this.input.keyboard.keys[52].isDown) {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
@@ -446,7 +446,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 1
             });
             this.scene.stop();
-        }else if(this.input.keyboard.keys[53].isDown){
+        } else if (this.input.keyboard.keys[53].isDown) {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
@@ -454,7 +454,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 2
             });
             this.scene.stop();
-        }else if(this.input.keyboard.keys[54].isDown){
+        } else if (this.input.keyboard.keys[54].isDown) {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
