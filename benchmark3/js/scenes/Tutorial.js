@@ -408,7 +408,7 @@ export class Tutorial extends Phaser.Scene {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.MAIN_MENU, 'dead');
-            this.scene.stop(SCENES.DAY);
+            this.scene.stop(SCENES.TUTORIAL);
         } else {
             this.player.update(time);
             //Space bar for swapping heroes
@@ -429,7 +429,7 @@ export class Tutorial extends Phaser.Scene {
                 this.input.keyboard.keys[87].isDown = false
                 this.input.keyboard.keys[83].isDown = false
                 this.scene.launch(SCENES.PAUSE, {
-                    "scenes": [SCENES.DAY, SCENES.DAY_OVERLAY]
+                    "scenes": [SCENES.TUTORIAL, SCENES.DAY_OVERLAY]
                 });
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();
