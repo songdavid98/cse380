@@ -422,7 +422,7 @@ export class DayDungeon3 extends Phaser.Scene{
             console.log(this.player.active);
         }
         console.log((Math.floor(time/1000)) - (Math.floor(this.player.lastDamaged/1000))); 
-        if(!this.player.active && time - (this.player.lastDamaged +400)>= 0){
+        if(this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.player.lastDamaged +400)>= 0){
             console.log("hello");
             this.player.active = true;
             this.player.sprite.body.setVelocity(0,0);

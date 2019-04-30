@@ -184,6 +184,12 @@ export class Dungeon4 extends Phaser.Scene{
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
+                o1.scene.player.active = false;
+                if(o1.body.velocity.x != 0 || o1.body.velocity.y != 0){
+                    o1.body.setVelocity((-1)*(Math.sign(o1.body.velocity.x))*500, (-1)*(Math.sign(o1.body.velocity.y))*500);
+                }else{
+                    o1.body.setVelocity((Math.sign(o2.body.velocity.x))*500, (Math.sign(o2.body.velocity.y))*500);
+                }
                 if(o1.scene.player.dead){
                     o1.scene.swapHero();
                     console.log("I'm trying to swap");
@@ -195,6 +201,12 @@ export class Dungeon4 extends Phaser.Scene{
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
+                o1.scene.player.active = false;
+                if(o1.body.velocity.x != 0 || o1.body.velocity.y != 0){
+                    o1.body.setVelocity((-1)*(Math.sign(o1.body.velocity.x))*500, (-1)*(Math.sign(o1.body.velocity.y))*500);
+                }else{
+                    o1.body.setVelocity((Math.sign(o2.body.velocity.x))*500, (Math.sign(o2.body.velocity.y))*500);
+                }
                 if(o1.scene.player.dead){
                     o1.scene.swapHero();
                     console.log("I'm trying to swap");
@@ -206,6 +218,12 @@ export class Dungeon4 extends Phaser.Scene{
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
+                o1.scene.player.active = false;
+                if(o1.body.velocity.x != 0 || o1.body.velocity.y != 0){
+                    o1.body.setVelocity((-1)*(Math.sign(o1.body.velocity.x))*500, (-1)*(Math.sign(o1.body.velocity.y))*500);
+                }else{
+                    o1.body.setVelocity((Math.sign(o2.body.velocity.x))*500, (Math.sign(o2.body.velocity.y))*500);
+                }
                 if(o1.scene.player.dead){
                     o1.scene.swapHero();
                     console.log("I'm trying to swap");
@@ -386,6 +404,11 @@ export class Dungeon4 extends Phaser.Scene{
     }
 
     update(time, delta){
+        if(this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.player.lastDamaged +400)>= 0){
+            console.log("hello");
+            this.player.active = true;
+            this.player.sprite.body.setVelocity(0,0);
+        }
         if(this.allThreeDead() && this.timeOfDeath == null){     //Kill the player and get the time of death
             this.player.active = false;
             this.player.sprite.destroy();
