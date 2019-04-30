@@ -17,9 +17,9 @@ export class LevelSelectionScene extends Phaser.Scene {
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         this.cameras.main.setBackgroundColor('#008080')
         let backButton = this.add.image(this.game.renderer.width * .05, this.game.renderer.height * .1, "backButton").setDepth(1).setScale(2, 2);
-        let level1Button = this.add.image(this.game.renderer.width * .25, this.game.renderer.height * .38, "dungeon3Thumb").setDepth(2).setScale(1, 1);
-        let level2Button = this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .38, "greyBox").setDepth(2).setScale(3, 3); //level2
-        let level3Button = this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .38, "greyBox").setDepth(2).setScale(3, 3); //level3
+        let level1Button = this.add.image(this.game.renderer.width * .25, this.game.renderer.height * .38, "dungeon1Thumb").setDepth(2).setScale(1, 1);
+        let level2Button = this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .38, "dungeon2Thumb").setDepth(2).setScale(1, 1); //level2
+        let level3Button = this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .38, "dungeon3Thumb").setDepth(2).setScale(1, 1); //level3
         let nightLevel1Button = this.add.image(this.game.renderer.width * .25, this.game.renderer.height * .68, "nightmap2Thumb").setDepth(2).setScale(1, 1);
         let nightLevel2Button = this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .68, "nightmap2Thumb").setDepth(2).setScale(1, 1);
         let nightLevel3Button = this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .68, "nightmap2Thumb").setDepth(2).setScale(1, 1);
@@ -29,8 +29,8 @@ export class LevelSelectionScene extends Phaser.Scene {
         let levelsBox = this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .5, 'blueBox').setDepth(1).setScale(4, 2);
 
         //add tbas
-        this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .38, "tba").setDepth(3).setScale(3, 3); //level2 tba
-        this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .38, "tba").setDepth(3).setScale(3, 3); //level3 tba
+        //this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .38, "tba").setDepth(3).setScale(3, 3); //level2 tba
+        //this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .38, "tba").setDepth(3).setScale(3, 3); //level3 tba
         //this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3); //n-level2 tba
         //this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3); //n-level3 tba
 
