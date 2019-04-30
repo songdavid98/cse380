@@ -36,7 +36,7 @@ import {
 } from "../scenes/Dungeon4.js"
 
 import { Beginning } from "../cutScenes/Beginning.js"; //Testing a cut scene
-import { Tutorial } from "../scenes/tutorial.js";
+import { Tutorial } from "../scenes/Tutorial.js";
 
 //Main
 let game = new Phaser.Game({
