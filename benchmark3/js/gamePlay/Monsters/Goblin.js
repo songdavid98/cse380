@@ -77,13 +77,8 @@ export class Goblin extends Enemy {
 
     dayUpdate(time, player) {
         //have dayscene activity here
-        console.log("active");
-        console.log(this.active);
-        console.log("dead");
-        console.log(this.dead);
-        if(this.active && !this.dead){
-                console.log(this.state);
-            
+
+        if(this.active && !this.dead){            
             switch(this.state){
                 case "sleeping":
                     this.sprite.anims.play("sleepGoblin", true);
@@ -167,17 +162,14 @@ export class Goblin extends Enemy {
                         //console.log(player.sprite.body.position);
                         let heroX = Math.floor((player.sprite.body.position.x+this.sprite.width/2)/80);
                         let heroY = Math.floor((player.sprite.body.position.y+this.sprite.height/2)/80);
-                        console.log(player);
                         //if(gobX > 0 && gobY > 0 && heroX > 0 && heroY > 0){
                             //console.log("Gobling attacking");
                             //this.attack2(gobX, gobY, heroX, heroY,player.sprite);
-                            console.log(player);
                             this.attackDist(this.sprite.body.position.x,this.sprite.body.position.y,player.sprite.body.position.x,player.sprite.body.position.y);
                         //}
 
                     }
                     catch(error){
-                        console.log("eaifaeiofoi");
                     }
 
                     break;
@@ -185,7 +177,6 @@ export class Goblin extends Enemy {
         }else if(this.dead && this.goblinContainer.list[0]){
 
             this.goblinContainer.list[0].destroy();
-            console.log("hello");
 
         }
 
