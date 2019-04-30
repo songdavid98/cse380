@@ -409,11 +409,11 @@ export class DayScene extends Phaser.Scene {
                 //play the player's attack sound
                 console.log(this.player.playerType);
                 if (this.player.playerType == HEROES.SHIELD_HERO) {
-                    this.sound.play("audiomageattack");
+                    this.sound.play("audiomageattack",{"volume":30});
                 } else if (this.player.playerType == HEROES.MAGE_HERO) {
-                    this.sound.play("audiomageattack");
+                    this.sound.play("audiomageattack",{"volume":30});
                 } else {
-                    this.sound.play("audioswordslice");
+                    this.sound.play("audioswordslice",{"volume":30});
                 }
 
             } else if (pointer.rightButtonDown()) {
