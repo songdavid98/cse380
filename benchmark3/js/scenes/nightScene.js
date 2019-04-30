@@ -443,7 +443,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 1
             });
             this.scene.stop();
-        }else if(this.input.keyboard.keys[52].isDown){
+        }/*else if(this.input.keyboard.keys[52].isDown){
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
@@ -467,7 +467,7 @@ export class NightScene extends Phaser.Scene {
                 "level": 3
             });
             this.scene.stop();
-        }
+        }*/
 
 
     }
