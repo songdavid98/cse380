@@ -318,7 +318,7 @@ export class DayScene extends Phaser.Scene {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
-                "money": this.money,
+                "money": o1.scene.money,
                 "level": 4
             });
             o1.scene.scene.stop();
@@ -328,7 +328,7 @@ export class DayScene extends Phaser.Scene {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
-                "money": this.money,
+                "money": o1.scene.money,
                 "level": 4
             });
             o1.scene.scene.stop();
@@ -338,7 +338,7 @@ export class DayScene extends Phaser.Scene {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
-                "money": this.money,
+                "money": o1.scene.money,
                 "level": 4
             });
             o1.scene.scene.stop();
@@ -609,6 +609,7 @@ export class DayScene extends Phaser.Scene {
             if(this.input.keyboard.keys[50].isDown){
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);
+                console.log(this.money);
                 this.scene.start(SCENES.DUNGEON4, {
                     "money": this.money,
                     "level": 4

@@ -22,7 +22,7 @@ export class Dungeon4 extends Phaser.Scene{
         })
     }
     init(data){
-        console.log("eafijoaejiofoeapjif");
+        console.log(data['money']);
         this.timer;         //Day Countdown timer ~ 2min?
         this.map;
         this.monsterArray = new Array();

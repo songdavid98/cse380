@@ -156,6 +156,7 @@ export class DayOverlayScene extends Phaser.Scene{
         this.timerText.setText(Math.floor(timeRemaining/60) + ":" + seconds);
         if(timeRemaining <= 0){
             this.scene.stop(this.sceneKey);
+            console.log(this.dayScene.money);
             this.scene.start(SCENES.NIGHT,{"level":1,"money":this.dayScene.money+200});
             this.scene.stop();
         }
