@@ -20,7 +20,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         this.attacking = null;
         this.targetFound = null;
         this.speed = 40;
-        this.movement = 60; //Monster keeps moving in square pattern for now
+        this.movement = Math.floor(Math.random()*200)+25; //Monster keeps moving in square pattern for now
         this.killCost = 10;
         this.lastAttacked = 0;
 
@@ -198,7 +198,6 @@ export class Slime extends Enemy { // ---- someone fix this~
             } else if (this.direction == 2) {
                 this.sprite.body.setVelocityX(-this.speed);
                 this.sprite.body.setVelocityY(0);
-                //console.log("helloeaf");
                 this.sprite.anims.play("leftSlime", true);
                 this.moveCounter++;
                 if (this.moveCounter >= this.movement) {
