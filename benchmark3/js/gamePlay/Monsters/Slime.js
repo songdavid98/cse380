@@ -185,7 +185,7 @@ export class Slime extends Enemy { // ---- someone fix this~
             }
         }
 
-        if (this.active && !this.dead && !this.attacking && !this.targetFound) {
+        if (this.active && !this.dead && !this.attacking) {
             if (this.direction == 1) {
                 this.sprite.body.setVelocityX(0);
                 this.sprite.body.setVelocityY(-this.speed);
