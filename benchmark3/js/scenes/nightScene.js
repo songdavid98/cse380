@@ -86,7 +86,7 @@ export class NightScene extends Phaser.Scene {
         this.load.image("buywall", "./assets/images/buttons/buywall.JPG");
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
-        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightmap2.json");
+        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
         this.mapLevel = "night-map2";
         console.log("Welcome to level " + this.level);
 
