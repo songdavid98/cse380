@@ -127,29 +127,6 @@ export class DayPlayer {
                     //case HEROES.MAGE_HERO: this.sprite.anims.play("downBasicAttackMage"); break;
             }
         }
-        //play the player's attack sound
-        switch (this.playerType) {
-            case HEROES.SHIELD_HERO:
-                if (Math.floor(this.time / 1000) % 2 == 0)
-                    this.scene.sound.play("audioshieldattack1", {
-                        "volume": 15
-                    });
-                else
-                    this.scene.sound.play("audioshieldattack2", {
-                        "volume": 15
-                    });
-                break;
-            case HEROES.SWORD_HERO:
-                this.scene.sound.play("audioswordslice", {
-                    "volume": 30
-                });
-                break;
-            case HEROES.MAGE_HERO:
-                this.scene.sound.play("audiomageattack", {
-                    "volume": 30
-                });
-                break;
-        }
     }
 
 

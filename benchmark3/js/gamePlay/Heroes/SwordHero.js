@@ -335,6 +335,10 @@ export class SwordHero extends DayPlayer {
                 swordSlashSprite.scene.hittingWithShieldBeam(swordSlashSprite, enemySprite);
             }
         });
+        //play sound
+        this.scene.sound.play("audioswordslice", {
+            "volume": 30
+        });
     }
 
     attackSpecial(cursor, angle) {
