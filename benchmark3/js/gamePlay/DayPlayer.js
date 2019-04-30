@@ -80,7 +80,7 @@ export class DayPlayer {
         //Call the hero's attackBasic first
         //tempSprite.anims.play("shield",true);
         tempSprite.anims = this.anims;
-        console.log(this.anims);
+        //console.log(this.anims);
 
         //this.hero.attackBasic(cursor, angle, tempSprite);
 
@@ -127,7 +127,29 @@ export class DayPlayer {
                     //case HEROES.MAGE_HERO: this.sprite.anims.play("downBasicAttackMage"); break;
             }
         }
-
+        //play the player's attack sound
+        switch (this.playerType) {
+            case HEROES.SHIELD_HERO:
+                if (Math.floor(this.time / 1000) % 2 == 0)
+                    this.scene.sound.play("audioshieldattack1", {
+                        "volume": 15
+                    });
+                else
+                    this.scene.sound.play("audioshieldattack2", {
+                        "volume": 15
+                    });
+                break;
+            case HEROES.SWORD_HERO:
+                this.scene.sound.play("audioswordslice", {
+                    "volume": 30
+                });
+                break;
+            case HEROES.MAGE_HERO:
+                this.scene.sound.play("audiomageattack", {
+                    "volume": 30
+                });
+                break;
+        }
     }
 
 
@@ -161,7 +183,7 @@ export class DayPlayer {
 
 
     damage(monster) {
-        if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown*1000) { //Uses the cooldown variable to allow time buffer between damages
+        if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
             this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
             if (this.health > 0) {
                 this.health -= monster.class.basicAttack;
