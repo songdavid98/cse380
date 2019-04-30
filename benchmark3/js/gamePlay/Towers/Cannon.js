@@ -16,7 +16,7 @@ export class Cannon extends NightDefenseStructure {
         this.health = 3;
         this.damage = 5;
         this.speed = 128;
-        this.range = 500; //units in pixels, I think
+        this.range = 300; //units in pixels, I think
 
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;

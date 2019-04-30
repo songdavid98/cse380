@@ -1,17 +1,19 @@
-import {SCENES} from "../constants/SceneNames.js";
-export class PreloadScene extends Phaser.Scene{
-    constructor(){
+import {
+    SCENES
+} from "../constants/SceneNames.js";
+export class PreloadScene extends Phaser.Scene {
+    constructor() {
         super({
             key: SCENES.PRELOAD
         })
     }
 
-    init(){
+    init() {
 
     }
-    preload(){
+    preload() {
         console.log("loading logo");
-        this.load.image("logo","./assets/images/icons/logo.png");
+        this.load.image("logo", "./assets/images/icons/logo.png");
         this.load.image("textlogo", "./assets/images/icons/title.png");
         this.load.image("startButton", "./assets/images/buttons/startbutton.png"); //FIXME: temporary button image
         this.load.image("level1Button", "./assets/images/buttons/temp_level_box.png"); //FIXME: temporary button image
@@ -33,10 +35,16 @@ export class PreloadScene extends Phaser.Scene{
         this.load.image("dungeon3Thumb", "./assets/images/icons/dungeon3.png");
         this.load.image("nightmap2Thumb", "./assets/images/icons/nightmap2.png")
 
-
+        // add audio files
+        //        this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
+        //        this.load.audio("audiocoin", "./assets/audio/coin.wav");
+        //        this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
+        //        this.load.audio("audiosleeping", "./assets/audio/sleeping.wav");
+        //        this.load.audio("audiostomp", "./assets/audio/stomp.wav");
+        //        this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
 
     }
-    create(){
+    create() {
         console.log("scene");
         this.scene.start(SCENES.SPLASH, "loaded main menu");
     }
