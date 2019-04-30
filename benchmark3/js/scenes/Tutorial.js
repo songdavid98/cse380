@@ -390,6 +390,21 @@ export class Tutorial extends Phaser.Scene {
     }
 
     update(time, delta) {
+        var slimeFound = false;
+        for(var i = 0; i < this.enemyGroup.getChildren().length; i++){
+            console.log(this.enemyGroup.getChildren()[i].enemyType);
+            if(this.enemyGroup.getChildren()[i].class.enemyType == "SLIME"){
+                slimeFound = true;
+            }
+        }
+        console.log(slimeFound);
+        if(!slimeFound){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.DAY,{"money":this.money});
+            this.scene.stop();
+
+        }
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
             console.log("hello");
             this.player.active = true;
