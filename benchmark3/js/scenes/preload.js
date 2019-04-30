@@ -32,7 +32,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("heart1", "./assets/images/icons/heart1.png");
         this.load.image("heart2", "./assets/images/icons/heart2.png");
         this.load.image("heart3", "./assets/images/icons/heart3.png");
-        this.load.image("dungeon1Thumb", "./assets/images/icons/IceRoom.png");
+        this.load.image("dungeon1Thumb", "./assets/images/icons/tutorial.png");
         this.load.image("dungeon2Thumb", "./assets/images/icons/Dungeon4.png");
         this.load.image("dungeon3Thumb", "./assets/images/icons/DayDungeon3.png");
         this.load.image("nightmap2Thumb", "./assets/images/icons/nightmap2.png")

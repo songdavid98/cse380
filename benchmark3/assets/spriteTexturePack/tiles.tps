@@ -201,6 +201,7 @@
             <key type="filename">../images/tiles/newerTileImages/stoneWall.png</key>
             <key type="filename">../images/tiles/newerTileImages/tallGrass.png</key>
             <key type="filename">../images/tiles/newerTileImages/treasure.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zhardgrass.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
