@@ -158,6 +158,7 @@ export class Slime extends Enemy { // ---- someone fix this~
             } else if (this.direction == 2) {
                 this.sprite.body.setVelocityX(-this.speed);
                 this.sprite.body.setVelocityY(0);
+                console.log("helloeaf");
                 this.sprite.anims.play("leftSlime", true);
                 this.moveCounter++;
                 if (this.moveCounter >= this.movement) {
@@ -188,6 +189,7 @@ export class Slime extends Enemy { // ---- someone fix this~
     }
     nightUpdate(time) {
         super.nightUpdate(time);
+        this.sprite.anims.play("leftSlime", true);
         //        if (this.active) {
         //            this.sprite.body.setVelocityX(-1 * this.speed);
         //            this.sprite.body.setVelocityY(0);

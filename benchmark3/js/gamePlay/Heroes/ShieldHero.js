@@ -220,6 +220,9 @@ export class ShieldHero extends DayPlayer{
                 shieldBeamSprite.scene.hittingWithShieldBeam(shieldBeamSprite,enemySprite);    
             }
         });
+        this.scene.physics.add.overlap(shieldBeamSprite,this.scene.barrels.getChildren(), function(shieldBeamSprite,barrel){
+            barrel.body.setVelocity(shieldBeamSprite.body.velocity.x,shieldBeamSprite.body.velocity.y);
+        });
     }
 
 

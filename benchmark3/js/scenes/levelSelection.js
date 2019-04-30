@@ -31,8 +31,8 @@ export class LevelSelectionScene extends Phaser.Scene {
         //add tbas
         this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .38, "tba").setDepth(3).setScale(3, 3); //level2 tba
         this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .38, "tba").setDepth(3).setScale(3, 3); //level3 tba
-        this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3); //n-level2 tba
-        this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3); //n-level3 tba
+        //this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3); //n-level2 tba
+        //this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3); //n-level3 tba
 
         //add text
         this.add.text(this.game.renderer.width * .31, this.game.renderer.height * .18, "Level Selection", {

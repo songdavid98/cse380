@@ -31,6 +31,7 @@ export class DayDungeon3 extends Phaser.Scene{
         this.easystar;
         this.money = data['money'] || 0;
         this.lastDamaged = 0;
+        this.buttonsPressed = 0;
 
 
 
@@ -79,6 +80,7 @@ export class DayDungeon3 extends Phaser.Scene{
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
+        this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
 
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
@@ -94,7 +96,7 @@ export class DayDungeon3 extends Phaser.Scene{
         this.load.tilemapTiledJSON("map5", "./assets/tilemaps/DayDungeon3.json");
         this.mapLevel = "map5";
         console.log("make suer this dungeon even exits, dumbo");
-        
+
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
     }
@@ -108,6 +110,25 @@ export class DayDungeon3 extends Phaser.Scene{
         this.buttonsLayer = this.map.createStaticLayer("buttons", [this.terrain], 1, 0).setScale(4,4);
         this.prisonLayer = this.map.createStaticLayer("prison", [this.terrain], 1, 0).setScale(4,4); 
         this.doorLayer = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4,4);
+
+        //add objects
+        this.items = this.map.objects[0].objects;
+        for (var i = 0; i < this.items.length; i++) {
+            this.items[i].width *= 4;
+            this.items[i].height *= 4;
+            this.items[i].x *= 4;
+            this.items[i].y *= 4;
+        }
+        let barrels = this.map.createFromObjects('objectLayer', 1, {
+            key: 'barrel'
+        });
+        this.barrels = this.physics.add.group();
+        console.log(barrels);
+        for(var i = 0; i < barrels.length; i++){
+            this.barrels.add(this.physics.add.existing(barrels[i]));
+            barrels[i].body.setSize(barrels[i].body.width, barrels[i].body.height);
+            barrels[i].body.setOffset(0, 0);
+        }
 
 
         //Keyboard stuff
@@ -178,16 +199,42 @@ export class DayDungeon3 extends Phaser.Scene{
 	    //collisions
 	    this.wallLayer.setCollision(6); //dungeon level     //Change this if you want a different tile set. This is the ID.
         this.prisonLayer.setCollision(18);
+        this.groundLayer.setCollision(1);
+        this.doorLayer.setCollision(18);
 
-
+        this.doorLayerColliders = []
         this.physics.add.collider(this.swordHeroSprite,this.wallLayer);
         this.physics.add.collider(this.swordHeroSprite,this.prisonLayer);
+        this.doorLayerColliders.push(this.physics.add.collider(this.swordHeroSprite,this.doorLayer));
         this.physics.add.collider(this.shieldHeroSprite,this.wallLayer);
         this.physics.add.collider(this.shieldHeroSprite,this.prisonLayer);
+        this.doorLayerColliders.push(this.physics.add.collider(this.shieldHeroSprite,this.doorLayer));
         this.physics.add.collider(this.mageHeroSprite,this.wallLayer);
         this.physics.add.collider(this.mageHeroSprite,this.prisonLayer);
+        this.doorLayerColliders.push(this.physics.add.collider(this.mageHeroSprite,this.doorLayer));
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.prisonLayer);
+        this.physics.add.collider(this.barrels.getChildren(), this.wallLayer);
+        this.barrelOverlap = this.physics.add.overlap(this.barrels.getChildren(), this.buttonsLayer, function(o1,o2){
+            if(o1.scene.buttonsPressed >= 2){
+                if(o1.scene.doorLayer){
+                    for(var i = 0; i < o1.scene.doorLayerColliders.length; i++){
+                        o1.scene.physics.world.removeCollider(o1.scene.doorLayerColliders[i]);
+                    }
+                    o1.scene.doorLayer.destroy();
+                    o1.scene.doorLayer = null;
+                    console.log(o1.scene.doorLayer);
+                }
+                o1.scene.physics.world.removeCollider(o1.scene.barrelOverlap);
+            }else if(o2.index == -1){
+
+            }else if(!o1.pressed){
+                o1.pressed = true;
+                o1.setPosition(o1.x+(20*Math.sign(o1.body.velocity.x)),o1.y);
+                o1.body.destroy();
+                o1.scene.buttonsPressed++;
+            }
+        });
         //Damaging the player
         this.physics.add.overlap(this.shieldHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
             console.log("Getting hurt Shield");
@@ -430,9 +477,9 @@ export class DayDungeon3 extends Phaser.Scene{
 
     update(time, delta){
         if(this.player.active){
-            console.log(this.player.active);
+            //console.log(this.player.active);
         }
-        console.log((Math.floor(time/1000)) - (Math.floor(this.lastDamaged/1000))); 
+        //console.log((Math.floor(time/1000)) - (Math.floor(this.lastDamaged/1000))); 
         if(this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged +400)>= 0){
             console.log("hello");
             this.player.active = true;

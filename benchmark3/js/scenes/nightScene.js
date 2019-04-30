@@ -93,6 +93,8 @@ export class NightScene extends Phaser.Scene {
 
         //Load the enemy images
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "./assets/images/enemies");
+        this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
 
         //Load defense structure images
         console.log(this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure"));

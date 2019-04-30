@@ -40,7 +40,7 @@ export class DayPlayer {
         this.time = time;
 
         if (this.active === true) {
-            console.log('helo');
+            //console.log('helo');
             //if either are released, set velocityX to 0 for now
             //what if an enemy makes someone move?
             //NOTE: keycodes => W = 87, A = 65, S = 83, D = 68
