@@ -243,7 +243,7 @@ export class Dungeon4 extends Phaser.Scene{
 
 
 
-        //this.physics.add.collider(this.player.sprite,this.wallLayer);
+        this.physics.add.collider(this.player.sprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
         //Damaging the player
