@@ -64,7 +64,7 @@ export class NightScene extends Phaser.Scene {
         this.justPaused = false;
 
         this.money = data.money;
-        this.villageHealth = 5;
+        this.villageHealth = 3;
 
         this.enemies = new Array();
         this.defStrs = new Array();
@@ -176,6 +176,29 @@ export class NightScene extends Phaser.Scene {
                     break;
 
                 case 2:
+                    goblinSpawnArr = [
+                        [1600, 100],
+                        [1600, 200],
+                        [1600, 300],
+                        [1600, 400],
+                        [1600, 500],
+                        [1600, 600],
+                        [1600, 700],
+                        [1600, 350],
+                        [1600, 450],
+                        [1600, 550]
+                    ];
+                    goblinCount = goblinSpawnArr.length;
+                    for (let i = 0; i < goblinCount; i++) {
+                        let enemySprite = this.physics.add.sprite(goblinSpawnArr[i][0], goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'goblin/down/0001.png').setScale(5, 5);
+                        this.enemySpritesGroup.add(enemySprite);
+                        let newgoblin = new Goblin({
+                            "sprite": enemySprite,
+                            "physics": this.physics,
+                            "anims": this.anims
+                        });
+                        this.enemies.push(newgoblin);
+                    }
                     slimeSpawnArr = [
                         [1600, 100],
                         [1600, 200],
@@ -207,119 +230,6 @@ export class NightScene extends Phaser.Scene {
                     this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
                     break;
                 case 3:
-                    goblinSpawnArr = [
-                        [1600, 100],
-                        [1600, 200],
-                        [1600, 300],
-                        [1600, 400],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700],
-                        [1600, 350],
-                        [1600, 450],
-                        [1600, 550]
-                    ];
-                    goblinCount = goblinSpawnArr.length;
-                    for (let i = 0; i < goblinCount; i++) {
-                        let enemySprite = this.physics.add.sprite(goblinSpawnArr[i][0], goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'goblin/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newgoblin = new Goblin({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newgoblin);
-                    }
-                    slimeSpawnArr = [
-                        [1600, 160],
-                        [1600, 320],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700]
-                    ];
-                    slimeCount = slimeSpawnArr.length;
-                    for (let i = 0; i < slimeCount; i++) {
-                        let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newSlime = new Slime({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newSlime);
-                    }
-                    //Set collisions
-                    this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
-                    break;
-                case 4:
-                    let goblinSpawnArr = [
-                        [1600, 100],
-                        [1600, 200],
-                        [1600, 300],
-                        [1600, 400],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700],
-                        [1600, 350],
-                        [1600, 450],
-                        [1600, 550]
-                    ];
-                    goblinCount = goblinSpawnArr.length;
-                    for (let i = 0; i < goblinCount; i++) {
-                        let enemySprite = this.physics.add.sprite(goblinSpawnArr[i][0], goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'goblin/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newgoblin = new Goblin({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newgoblin);
-                    }
-                    golemSpawnArr = [
-                        [1600, 160],
-                        [1600, 320],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700]
-                    ];
-                    golemCount = golemSpawnArr.length;
-                    for (let i = 0; i < golemCount; i++) {
-                        let enemySprite = this.physics.add.sprite(golemSpawnArr[i][0], golemSpawnArr[i][1], ENEMIES.GOLEM, 'golem/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newgolem = new Golem({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newgolem);
-                    }
-                    //Set collisions
-                    this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
-                    break;
-                case 5:
-                    goblinSpawnArr = [
-                        [1600, 100],
-                        [1600, 200],
-                        [1600, 300],
-                        [1600, 400],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700],
-                        [1600, 350],
-                        [1600, 450],
-                        [1600, 550]
-                    ];
-                    goblinCount = goblinSpawnArr.length;
-                    for (let i = 0; i < goblinCount; i++) {
-                        let enemySprite = this.physics.add.sprite(goblinSpawnArr[i][0], goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'goblin/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newgoblin = new Goblin({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newgoblin);
-                    }
                     golemSpawnArr = [
                         [1600, 100],
                         [1600, 200],
@@ -327,7 +237,14 @@ export class NightScene extends Phaser.Scene {
                         [1600, 400],
                         [1600, 500],
                         [1600, 600],
-                        [1600, 700]
+                        [1600, 700],
+                        [1600, 150],
+                        [1600, 250],
+                        [1600, 350],
+                        [1600, 450],
+                        [1600, 550],
+                        [1600, 650],
+                        [1600, 750]
                     ];
                     golemCount = golemSpawnArr.length;
                     for (let i = 0; i < golemCount; i++) {
@@ -344,7 +261,6 @@ export class NightScene extends Phaser.Scene {
                     this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
                     break;
                 default:
-
                     break;
             }
 
@@ -457,11 +373,13 @@ export class NightScene extends Phaser.Scene {
 
         if (this.input.keyboard.keys[27].isDown && !this.justPaused) {
             this.justPaused = true
+            this.music.pause();
             this.scene.launch(SCENES.PAUSE, {
                 "scenes": [SCENES.NIGHT]
             });
             this.scene.pause();
         } else if (this.input.keyboard.keys[27].isUp) {
+            this.music.resume();
             this.justPaused = false;
         }
 
