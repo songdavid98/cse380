@@ -160,11 +160,24 @@ export class DayPlayer {
 
 
     damage(monster) {
-        if (this.health > 0) {
-            this.health -= monster.class.basicAttack;
-            if (this.health <= 0) {
-                this.dead = true;
-                monster.class.active = false;
+        if (this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown*1000) { //Uses the cooldown variable to allow time buffer between damages
+            this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
+            if (this.health > 0) {
+                this.health -= monster.class.basicAttack;
+                if (this.health <= 0) {
+                    this.dead = true;
+                    monster.class.active = false;
+                }
+            }
+            this.active = false;
+            if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
+                this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
+            } else {
+                this.sprite.body.setVelocity((Math.sign(monster.body.velocity.x)) * 500, (Math.sign(monster.body.velocity.y)) * 500);
+            }
+            if (this.dead) {
+                this.scene.swapHero();
+                console.log("I'm trying to swap");
             }
         }
     }

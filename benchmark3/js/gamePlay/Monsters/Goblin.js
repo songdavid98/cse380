@@ -173,6 +173,11 @@ export class Goblin extends Enemy {
 
                     break;
             }
+        }else if(this.dead && this.goblinContainer.list[0]){
+
+            this.goblinContainer.list[0].destroy();
+            console.log("hello");
+
         }
 
     }

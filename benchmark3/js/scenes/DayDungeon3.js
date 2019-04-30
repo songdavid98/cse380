@@ -237,62 +237,13 @@ export class DayDungeon3 extends Phaser.Scene{
         });
         //Damaging the player
         this.physics.add.overlap(this.shieldHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Shield");
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-                o1.scene.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
-                o1.scene.player.active = false;
-
-                if(o1.body.velocity.x != 0 || o1.body.velocity.y != 0){
-                    o1.body.setVelocity((-1)*(Math.sign(o1.body.velocity.x))*500, (-1)*(Math.sign(o1.body.velocity.y))*500);
-                }else{
-                    o1.body.setVelocity((Math.sign(o2.body.velocity.x))*500, (Math.sign(o2.body.velocity.y))*500);
-                }
-                //o2.class.lastAttacked = Math.floor(o1.scene.time.now/1000);
-                if(o1.scene.player.dead){
-                    o1.scene.swapHero();
-                    console.log("I'm trying to swap");
-                }
-            }
+            o1.scene.player.damage(o2);
         });
         this.physics.add.overlap(this.swordHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Sword");
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-               // o2.class.lastAttacked = Math.floor(o1.scene.time.now/1000);
-                o1.scene.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
-                o1.scene.player.active = false;
-                
-                if(o1.body.velocity.x != 0 || o1.body.velocity.y != 0){
-                    o1.body.setVelocity((-1)*(Math.sign(o1.body.velocity.x))*500, (-1)*(Math.sign(o1.body.velocity.y))*500);
-                }else{
-                    o1.body.setVelocity((Math.sign(o2.body.velocity.x))*500, (Math.sign(o2.body.velocity.y))*500);
-                }
-                if(o1.scene.player.dead){
-                    o1.scene.swapHero();
-                    console.log("I'm trying to swap");
-                }
-            }
+            o1.scene.player.damage(o2);
         });
         this.physics.add.overlap(this.mageHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
-            console.log("Getting hurt Mage");
-            if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
-                o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
-                //o2.class.lastAttacked = Math.floor(o1.scene.time.now/1000);
-                o1.scene.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
-                o1.scene.player.active = false;
-
-                if(o1.body.velocity.x != 0 || o1.body.velocity.y != 0){
-                    o1.body.setVelocity((-1)*(Math.sign(o1.body.velocity.x))*500, (-1)*(Math.sign(o1.body.velocity.y))*500);
-                }else{
-                    o1.body.setVelocity((Math.sign(o2.body.velocity.x))*500, (Math.sign(o2.body.velocity.y))*500);
-                }
-
-                if(o1.scene.player.dead){
-                    o1.scene.swapHero();
-                    console.log("I'm trying to swap");
-                }
-            }
+            o1.scene.player.damage(o2);
         });
 
 
@@ -375,38 +326,7 @@ export class DayDungeon3 extends Phaser.Scene{
 
     //Setting up pathfinding
     pathFinding(){
-        this.easystar = new EasyStar.js();
-        var grid = [];
-        for(var y = 0; y < this.map.height; y++){
-            var col = [];
-            for(var x = 0; x < this.map.width; x++){
-                // In each cell we store the ID of the tile, which corresponds
-                // to its index in the tileset of the map ("ID" field in Tiled)
-                col.push(this.getTileID(x,y));
-            }
-            grid.push(col);
-        }
-
-        this.easystar.setGrid(grid);
-        this.easystar.enableDiagonals();
-
-        var tileset = this.map.tilesets[0];
-        var properties = tileset.tileProperties;
-        var acceptableTiles = [];
-    
-        // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
-        // and see what properties have been entered in Tiled.
-        for(var i = tileset.firstgid-1; i < this.terrain.total; i++){ // firstgid and total are fields from Tiled that indicate the range of IDs that the tiles can take in that tileset
-            if(!properties.hasOwnProperty(i)) {
-                // If there is no property indicated at all, it means it's a walkable tile
-                acceptableTiles.push(i+1);
-                continue;
-            }
-            if(!properties[i].collide) acceptableTiles.push(i+1);
-            if(properties[i].cost) this.easystar.setTileCost(i+1, properties[i].cost); // If there is a cost attached to the tile, let's register it
-        }
-
-        this.easystar.setAcceptableTiles(acceptableTiles);
+        
     }
 
     //Used in pathfinding
