@@ -166,7 +166,6 @@ export class DayPlayer {
                 this.health -= monster.class.basicAttack;
                 if (this.health <= 0) {
                     this.dead = true;
-                    monster.class.active = false;
                 }
             }
             this.active = false;
