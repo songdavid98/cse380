@@ -174,7 +174,7 @@ export class Dungeon4 extends Phaser.Scene{
 
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,One,Three,Four,Five,Six');
+        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,One,Three,Four,Five,Six');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
@@ -487,6 +487,10 @@ export class Dungeon4 extends Phaser.Scene{
             }else if(this.input.keyboard.keys[27].isUp){
                 this.music.resume();
                 this.justPaused = false;
+            }
+
+            if(this.input.keyboard.keys[73].isDown){
+                this.player.invulnerable = true;
             }
 
             if(this.input.keyboard.keys[49].isDown){

@@ -82,7 +82,7 @@ export class DayScene extends Phaser.Scene {
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            /*
+            
             [1320, 400] ,
             [1400,600],
             [1500,400],
@@ -94,9 +94,7 @@ export class DayScene extends Phaser.Scene {
             [1220,300],
             [1600,600],
             [1740,900],
-            [1800,800],
-            */
-            [130,215]
+            [1800,800]
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;

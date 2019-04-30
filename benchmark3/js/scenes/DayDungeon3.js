@@ -144,7 +144,7 @@ export class DayDungeon3 extends Phaser.Scene{
 
 
         //Keyboard stuff
-        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,One,Two,Four,Five,Six');
+        this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,One,Two,Four,Five,Six');
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
@@ -461,6 +461,9 @@ export class DayDungeon3 extends Phaser.Scene{
                 this.justPaused = false;
             }
             //cheats
+            if(this.input.keyboard.keys[73].isDown){
+                this.player.invulnerable = true;
+            }
             if(this.input.keyboard.keys[49].isDown){
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);

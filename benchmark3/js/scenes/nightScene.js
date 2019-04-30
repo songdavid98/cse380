@@ -336,6 +336,7 @@ export class NightScene extends Phaser.Scene {
 
 
         this.input.keyboard.addKeys('Esc');
+        this.input.keyboard.addKeys('One,Two,Three,Four,Five,Six');
     }
     update(time, delta) {
         // if the game is over
@@ -412,6 +413,55 @@ export class NightScene extends Phaser.Scene {
             this.heartText.setText(0);
         } else {
             this.heartText.setText(this.villageHealth);
+        }
+        if(this.input.keyboard.keys[49].isDown){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.DAY, {
+                "money": this.money,
+                "level": 4
+            });
+            this.scene.stop();
+        }else if(this.input.keyboard.keys[50].isDown){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.DUNGEON4, {
+                "money": this.money,
+                "level": 5
+            });
+            this.scene.stop();
+        }else if(this.input.keyboard.keys[51].isDown){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.DAY_DUNGEON3, {
+                "money": this.money,
+                "level": 1
+            });
+            this.scene.stop();
+        }else if(this.input.keyboard.keys[52].isDown){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.NIGHT, {
+                "money": this.money,
+                "level": 1
+            });
+            this.scene.stop();
+        }else if(this.input.keyboard.keys[53].isDown){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.NIGHT, {
+                "money": this.money,
+                "level": 2
+            });
+            this.scene.stop();
+        }else if(this.input.keyboard.keys[54].isDown){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.NIGHT, {
+                "money": this.money,
+                "level": 3
+            });
+            this.scene.stop();
         }
 
 
