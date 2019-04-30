@@ -54,38 +54,45 @@ export class DayScene extends Phaser.Scene {
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
-            [800, 600],
-            [320, 320],
-            [500, 500],
-            [750, 1300],
-            [1700, 3250],
-            [1950, 1000],
-            [167, 1230],
-            [550, 3600],
-            [1500, 1000],
-            [165, 1560]
+            [700,700],
+            [1000,1000],
+            [1200,1100],
+            [1300,1500],
+            [1300,1200],
+
+            [1400,1200],
+            [1400,1600],
+            [1500,1300],
+            [1600,1400],
+
+            [2100,2100],
+            [2200,2100],
+            [2100,2200],
+            [2200,2200],
+            [2300,2000],
+
         ];
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
             [300, 2000],
-            [1400, 1500]
+            [2000, 1800]
         ];
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            [320, 400] //,
-           /* [400,600],
-            [500,400],
-            [600,1000],
-            [700,900],
-            [800,800],
-            [670,400],
-            [830,600],
+            [1320, 400] ,
+            [1400,600],
+            [1500,400],
+            [1600,1000],
+            [1700,1900],
+            [1800,1800],
+            [1670,1400],
+            [1830,1600],
             [1220,300],
             [1600,600],
             [1740,900],
-            [1800,800]*/
+            [1800,800]
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;

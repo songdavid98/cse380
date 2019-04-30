@@ -33,42 +33,100 @@ export class Dungeon4 extends Phaser.Scene{
         this.lastDamaged = 0;
 
 
+        //This dungeon goes up to [5000,5000]
 
-         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
-            [800,600],
-            [320,320],
-            [500,500],
-            [750,1300],
-            [1700,3250],
-            [1950,1000],
-            [167,1230],
-            [550,3600],
-            [1500,1000],
-            [165,1560]
+            [900,900],
+            [900,1200],
+            [1000,1000],
+            [1100,1300],
+
+            [1700,100],
+            [1800,200],
+            [1800,100],
+            [1900,300],
+
+            [1800,1600],
+            [1800,1700],
+            [1900,1800],
+            [1900,1900],
+            [2100,1500],
+
+            [1900,4000],
+            [2000,3900],
+            [2000,4000],
+            [2100,4100],
+            [2200,3800],
+            [2500,3700],
+
+            [4800,200],
+            [4200,300],
+            [4800,700],
+            [4300,300],
+            [4100,300],
+            [3900,200],
+
+            [2800,3700],
+            [2800,3800],
+            [3000,3800],
+            [3100,3500],
+            [3100,3600],
+
+            [2500,4500],
+            [2600,4000],
+            [2300,4000],
+            [2500,4300],
+            [2700,4300],
+
+
+            [4000,4000],
+            [4200,4400],
+            [4200,4500],
+            [4200,4800],
+            [4300,4000],
+            [4500,4000],
+            [4800,4300],
+
+            [4900,4900]
+            
+           
         ];
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
-            [300,2000],
-            [1400,1500]
+            [1200,3800],
+            [1400,800],
+            [2000,3700],
+            [2200,4300]
+
+
         ];
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            [320,400],
-            [400,600],
-            [500,400],
-            [600,1000],
-            [700,900],
-            [800,800],
-            [670,400],
-            [830,600],
-            [1220,300],
-            [1600,600],
-            [1740,900],
-            [1800,800]
+            [2800,200],
+            [2800,400],
+            [2900,200],
+            [3100,300],
+            [3200,300],
+            [3300,300],
+
+
+            [2000,2800],
+            [2100,2500],
+            [2000,2700],
+            [2100,2900],
+            [2200,2600],
+            [2300,2100],
+
+            [3900,2600],
+            [3400,2700],
+            [3600,2500],
+            [3700,2200],
+            [3300,2000],
+            [3100,1900],
+           
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -179,7 +237,7 @@ export class Dungeon4 extends Phaser.Scene{
 
 
 
-        this.physics.add.collider(this.player.sprite,this.wallLayer);
+        //this.physics.add.collider(this.player.sprite,this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
         //Damaging the player

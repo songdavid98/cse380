@@ -16,7 +16,7 @@ export class Goblin extends Enemy {
         this.basicAttackSpeed = 80;
         this.speed = 200;
         this.movement = 60;                 //Monster keeps moving in square pattern for now
-        this.killCost = 15;
+        this.killCost = 25;
         this.state = "sleeping";            //The behavioral states of the goblin
         this.detectionRange = 1000;           //Need this to know how far away the player has to be to get detected
         this.goblinContainer = data.goblinContainer;

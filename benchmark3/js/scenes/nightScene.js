@@ -283,7 +283,7 @@ export class NightScene extends Phaser.Scene {
             console.log("buycannon pressed");
             //console.log(this);
 
-            if (!this.alreadyClicked && this.money >= 200 && !this.startDragging) {
+            if (!this.alreadyClicked && this.money >= 100 && !this.startDragging) {
 
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
                 this.towerToBePlaced = new Cannon({
