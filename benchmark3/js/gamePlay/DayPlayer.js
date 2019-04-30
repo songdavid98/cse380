@@ -80,7 +80,7 @@ export class DayPlayer {
         //Call the hero's attackBasic first
         //tempSprite.anims.play("shield",true);
         tempSprite.anims = this.anims;
-        console.log(this.anims);
+        //console.log(this.anims);
 
         //this.hero.attackBasic(cursor, angle, tempSprite);
 
@@ -127,7 +127,6 @@ export class DayPlayer {
                     //case HEROES.MAGE_HERO: this.sprite.anims.play("downBasicAttackMage"); break;
             }
         }
-
     }
 
 
@@ -161,7 +160,7 @@ export class DayPlayer {
 
 
     damage(monster) {
-        if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown*1000) { //Uses the cooldown variable to allow time buffer between damages
+        if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
             this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
             if (this.health > 0) {
                 this.health -= monster.class.basicAttack;

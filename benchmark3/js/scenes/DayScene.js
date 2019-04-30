@@ -70,7 +70,7 @@ export class DayScene extends Phaser.Scene {
             [2200,2100],
             [2100,2200],
             [2200,2200],*/
-            [2300,2000],
+            [2300, 2000],
 
         ];
         this.slimeCount = this.slimeSpawnArr.length;
@@ -82,19 +82,19 @@ export class DayScene extends Phaser.Scene {
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            
-            [1320, 400] ,
-            [1400,600],
-            [1500,400],
-            [1600,1000],
-            [1700,1900],
-            [1800,1800],
-            [1670,1400],
-            [1830,1600],
-            [1220,300],
-            [1600,600],
-            [1740,900],
-            [1800,800]
+
+            [1320, 400],
+            [1400, 600],
+            [1500, 400],
+            [1600, 1000],
+            [1700, 1900],
+            [1800, 1800],
+            [1670, 1400],
+            [1830, 1600],
+            [1220, 300],
+            [1600, 600],
+            [1740, 900],
+            [1800, 800]
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -155,6 +155,8 @@ export class DayScene extends Phaser.Scene {
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
+        this.load.audio("audioshieldattack1", "./assets/audio/shieldheroha.wav");
+        this.load.audio("audioshieldattack2", "./assets/audio/shieldherohuh.wav");
     }
     create() {
         this.scene.stop(SCENES.DAY_DUNGEON3);
@@ -293,7 +295,7 @@ export class DayScene extends Phaser.Scene {
 
 
         this.physics.add.collider(this.player.sprite, this.wallLayer);
-        this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+        this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
 
         //add cave door
         this.items = this.map.objects[0].objects;
@@ -377,16 +379,6 @@ export class DayScene extends Phaser.Scene {
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
-                //play the player's attack sound
-                console.log(this.player.playerType);
-                if (this.player.playerType == HEROES.SHIELD_HERO) {
-                    this.sound.play("audiomageattack",{"volume":30});
-                } else if (this.player.playerType == HEROES.MAGE_HERO) {
-                    this.sound.play("audiomageattack",{"volume":30});
-                } else {
-                    this.sound.play("audioswordslice",{"volume":30});
-                }
-
             } else if (pointer.rightButtonDown()) {
                 this.player.attackSpecial(pointer, this.player.angle);
             }
@@ -601,10 +593,10 @@ export class DayScene extends Phaser.Scene {
                 this.music.resume();
             }
             //cheats
-            if(this.input.keyboard.keys[73].isDown){
+            if (this.input.keyboard.keys[73].isDown) {
                 this.player.invulnerable = true;
             }
-            if(this.input.keyboard.keys[50].isDown){
+            if (this.input.keyboard.keys[50].isDown) {
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);
                 console.log(this.money);
@@ -613,7 +605,7 @@ export class DayScene extends Phaser.Scene {
                     "level": 4
                 });
                 this.scene.stop();
-            }else if(this.input.keyboard.keys[51].isDown){
+            } else if (this.input.keyboard.keys[51].isDown) {
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);
                 this.scene.start(SCENES.DAY_DUNGEON3, {
@@ -621,7 +613,7 @@ export class DayScene extends Phaser.Scene {
                     "level": 5
                 });
                 this.scene.stop();
-            }else if(this.input.keyboard.keys[52].isDown){
+            } else if (this.input.keyboard.keys[52].isDown) {
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);
                 this.scene.start(SCENES.NIGHT, {
@@ -629,7 +621,7 @@ export class DayScene extends Phaser.Scene {
                     "level": 1
                 });
                 this.scene.stop();
-            }else if(this.input.keyboard.keys[53].isDown){
+            } else if (this.input.keyboard.keys[53].isDown) {
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);
                 this.scene.start(SCENES.NIGHT, {
@@ -637,7 +629,7 @@ export class DayScene extends Phaser.Scene {
                     "level": 2
                 });
                 this.scene.stop();
-            }else if(this.input.keyboard.keys[54].isDown){
+            } else if (this.input.keyboard.keys[54].isDown) {
                 this.music.pause();
                 this.scene.stop(SCENES.DAY_OVERLAY);
                 this.scene.start(SCENES.NIGHT, {
