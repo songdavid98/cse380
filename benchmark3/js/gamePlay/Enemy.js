@@ -18,6 +18,9 @@ export class Enemy {
         this.beenAttacked = false;  //Need this to change behaviour
         this.notTakenEffect = true;
 
+        this.lastAttacked = 0;
+        this.attackCooldown = 2;
+
         this.justGotHit = false;
         this.direction = 2;             // up, down, left, right;  Please replace this with a better algorithm
         this.moveCounter = 0;

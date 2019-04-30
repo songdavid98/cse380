@@ -251,6 +251,7 @@ export class DayScene extends Phaser.Scene{
         this.physics.add.overlap(this.shieldHeroSprite,this.enemyGroup.getChildren(), function(o1, o2){
             console.log("Getting hurt Shield");
             if(Math.floor((o1.scene.time.now/1000))-Math.floor(o1.scene.player.lastDamaged/1000) >= o1.scene.player.damageCooldown){             //Uses the cooldown variable to allow time buffer between damages
+                o2.lastAttacked = Math.floor(o1.scene.time.now/1000);
                 o1.scene.player.damage(o2);                               //Decrease the health (from the player CLASS) when overlaps with enemy
                 o1.scene.player.lastDamaged = o1.scene.time.now;                               //Set the prevTime to current time
                 if(o1.scene.player.dead){
