@@ -106,6 +106,8 @@ export class DayDungeon3 extends Phaser.Scene{
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
+        this.load.audio("audioshieldattack1", "./assets/audio/shieldheroha.wav");
+        this.load.audio("audioshieldattack2", "./assets/audio/shieldherohuh.wav");
     }
     create(){
         this.scene.stop(SCENES.DUNGEON4);
@@ -408,6 +410,13 @@ export class DayDungeon3 extends Phaser.Scene{
     }
 
     update(time, delta){
+        console.log(this.player.sprite.body.position);
+        if(this.player.sprite.body.position.x > 1400 && this.player.sprite.body.position.x < 1700 && this.player.sprite.body.position.y < 50){
+            this.music.pause();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            this.scene.start(SCENES.MAIN_MENU, "winner");
+            this.scene.stop();
+        }
         if(this.player.active){
             //console.log(this.player.active);
         }

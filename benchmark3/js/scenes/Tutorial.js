@@ -101,6 +101,8 @@ export class Tutorial extends Phaser.Scene {
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
+        this.load.audio("audioshieldattack1", "./assets/audio/shieldheroha.wav");
+        this.load.audio("audioshieldattack2", "./assets/audio/shieldherohuh.wav");
     }
     create() {
         this.scene.stop(SCENES.DAY_DUNGEON3);
