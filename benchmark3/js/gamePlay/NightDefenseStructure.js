@@ -34,7 +34,8 @@ export class NightDefenseStructure {
     init() {}
 
     create() {
-        var rightFrames = this.anims.generateFrameNames(this.defstrType, {
+        console.log(this.defstrType);
+        /*var rightFrames = this.anims.generateFrameNames(this.defstrType, {
             start: 1,
             end: 4,
             zeroPad: 4,
@@ -46,7 +47,8 @@ export class NightDefenseStructure {
             frames: rightFrames,
             frameRate: 15,
             repeat: 0
-        });
+        });*/
+        
     }
 
     distanceCalc(x1, y1, x2, y2) {
@@ -79,6 +81,10 @@ export class NightDefenseStructure {
     }
 
     update(time, enemies) {
+        if(this.targetFound){
+            console.log("hello");
+            return;
+        }
         let timePassed = (time - this.prevTime) / 1000;
 
         if (timePassed < this.cooldown)
@@ -87,8 +93,11 @@ export class NightDefenseStructure {
         let targetEnem = this.searchForTarget(enemies);
         if (targetEnem == null)
             return;
-
-        targetEnem.health -= this.damage;
+        this.targetEnem = targetEnem;
+        console.log(this.targetEnem);
+        this.targetFound = true;
+        this.sprite.anims.play('rightCannon');
+        //targetEnem.health -= this.damage;
         this.prevTime = time;
     }
 

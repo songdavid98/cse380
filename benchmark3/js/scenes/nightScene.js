@@ -95,7 +95,7 @@ export class NightScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "./assets/images/enemies");
 
         //Load defense structure images
-        this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure");
+        console.log(this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure"));
 
         //Load song
         this.load.audio("audionightbackgroundsong", "./assets/audio/nightbackgroundsong.wav");
@@ -289,6 +289,7 @@ export class NightScene extends Phaser.Scene {
                     "physics": this.physics,
                     "anims": this.anims
                 });
+                this.towerSpriteForBuying.class = this.towerToBePlaced;
 
                 this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
                 this.money -= 200;

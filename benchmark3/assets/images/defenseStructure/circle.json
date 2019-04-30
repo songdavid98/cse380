@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "circle.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 36,
+				"h": 36
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "circle.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 34,
+						"h": 34
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 34,
+						"h": 34
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 34,
+						"h": 34
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:71beb3270bd1ab6d044d2b28451ca68e:35f84f9ec60c141d919750586cfa3002:01afef9f2d9389c371a08561d6cca8f8$"
+	}
+}
