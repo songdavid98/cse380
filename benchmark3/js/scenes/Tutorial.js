@@ -93,7 +93,7 @@ export class Tutorial extends Phaser.Scene {
                 //this.load.tilemapTiledJSON("iceMap1", "assets/tilemaps/tutorial.json");
                 this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
                 this.mapLevel = "tutorial";
-                console.log("Welcome to Tutorial");
+                //console.log("Welcome to Tutorial");
                 break;
             default:
                 this.scene.start(SCENES.Main_MENU, "how");
@@ -183,12 +183,23 @@ export class Tutorial extends Phaser.Scene {
 
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
-        this.shieldHeroSprite.visible = false;
-        this.shieldHeroSprite.setVelocity(0, 0);
-        this.shieldHeroSprite.setPosition(-100, 0);
-        this.swordHeroSprite.visible = true;
-        //this.swordHeroSprite.setVelocity(0,0);
-        //this.swordHeroSprite.setPosition(-100,0);
+
+        //this.shieldHeroSprite.body.setSize(15,20,false);
+        //this.shieldHeroSprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
+
+        //this.swordHeroSprite.body.setSize(15,20,false);
+        //this.swordHeroSprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
+
+        //this.mageHeroSprite.body.setSize(15,20,false);
+        //this.mageHeroSprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
+
+
+        this.shieldHeroSprite.visible = true;
+        //this.shieldHeroSprite.setVelocity(0, 0);
+        //this.shieldHeroSprite.setPosition(-100, 0);
+        this.swordHeroSprite.visible = false;
+        this.swordHeroSprite.setVelocity(0,0);
+        this.swordHeroSprite.setPosition(-100,0);
         this.mageHeroSprite.visible = false;
         this.mageHeroSprite.setVelocity(0, 0);
         this.mageHeroSprite.setPosition(-100, 0);
@@ -219,7 +230,7 @@ export class Tutorial extends Phaser.Scene {
             "scene": this
         });
 
-        this.player = this.swordHero;
+        this.player = this.shieldHero;
 
         //Setting the .class method of sprite to the sprite's class (the hero class)
         this.shieldHeroSprite.class = this.shieldHero;
@@ -282,7 +293,7 @@ export class Tutorial extends Phaser.Scene {
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
                 //play the player's attack sound
-                console.log(this.player.playerType);
+                //console.log(this.player.playerType);
                 if (this.player.playerType == HEROES.SHIELD_HERO) {
                     this.sound.play("audiomageattack",{"volume":30});
                 } else if (this.player.playerType == HEROES.MAGE_HERO) {
@@ -322,7 +333,7 @@ export class Tutorial extends Phaser.Scene {
         if (!magicBeamSprite.anims) {
             return;
         }
-        console.log(magicBeamSprite.class.basicAttack);
+        //console.log(magicBeamSprite.class.basicAttack);
         enemySprite.class.damaged(magicBeamSprite.class.basicAttack);
 
         //Slows the enemy down by half the speed
@@ -388,18 +399,18 @@ export class Tutorial extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.sprite);
         this.physics.add.collider(this.player.sprite, this.wallLayer);
 
-        console.log(this.player);
+        //console.log(this.player);
     }
 
     update(time, delta) {
         var slimeFound = false;
         for(var i = 0; i < this.enemyGroup.getChildren().length; i++){
-            console.log(this.enemyGroup.getChildren()[i].enemyType);
+            //console.log(this.enemyGroup.getChildren()[i].enemyType);
             if(this.enemyGroup.getChildren()[i].class.enemyType == "SLIME"){
                 slimeFound = true;
             }
         }
-        console.log(slimeFound);
+        //console.log(slimeFound);
         if(!slimeFound){
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
@@ -408,7 +419,7 @@ export class Tutorial extends Phaser.Scene {
 
         }
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
-            console.log("hello");
+            //console.log("hello");
             this.player.active = true;
             this.player.sprite.body.setVelocity(0, 0);
         }

@@ -219,6 +219,10 @@ export class ShieldHero extends DayPlayer {
             repeat: 0
         });
 
+        //Changing the size of the bounding box and offsetting it 
+        //this.sprite.body.setSize(15,20,false);
+        //this.sprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
+
 
     }
     update(angle, time) {

@@ -217,6 +217,9 @@ export class MageHero extends DayPlayer {
             repeat: 0
         });
 
+        //Changing the size of the bounding box and offsetting it 
+
+
 
     }
     update(angle, time) {

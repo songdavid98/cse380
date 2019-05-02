@@ -221,11 +221,17 @@ export class SwordHero extends DayPlayer {
             frameRate: 10,
             repeat: 0
         });
+
+
+        //Changing the size of the bounding box and offsetting it 
+        //this.sprite.body.setSize(15,20,false);
+        //this.sprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
+
     }
     update(angle, time) {
-
         if (this.active && this.sprite.body) {
             super.update(time);
+
             if (!this.attacking) {
                 if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
@@ -260,9 +266,7 @@ export class SwordHero extends DayPlayer {
                     this.sprite.setRotation(this.angle - Math.PI / 2); //Rotates the image
                     this.sprite.body.angle = this.angle - Math.PI / 2; //Rotates the box (playerclass)
                 }
-            } else {
-
-            }
+            }         
         }
     }
 
@@ -278,6 +282,8 @@ export class SwordHero extends DayPlayer {
         } else if (this.angle <= 3 * Math.PI / 4 && this.angle > Math.PI / 4) {
             this.sprite.anims.play("downBasicAttackSword", true);
         }
+
+
 
         console.log("attttacking");
         //  console.log(shieldSprite);
@@ -301,6 +307,7 @@ export class SwordHero extends DayPlayer {
         let yy = Math.abs(swordSlashSprite.width * (Math.cos(this.angle))) + Math.abs(swordSlashSprite.height * (Math.cos(this.angle + Math.PI / 2)));
 
         swordSlashSprite.body.setSize(xx, yy);
+        //swordSlashSprite.body.setOffset(swordSlashSprite.body.offset.x - 35, swordSlashSprite.body.offset.y - 40);
         swordSlashSprite.body.setOffset(swordSlashSprite.body.offset.x - 35, swordSlashSprite.body.offset.y - 40);
 
         swordSlashSprite.setRotation(this.angle - Math.PI / 4);

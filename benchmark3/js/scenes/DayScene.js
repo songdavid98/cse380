@@ -230,6 +230,8 @@ export class DayScene extends Phaser.Scene {
         this.swordHeroSprite = this.physics.add.sprite(200, 200, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);
         this.mageHeroSprite = this.physics.add.sprite(200, 200, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
 
+
+
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
         this.shieldHeroSprite.visible = false;

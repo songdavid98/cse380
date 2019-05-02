@@ -155,6 +155,7 @@ export class DayPlayer {
             default:
                 console.log("SWAAAAAAAAAAPPPPPPPPPPING ERRRRRRRRRRRRORRRRRRRRRRRRR");
         }
+
         return playerType;
     }
 
