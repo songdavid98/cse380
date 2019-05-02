@@ -28,6 +28,7 @@ export class Enemy {
         this.moveCounter = 0;
 
         this.active = true;
+        this.nightWaypoint = 0;
         this.create(); //Must call create ... that's odd?
 
     }
@@ -75,12 +76,84 @@ export class Enemy {
 
     }
 
-    nightUpdate(time) {
+    nightUpdate(time, level) {
         if (this.active) {
-            this.distanceTraveled += this.speed;
-            this.sprite.body.setVelocityX(-1 * this.speed);
-            this.sprite.body.setVelocityY(0);
-            //this.sprite.anims.play("leftSlime", true);
+            switch (level) {
+                case 1:
+                    switch (this.nightWaypoint) {
+                        case 0:
+                            if (this.sprite.x > 1000) {
+                                this.distanceTraveled += this.speed;
+                                this.sprite.body.setVelocityX(-1 * this.speed);
+                                this.sprite.body.setVelocityY(0);
+                                break;
+                            }
+                            this.nightWaypoint = 1;
+                        case 1:
+                            if (this.sprite.y < 800) {
+                                this.distanceTraveled += this.speed;
+                                this.sprite.body.setVelocityX(0);
+                                this.sprite.body.setVelocityY(this.speed);
+                                break;
+                            }
+                            this.nightWaypoint = 2;
+                        case 2:
+                            if (this.sprite.x > 600) {
+                                this.distanceTraveled += this.speed;
+                                this.sprite.body.setVelocityX(-1 * this.speed);
+                                this.sprite.body.setVelocityY(0);
+                                break;
+                            }
+                            this.nightWaypoint = 3;
+                        case 3:
+                            if (this.sprite.y > 450) {
+                                this.distanceTraveled += this.speed;
+                                this.sprite.body.setVelocityX(0);
+                                this.sprite.body.setVelocityY(-1 * this.speed);
+                                break;
+                            }
+                            this.nightWaypoint = 4;
+                        case 4:
+                            this.distanceTraveled += this.speed;
+                            this.sprite.body.setVelocityX(-1 * this.speed);
+                            this.sprite.body.setVelocityY(0);
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    switch (this.nightWaypoint) {
+                        case 0:
+                            if (this.sprite.x > 1000) {
+                                this.distanceTraveled += this.speed;
+                                this.sprite.body.setVelocityX(-1 * this.speed);
+                                this.sprite.body.setVelocityY(0);
+                                break;
+                            }
+                            this.nightWaypoint = 1;
+                        case 1:
+                            if (this.sprite.y < 450) {
+                                this.distanceTraveled += this.speed;
+                                this.sprite.body.setVelocityX(0);
+                                this.sprite.body.setVelocityY(this.speed);
+                                break;
+                            }
+                            this.nightWaypoint = 2;
+                        case 2:
+                            this.distanceTraveled += this.speed;
+                            this.sprite.body.setVelocityX(-1 * this.speed);
+                            this.sprite.body.setVelocityY(0);
+                            break;
+                    }
+                    break;
+
+                case 3:
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(-1 * this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+            }
+
         }
 
     }

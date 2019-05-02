@@ -414,7 +414,7 @@ export class NightScene extends Phaser.Scene {
                     this.enemies.splice(i, 1);
                     i--;
                 } else
-                    enem.nightUpdate(time);
+                    enem.nightUpdate(time, this.level);
             }
         }
 

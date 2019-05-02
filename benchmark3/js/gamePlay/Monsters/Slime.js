@@ -1,7 +1,7 @@
 import {
     ENEMIES
 } from "../../constants/EnemyTypes.js";
-import{
+import {
     HEROES
 } from "../../constants/PlayerTypes.js";
 import {
@@ -20,7 +20,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         this.attacking = null;
         this.targetFound = null;
         this.speed = 40;
-        this.movement = Math.floor(Math.random()*200)+25; //Monster keeps moving in square pattern for now
+        this.movement = Math.floor(Math.random() * 200) + 25; //Monster keeps moving in square pattern for now
         this.killCost = 10;
         this.lastAttacked = 0;
 
@@ -154,32 +154,32 @@ export class Slime extends Enemy { // ---- someone fix this~
     dayUpdate(time) {
         //this.sprite.body.setVelocityY(this.speed*Math.sin(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
         //this.sprite.body.setVelocityX(this.speed*Math.cos(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
-        if(!this.dead && !this.scene.player.dead){
-            let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.x,this.scene.player.sprite.body.y);
+        if (!this.dead && !this.scene.player.dead) {
+            let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x, this.sprite.body.position.y, this.scene.player.sprite.body.x, this.scene.player.sprite.body.y);
             //console.log(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite));
-            if(this.targetFound){
+            if (this.targetFound) {
                 //console.log(this.sprite.body.position.x);
                 //console.log(Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.x,this.scene.player.sprite.body.y));
-                if(distance > 500){
+                if (distance > 500) {
                     this.targetFound = false;
                     this.attacking = false;
-                }else{
+                } else {
                     this.targetFound = this.scene.player.sprite;
                     this.attacking = true;
                 }
-            }else{
-                if(distance <= 500){
+            } else {
+                if (distance <= 500) {
                     this.targetFound = this.scene.player.sprite;
                     this.attacking = true;
                 }
             }
 
-            if(this.attacking){
-                if(time - (this.lastAttacked + this.attackCooldown*1000) >= 0){
+            if (this.attacking) {
+                if (time - (this.lastAttacked + this.attackCooldown * 1000) >= 0) {
                     this.lastAttacked = time;
-                    this.sprite.body.setVelocity(0,0);
+                    this.sprite.body.setVelocity(0, 0);
                     this.attack();
-                }else{
+                } else {
                     this.attacking = false;
                 }
             }
@@ -226,8 +226,8 @@ export class Slime extends Enemy { // ---- someone fix this~
 
         }
     }
-    nightUpdate(time) {
-        super.nightUpdate(time);
+    nightUpdate(time, level) {
+        super.nightUpdate(time, level);
         this.sprite.anims.play("leftSlime", true);
         //        if (this.active) {
         //            this.sprite.body.setVelocityX(-1 * this.speed);
@@ -235,41 +235,41 @@ export class Slime extends Enemy { // ---- someone fix this~
         //            this.sprite.anims.play("leftSlime", true);
         //        }
     }
-    attack(){
+    attack() {
         //calculations
         let dist = 50;
         let angle = Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite);
-        let pointX = this.sprite.x + dist*(Math.sin(Math.PI/2-angle)); 
-        let pointY = this.sprite.y + dist*(Math.cos(Math.PI/2-angle));
+        let pointX = this.sprite.x + dist * (Math.sin(Math.PI / 2 - angle));
+        let pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - angle));
 
         let attackBall = this.scene.physics.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'magic/0001.png').setScale(2, 2);
-        attackBall.body.setVelocityY(this.basicAttackSpeed*Math.sin(angle));
-        attackBall.body.setVelocityX(this.basicAttackSpeed*Math.cos(angle));
+        attackBall.body.setVelocityY(this.basicAttackSpeed * Math.sin(angle));
+        attackBall.body.setVelocityX(this.basicAttackSpeed * Math.cos(angle));
         attackBall.setRotation(angle);
-        attackBall.body.setOffset(0,0);
+        attackBall.body.setOffset(0, 0);
         attackBall.anims.play('magic');
         attackBall.class = this;
         attackBall.on('animationcomplete', function (anim, frame) {
             this.emit('animationcomplete_' + anim.key, anim, frame);
         }, attackBall);
-        
+
         attackBall.on('animationcomplete_magic', function (o1) {
             this.destroy();
         });
 
         //add colliders
-        this.scene.physics.add.overlap(attackBall,this.scene.swordHeroSprite, function(attackBall,playerSprite){
+        this.scene.physics.add.overlap(attackBall, this.scene.swordHeroSprite, function (attackBall, playerSprite) {
             playerSprite.class.damage(attackBall);
             attackBall.destroy();
-        });  
-        this.scene.physics.add.overlap(attackBall,this.scene.shieldHeroSprite, function(attackBall,playerSprite){
+        });
+        this.scene.physics.add.overlap(attackBall, this.scene.shieldHeroSprite, function (attackBall, playerSprite) {
             playerSprite.class.damage(attackBall);
             attackBall.destroy();
-        });  
-        this.scene.physics.add.overlap(attackBall,this.scene.mageHeroSprite, function(attackBall,playerSprite){
+        });
+        this.scene.physics.add.overlap(attackBall, this.scene.mageHeroSprite, function (attackBall, playerSprite) {
             playerSprite.class.damage(attackBall);
             attackBall.destroy();
-        });  
+        });
     }
 
 }
