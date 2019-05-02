@@ -1,10 +1,12 @@
 //Day time enemy
-import { ENEMIES } from "../constants/EnemyTypes.js";
+import {
+    ENEMIES
+} from "../constants/EnemyTypes.js";
 
 
 export class Enemy {
     constructor(data) {
-        this.distanceTraveled = 0;              //Night stuff
+        this.distanceTraveled = 0; //Night stuff
         this.sprite = data.sprite;
         this.allEnemySprites = data.allEnemySprites;
 
@@ -14,35 +16,34 @@ export class Enemy {
         this.dead = false;
         this.angle = 0;
 
-        this.lastDamaged = 0;       //Timer thing
-        this.beenAttacked = false;  //Need this to change behaviour
+        this.lastDamaged = 0; //Timer thing
+        this.beenAttacked = false; //Need this to change behaviour
         this.notTakenEffect = true;
 
         this.lastAttacked = 0;
         this.attackCooldown = 2;
 
         this.justGotHit = false;
-        this.direction = 2;             // up, down, left, right;  Please replace this with a better algorithm
+        this.direction = 2; // up, down, left, right;  Please replace this with a better algorithm
         this.moveCounter = 0;
 
         this.active = true;
-        this.create();                  //Must call create ... that's odd?
+        this.create(); //Must call create ... that's odd?
 
     }
     init() {}
 
-    create() {
-    }
+    create() {}
 
     //When the hero tries to kill the monster
-    damaged(intDamageTaken){
+    damaged(intDamageTaken) {
         //this.active ;          //FIX THIS LATTTTTTTTTTTTTTTER
 
-        if(this.health > 0){
-            this.health -= intDamageTaken;        //For now, it's only the basic attack...
+        if (this.health > 0) {
+            this.health -= intDamageTaken; //For now, it's only the basic attack...
             this.beenAttacked = true;
             //console.log("damaged");
-            if(this.health <= 0){
+            if (this.health <= 0) {
                 this.dead = true;
                 this.active = false;
                 console.log("killed");
@@ -52,10 +53,10 @@ export class Enemy {
         }
     }
 
-    slowDown(){
-        if(this.notTakenEffect){
-            this.speed = Math.floor(this.speed/2);
-            this.frameRate = Math.floor(this.frameRate/2);
+    slowDown() {
+        if (this.notTakenEffect) {
+            this.speed = Math.floor(this.speed / 2);
+            this.frameRate = Math.floor(this.frameRate / 2);
             console.log(this.frameRate);
             this.notTakenEffect = false;
         }
@@ -63,15 +64,15 @@ export class Enemy {
 
 
 
-    damagedSuspensionState(){
-        if(!this.active && !this.dead){     //Get damaged state
-            
+    damagedSuspensionState() {
+        if (!this.active && !this.dead) { //Get damaged state
+
         }
     }
 
     dayUpdate(time) {
-        
-        
+
+
     }
 
     nightUpdate(time) {

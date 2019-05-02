@@ -429,7 +429,7 @@ export class NightScene extends Phaser.Scene {
             this.invulnerable = true;
         }
         if (this.input.keyboard.keys[49].isDown) {
-            this.music.pause();
+            this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DAY, {
                 "money": this.money,
@@ -437,7 +437,7 @@ export class NightScene extends Phaser.Scene {
             });
             this.scene.stop();
         } else if (this.input.keyboard.keys[50].isDown) {
-            this.music.pause();
+            this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DUNGEON4, {
                 "money": this.money,
@@ -445,7 +445,7 @@ export class NightScene extends Phaser.Scene {
             });
             this.scene.stop();
         } else if (this.input.keyboard.keys[51].isDown) {
-            this.music.pause();
+            this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DAY_DUNGEON3, {
                 "money": this.money,
@@ -455,7 +455,7 @@ export class NightScene extends Phaser.Scene {
         }
         /*else if(this.input.keyboard.keys[52].isDown){
         >>>>>>> 2445a66226ec1d3aaa54b5cfd183f05317961ee6
-                    this.music.pause();
+                    this.music.stop();
                     this.scene.stop(SCENES.DAY_OVERLAY);
                     this.scene.start(SCENES.NIGHT, {
                         "money": this.money,
@@ -463,7 +463,7 @@ export class NightScene extends Phaser.Scene {
                     });
                     this.scene.stop();
                 } else if (this.input.keyboard.keys[53].isDown) {
-                    this.music.pause();
+                    this.music.stop();
                     this.scene.stop(SCENES.DAY_OVERLAY);
                     this.scene.start(SCENES.NIGHT, {
                         "money": this.money,
@@ -471,7 +471,7 @@ export class NightScene extends Phaser.Scene {
                     });
                     this.scene.stop();
                 } else if (this.input.keyboard.keys[54].isDown) {
-                    this.music.pause();
+                    this.music.stop();
                     this.scene.stop(SCENES.DAY_OVERLAY);
                     this.scene.start(SCENES.NIGHT, {
                         "money": this.money,
