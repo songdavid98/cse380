@@ -27,6 +27,8 @@ export class MageHero extends DayPlayer {
     preload() {}
 
     create() {
+        //Calling the DayPlayer's create
+        super.create();
 
         // Mage animation
         var leftFrames = this.anims.generateFrameNames(HEROES.MAGE_HERO, {

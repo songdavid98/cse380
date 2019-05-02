@@ -27,6 +27,9 @@ export class SwordHero extends DayPlayer {
     preload() {}
 
     create() {
+        //Calling the DayPlayer's create
+        super.create();
+
         // Sword animation
         var leftFrames = this.anims.generateFrameNames(HEROES.SWORD_HERO, {
             start: 1,

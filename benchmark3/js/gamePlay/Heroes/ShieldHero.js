@@ -21,14 +21,14 @@ export class ShieldHero extends DayPlayer {
         this.damageCooldown = 3;
         this.attackCooldown = 1;
 
-
-
         this.create();
     }
     init() {}
     preload() {}
 
     create() {
+        //Calling the DayPlayer's create
+        super.create();
         // Shield animation
         var leftFrames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, {
             start: 1,
