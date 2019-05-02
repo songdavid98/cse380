@@ -184,25 +184,24 @@ export class Tutorial extends Phaser.Scene {
         let allHeroSprites = [this.shieldHeroSprite, this.swordHeroSprite, this.mageHeroSprite];
 
 
-        //this.shieldHeroSprite.body.setSize(15,20,false);
         //this.shieldHeroSprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
 
-        //this.swordHeroSprite.body.setSize(15,20,false);
         //this.swordHeroSprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
 
-        //this.mageHeroSprite.body.setSize(15,20,false);
         //this.mageHeroSprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
 
 
         this.shieldHeroSprite.visible = true;
-        //this.shieldHeroSprite.setVelocity(0, 0);
-        //this.shieldHeroSprite.setPosition(-100, 0);
+        this.shieldHeroSprite.setVelocity(0, 0);
+
         this.swordHeroSprite.visible = false;
         this.swordHeroSprite.setVelocity(0,0);
-        this.swordHeroSprite.setPosition(-100,0);
+
         this.mageHeroSprite.visible = false;
         this.mageHeroSprite.setVelocity(0, 0);
-        this.mageHeroSprite.setPosition(-100, 0);
+
+        
+
 
         //First player is always shieldHero
         this.shieldHero = new ShieldHero({
