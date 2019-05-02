@@ -236,13 +236,10 @@ export class DayScene extends Phaser.Scene {
 
         this.shieldHeroSprite.visible = false;
         this.shieldHeroSprite.setVelocity(0, 0);
-        this.shieldHeroSprite.setPosition(-100, 0);
         this.swordHeroSprite.visible = true;
         //this.swordHeroSprite.setVelocity(0,0);
-        //this.swordHeroSprite.setPosition(-100,0);
         this.mageHeroSprite.visible = false;
         this.mageHeroSprite.setVelocity(0, 0);
-        this.mageHeroSprite.setPosition(-100, 0);
 
         //First player is always shieldHero
         this.shieldHero = new ShieldHero({

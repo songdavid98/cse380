@@ -215,13 +215,10 @@ export class Dungeon4 extends Phaser.Scene{
 
         this.shieldHeroSprite.visible = false;
         this.shieldHeroSprite.setVelocity(0,0);
-        this.shieldHeroSprite.setPosition(-100,0);
         this.swordHeroSprite.visible = false;
         this.swordHeroSprite.setVelocity(0,0);
-        this.swordHeroSprite.setPosition(-100,0);
         this.mageHeroSprite.visible = true;
         //this.mageHeroSprite.setVelocity(0,0);
-        //this.mageHeroSprite.setPosition(59,0);
 
         //First player is always shieldHero
         this.shieldHero = new ShieldHero({"playerType":HEROES.SHIELD_HERO,"sprite":this.shieldHeroSprite,"physics":this.physics,"keyboard":this.input.keyboard,"anims":this.anims,"scene":this});

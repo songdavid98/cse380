@@ -34,12 +34,9 @@ export class DayPlayer {
     create() {
         this.sprite.body.setSize(15,20,false);
         this.sprite.body.setOffset((Math.abs(this.sprite.x) + this.sprite.width/2)-Math.abs(this.sprite.body.center.x) , (Math.abs(this.sprite.y) + this.sprite.height/2) - Math.abs(this.sprite.body.center.y));
-
-        console.log((Math.abs(this.sprite.x) + this.sprite.width/2)-Math.abs(this.sprite.body.center.x));
     }
 
-    beingUsed(){
-    }
+    
     update(time) {
         //Gets the time of the game and stores it as a variable
         this.time = time;
