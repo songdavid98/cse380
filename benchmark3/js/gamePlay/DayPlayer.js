@@ -24,6 +24,10 @@ export class DayPlayer {
         this.isAttacking = false;
         this.swapCooldown = 1;
         this.invulnerable = false;
+        this.blinkSpeed = 200;
+        this.lastBlinked = 0;
+
+        this.playerColorGray = false;
 
         this.active = true; //FIXME: remove this
     }
@@ -77,10 +81,27 @@ export class DayPlayer {
                 this.sprite.body.setVelocityY(-this.speed);
             }
 
-            //Rotation of sprite and box
+            //After taking damage... and then recovered
+            if (this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
+                this.invulnerable = false;
+                this.active = true;
+                this.sprite.clearTint();
+            }
+            else if(this.invulnerable){
+                if(this.scene.time.now - this.lastBlinked >  + this.blinkSpeed){
+                    this.blink();
+                    this.lastBlinked = this.scene.time.now;
+                }
+            }
+        }
+    }
 
-
-
+    blink(){
+        if(!this.sprite.isTinted){
+            this.sprite.tint = 0xbf5353;
+        }
+        else{
+            this.sprite.clearTint();
         }
     }
 
@@ -172,41 +193,28 @@ export class DayPlayer {
     damage(monster) {
         if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
             this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
+            this.invulnerable = true;
+            this.active = false;
+
             if (this.health > 0) {
                 this.health -= monster.class.basicAttack;
                 if (this.health <= 0) {
                     this.dead = true;
                 }
             }
-            this.active = false;
+            
+            //Push back stuff
             if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
                 this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
             } else {
                 this.sprite.body.setVelocity((Math.sign(monster.body.velocity.x)) * 500, (Math.sign(monster.body.velocity.y)) * 500);
             }
             if (this.dead) {
-                this.scene.swapHero();
-                console.log("I'm trying to swap");
+                this.scene.swapHero(this.scene.lastDamaged);
+                console.log("I'm dead so I'll swap");
+                console.log(this.lastDamaged);
             }
         }
-    }
-
-    grayScale(srcKey, method) {
-        var bmd = game.make.bitmapData();
-        bmd.load(srcKey);
-        bmd.processPixelRGB(forEachPixel, this);
-        return bmd;
-    }
-
-    forEachPixel(pixel) {
-        var gray = (pixel.r + pixel.g + pixel.b) / 3; //average
-        //var gray = (pixel.r * 0.2126  + pixel.g * 0.7152 + pixel.b * 0.0722); //luma
-        //var gray = (Math.max(pixel.r,pixel.g,pixel.b) + Math.min(pixel.r,pixel.g,pixel.b))/2;//desaturate
-        pixel.r = gray;
-        pixel.g = gray;
-        pixel.b = gray;
-
-        return pixel;
     }
 
 

@@ -308,6 +308,8 @@ export class Tutorial extends Phaser.Scene {
 
         this.input.mouse.disableContextMenu();
         this.map.currentLayer = this.baseLayer;
+
+
     }
 
 
@@ -348,7 +350,7 @@ export class Tutorial extends Phaser.Scene {
 
 
 
-    swapHero() {
+    swapHero(lastDamaged) {
 
         let tempX = this.player.sprite.x; //Save temporary placement of the current hero
         let tempY = this.player.sprite.y;
@@ -398,7 +400,11 @@ export class Tutorial extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.sprite);
         this.physics.add.collider(this.player.sprite, this.wallLayer);
 
-        //console.log(this.player);
+        //If a hero just died, make return an invulnerable hero
+        if(lastDamaged > 0){
+            this.player.invulnerable = true;
+        }
+
     }
 
     update(time, delta) {
