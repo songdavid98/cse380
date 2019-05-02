@@ -36,6 +36,15 @@ export class DayPlayer {
         this.sprite.body.setOffset((Math.abs(this.sprite.x) + this.sprite.width/2)-Math.abs(this.sprite.body.center.x) , (Math.abs(this.sprite.y) + this.sprite.height/2) - Math.abs(this.sprite.body.center.y));
     }
 
+    properAngle(){
+        if(this.angle <= 0){
+            return Math.abs(this.angle);
+        }
+        else{
+            return Math.abs(2*Math.PI - this.angle);
+        }
+    }
+
     
     update(time) {
         //Gets the time of the game and stores it as a variable

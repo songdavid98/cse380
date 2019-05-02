@@ -18,6 +18,9 @@ export class SwordHero extends DayPlayer {
         this.specialAttackSpeed = 4;
         this.speed = 400;
 
+        this.atkDist = 150;     //Attack distance
+        this.hitBoxSize = 1.3;
+
         this.attackCooldown = 1;
         this.damageCooldown = 3;
         this.sprite.class = this;
@@ -294,9 +297,8 @@ export class SwordHero extends DayPlayer {
         let pointY;
         let pointX;
 
-        let dist = 100;
-        pointX = this.sprite.x + dist * (Math.sin(Math.PI / 2 - this.angle));
-        pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - this.angle));
+        pointX = this.sprite.x + this.atkDist * (Math.sin(Math.PI / 2 - this.angle));
+        pointY = this.sprite.y + this.atkDist * (Math.cos(Math.PI / 2 - this.angle));
 
 
         let swordSlashSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SWORD_HERO, 'sword/0001.png').setScale(5, 5);
@@ -305,13 +307,16 @@ export class SwordHero extends DayPlayer {
 
         this.scene.physics.add.collider(swordSlashSprite, this.scene.wallLayer);
         //this.scene.physics.add.collider(swordSlashSprite,this.scene.enemyGroup.getChildren());
-
-        let xx = Math.abs(swordSlashSprite.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(swordSlashSprite.width * (Math.sin(this.angle)));
-        let yy = Math.abs(swordSlashSprite.width * (Math.cos(this.angle))) + Math.abs(swordSlashSprite.height * (Math.cos(this.angle + Math.PI / 2)));
+        
+        let xx = Math.abs(this.hitBoxSize*swordSlashSprite.height * (Math.sin(this.angle + Math.PI / 2))) + this.hitBoxSize*Math.abs(swordSlashSprite.width * (Math.sin(this.angle)));
+        let yy = Math.abs(this.hitBoxSize*swordSlashSprite.width * (Math.cos(this.angle))) + this.hitBoxSize*Math.abs(swordSlashSprite.height * (Math.cos(this.angle + Math.PI / 2)));
 
         swordSlashSprite.body.setSize(xx, yy);
-        //swordSlashSprite.body.setOffset(swordSlashSprite.body.offset.x - 35, swordSlashSprite.body.offset.y - 40);
-        swordSlashSprite.body.setOffset(swordSlashSprite.body.offset.x - 35, swordSlashSprite.body.offset.y - 40);
+
+
+        let radius = 2;
+        //swordSlashSprite.body.setOffset(radius*Math.cos(super.properAngle())-swordSlashSprite.width/2,radius*Math.sin(super.properAngle())-swordSlashSprite.height/2);
+        swordSlashSprite.body.setOffset(radius*Math.cos(super.properAngle())-1,radius*Math.sin(super.properAngle())-1);
 
         swordSlashSprite.setRotation(this.angle - Math.PI / 4);
 
