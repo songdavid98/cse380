@@ -28,6 +28,9 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("blueTab", "./assets/images/buttons/bluetab.png");
         this.load.image("coin", "./assets/images/icons/coin.png");
         this.load.image("shieldThumb", "./assets/images/heroes/shieldHero/down/0002.png");
+        this.load.image("swordThumb", "./assets/images/heroes/swordHero/down/0001.png");
+        this.load.image("magicThumb", "./assets/images/heroes/mageHero/down/0001.png");
+
         this.load.image("heart", "./assets/images/icons/heart.png");
         this.load.image("heart1", "./assets/images/icons/heart1.png");
         this.load.image("heart2", "./assets/images/icons/heart2.png");
