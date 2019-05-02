@@ -34,11 +34,16 @@ export class Enemy {
     }
     init() {}
 
-    create() {}
+    create() {
+        
+
+    }
 
     //When the hero tries to kill the monster
     damaged(intDamageTaken) {
-        //this.active ;          //FIX THIS LATTTTTTTTTTTTTTTER
+        //this.active = false;          //Don't think we need this... we want to be able to attack enemies asap
+
+
 
         if (this.health > 0) {
             this.health -= intDamageTaken; //For now, it's only the basic attack...
