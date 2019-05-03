@@ -1,0 +1,125 @@
+{
+	"textures": [
+		{
+			"image": "cannon.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 22,
+				"h": 77
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "right/0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 22,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 21
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 21
+					}
+				},
+				{
+					"filename": "right/0002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 22,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 21
+					},
+					"frame": {
+						"x": 0,
+						"y": 21,
+						"w": 22,
+						"h": 21
+					}
+				},
+				{
+					"filename": "right/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 21,
+						"h": 19
+					},
+					"frame": {
+						"x": 0,
+						"y": 42,
+						"w": 21,
+						"h": 19
+					}
+				},
+				{
+					"filename": "right/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 18,
+						"h": 16
+					},
+					"frame": {
+						"x": 0,
+						"y": 61,
+						"w": 18,
+						"h": 16
+					}
+				},
+				{
+					"filename": "right/0005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 22,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 18,
+						"h": 16
+					},
+					"frame": {
+						"x": 0,
+						"y": 61,
+						"w": 18,
+						"h": 16
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:2d5921798b2249037837e298a5b0080c:576bdc6491f3682c4d74b29c9356c0f0:04cb5dc856bc81e347b78c6c8de94f8a$"
+	}
+}
