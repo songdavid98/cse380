@@ -14,6 +14,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         super(data);
         this.enemyType = ENEMIES.SLIME; // like slime
         this.health = 2;
+        this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 100;
         this.attackCooldown = 5;
@@ -152,6 +153,9 @@ export class Slime extends Enemy { // ---- someone fix this~
     }
 
     dayUpdate(time) {
+        //Call the enemy class dayUpdate
+        super.dayUpdate(time);
+
         //this.sprite.body.setVelocityY(this.speed*Math.sin(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
         //this.sprite.body.setVelocityX(this.speed*Math.cos(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
         if (!this.dead && !this.scene.player.dead) {

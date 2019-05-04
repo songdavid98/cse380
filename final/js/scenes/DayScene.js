@@ -18,7 +18,15 @@ import {
 import {
     MageHero
 } from "../gamePlay/Heroes/MageHero.js";
-
+import {
+    Slime
+} from "../gamePlay/Monsters/Slime.js";
+import {
+    Golem
+} from "../gamePlay/Monsters/Golem.js";
+import {
+    Goblin
+} from "../gamePlay/Monsters/Goblin.js";
 
 
 export class DayScene extends Phaser.Scene {
@@ -74,7 +82,6 @@ export class DayScene extends Phaser.Scene {
         console.log(this.map);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
        //this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
-
 
 
         //Keyboard stuff
@@ -143,6 +150,90 @@ export class DayScene extends Phaser.Scene {
             "swordHero": this.swordHero,
             "mageHero": this.mageHero
         });
+
+        //Create the enemies
+        for (var i = 0; i < this.slimeCount; i++) {
+            let scaleX = 5;
+            let scaleY = 5;
+            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
+            
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(slimeSprite);
+            let slime = new Slime({
+                "sprite": slimeSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.SLIME,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY":scaleY
+            });
+            slimeSprite.class = slime;
+            this.monsterArray.push(slime);
+        }
+
+        for (var i = 0; i < this.golemCount; i++) {
+            let scaleX = 8;
+            let scaleY = 8;
+            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
+   
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(golemSprite);
+            let golem = new Golem({
+                "sprite": golemSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.GOLEM,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY":scaleY
+            });
+            golemSprite.class = golem;
+            this.monsterArray.push(golem);
+        }
+
+        for (var i = 0; i < this.goblinCount; i++) {
+            let scaleX = 5;
+            let scaleY = 5;
+            let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(scaleX, scaleY);
+            let zzzSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0]+100, this.goblinSpawnArr[i][1]-100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
+   
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(goblinSprite);
+            let goblin = new Goblin({
+                "sprite": goblinSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
+                "zzzSprite":zzzSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.GOBLIN,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY":scaleY
+            });
+            goblinSprite.class = goblin;
+            this.monsterArray.push(goblin);
+        }
 
         //Damaging the player
         this.physics.add.overlap(this.playerGroup.getChildren(), this.enemyGroup.getChildren(), function (o1, o2) {

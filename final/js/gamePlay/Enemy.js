@@ -9,6 +9,11 @@ export class Enemy {
         this.distanceTraveled = 0; //Night stuff
         this.sprite = data.sprite;
         this.allEnemySprites = data.allEnemySprites;
+        this.scaleX = data.scaleX;
+        this.scaleY = data.scaleY;
+
+        this.healthBar = data.healthBar;    //Outside layer of health bar
+        this.greenBar = data.greenBar;      //The green health bar thing that moves 
 
         this.physics = data.physics;
         this.anims = data.anims;
@@ -41,22 +46,30 @@ export class Enemy {
 
     //When the hero tries to kill the monster
     damaged(intDamageTaken) {
-        //this.active = false;          //Don't think we need this... we want to be able to attack enemies asap
-
-
-
         if (this.health > 0) {
+            if(!this.healthBar.visible && !this.greenBar.visible){
+                this.healthBar.visible = true;
+                this.greenBar.visible = true;
+            }
             this.health -= intDamageTaken; //For now, it's only the basic attack...
             this.beenAttacked = true;
-            //console.log("damaged");
+            this.greenBar.setScale(2*(this.health/this.totalHealth), 2);
+
             if (this.health <= 0) {
                 this.dead = true;
                 this.active = false;
                 console.log("killed");
                 this.scene.getMoney(this.killCost);
-                this.sprite.destroy();
+                this.destroySprite();    //Calls a function to destroy all the things attached to sprite
+
             }
         }
+    }
+
+    destroySprite(){
+        this.sprite.destroy();
+        this.healthBar.destroy();
+        this.greenBar.destroy();
     }
 
     slowDown() {
@@ -68,8 +81,6 @@ export class Enemy {
         }
     }
 
-
-
     damagedSuspensionState() {
         if (!this.active && !this.dead) { //Get damaged state
 
@@ -77,8 +88,13 @@ export class Enemy {
     }
 
     dayUpdate(time) {
-
-
+        //Moving the healthbar along with the sprite{
+        if(!this.dead && this.beenAttacked){
+            this.healthBar.x = this.sprite.x;
+            this.healthBar.y = this.sprite.y - this.sprite.height*this.scaleY/2 - 20;
+            this.greenBar.x = this.sprite.x - this.healthBar.width + ((this.greenBar.width) * this.greenBar.scaleX/2);
+            this.greenBar.y = this.sprite.y - this.sprite.height*this.scaleY/2 - 20;
+        }
     }
 
     nightUpdate(time, level) {

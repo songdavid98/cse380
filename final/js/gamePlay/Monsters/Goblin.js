@@ -4,14 +4,16 @@ import {
 
 import {
     Enemy
-} from "../Enemy.js";
+} from "../Enemy.js";   
 
 export class Goblin extends Enemy {
 
     constructor(data) {
         super(data);
+        this.zzzSprite = data.zzzSprite;
         this.enemyType = ENEMIES.GOBLIN; // like slime
         this.health = 5;
+        this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 200;
@@ -19,7 +21,6 @@ export class Goblin extends Enemy {
         this.killCost = 25;
         this.state = "sleeping"; //The behavioral states of the goblin
         this.detectionRange = 1000; //Need this to know how far away the player has to be to get detected
-        this.goblinContainer = data.goblinContainer;
         this.frmRt = 10;
         this.behaviourCounter = 0;
 
@@ -188,11 +189,14 @@ export class Goblin extends Enemy {
     dayUpdate(time, player) {
         //have dayscene activity here
 
+        //Call the enemy class dayUpdate
+        super.dayUpdate(time);
+
         if (this.active && !this.dead) {
             switch (this.state) {
                 case "sleeping":
                     this.sprite.anims.play("sleepGoblin", true);
-                    this.goblinContainer.list[1].anims.play("zzz", true);
+                    this.zzzSprite.anims.play("zzz", true);
 
                     if (this.beenAttacked) {
                         this.state = "patrolling";
@@ -201,7 +205,7 @@ export class Goblin extends Enemy {
                     break;
                 case "patrolling":
                     //console.log("patrolling");
-                    this.goblinContainer.list[1].visible = false;
+                    this.zzzSprite.visible = false;
 
                     if (this.withinVacinity(player.sprite, this.sprite)) {
                         this.state = "attacking";
@@ -279,10 +283,6 @@ export class Goblin extends Enemy {
 
                     break;
             }
-        } else if (this.dead && this.goblinContainer.list[0]) {
-
-            this.goblinContainer.list[0].destroy();
-
         }
 
     }

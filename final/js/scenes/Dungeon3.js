@@ -125,57 +125,6 @@ export class Dungeon3 extends DayScene {
             barrels[i].body.setOffset(0, 0);
         }
 
-        //add enemies
-        for (var i = 0; i < this.slimeCount; i++) {
-            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
-            this.enemyGroup.add(slimeSprite);
-            let slime = new Slime({
-                "sprite": slimeSprite,
-                "allEnemySprites": this.enemyGroup.getChildren(),
-                "physics": this.physics,
-                "enemyType": ENEMIES.SLIME,
-                "anims": this.anims,
-                "scene": this
-            });
-            slimeSprite.class = slime;
-            this.monsterArray.push(slime);
-        }
-
-        for (var i = 0; i < this.golemCount; i++) {
-            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
-            this.enemyGroup.add(golemSprite);
-            let golem = new Golem({
-                "sprite": golemSprite,
-                "allEnemySprites": this.enemyGroup.getChildren(),
-                "physics": this.physics,
-                "enemyType": ENEMIES.GOLEM,
-                "anims": this.anims,
-                "scene": this
-            });
-            golemSprite.class = golem;
-            this.monsterArray.push(golem);
-        }
-
-        for (var i = 0; i < this.goblinCount; i++) {
-            let goblinContainer = this.add.container(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1]);
-            let goblinSprite = this.physics.add.sprite(0, 0, ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
-            let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
-            goblinContainer.add([goblinSprite, zzzSprite]);
-            this.enemyGroup.add(goblinSprite);
-
-            let goblin = new Goblin({
-                "sprite": goblinSprite,
-                "allEnemySprites": this.enemyGroup.getChildren(),
-                "physics": this.physics,
-                "enemyType": ENEMIES.GOBLIN,
-                "anims": this.anims,
-                "goblinContainer": goblinContainer,
-                "scene": this
-            });
-            goblinSprite.class = goblin;
-            this.monsterArray.push(goblin);
-        }
-
         //collisions
         this.wallLayer.setCollision(6); //dungeon level     //Change this if you want a different tile set. This is the ID.
         this.prisonLayer.setCollision(18);

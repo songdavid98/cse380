@@ -11,6 +11,7 @@ export class Golem extends Enemy { //   ---- Someone fix this~
         super(data);
         this.enemyType = ENEMIES.GOLEM; // like slime
         this.health = 20;
+        this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
         this.speed = 40;
@@ -145,7 +146,11 @@ export class Golem extends Enemy { //   ---- Someone fix this~
     }
 
     dayUpdate(time) {
-        //have dayscene activity here
+
+        //Call the enemy class dayUpdate
+        super.dayUpdate(time);
+
+        //Have dayscene activity here
         if (this.active && !this.dead) {
             if (this.direction == 1) {
                 this.sprite.body.setVelocityX(0);
