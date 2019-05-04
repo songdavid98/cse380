@@ -132,7 +132,12 @@ export class Dungeon3 extends DayScene {
         this.doorLayer.setCollision(18);
 
         this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
+        this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
+
         this.physics.add.collider(this.playerGroup.getChildren(), this.prisonLayer);
+
+
+
         this.doorCollider = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer);
         this.barrelOverlap = this.physics.add.overlap(this.barrels.getChildren(), this.buttonsLayer, function (o1, o2) {
             if (o1.scene.buttonsPressed >= 2) {

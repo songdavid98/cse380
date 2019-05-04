@@ -24,7 +24,9 @@ import {
 import {
     MageHero
 } from "../gamePlay/Heroes/MageHero.js";
-import { DayScene } from "./DayScene.js";
+import {
+     DayScene 
+} from "./DayScene.js";
 
 
 
