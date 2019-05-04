@@ -43,8 +43,7 @@ export class Tutorial extends DayScene {
         super.preload();
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
-        this.load.image("greenHealth", "./assets/images/icons/bar1.png");
-        this.load.image("healthBar", "./assets/images/icons/bar2.png");
+
 
         this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
         this.mapLevel = "tutorial";

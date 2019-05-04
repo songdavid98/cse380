@@ -206,6 +206,7 @@ export class Goblin extends Enemy {
                 case "patrolling":
                     //console.log("patrolling");
                     this.zzzSprite.visible = false;
+                    this.zzzSprite.destroy();
 
                     if (this.withinVacinity(player.sprite, this.sprite)) {
                         this.state = "attacking";
