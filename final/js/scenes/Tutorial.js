@@ -36,6 +36,10 @@ export class Tutorial extends DayScene {
         ];
         this.goblinCount = this.goblinSpawnArr.length;
 
+        this.clearTask1 = false;
+        this.clearTask2 = false;
+        this.clearTask3 = false;
+        this.clearTask4 = false;
 
     }
     preload() {
@@ -73,8 +77,19 @@ export class Tutorial extends DayScene {
 
     }
 
+    spawn(){
+        if(this.player.sprite.x < 1000 && this.player.sprite.x > 200 && this.player.sprite.y < 1000 && this.player.sprite.y > 200){
+            this.slimeSpawnArr = [
+                [400+this.player.sprite.x,400+this.player.sprite.y],
+            ];
+        
+        this.slimeCount = this.slimeSpawnArr.length;
+        this.spawnMoreSlimes();
+        }
+    }
+
     update(time, delta) {
-        super.update(time);
+        super.update(time);       //Get rid of super since we will be using some new stuff only for tutorial
         var slimeFound = false;
         for(var i = 0; i < this.enemyGroup.getChildren().length; i++){
             //console.log(this.enemyGroup.getChildren()[i].enemyType);
@@ -82,13 +97,17 @@ export class Tutorial extends DayScene {
                 slimeFound = true;
             }
         }
-        //console.log(slimeFound);
+        console.log(this.player.sprite.x, this.player.sprite.y);
+
         if(!slimeFound){
+            this.spawn();
+        }
+
+        if(this.clearTask5){
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
-            this.scene.start(SCENES.DUNGEON1,{"money":this.money});
+            this.scene.start(SCENES.DUNGEON1,{"money":0});
             this.scene.stop();
-
         }
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
             //console.log("hello");
@@ -107,7 +126,7 @@ export class Tutorial extends DayScene {
             this.timeOfDeath = null;
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
-            this.scene.start(SCENES.MAIN_MENU, 'dead');
+            this.scene.start(SCENES.TUTORIAL, 'dead');  //Doens't work because calling super class
             this.scene.stop();
         } else {
             //cheats

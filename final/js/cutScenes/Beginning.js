@@ -60,20 +60,23 @@ export class Beginning extends CutScene{
 
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
 
-        this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(10);
+        this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
         this.castleImg = this.add.image(800, 420, "castle").setScale(13, 13).setDepth(0);
         this.castleImg.visible = false;
+
+        this.blackScreen = this.add.image(800, 420, "blackScreen").setScale(13, 13).setDepth(5);
+        this.blackScreen.visible = false;
 
         this.text = this.add.text(30, 790, "", {
             fontSize: '32px',
             fill: '#000000',
-        }).setDepth(11);
+        }).setDepth(4);
         this.character = this.add.text(20, 755, "", {
             fontSize: '32px',
             fill: '#000000',
             strokeThickness: '1',
             stroke: '#000000'
-        }).setDepth(11);
+        }).setDepth(4);
 
 
         this.yesButton.setInteractive();
@@ -93,8 +96,14 @@ export class Beginning extends CutScene{
             this.lineCounter = 19.5;
         });
 
-        this.text.fixedToCamera = false;
-        this.character.fixedToCamera = true;
+
+        this.music = this.sound.add("audiotitlesong");
+        
+        this.music.setLoop(true);
+        if(!this.music.isPlaying){
+            this.music.play();
+        }
+
 
         console.log("Beginning Cutscene");
 
@@ -417,6 +426,35 @@ export class Beginning extends CutScene{
                     this.mageHeroSprite.body.velocity.x = 0;
                 }
 
+            }
+            else if(this.lineCounter >= 24){
+                if(this.villageGirlSprite.body.position.x < -1000){
+                    if(this.onlyOnce){
+                        this.character.setText("");
+                        this.str = "";
+                        this.oneTimeOnly(this.str);
+
+                        this.villageGirlSprite.body.velocity.x = 0;
+                        this.shieldHeroSprite.body.velocity.x = 0;
+                        this.swordHeroSprite.body.velocity.x = 0;
+                        this.mageHeroSprite.body.velocity.x = 0;
+                        this.blackScreen.visible = true;
+                        this.blackScreen.alpha = 0;
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                    
+                    if(this.blackScreen.alpha < 1){
+                        this.blackScreen.alpha += 0.1;
+                    }
+                    else{
+                        this.music.stop();
+                        let data = {
+                            "level": 0
+                        }
+                        this.scene.start(SCENES.TUTORIAL, data);
+                        this.scene.stop();
+                    }
+                }
             }
         }
     }

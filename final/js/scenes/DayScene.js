@@ -272,6 +272,35 @@ export class DayScene extends Phaser.Scene {
         this.pathFinding();
     }
 
+    spawnMoreSlimes(){
+         //Create the enemies
+         for (var i = 0; i < this.slimeCount; i++) {
+            let scaleX = 5;
+            let scaleY = 5;
+            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
+            
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(slimeSprite);
+            let slime = new Slime({
+                "sprite": slimeSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.SLIME,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY":scaleY
+            });
+            slimeSprite.class = slime;
+            this.monsterArray.push(slime);
+        }
+    }
 
     hittingWithShieldBeam(shieldBeamSprite, enemySprite) {
         if (!shieldBeamSprite.anims) {
@@ -442,6 +471,7 @@ export class DayScene extends Phaser.Scene {
             this.timeOfDeath = null;
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
+            console.log(this.scene);
             this.scene.start(SCENES.MAIN_MENU, 'dead');
             this.scene.stop();
         } else {

@@ -26,6 +26,7 @@ export class DayOverlayScene extends Phaser.Scene {
         this.swordHealth;
         this.mageHealth;
         this.sceneKey = data.sceneKey;
+        this.text;
 
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
@@ -33,6 +34,17 @@ export class DayOverlayScene extends Phaser.Scene {
         this.initTime = 0;
     }
     create() {
+
+
+        let textBar = this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
+        
+        this.text = this.add.text(30, 790, "Welcome to the tutorial", {
+            fontSize: '32px',
+            fill: '#000000',
+        }).setDepth(4);
+
+        
+
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         for (var i = 0; i < this.shieldHero.health; i++) {

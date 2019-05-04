@@ -15,7 +15,7 @@ export class CutScene extends Phaser.Scene{
     preload(){
         this.load.image("terrain", "assets/images/tiles/addableTiles.png");
         this.load.image("textBar", "assets/images/icons/textBar.png");
-
+        this.load.image("blackScreen", "assets/images/cutScene/blackScreen.png");
 
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
