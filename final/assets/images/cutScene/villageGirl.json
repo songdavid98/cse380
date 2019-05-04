@@ -1,0 +1,125 @@
+{
+	"textures": [
+		{
+			"image": "villageGirl.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 85,
+				"h": 30
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "left/0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 20,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 20,
+						"h": 28
+					}
+				},
+				{
+					"filename": "left/0003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 20,
+						"h": 28
+					},
+					"frame": {
+						"x": 23,
+						"y": 1,
+						"w": 20,
+						"h": 28
+					}
+				},
+				{
+					"filename": "left/0005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 19,
+						"h": 28
+					},
+					"frame": {
+						"x": 45,
+						"y": 1,
+						"w": 19,
+						"h": 28
+					}
+				},
+				{
+					"filename": "left/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 66,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "left/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 66,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:7e5273e7d35179599719ae0d5f41ffef:ab410c8f95645c0ec588ae6d89c4ac04:b7abb2feb3836935a0a1ced57e02dd21$"
+	}
+}

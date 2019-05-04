@@ -32,8 +32,12 @@ export class SplashScene extends Phaser.Scene {
             console.log("woah");
         });
         startButton.on("pointerdown", () => {
-            this.music.pause();
-            this.scene.start(SCENES.MAIN_MENU, "splashin in ;)");
+            //this.music.pause();
+            let data = {
+                "music":this.music,
+                "str":"splashin in ;)"
+            }
+            this.scene.start(SCENES.MAIN_MENU, data);
         });
         //        this.scene.start(SCENES.MAIN_MENU, {
         //            "level": 1

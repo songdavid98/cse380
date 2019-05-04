@@ -20,6 +20,7 @@ export class CutScene extends Phaser.Scene{
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
 
+        this.load.multiatlas("VILLAGE_GIRL", './assets/images/cutScene/villageGirl.json', "assets/images/cutScene");
 
     }
     create(data){
@@ -34,6 +35,12 @@ export class CutScene extends Phaser.Scene{
         this.shieldHeroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'left/0001.png').setScale(5, 5);
         this.swordHeroSprite = this.physics.add.sprite(300,200, HEROES.SWORD_HERO, 'left/0001.png').setScale(5, 5);        
         this.mageHeroSprite = this.physics.add.sprite(400,200, HEROES.MAGE_HERO, 'left/0001.png').setScale(5, 5);
+        this.villageGirlSprite = this.physics.add.sprite(400,200, "VILLAGE_GIRL", 'left/0001.png').setScale(5, 5);
+        
+        this.shieldHeroSprite.visible = false;
+        this.swordHeroSprite.visible = false;
+        this.mageHeroSprite.visible = false;
+        this.villageGirlSprite.visible = false;
 
         // Shield animation
         var leftFrames = this.anims.generateFrameNames(HEROES.SHIELD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
@@ -98,8 +105,16 @@ export class CutScene extends Phaser.Scene{
         var downIdleFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'down/', suffix:'.png' });
         this.anims.create({ key: 'downIdleMage', frames: downIdleFrame, frameRate: 5, repeat: -1 });
 
+        //Village Girl animation
+        var leftFrames = this.anims.generateFrameNames("VILLAGE_GIRL", { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        this.anims.create({ key: 'leftVillageGirl', frames: leftFrames, frameRate: 5, repeat: -1 });
+        var leftIdleFrame = this.anims.generateFrameNames("VILLAGE_GIRL", { start: 5, end: 5, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        this.anims.create({ key: 'leftIdleVillageGirl', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
+        
+
+
         this.input.on('pointerdown', function (pointer) {
-            this.lineCounter++;
+            this.lineCounter += 0.5;
         }, this);
         this.input.mouse.disableContextMenu();
 

@@ -8,8 +8,8 @@ export class MenuScene extends Phaser.Scene {
         })
     }
     init(data) {
-        console.log(data);
-        console.log("yay data");
+        this.music = data.music;
+        console.log(data.str);
     }
     preload() {
         this.load.audio("audiotitlesong", "./assets/audio/titlesong.wav");
@@ -29,21 +29,42 @@ export class MenuScene extends Phaser.Scene {
         controlsButton.setInteractive();
         helpButton.setInteractive();
 
-        this.music = this.sound.add("audiotitlesong");
+
+        if(!this.music){
+            this.music = this.sound.add("audiotitlesong");
+        }
+        else{
+            this.music = this.music;
+        }
         this.music.setLoop(true);
-        this.music.play();
+        if(!this.music.isPlaying){
+            this.music.play();
+        }
+
 
         playButton.on("pointerdown", () => {
-            this.music.pause();
-            this.scene.start(SCENES.LEVEL_SELECT, "moving to level select");
+            //this.music.pause();
+            let data = {
+                "music":this.music,
+                "str":"moving to level select"
+            }
+            this.scene.start(SCENES.LEVEL_SELECT, data);
         });
         controlsButton.on("pointerdown", () => {
-            this.music.pause();
-            this.scene.start(SCENES.CONTROLS, "moving to controls");
+            //this.music.pause();
+            let data = {
+                "music":this.music,
+                "str":"moving to controls"
+            }
+            this.scene.start(SCENES.CONTROLS, data);
         });
         helpButton.on("pointerdown", () => {
-            this.music.pause();
-            this.scene.start(SCENES.HELP, "moving to help");
+            //this.music.pause();
+            let data = {
+                "music":this.music,
+                "str":"moving to help"
+            }
+            this.scene.start(SCENES.HELP, data);
         });
     }
 }
