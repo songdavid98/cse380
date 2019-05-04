@@ -14,6 +14,8 @@ export class Slime extends Enemy { // ---- someone fix this~
         super(data);
         this.enemyType = ENEMIES.SLIME; // like slime
         this.health = 2;
+        this.totalHealth = this.health;
+
         this.basicAttack = 1;
         this.basicAttackSpeed = 100;
         this.attackCooldown = 5;
@@ -23,6 +25,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         this.movement = Math.floor(Math.random() * 200) + 25; //Monster keeps moving in square pattern for now
         this.killCost = 10;
         this.lastAttacked = 0;
+        
 
         //taken care of in super constructor
         //        this.sprite = data.sprite;
@@ -39,7 +42,6 @@ export class Slime extends Enemy { // ---- someone fix this~
     init() {}
 
     create() {
-
         this.frameRate = 5; //Frame rate has to be defined here (with var)
 
         var leftFramesSlime = this.anims.generateFrameNames(ENEMIES.SLIME, {
@@ -152,35 +154,47 @@ export class Slime extends Enemy { // ---- someone fix this~
     }
 
     dayUpdate(time) {
-        //this.sprite.body.setVelocityY(this.speed*Math.sin(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
-        //this.sprite.body.setVelocityX(this.speed*Math.cos(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
-        if (!this.dead && !this.scene.player.dead) {
-            let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x, this.sprite.body.position.y, this.scene.player.sprite.body.x, this.scene.player.sprite.body.y);
-            //console.log(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite));
-            if (this.targetFound) {
-                //console.log(this.sprite.body.position.x);
-                //console.log(Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.x,this.scene.player.sprite.body.y));
-                if (distance > 500) {
-                    this.targetFound = false;
-                    this.attacking = false;
-                } else {
-                    this.targetFound = this.scene.player.sprite;
-                    this.attacking = true;
-                }
-            } else {
-                if (distance <= 500) {
-                    this.targetFound = this.scene.player.sprite;
-                    this.attacking = true;
-                }
-            }
 
-            if (this.attacking) {
-                if (time - (this.lastAttacked + this.attackCooldown * 1000) >= 0) {
-                    this.lastAttacked = time;
-                    this.sprite.body.setVelocity(0, 0);
-                    this.attack();
-                } else {
-                    this.attacking = false;
+        if(!this.dead){
+            //Moving the healthbar along with the sprite
+            this.healthBar.x = this.sprite.x;
+            this.healthBar.y = this.sprite.y - 50;
+            this.greenBar.x = this.sprite.x - this.healthBar.width + ((this.greenBar.width) * this.greenBar.scaleX/2);
+            this.greenBar.y = this.sprite.y - 50;
+
+            if(this.active){
+                //this.sprite.body.setVelocityY(this.speed*Math.sin(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
+                //this.sprite.body.setVelocityX(this.speed*Math.cos(Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite)));
+                if (!this.scene.player.dead) {
+                    //let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x, this.sprite.body.position.y, this.scene.player.sprite.body.x, this.scene.player.sprite.body.y);
+                    let distance = Phaser.Math.Distance.Between(this.sprite.x, this.sprite.y, this.scene.player.sprite.body.x, this.scene.player.sprite.body.y);
+                    if (this.targetFound) {
+                        //console.log(this.sprite.body.position.x);
+                        //console.log(Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.x,this.scene.player.sprite.body.y));
+                        if (distance > 500) {
+                            this.targetFound = false;
+                            this.attacking = false;
+                        } else {
+                            this.targetFound = this.scene.player.sprite;
+                            this.attacking = true;
+                        }
+                    } else {
+                        if (distance <= 500) {
+                            this.targetFound = this.scene.player.sprite;
+                            this.attacking = true;
+                        }
+                    }
+
+                    if (this.attacking) {
+                        if (time - (this.lastAttacked + this.attackCooldown * 1000) >= 0) {
+                            this.lastAttacked = time;
+                            this.sprite.body.setVelocityX(0);
+                            this.sprite.body.setVelocityY(0);
+                            this.attack();
+                        } else {
+                            this.attacking = false;
+                        }
+                    }
                 }
             }
         }
@@ -223,8 +237,9 @@ export class Slime extends Enemy { // ---- someone fix this~
                     this.moveCounter = 0;
                 }
             }
-
         }
+
+
     }
     nightUpdate(time, level) {
         super.nightUpdate(time, level);
@@ -241,7 +256,9 @@ export class Slime extends Enemy { // ---- someone fix this~
         let angle = Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite);
         let pointX = this.sprite.x + dist * (Math.sin(Math.PI / 2 - angle));
         let pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - angle));
+        console.log(this.sprite, this.scene.player.sprite);
 
+        console.log(180*Math.sin(Math.PI / 2 - angle)/Math.PI, 180*(Math.cos(Math.PI / 2 - angle)/Math.PI));
         let attackBall = this.scene.physics.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'magic/0001.png').setScale(2, 2);
         attackBall.body.setVelocityY(this.basicAttackSpeed * Math.sin(angle));
         attackBall.body.setVelocityX(this.basicAttackSpeed * Math.cos(angle));

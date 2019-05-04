@@ -145,6 +145,14 @@ export class Golem extends Enemy { //   ---- Someone fix this~
     }
 
     dayUpdate(time) {
+
+        if(!this.dead){
+            //Moving the healthbar along with the sprite
+            this.healthBar.x = this.sprite.x;
+            this.healthBar.y = this.sprite.y - 50;
+            this.greenBar.x = this.sprite.x - this.healthBar.width + ((this.greenBar.width) * this.greenBar.scaleX/2);
+            this.greenBar.y = this.sprite.y - 50;
+        }
         //have dayscene activity here
         if (this.active && !this.dead) {
             if (this.direction == 1) {

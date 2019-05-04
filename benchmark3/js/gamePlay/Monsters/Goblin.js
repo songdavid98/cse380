@@ -188,6 +188,16 @@ export class Goblin extends Enemy {
     dayUpdate(time, player) {
         //have dayscene activity here
 
+
+        if(!this.dead){
+            //Moving the healthbar along with the sprite
+            this.healthBar.x = this.sprite.x;
+            this.healthBar.y = this.sprite.y - 50;
+            this.greenBar.x = this.sprite.x - this.healthBar.width + ((this.greenBar.width) * this.greenBar.scaleX/2);
+            this.greenBar.y = this.sprite.y - 50;
+        }
+
+
         if (this.active && !this.dead) {
             switch (this.state) {
                 case "sleeping":

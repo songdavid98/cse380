@@ -102,7 +102,7 @@ export class DayScene extends Phaser.Scene {
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
-
+        
 
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
@@ -178,9 +178,14 @@ export class DayScene extends Phaser.Scene {
         this.enemyGroup = this.physics.add.group();
         for (var i = 0; i < this.slimeCount; i++) {
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
+            let healthBarSprite = this.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({
                 "sprite": slimeSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.SLIME,
@@ -193,9 +198,14 @@ export class DayScene extends Phaser.Scene {
 
         for (var i = 0; i < this.golemCount; i++) {
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
+            let healthBarSprite = this.add.sprite(this.golemSpawnArr[i][0],this.golemSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.golemSpawnArr[i][0],this.golemSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+
             this.enemyGroup.add(golemSprite);
             let golem = new Golem({
                 "sprite": golemSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.GOLEM,
@@ -210,10 +220,15 @@ export class DayScene extends Phaser.Scene {
             let goblinContainer = this.add.container(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1]);
             let goblinSprite = this.physics.add.sprite(0, 0, ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
             let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+            let healthBarSprite = this.add.sprite(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+            
             goblinContainer.add([goblinSprite, zzzSprite]);
             this.enemyGroup.add(goblinSprite);
             let goblin = new Goblin({
                 "sprite": goblinSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.GOBLIN,
@@ -318,7 +333,6 @@ export class DayScene extends Phaser.Scene {
                 "level": 5
             });
             o1.scene.scene.stop();
-            console.log("hello");
         });
         this.physics.add.overlap(this.door, this.swordHeroSprite, function (o1) {
             o1.scene.music.pause();
@@ -328,7 +342,6 @@ export class DayScene extends Phaser.Scene {
                 "level": 5
             });
             o1.scene.scene.stop();
-            console.log("hello");
         });
         this.physics.add.overlap(this.door, this.mageHeroSprite, function (o1) {
             o1.scene.music.pause();
@@ -338,7 +351,6 @@ export class DayScene extends Phaser.Scene {
                 "level": 5
             });
             o1.scene.scene.stop();
-            console.log("hello");
         });
         //this.createFromTiles(0, null,this.doors,this.scene);
 
@@ -386,7 +398,7 @@ export class DayScene extends Phaser.Scene {
     }
 
 
-    hittingWithShieldBeam(shieldBeamSprite, enemySprite) {
+    hittingWithShield(shieldBeamSprite, enemySprite) {
         if (!shieldBeamSprite.anims) {
             return;
         }
@@ -403,7 +415,24 @@ export class DayScene extends Phaser.Scene {
         shieldBeamSprite.colliding.push(enemySprite);
     }
 
-    hittingWithMagicBeam(magicBeamSprite, enemySprite) {
+    hittingWithSword(swordSprite, enemySprite) {
+        if (!swordSprite.anims) {
+            return;
+        }
+        enemySprite.setVelocity(swordSprite.body.velocity.x, swordSprite.body.velocity.y);
+        enemySprite.class.damaged(swordSprite.class.basicAttack);
+
+        //console.log(enemySprite.texture," got hit");
+        enemySprite.class.lastDamaged = swordSprite.scene.time.now; //Need this for damage cooldown
+        enemySprite.class.justGotHit = true;
+
+        if (!swordSprite.colliding) {
+            swordSprite.colliding = [];
+        }
+        swordSprite.colliding.push(enemySprite);
+    }
+
+    hittingWithMagic(magicBeamSprite, enemySprite) {
         if (!magicBeamSprite.anims) {
             return;
         }

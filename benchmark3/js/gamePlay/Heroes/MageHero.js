@@ -342,7 +342,7 @@ export class MageHero extends DayPlayer {
             }
             if (!magicBeamSprite.enemiesHit.includes(enemySprite)) {
                 magicBeamSprite.enemiesHit.push(enemySprite);
-                magicBeamSprite.scene.hittingWithMagicBeam(magicBeamSprite, enemySprite);
+                magicBeamSprite.scene.hittingWithMagic(magicBeamSprite, enemySprite);
             }
         });
 

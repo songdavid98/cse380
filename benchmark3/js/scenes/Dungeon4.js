@@ -180,16 +180,22 @@ export class Dungeon4 extends Phaser.Scene{
         this.enemyGroup = this.physics.add.group();
         for(var i = 0; i < this.slimeCount; i++){
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
+            let healthBarSprite = this.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+
             this.enemyGroup.add(slimeSprite);
-            let slime = new Slime({"sprite":slimeSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims,"scene":this});
+            let slime = new Slime({"sprite":slimeSprite,"healthBar": healthBarSprite,"greenBar":healthSprite, "allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.SLIME, "anims":this.anims,"scene":this});
             slimeSprite.class = slime;
             this.monsterArray.push(slime);
         }
 
         for(var i = 0; i < this.golemCount; i++){
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
+            let healthBarSprite = this.add.sprite(this.golemSpawnArr[i][0],this.golemSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.golemSpawnArr[i][0],this.golemSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+
             this.enemyGroup.add(golemSprite);
-            let golem = new Golem({"sprite":golemSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims,"scene":this});
+            let golem = new Golem({"sprite":golemSprite,"healthBar": healthBarSprite,"greenBar":healthSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOLEM, "anims":this.anims,"scene":this});
             golemSprite.class = golem;
             this.monsterArray.push(golem);
         }
@@ -198,10 +204,13 @@ export class Dungeon4 extends Phaser.Scene{
             let goblinContainer = this.add.container(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]);
             let goblinSprite = this.physics.add.sprite(0, 0, ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
             let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+            let healthBarSprite = this.add.sprite(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+
             goblinContainer.add([goblinSprite, zzzSprite]);
             this.enemyGroup.add(goblinSprite);
 
-            let goblin = new Goblin({"sprite":goblinSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims,"goblinContainer":goblinContainer, "scene":this});
+            let goblin = new Goblin({"sprite":goblinSprite,"healthBar": healthBarSprite,"greenBar":healthSprite,"allEnemySprites":this.enemyGroup.getChildren(),"physics":this.physics,"enemyType":ENEMIES.GOBLIN, "anims":this.anims,"goblinContainer":goblinContainer, "scene":this});
             goblinSprite.class = goblin;
             this.monsterArray.push(goblin);
         }
@@ -294,7 +303,7 @@ export class Dungeon4 extends Phaser.Scene{
     }
 
 
-    hittingWithShieldBeam(shieldBeamSprite, enemySprite){
+    hittingWithShield(shieldBeamSprite, enemySprite){
         if(!shieldBeamSprite.anims){
             return;
         }
@@ -311,7 +320,24 @@ export class Dungeon4 extends Phaser.Scene{
         shieldBeamSprite.colliding.push(enemySprite);
     }
 
-    hittingWithMagicBeam(magicBeamSprite, enemySprite){
+    hittingWithSword(swordSprite, enemySprite) {
+        if (!swordSprite.anims) {
+            return;
+        }
+        enemySprite.setVelocity(swordSprite.body.velocity.x, swordSprite.body.velocity.y);
+        enemySprite.class.damaged(swordSprite.class.basicAttack);
+
+        //console.log(enemySprite.texture," got hit");
+        enemySprite.class.lastDamaged = swordSprite.scene.time.now; //Need this for damage cooldown
+        enemySprite.class.justGotHit = true;
+
+        if (!swordSprite.colliding) {
+            swordSprite.colliding = [];
+        }
+        swordSprite.colliding.push(enemySprite);
+    }
+
+    hittingWithMagic(magicBeamSprite, enemySprite){
         if(!magicBeamSprite.anims){
             return;
         }

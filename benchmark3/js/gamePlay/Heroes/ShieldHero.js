@@ -369,7 +369,7 @@ export class ShieldHero extends DayPlayer {
             if (!shieldBeamSprite.enemiesHit.includes(enemySprite)) {
                 shieldBeamSprite.enemiesHit.push(enemySprite);
                 enemySprite.class.active = false;
-                shieldBeamSprite.scene.hittingWithShieldBeam(shieldBeamSprite, enemySprite);
+                shieldBeamSprite.scene.hittingWithShield(shieldBeamSprite, enemySprite);
             }
         });
         if (this.scene.barrels) {

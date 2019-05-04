@@ -12,7 +12,7 @@ export class SwordHero extends DayPlayer {
         super(data);
         this.playerType = HEROES.SWORD_HERO; //Sword, mage, shield?
         this.health = 3;
-        this.basicAttack = 3;
+        this.basicAttack = 2;
         this.basicAttackSpeed = 3;
         this.specialAttack = 5;
         this.specialAttackSpeed = 4;
@@ -347,7 +347,7 @@ export class SwordHero extends DayPlayer {
         this.scene.physics.add.overlap(swordSlashSprite, this.scene.enemyGroup.getChildren(), function (swordSlashSprite, enemySprite) {
             if (!swordSlashSprite.enemiesHit.includes(enemySprite)) {
                 swordSlashSprite.enemiesHit.push(enemySprite);
-                swordSlashSprite.scene.hittingWithShieldBeam(swordSlashSprite, enemySprite);
+                swordSlashSprite.scene.hittingWithSword(swordSlashSprite, enemySprite);
             }
         });
         //play sound

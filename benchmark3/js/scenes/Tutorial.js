@@ -52,7 +52,9 @@ export class Tutorial extends Phaser.Scene {
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.slimeSpawnArr = [
-            [600,600]
+            [600,600],
+            [780, 132],
+            [1000,1000]
 
         ];
         this.slimeCount = this.slimeSpawnArr.length;
@@ -128,10 +130,14 @@ export class Tutorial extends Phaser.Scene {
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
         for (var i = 0; i < this.slimeCount; i++) {
-            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
+            let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(5, 5);
+            let healthBarSprite = this.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.slimeSpawnArr[i][0],this.slimeSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({
                 "sprite": slimeSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.SLIME,
@@ -144,9 +150,14 @@ export class Tutorial extends Phaser.Scene {
 
         for (var i = 0; i < this.golemCount; i++) {
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(8, 8);
+            let healthBarSprite = this.add.sprite(this.golemSpawnArr[i][0],this.golemSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.golemSpawnArr[i][0],this.golemSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+ 
             this.enemyGroup.add(golemSprite);
             let golem = new Golem({
                 "sprite": golemSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.GOLEM,
@@ -160,11 +171,16 @@ export class Tutorial extends Phaser.Scene {
         for (var i = 0; i < this.goblinCount; i++) {
             let goblinContainer = this.add.container(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1]);
             let goblinSprite = this.physics.add.sprite(0, 0, ENEMIES.GOBLIN, 'sleep/0001.png').setScale(5, 5);
-            let zzzSprite = this.physics.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+            let zzzSprite = this.add.sprite(100, -100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(5, 5);
+            let healthBarSprite = this.add.sprite(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]+100,'healthBar').setScale(2,2);
+            let healthSprite = this.add.sprite(this.goblinSpawnArr[i][0],this.goblinSpawnArr[i][1]+100,'greenHealth').setScale(2,2);
+ 
             goblinContainer.add([goblinSprite, zzzSprite]);
             this.enemyGroup.add(goblinSprite);
             let goblin = new Goblin({
                 "sprite": goblinSprite,
+                "healthBar": healthBarSprite,
+                "greenBar":healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.GOBLIN,
@@ -313,12 +329,12 @@ export class Tutorial extends Phaser.Scene {
     }
 
 
-    hittingWithShieldBeam(shieldBeamSprite, enemySprite) {
+    hittingWithShield(shieldBeamSprite, enemySprite) {
         if (!shieldBeamSprite.anims) {
             return;
         }
         enemySprite.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
-        enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
+        //enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
 
         //console.log(enemySprite.texture," got hit");
         enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now; //Need this for damage cooldown
@@ -330,7 +346,24 @@ export class Tutorial extends Phaser.Scene {
         shieldBeamSprite.colliding.push(enemySprite);
     }
 
-    hittingWithMagicBeam(magicBeamSprite, enemySprite) {
+    hittingWithSword(swordSprite, enemySprite) {
+        if (!swordSprite.anims) {
+            return;
+        }
+        enemySprite.setVelocity(swordSprite.body.velocity.x, swordSprite.body.velocity.y);
+        enemySprite.class.damaged(swordSprite.class.basicAttack);
+
+        //console.log(enemySprite.texture," got hit");
+        enemySprite.class.lastDamaged = swordSprite.scene.time.now; //Need this for damage cooldown
+        enemySprite.class.justGotHit = true;
+
+        if (!swordSprite.colliding) {
+            swordSprite.colliding = [];
+        }
+        swordSprite.colliding.push(enemySprite);
+    }
+
+    hittingWithMagic(magicBeamSprite, enemySprite) {
         if (!magicBeamSprite.anims) {
             return;
         }

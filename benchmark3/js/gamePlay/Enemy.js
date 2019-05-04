@@ -10,6 +10,9 @@ export class Enemy {
         this.sprite = data.sprite;
         this.allEnemySprites = data.allEnemySprites;
 
+        this.healthBar = data.healthBar;    //Outside layer of health bar
+        this.greenBar = data.greenBar;      //The green health bar thing that moves 
+
         this.physics = data.physics;
         this.anims = data.anims;
         this.scene = data.scene;
@@ -29,41 +32,45 @@ export class Enemy {
 
         this.active = true;
         this.nightWaypoint = 0;
-        this.create(); //Must call create ... that's odd?
+        this.create();  //We need this here. Don't erase
 
     }
     init() {}
 
     create() {
-        
 
     }
 
     //When the hero tries to kill the monster
     damaged(intDamageTaken) {
-        //this.active = false;          //Don't think we need this... we want to be able to attack enemies asap
-
-
-
         if (this.health > 0) {
+            console.log("comes here");
             this.health -= intDamageTaken; //For now, it's only the basic attack...
             this.beenAttacked = true;
-            //console.log("damaged");
+            this.greenBar.setScale(2*(this.health/this.totalHealth), 2);
+
+
             if (this.health <= 0) {
                 this.dead = true;
                 this.active = false;
                 console.log("killed");
                 this.scene.getMoney(this.killCost);
-                this.sprite.destroy();
+                this.destroySprite();    //Calls a function to destroy all the things attached to sprite
+
             }
         }
+    }
+
+    destroySprite(){
+        this.sprite.destroy();
+        this.healthBar.destroy();
+        this.greenBar.destroy();
     }
 
     slowDown() {
         if (this.notTakenEffect) {
             this.speed = Math.floor(this.speed / 2);
             this.frameRate = Math.floor(this.frameRate / 2);
-            console.log(this.frameRate);
             this.notTakenEffect = false;
         }
     }
