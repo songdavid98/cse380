@@ -16,6 +16,7 @@ export class CutScene extends Phaser.Scene{
         this.load.image("terrain", "assets/images/tiles/addableTiles.png");
         this.load.image("textBar", "assets/images/icons/textBar.png");
 
+
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
@@ -106,22 +107,39 @@ export class CutScene extends Phaser.Scene{
         this.anims.create({ key: 'downIdleMage', frames: downIdleFrame, frameRate: 5, repeat: -1 });
 
         //Village Girl animation
+        var rightFrames = this.anims.generateFrameNames("VILLAGE_GIRL", { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        this.anims.create({ key: 'rightVillageGirl', frames: rightFrames, frameRate: 5, repeat: -1 });
+        var rightIdleFrame = this.anims.generateFrameNames("VILLAGE_GIRL", { start: 5, end: 5, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        this.anims.create({ key: 'rightIdleVillageGirl', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
+        
         var leftFrames = this.anims.generateFrameNames("VILLAGE_GIRL", { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftVillageGirl', frames: leftFrames, frameRate: 5, repeat: -1 });
         var leftIdleFrame = this.anims.generateFrameNames("VILLAGE_GIRL", { start: 5, end: 5, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftIdleVillageGirl', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
         
 
+        this.yesButton = this.add.image(this.game.renderer.width * .7, this.game.renderer.height * .4, "backButton").setDepth(1).setScale(2, 2);
+        this.noButton = this.add.image(this.game.renderer.width * .3, this.game.renderer.height * .4, "backButton").setDepth(1).setScale(2, 2);
+
+
+
+        this.yesButton.active = false;
+        this.yesButton.visible = false;
+        this.noButton.active = false;
+        this.noButton.visible = false;
 
         this.input.on('pointerdown', function (pointer) {
             this.lineCounter += 0.5;
         }, this);
+
+
+
+
         this.input.mouse.disableContextMenu();
 
     }
 
     update(time){
-        Math.floor((time / 1000)) - Math.floor(this.timeOfDeath / 1000) >= this.deathSceneLength
 
 
 

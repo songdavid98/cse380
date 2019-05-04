@@ -4,7 +4,7 @@
 			"image": "villageGirl.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 85,
+				"w": 170,
 				"h": 30
 			},
 			"scale": 1,
@@ -52,7 +52,70 @@
 					}
 				},
 				{
+					"filename": "right/0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 20,
+						"h": 28
+					},
+					"frame": {
+						"x": 45,
+						"y": 1,
+						"w": 20,
+						"h": 28
+					}
+				},
+				{
+					"filename": "right/0003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 20,
+						"h": 28
+					},
+					"frame": {
+						"x": 67,
+						"y": 1,
+						"w": 20,
+						"h": 28
+					}
+				},
+				{
 					"filename": "left/0005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 19,
+						"h": 28
+					},
+					"frame": {
+						"x": 89,
+						"y": 1,
+						"w": 19,
+						"h": 28
+					}
+				},
+				{
+					"filename": "right/0005.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -66,7 +129,7 @@
 						"h": 28
 					},
 					"frame": {
-						"x": 45,
+						"x": 110,
 						"y": 1,
 						"w": 19,
 						"h": 28
@@ -81,13 +144,13 @@
 						"h": 28
 					},
 					"spriteSourceSize": {
-						"x": 2,
+						"x": 0,
 						"y": 1,
 						"w": 18,
 						"h": 26
 					},
 					"frame": {
-						"x": 66,
+						"x": 131,
 						"y": 1,
 						"w": 18,
 						"h": 26
@@ -102,13 +165,55 @@
 						"h": 28
 					},
 					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 131,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "right/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
 						"x": 2,
 						"y": 1,
 						"w": 18,
 						"h": 26
 					},
 					"frame": {
-						"x": 66,
+						"x": 151,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "right/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 151,
 						"y": 1,
 						"w": 18,
 						"h": 26
@@ -120,6 +225,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:7e5273e7d35179599719ae0d5f41ffef:ab410c8f95645c0ec588ae6d89c4ac04:b7abb2feb3836935a0a1ced57e02dd21$"
+		"smartupdate": "$TexturePacker:SmartUpdate:6152e41d423886b16827895c5565a204:f57bffea4b94e4a72e4c749c927b14ee:b7abb2feb3836935a0a1ced57e02dd21$"
 	}
 }

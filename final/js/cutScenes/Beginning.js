@@ -28,6 +28,8 @@ export class Beginning extends CutScene{
         this.counter = 0;
         this.strFinished = false;
         this.arr = [];
+        this.chosenToFight = false;
+        this.gaveAnswer = false;
     }
     preload(){
         super.preload();
@@ -74,6 +76,23 @@ export class Beginning extends CutScene{
         }).setDepth(11);
 
 
+        this.yesButton.setInteractive();
+        this.noButton.setInteractive();
+
+        this.yesButton.on("pointerdown", () => {
+            console.log("YES we will fight");
+            this.gaveAnswer = true;
+            this.chosenToFight = true;
+            this.lineCounter = 19.5;
+        });
+
+        this.noButton.on("pointerdown", () => {
+            console.log("NO we will not fight");
+            this.gaveAnswer = true;
+            this.chosenToFight = false;
+            this.lineCounter = 19.5;
+        });
+
         this.text.fixedToCamera = false;
         this.character.fixedToCamera = true;
 
@@ -94,6 +113,9 @@ export class Beginning extends CutScene{
 
                 if(this.strFinished){           //If the line naturally finishes,
                     this.strFinished = false;   //Reset
+                    if(this.villageGirlSprite.body.position.x >= 700){
+                        this.villageGirlSprite.body.velocity.x = 0;
+                    }
                     this.lineCounter += 0.5;    //Move onto next line automatically
                     return;
                 }
@@ -210,7 +232,7 @@ export class Beginning extends CutScene{
         }
         else if(this.lineCounter == 11){
             if(this.onlyOnce){
-                this.character.setText(this.sword);
+                this.character.setText(this.shield);
                 this.str = "Uhhh... Well, you two always deny every place I bring up.\nHow about you guys decide for today?";
                 this.oneTimeOnly(this.str);
             }
@@ -244,20 +266,158 @@ export class Beginning extends CutScene{
         
         else if(this.lineCounter == 15){
             if(this.onlyOnce){
+                this.villageGirlSprite.visible = true;
+                this.villageGirlSprite.setPosition(-100,650);
                 this.character.setText(this.vilGrl);
                 this.str = "Excuse me!";
                 this.oneTimeOnly(this.str);
             }
             if(this.displayText(time, this.counter)){ this.counter++; } 
 
-            this.villageGirlSprite.anims.play("leftVillageGirl", true);
-            if(this.villageGirlSprite.body.position.x < 500){
-                this.villageGirlSprite.body.velocity.x = 10;
+            this.villageGirlSprite.anims.play("rightVillageGirl", true);
+
+            if(this.villageGirlSprite.body.position.x < 700){
+                this.villageGirlSprite.body.velocity.x = 250;
+                console.log("RUn");
             }
             else{
+                console.log("STOP");
                 this.villageGirlSprite.body.velocity.x = 0;
+                this.villageGirlSprite.anims.play("rightIdleVillageGirl");
             }
+        }
+        else if(this.lineCounter == 16){
+            if(this.onlyOnce){
+                this.villageGirlSprite.body.velocity.x = 0;
+                this.villageGirlSprite.setPosition(700,650);
+                this.str = "Excuse me!";
+                this.oneTimeOnly(this.str);
+            }
+            if(this.displayText(time, this.counter)){ this.counter++; } 
 
+            this.villageGirlSprite.anims.play("rightIdleVillageGirl");
+        }
+        else if(this.lineCounter == 17){
+            if(this.onlyOnce){
+                this.str = "Are you heroes? If so, I need your help!";
+                this.oneTimeOnly(this.str);
+            }
+            if(this.displayText(time, this.counter)){ this.counter++; } 
+
+            this.turn(HEROES.SHIELD_HERO,"left");
+        }
+        else if(this.lineCounter == 18){
+            if(this.onlyOnce){
+                this.str = "The prophet told me that monsters will be attacking our village tonight!";
+                this.oneTimeOnly(this.str);
+            }
+            if(this.displayText(time, this.counter)){ this.counter++; } 
+        }
+        else if(this.lineCounter == 19){
+            if(this.onlyOnce){
+                this.str = "So please! Could you three help me defend my village?";
+                this.yesButton.active = true;
+                this.yesButton.visible = true;
+                this.noButton.active = true;
+                this.noButton.visible = true;
+                this.oneTimeOnly(this.str);
+            }
+            if(this.displayText(time, this.counter)){ this.counter++; } 
+        }
+
+
+//------------------------------------------------------------------------------
+        if(this.gaveAnswer){
+            if(this.lineCounter == 20){
+                if(!this.chosenToFight){
+                    if(this.onlyOnce){
+                        this.yesButton.active = false;
+                        this.yesButton.visible = false;
+                        this.noButton.active = false;
+                        this.noButton.visible = false;
+                        this.character.setText(this.shield);
+                        this.str = "No thanks. We have to go find food.";
+                        this.oneTimeOnly(this.str);
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                }
+                if(this.chosenToFight){
+                    if(this.onlyOnce){
+                        this.yesButton.active = false;
+                        this.yesButton.visible = false;
+                        this.noButton.active = false;
+                        this.noButton.visible = false;
+                        this.character.setText(this.shield);
+                        this.str = "Sure! If you give us food.";
+                        this.oneTimeOnly(this.str);
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                }
+            }
+            else if(this.lineCounter == 21){
+                if(!this.chosenToFight ){
+                    if(this.onlyOnce){
+                        this.character.setText(this.vilGrl);
+                        this.str = "If you fight for my village, we can provide you a lot of food afterwards...";
+                        this.oneTimeOnly(this.str);
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                }
+                else{
+                    if(this.onlyOnce){
+                        this.character.setText(this.shield);
+                        this.str = "Yes, if you can help my village, we will glad to offer you a meal.";
+                        this.oneTimeOnly(this.str);
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                }    
+            }
+            else if(this.lineCounter == 22){
+                if(!this.chosenToFight ){
+                    if(this.onlyOnce){
+                        this.character.setText(this.shield);
+                        this.str = "We are in. Lead us to your village!";
+                        this.oneTimeOnly(this.str);
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                }
+                else{
+                    if(this.onlyOnce){
+                        this.character.setText(this.shield);
+                        this.str = "Alright, then show us the way to your village!";
+                        this.oneTimeOnly(this.str);
+                    }
+                    if(this.displayText(time, this.counter)){ this.counter++; } 
+                }    
+            }
+            else if(this.lineCounter == 23){
+                if(this.onlyOnce){
+                    this.character.setText(this.shield);
+                    this.str = "We are in. Lead us to your village!";
+                    this.oneTimeOnly(this.str);
+                }
+                if(this.displayText(time, this.counter)){ this.counter++; } 
+                
+                this.villageGirlSprite.anims.play("leftVillageGirl", true);
+                this.shieldHeroSprite.anims.play("leftShield", true);
+                this.swordHeroSprite.anims.play("leftSword", true);
+                this.mageHeroSprite.anims.play("leftMage", true);
+
+
+                if(this.villageGirlSprite.body.position.x > -1000){
+                    this.villageGirlSprite.body.velocity.x = -250;
+                    this.shieldHeroSprite.body.velocity.x = -250;
+                    this.swordHeroSprite.body.velocity.x = -250;
+                    this.mageHeroSprite.body.velocity.x = -250;
+                }
+                else{
+                    this.villageGirlSprite.body.velocity.x = 0;
+                    this.shieldHeroSprite.body.velocity.x = 0;
+                    this.swordHeroSprite.body.velocity.x = 0;
+                    this.mageHeroSprite.body.velocity.x = 0;
+                }
+
+            }
         }
     }
 
@@ -299,7 +459,11 @@ export class Beginning extends CutScene{
                 if(dir == "left"){ this.mageHeroSprite.anims.play("leftIdleMage"); }
                 else if(dir == "right"){ this.mageHeroSprite.anims.play("rightIdleMage"); }
                 break;
-
+            
+            case "VILLAGE_GIRL":
+                if(dir == "left"){ this.villageGirlSprite.anims.play("leftIdleVillageGirl"); }
+                else if(dir == "right"){ this.villageGirlSprite.anims.play("rightIdleVillageGirl"); }
+                break;
 
         }
     }
