@@ -67,12 +67,12 @@ export class CutScene extends Phaser.Scene{
         // Sword animation
         var leftFrames = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftSword', frames: leftFrames, frameRate: 5, repeat: -1 });
-        var leftIdleFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        var leftIdleFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 5, end: 5, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftIdleSword', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
 
         var rightFrames = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'rightSword', frames: rightFrames, frameRate: 5, repeat: -1 });
-        var rightIdleFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        var rightIdleFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 5, end: 5, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'rightIdleSword', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
 
         var upFrames = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });
@@ -88,12 +88,12 @@ export class CutScene extends Phaser.Scene{
         // Mage animation
         var leftFrames = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftMage', frames: leftFrames, frameRate: 5, repeat: -1 });
-        var leftIdleFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'left/', suffix:'.png' });
+        var leftIdleFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 5, end: 5, zeroPad: 4, prefix:'left/', suffix:'.png' });
         this.anims.create({ key: 'leftIdleMage', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
         
         var rightFrames = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'rightMage', frames: rightFrames, frameRate: 5, repeat: -1 });
-        var rightIdleFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 2, end: 2, zeroPad: 4, prefix:'right/', suffix:'.png' });
+        var rightIdleFrame = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 5, end: 5, zeroPad: 4, prefix:'right/', suffix:'.png' });
         this.anims.create({ key: 'rightIdleMage', frames: rightIdleFrame, frameRate: 5, repeat: -1 });
 
         var upFrames = this.anims.generateFrameNames(HEROES.MAGE_HERO, { start: 1, end: 4, zeroPad: 4, prefix:'up/', suffix:'.png' });

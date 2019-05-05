@@ -26,6 +26,8 @@ export class DayPlayer {
         this.invulnerable = false;
         this.blinkSpeed = 200;
         this.lastBlinked = 0;
+        this.invincible = false;        //Prone to any damage
+        this.semiInvincible = false;    //You will lose hearts, but regain if you run out. No hero swap
 
         this.playerColorGray = false;
 
@@ -191,28 +193,34 @@ export class DayPlayer {
 
 
     damage(monster) {
-        if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
-            this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
-            this.invulnerable = true;
-            this.active = false;
+        if(!this.invincible){
+            if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
+                this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
+                this.invulnerable = true;
+                this.active = false;
 
-            if (this.health > 0) {
-                this.health -= monster.class.basicAttack;
-                if (this.health <= 0) {
-                    this.dead = true;
+                if (this.health > 0) {
+                    this.health -= monster.class.basicAttack;
+                    if (this.health <= 0) {
+                        this.dead = true;
+                    }
                 }
-            }
-            
-            //Push back stuff
-            if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
-                this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
-            } else {
-                this.sprite.body.setVelocity((Math.sign(monster.body.velocity.x)) * 500, (Math.sign(monster.body.velocity.y)) * 500);
-            }
-            if (this.dead) {
-                this.scene.swapHero(this.scene.lastDamaged);
-                console.log("I'm dead so I'll swap");
-                console.log(this.lastDamaged);
+                
+                //Push back stuff
+                if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
+                    this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
+                } else {
+                    this.sprite.body.setVelocity((Math.sign(monster.body.velocity.x)) * 500, (Math.sign(monster.body.velocity.y)) * 500);
+                }
+                if (this.dead && !this.semiInvincible) {
+                    this.scene.swapHero(this.scene.lastDamaged);
+                    console.log("I'm dead so I'll swap");
+                    console.log(this.lastDamaged);
+                }
+                else if(this.dead && this.semiInvincible){
+                    this.health = 3;
+                    this.dead = false;
+                }
             }
         }
     }

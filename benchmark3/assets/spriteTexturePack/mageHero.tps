@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>phaser</string>
         <key>textureFileName</key>
-        <filename>../images/heroes/mage.png</filename>
+        <filename></filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/heroes/mage.json</filename>
+                <filename></filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -163,13 +163,13 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Crop</enum>
+            <enum type="SpriteSettings::TrimMode">Trim</enum>
             <key>tracerTolerance</key>
             <int>200</int>
             <key>heuristicMask</key>
@@ -181,35 +181,49 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/heroes/mageHero/down/0001.png</key>
-            <key type="filename">../images/heroes/mageHero/down/0002.png</key>
-            <key type="filename">../images/heroes/mageHero/down/0003.png</key>
-            <key type="filename">../images/heroes/mageHero/down/0004.png</key>
-            <key type="filename">../images/heroes/mageHero/left/0001.png</key>
-            <key type="filename">../images/heroes/mageHero/left/0002.png</key>
-            <key type="filename">../images/heroes/mageHero/left/0003.png</key>
-            <key type="filename">../images/heroes/mageHero/left/0004.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0001.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0002.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0003.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0004.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0005.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0006.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0007.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0008.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0009.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0010.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0011.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0012.png</key>
-            <key type="filename">../images/heroes/mageHero/magic/0013.png</key>
-            <key type="filename">../images/heroes/mageHero/right/0001.png</key>
-            <key type="filename">../images/heroes/mageHero/right/0002.png</key>
-            <key type="filename">../images/heroes/mageHero/right/0003.png</key>
-            <key type="filename">../images/heroes/mageHero/right/0004.png</key>
-            <key type="filename">../images/heroes/mageHero/up/0001.png</key>
-            <key type="filename">../images/heroes/mageHero/up/0002.png</key>
-            <key type="filename">../images/heroes/mageHero/up/0003.png</key>
-            <key type="filename">../images/heroes/mageHero/up/0004.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/down/0001.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/down/0002.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/down/0003.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/down/0004.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/left/0001.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/left/0002.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/left/0003.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/left/0004.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/left/0005.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/right/0001.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/right/0002.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/right/0003.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/right/0004.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/right/0005.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/up/0001.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/up/0002.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/up/0003.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/up/0004.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,7,11,15</rect>
+                <key>scale9Paddings</key>
+                <rect>5,7,11,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0001.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0002.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0003.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0004.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0005.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0006.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0007.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0008.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0009.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0010.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0011.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0012.png</key>
+            <key type="filename">../../../final/assets/images/heroes/mageHero/magic/0013.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -225,7 +239,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/heroes/mageHero</filename>
+            <filename>../../../final/assets/images/heroes/mageHero</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

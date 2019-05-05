@@ -181,11 +181,16 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../final/assets/images/cutScene/villageGirl/leftVillageGirl/0001.png</key>
-            <key type="filename">../../../final/assets/images/cutScene/villageGirl/leftVillageGirl/0002.png</key>
-            <key type="filename">../../../final/assets/images/cutScene/villageGirl/leftVillageGirl/0003.png</key>
-            <key type="filename">../../../final/assets/images/cutScene/villageGirl/leftVillageGirl/0004.png</key>
-            <key type="filename">../../../final/assets/images/cutScene/villageGirl/leftVillageGirl/0005.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/left/0001.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/left/0002.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/left/0003.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/left/0004.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/left/0005.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/right/0001.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/right/0002.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/right/0003.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/right/0004.png</key>
+            <key type="filename">../../../final/assets/images/cutScene/villageGirl/right/0005.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

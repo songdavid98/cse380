@@ -27,10 +27,11 @@ export class DayOverlayScene extends Phaser.Scene {
         this.mageHealth;
         this.sceneKey = data.sceneKey;
         this.text;
+        this.playerType = data.playerType;
 
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
-        this.timer = data.timer || 120;
+        this.timer = data.timer || 620;
         this.initTime = 0;
     }
     create() {
@@ -79,6 +80,7 @@ export class DayOverlayScene extends Phaser.Scene {
         this.swordHealth = this.swordHero.health;
         this.mageHealth = this.mageHero.health;
 
+        this.swapHeartPos();
 
         //Initialize text stuff
         this.moneyText = this.add.text(1335, 68, ':' + this.dayScene.money, {
@@ -89,36 +91,43 @@ export class DayOverlayScene extends Phaser.Scene {
         });
         this.deathText = null;
 
-        //add button events
-
-        //add keyboard keys
+        
     }
+
+    swapHeartPos(){
+        this.heartDepth; //Shield, Sword, Mage   [depth, depth, depth, yPos, yPos, yPos]
+            switch (this.dayScene.player.playerType) {
+                case HEROES.SHIELD_HERO:
+                    this.heartDepth = [3, 2, 1, 150, 130, 110];
+                    break;
+                case HEROES.SWORD_HERO:
+                    this.heartDepth = [1, 3, 2, 110, 150, 130];
+                    break;
+                case HEROES.MAGE_HERO:
+                    this.heartDepth = [2, 1, 3, 130, 110, 150];
+                    break;
+            }
+            for (let i = 0; i < this.shieldHero.health; i++) {
+                this.shieldHearts[i].setDepth(this.heartDepth[0]);
+                this.shieldHearts[i].y = this.heartDepth[3];
+            }
+            for (let i = 0; i < this.swordHero.health; i++) {
+                this.swordHearts[i].setDepth(this.heartDepth[1]);
+                this.swordHearts[i].y = this.heartDepth[4];
+            }
+            for (let i = 0; i < this.mageHero.health; i++) {
+                this.mageHearts[i].setDepth(this.heartDepth[2]);
+                this.mageHearts[i].y = this.heartDepth[5];
+            }
+    }
+
+
     update(time, delta) {
 
         //Change position of hearts depending on the currentHero
-        let heartDepth; //Shield, Sword, Mage   [depth, depth, depth, yPos, yPos, yPos]
-        switch (this.dayScene.player.playerType) {
-            case HEROES.SHIELD_HERO:
-                heartDepth = [3, 2, 1, 150, 130, 110];
-                break;
-            case HEROES.SWORD_HERO:
-                heartDepth = [1, 3, 2, 110, 150, 130];
-                break;
-            case HEROES.MAGE_HERO:
-                heartDepth = [2, 1, 3, 130, 110, 150];
-                break;
-        }
-        for (let i = 0; i < this.shieldHero.health; i++) {
-            this.shieldHearts[i].setDepth(heartDepth[0]);
-            this.shieldHearts[i].y = heartDepth[3];
-        }
-        for (let i = 0; i < this.swordHero.health; i++) {
-            this.swordHearts[i].setDepth(heartDepth[1]);
-            this.swordHearts[i].y = heartDepth[4];
-        }
-        for (let i = 0; i < this.mageHero.health; i++) {
-            this.mageHearts[i].setDepth(heartDepth[2]);
-            this.mageHearts[i].y = heartDepth[5];
+        if(this.playerType != this.dayScene.player.playerType){
+            this.swapHeartPos();
+            this.playerType = this.dayScene.player.playerType;
         }
 
 
@@ -128,7 +137,7 @@ export class DayOverlayScene extends Phaser.Scene {
             this.initTime = this.time.now;
         }
         if (this.shieldHero.health > this.shieldHealth) {
-            this.shieldHearts.push(this.add.image(50 + this.shieldHealth * 75, 100, "heart1").setScale(2, 2).setDepth(1));
+            this.shieldHearts.push(this.add.image(50 + this.shieldHealth * 75, this.heartDepth[3], "heart1").setScale(2, 2).setDepth(this.heartDepth[0]));
             this.shieldHealth++;
         } else if (this.shieldHero.health < this.shieldHealth) {
             while (this.shieldHealth > this.shieldHero.health) {
@@ -138,7 +147,7 @@ export class DayOverlayScene extends Phaser.Scene {
         }
 
         if (this.swordHero.health > this.swordHealth) {
-            this.swordHearts.push(this.add.image(50 + this.swordHealth * 75, 120, "heart2").setScale(2, 2).setDepth(1));
+            this.swordHearts.push(this.add.image(50 + this.swordHealth * 75, this.heartDepth[4], "heart2").setScale(2, 2).setDepth(this.heartDepth[1]));
             this.swordHealth++;
         } else if (this.swordHero.health < this.swordHealth) {
             while (this.swordHealth > this.swordHero.health) {
@@ -148,7 +157,7 @@ export class DayOverlayScene extends Phaser.Scene {
         }
 
         if (this.mageHero.health > this.mageHealth) {
-            this.mageHearts.push(this.add.image(50 + this.mageHealth * 75, 140, "heart3").setScale(2, 2).setDepth(1));
+            this.mageHearts.push(this.add.image(50 + this.mageHealth * 75, this.heartDepth[5], "heart3").setScale(2, 2).setDepth(this.heartDepth[2]));
             this.mageHealth++;
         } else if (this.mageHero.health < this.mageHealth) {
             while (this.mageHealth > this.mageHero.health) {
@@ -156,6 +165,12 @@ export class DayOverlayScene extends Phaser.Scene {
                 this.mageHealth--;
             }
         }
+
+        //------------------- Text box stuff -----------------------
+        if(this.text != this.dayScene.textWords){
+            this.text.setText(this.dayScene.textWords);
+        }
+
 
         //---------------------------------------------------------
 

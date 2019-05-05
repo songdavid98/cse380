@@ -531,6 +531,7 @@ export class Beginning extends CutScene{
         this.shieldHeroSprite.anims.play("leftIdleShield");
         this.swordHeroSprite.anims.play("leftIdleSword");
         this.mageHeroSprite.anims.play("leftIdleMage");
+        console.log("her");
     }
 
 }

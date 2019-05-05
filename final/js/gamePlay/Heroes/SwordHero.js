@@ -48,8 +48,8 @@ export class SwordHero extends DayPlayer {
             repeat: -1
         });
         var leftIdleFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, {
-            start: 2,
-            end: 2,
+            start: 5,
+            end: 5,
             zeroPad: 4,
             prefix: 'left/',
             suffix: '.png'
@@ -88,8 +88,8 @@ export class SwordHero extends DayPlayer {
             repeat: -1
         });
         var rightIdleFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, {
-            start: 2,
-            end: 2,
+            start: 5,
+            end: 5,
             zeroPad: 4,
             prefix: 'right/',
             suffix: '.png'

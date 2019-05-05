@@ -47,6 +47,9 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
+
+        this.textWords;
+
     }
     preload() {
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
@@ -75,6 +78,8 @@ export class DayScene extends Phaser.Scene {
         }
         let initialX = data['initialX'] || 200;
         let initialY = data['initialY'] || 200;
+        this.initPos = [initialX, initialY];    //Need this for tutorial
+
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
         this.music.play();
@@ -150,7 +155,8 @@ export class DayScene extends Phaser.Scene {
             "sceneKey": this.sceneKey,
             "shieldHero": this.shieldHero,
             "swordHero": this.swordHero,
-            "mageHero": this.mageHero
+            "mageHero": this.mageHero,
+            "playerType": this.player.playerType
         });
 
         //Create the enemies
