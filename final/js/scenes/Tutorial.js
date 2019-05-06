@@ -25,13 +25,11 @@ export class Tutorial extends DayScene {
 
         this.golemSpawnArr = [
 
-            [200000, 180000]        //Off the map
         ];
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
 
-            [13000,21500]           //Off the map
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -46,6 +44,8 @@ export class Tutorial extends DayScene {
         this.doneOnce = false;
         this.resetStep = false;
         this.killedSlime = false;
+        this.slimeFound = false;
+
 
         this.clearedAngle = [false, false, false, false]; //0, 90, 180, 270
 
@@ -56,7 +56,7 @@ export class Tutorial extends DayScene {
         super.preload();
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
-
+        this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
         this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
         this.mapLevel = "tutorial";
@@ -71,16 +71,48 @@ export class Tutorial extends DayScene {
         this.baseLayer = this.map.createStaticLayer("groundLayer", [this.terrain], 0, 0).setScale(5, 5);
         this.grassLayer = this.map.createStaticLayer("grassLayer", [this.terrain], 0, 0).setScale(5, 5);
         this.wallLayer = this.map.createStaticLayer("rockLayer", [this.terrain], 0, 0).setScale(5, 5);
+        //this.doorLayer = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
 
-        super.create();
+        super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
 
         //Keyboard stuff
         this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,Two,Three,Four,Five,Six');
 
         //collisions
         this.wallLayer.setCollision(6);     //For tutorial
-        this.physics.add.collider(this.playerGroup, this.wallLayer);
+        //this.doorLayer.setCollision(18);
+
+        this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
+        //this.doorCollider = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer);
+
+
+        //Objects?
+        
+        console.log(barrel, door);  
+
+        door = this.physics.add.existing(door);
+        barrel = this.physics.add.existing(barrel);
+
+        door.body.setSize(door.body.width, door.body.height);
+        door.body.setOffset(0, 0);
+        barrel.body.setOffset(0, 0);
+
+        this.physics.add.collider(this.playerGroup, barrel);
+
+
+        //door overlap
+        this.physics.add.overlap(door, this.playerGroup.getChildren(), function (o1) {
+            console.log("OVERLAPPING");
+            o1.scene.music.pause();
+            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+            o1.scene.scene.start(SCENES.DUNGEON1, {
+                "money": o1.scene.money,
+                "level": 1
+            });
+            o1.scene.scene.stop();
+            console.log("It's a whole new world");
+        });
 
         this.map.currentLayer = this.baseLayer;
 
@@ -206,7 +238,7 @@ export class Tutorial extends DayScene {
                                 this.killedWithMage = true;
                                 break;
                             case HEROES.SHIELD_HERO:
-                                this.lessonStep = 6;    //Go to sword?
+                                this.lessonStep = 6;    //Go to sword
                                 this.killedWithShield = true;
                                 this.killedWithSword = false;
                                 this.killedWithMage = false;
@@ -214,6 +246,9 @@ export class Tutorial extends DayScene {
                         }
                         this.doneOnce = false;  //Reset
                         this.resetStep = false;
+                        this.saidOnce = false;
+                        this.onlyOnce = true;
+                        this.youCanMoveOn = false;
                     }
                 }
             }
@@ -221,182 +256,169 @@ export class Tutorial extends DayScene {
 
         //Swapping heroes to mage
         else if(this.lessonStep == 4){
-            if(this.player.playerType != HEROES.MAGE_HERO && !this.resetStep && !this.killedWithMage){
+            if(this.player.playerType != HEROES.MAGE_HERO && !this.killedWithMage){
                 if(!this.doneOnce){
                     this.textWords = "Now, try switching heroes. Press the space bar to turn in to the MAGE hero.\nFind and defeat a slime with the mage hero.";
                     this.doneOnce = true;
-                    this.enemy = this.spawn();
+                    this.spawn();
                 }
                 else if(!this.slimeFound){
-                    this.enemy = this.spawn();
-                }
-            }
-            else if(this.player.playerType == HEROES.MAGE_HERO && this.doneOnce && !this.resetStep && this.enemy.dead){
-                this.timeOfStepFinished = time;
-                this.doneOnce = false;
-                this.resetStep = true;
-                this.killedWithMage = true;
-                console.log("cleared");
+                    this.spawn();
+                    console.log(this.slimeCount);
 
+                }
             }
-            else{
-                if(this.resetStep){
-                    if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
-                        if(!this.doneOnce){
-                            this.textWords = "Great, you defeated a slime!";
-                            this.doneOnce = true;
-                        }
+            //Go here if you kill the slime with the mage
+            else if(this.player.playerType == HEROES.MAGE_HERO && this.doneOnce && !this.slimeFound){
+                if(this.onlyOnce){
+                    this.timeOfStepFinished = time;
+                    this.onlyOnce = false;
+                    this.killedWithMage = true;
+                    console.log("cleared");
+                }
+
+                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
+                    if(!this.saidOnce){
+                        this.textWords = "Great, you defeated a slime!";
+                        this.saidOnce = true;
                     }
-                    else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
-                        if(this.doneOnce){
-                            this.textWords = "The mage can do long-ranged attack. If the enemies are hit, they will slow down.";
-                            this.doneOnce = false;
-                        }
-                    }
-                    else if(this.killedWithMage){
-                        console.log("FINISHED MAGE");
-                        switch(this.currentPlayer){     //Using the previous player's type
-                            case HEROES.SWORD_HERO:
-                                if(!this.killedWithShield){ this.lessonStep = 5; }   //Did mage and sword -> Go to shield
-                                else{ this.lessonStep = 7; }   //move onto the last step
-                                break;
-                            case HEROES.SHIELD_HERO:
-                                if(!this.killedWithSword){ this.lessonStep = 6; }   //Did mage and shield -> Go to sword?
-                                else{ this.lessonStep = 7; }   //move onto the last step
-                                break;
-                            default:
-                                console.log("WHAT???? MAGE AGAIN?");
-                        }
-                        this.doneOnce = false;  //Reset
-                        this.resetStep = false;
-                        this.timeOfStepFinished = time;
-                        this.tempMoney = this.money;
+                    console.log(time, this.timeOfStepFinished);
+                }
+                else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
+                    if(this.saidOnce){
+                        this.textWords = "The mage can do long-ranged attack. If the enemies are hit, they will slow down.";
+                        this.saidOnce = false;
+                        this.youCanMoveOn = true;
                     }
                 }
-            }                 
+                else if(this.youCanMoveOn){
+                    console.log("FINISHED MAGE");
+                    if(this.killedWithShield){ 
+                        if(this.killedWithSword){ this.lessonStep = 7; }    //Go to next step
+                        else{ this.lessonStep = 6; }                        //Go to sword
+                    }
+                    else{ this.lessonStep = 5; }                            //Go to shield
+                    
+                    this.doneOnce = false;  //Reset
+                    this.saidOnce = false;  //Reset
+                    this.onlyOnce = true;   //Reset
+                    this.youCanMoveOn = false;
+                    this.timeOfStepFinished = time;
+                    this.tempMoney = this.money;
+                }
+            }   
+                         
         }
 
         //Swap to shield 
         else if(this.lessonStep == 5){
-            console.log("WELCOME TO SHIELD");
-            if(this.player.playerType != HEROES.SHIELD_HERO && !this.resetStep && !this.killedWithShield){
+            if(this.player.playerType != HEROES.SHIELD_HERO && !this.killedWithShield){
                 if(!this.doneOnce){
                     this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SHIELD hero.\nThe shield hero doesn't deal damage. But you can use her attack to push monsters into hazardous environment!\nFind and defeat a slime with the shield hero.";
                     this.doneOnce = true;
-                    this.enemy = this.spawn();
+                    this.spawn();
                 }
                 else if(!this.slimeFound){
-                    this.enemy = this.spawn();
+                    this.spawn();
+                    console.log(this.slimeCount);
+
                 }
             }
-            else if(this.player.playerType == HEROES.SHIELD_HERO && this.doneOnce && !this.resetStep && this.enemy.dead){
-                this.timeOfStepFinished = time;
-                this.doneOnce = false;
-                this.killedWithShield = true;
-                this.resetStep = true;
-                console.log("cleared");
+            else if(this.player.playerType == HEROES.SHIELD_HERO && this.doneOnce && !this.slimeFound){
+                if(this.onlyOnce){
+                    this.timeOfStepFinished = time;
+                    this.onlyOnce = false;
+                    this.killedWithShield = true;
+                    console.log("cleared");
+                }
 
-            }
-            else if(this.killedWithShield){
-                if(this.resetStep){
-                    if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
-                        if(!this.doneOnce){
-                            this.textWords = "Great, you defeated a slime!";
-                            this.doneOnce = true;
-                        }
-                    }
-                    else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
-                        if(this.doneOnce){
-                            this.textWords = "You can push monsters into one corner and use the mage to deal\ndamage to all of them. You can also use her attack to push objects!";
-                            this.doneOnce = false;
-                        }
-                    }
-                    else{
-                        switch(this.currentPlayer){     //Using the previous player's type
-                            case HEROES.SWORD_HERO:
-                                if(!this.killedWithMage){ this.lessonStep = 4; }    //Did sword and shield -> Go to mage
-                                else{ this.lessonStep = 7; }   //move onto the last step
-                                break;
-                            case HEROES.MAGE_HERO:
-                                if(!this.killedWithSword){ this.lessonStep = 6; }   //Did mage and shield -> Go to sword?
-                                else{ this.lessonStep = 7; }   //move onto the last step
-                                break;
-                            default:
-                                console.log("WHAT???? SHIELD AGAIN?");
-                        }
-                        this.doneOnce = false;  //Reset
-                        this.resetStep = false;
-                        this.timeOfStepFinished = time;
-                        this.tempMoney = this.money;
-
+                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
+                    if(!this.saidOnce){
+                        this.textWords = "Great, you defeated a slime!";
+                        this.saidOnce = true;
                     }
                 }
-            }
+                else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
+                    if(this.saidOnce){
+                        this.textWords = "You can push monsters into one corner and use the mage to deal\ndamage to all of them. You can also use her attack to push objects!";
+                        this.saidOnce = false;
+                        this.youCanMoveOn = true;
+                    }
+                }
+                else if(this.youCanMoveOn){
+                    console.log("FINISHED SHIELD");
+                    if(this.killedWithMage){ 
+                        if(this.killedWithSword){ this.lessonStep = 7; }    //Go to next step
+                        else{ this.lessonStep = 6; }                        //Go to sword
+                    }
+                    else{ this.lessonStep = 4; }                            //Go to mage
+                    
+                    this.doneOnce = false;  //Reset
+                    this.saidOnce = false;
+                    this.onlyOnce = true;
+                    this.youCanMoveOn = false;
+                    this.timeOfStepFinished = time;
+                    this.tempMoney = this.money;
+                }
+            }            
         }
 
         //Swapping heroes to sword
         else if(this.lessonStep == 6){
-            console.log("WELCOME TO SWORD");
-
-            if(this.player.playerType != HEROES.SWORD_HERO && !this.resetStep && !this.killedWithSword){
+            if(this.player.playerType != HEROES.SWORD_HERO && !this.killedWithSword){
                 if(!this.doneOnce){
                     this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SWORD hero.\nFind and defeat a slime with the sword hero.";
                     this.doneOnce = true;
-                    this.enemy = this.spawn();
+                    this.spawn();
                 }
                 else if(!this.slimeFound){
-                        this.enemy = this.spawn();
+                    this.spawn();
+                    console.log(this.slimeCount);
                 }
             }
-            else if(this.player.playerType == HEROES.SWORD_HERO && this.doneOnce && !this.resetStep && this.enemy.dead){
-                console.log("cleared");
-                this.timeOfStepFinished = time;
-                this.killedWithSword = true;
-                this.doneOnce = false;
-                this.resetStep = true;
-            }
-            else if(this.killedWithSword){
+            else if(this.player.playerType == HEROES.SWORD_HERO && this.doneOnce && !this.slimeFound){
+                if(this.onlyOnce){
+                    this.timeOfStepFinished = time;
+                    this.killedWithSword = true;
+                    this.onlyOnce = false;
+                    console.log("cleared");
+                }
+            
                 if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
-                    if(!this.doneOnce){
+                    if(!this.saidOnce){
                         this.textWords = "Great, you defeated a slime!";
-                        this.doneOnce = true;
+                        this.saidOnce = true;
                     }
                 }
                 else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
-                    if(this.doneOnce){
+                    if(this.saidOnce){
                         this.textWords = "The sword hero can do short-ranged attacks.\nHe can deal the most damage out of all the other heroes.";
-                        this.doneOnce = false;
+                        this.saidOnce = false;
+                        this.youCanMoveOn = true;
                     }
                 }
-                else{
-                    console.log("COMES HERE");
-                    switch(this.currentPlayer){     //Using the previous player's type
-                        case HEROES.MAGE_HERO:
-                            if(!this.killedWithShield){ this.lessonStep = 5; }   //Did mage and sword -> Go to shield
-                            else{ this.lessonStep = 7; }   //move onto the last step
-                            break;
-                        case HEROES.SHIELD_HERO:
-                            if(!this.killedWithMage){ this.lessonStep = 4; }   //Did shield and sword -> Go to mage?
-                            else{ this.lessonStep = 7; }   //move onto the last step
-                            break;
-                        default:
-                            console.log("WHAT???? SWORD AGAIN?");
+                else if(this.youCanMoveOn){
+                    if(this.killedWithShield){ 
+                        if(this.killedWithMage){ this.lessonStep = 7; }    //Go to next step
+                        else{ this.lessonStep = 4; }                        //Go to mage
                     }
+                    else{ this.lessonStep = 5; }                            //Go to shield
+                    
                     this.doneOnce = false;  //Reset
-                    this.resetStep = false;
+                    this.saidOnce = false;
+                    this.onlyOnce = true;
+                    this.youCanMoveOn = false;
                     this.timeOfStepFinished = time;
                     this.tempMoney = this.money;
-
-
                 }
-            }                 
+            }             
         }
 
 
 
         //Look at coins and defeat more monsters
         else if(this.lessonStep == 7){
-            console.log("WELCOME TO THE NEXT LEVEL", this.tempMoney, this.money);
+            //console.log("WELCOME TO THE NEXT LEVEL", this.tempMoney, this.money);
             if(this.tempMoney+30 > this.money){
                 if(!this.doneOnce && Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
                     this.textWords = "When you defeat a monster, you will get coins.Take a look at the top right of\nthe screen. The more coins you collect, the more defence structures you will\nbe able to buy for night.";
@@ -409,7 +431,7 @@ export class Tutorial extends DayScene {
                     if(this.doneOnce&& Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) > this.stepLength){
                         this.textWords = "Now, more slimes will spawn. Find and defeat 3 more slimes.\nAll your health will be restored now,\nbut this time, you won't be invincible so becareful!";
                         this.player.semiInvincible = false;
-                        this.player.health = 3;
+                        this.healAllHeroes();
                         this.spawn(3);
                         this.doneOnce = false;
                     }
@@ -436,34 +458,34 @@ export class Tutorial extends DayScene {
             }
         }
 
-               //Look at coins and defeat more monsters
-            else if(this.lessonStep == 8){
-                if(!this.slimeFound){
-                    if(!this.doneOnce && !this.slimeFound){
-                        this.textWords = "Now, find the dungeon door! If you need to move objects to get through, use the shield hero!";
+            //Look at coins and defeat more monsters
+        else if(this.lessonStep == 8){
+            if(!this.slimeFound){
+                if(!this.doneOnce && !this.slimeFound){
+                    this.textWords = "Now, find the dungeon door! If you need to move objects to get through, use the shield hero!";
+                    this.doneOnce = true;
+                }
+            }
+            else if(this.doneOnce && !this.resetStep){
+                this.timeOfStepFinished = time;
+                this.doneOnce = false;
+                this.resetStep = true;
+                console.log("CLEARED");
+            }
+            else{
+                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
+                    if(!this.doneOnce){
+                        this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as you can before the time runs out. Good luck!";
                         this.doneOnce = true;
                     }
                 }
-                else if(this.doneOnce && !this.resetStep){
-                    this.timeOfStepFinished = time;
-                    this.doneOnce = false;
-                    this.resetStep = true;
-                    console.log("CLEARED");
-                }
                 else{
-                    if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
-                        if(!this.doneOnce){
-                            this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as you can before the time runs out. Good luck!";
-                            this.doneOnce = true;
-                        }
-                    }
-                    else{
-                        this.lessonStep = 9;
-                        this.doneOnce = false;  //Reset
-                        this.resetStep = false;
-                    }
+                    this.lessonStep = 9;
+                    this.doneOnce = false;  //Reset
+                    this.resetStep = false;
                 }
             }
+        }
 
 
     }
@@ -473,7 +495,7 @@ export class Tutorial extends DayScene {
     
 
     //Puzzle with push
-    task4(){
+    
 
         //Push objects to clear puzzle
 
@@ -481,21 +503,26 @@ export class Tutorial extends DayScene {
         //Push monsters into lava
 
 
-    }
+    
 
 
     update(time, delta) {
         super.update(time);       //Get rid of super since we will be using some new stuff only for tutorial
-        this.slimeFound = false;
+        //console.log("Enemy count: ",this.enemyGroup.getChildren().length, "lessonStep: ",this.lessonStep);
         for(var i = 0; i < this.enemyGroup.getChildren().length; i++){
             //console.log(this.enemyGroup.getChildren()[i].enemyType);
             if(this.enemyGroup.getChildren()[i].class.enemyType == "SLIME"){
-                this.slimeFound = true;
+                this.slimeFound = true; //This needs to be reset somewhere
+                break;
+            }
+            else{
+                this.slimeFound = false;
             }
         }
+        if(this.enemyGroup.getChildren().length == 0){
+            this.slimeFound = false;    //This is the reset counter
+        }
  
-
-
 
         if(!this.clearTasks){ this.tasks(time); }
         else{
@@ -577,20 +604,29 @@ export class Tutorial extends DayScene {
     spawn(num){
         if(!num){
             num = 1;
+            console.log("only one slime");
         }
+        else{
+            console.log("Spawning more slimes ",num);
+        }
+        console.log("Are there slimes on the map? ", this.slimeFound);  //false
+
+        //Clears the array first
+        for(let i = 0; i < this.slimeSpawnArr.length; i++){
+            this.slimeSpawnArr.pop();
+        }
+
         if(this.player.sprite.x < 1000 && this.player.sprite.x > 200 && this.player.sprite.y < 1000 && this.player.sprite.y > 200){
             for(let i = 0; i < num; i++){
-                this.slimeSpawnArr.push([i*20 + 400+this.player.sprite.x,i*20 + 500+this.player.sprite.y]);
+                this.slimeSpawnArr.push([i*200 + 400+this.player.sprite.x,i*200 + 500+this.player.sprite.y]);
             }
         }
         else{
             for(let i = 0; i < num; i++){
-                this.slimeSpawnArr.push([800+i*20,400+i*20]);
+                this.slimeSpawnArr.push([800+i*200,400+i*200]);
             }
         }
         this.slimeCount = this.slimeSpawnArr.length;
-
         let slime = this.spawnMoreSlimes();
-        return slime;
     }
 }

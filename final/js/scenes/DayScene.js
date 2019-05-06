@@ -410,6 +410,12 @@ export class DayScene extends Phaser.Scene {
         */
     }
 
+    healAllHeroes(){
+        this.shieldHero.health = 3;
+        this.swordHero.health = 3;
+        this.mageHero.health = 3;
+    }
+
     swapHero() {
 
         let tempX = this.player.sprite.x; //Save temporary placement of the current hero

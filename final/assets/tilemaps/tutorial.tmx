@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="36" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
- <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="21" columns="21">
-  <image source="../images/tiles/addableTiles.png" width="336" height="16"/>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="36" height="36" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="3">
+ <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="36" columns="36">
+  <image source="../images/tiles/addableTiles.png" width="576" height="16"/>
   <tile id="4">
    <properties>
     <property name="collide" type="bool" value="true"/>
@@ -44,7 +44,7 @@
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
@@ -138,4 +138,8 @@
 6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6
 </data>
  </layer>
+ <objectgroup id="6" name="objectsLayer">
+  <object id="1" name="door" gid="2" x="50" y="400" width="16" height="16"/>
+  <object id="2" name="barrel" gid="1" x="50" y="410" width="16" height="16"/>
+ </objectgroup>
 </map>

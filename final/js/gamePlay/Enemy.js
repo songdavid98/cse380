@@ -60,8 +60,8 @@ export class Enemy {
                 this.active = false;
                 console.log("killed");
                 this.scene.getMoney(this.killCost);
+                
                 this.destroySprite();    //Calls a function to destroy all the things attached to sprite
-
             }
         }
     }
@@ -70,6 +70,7 @@ export class Enemy {
         this.sprite.destroy();
         this.healthBar.destroy();
         this.greenBar.destroy();
+
     }
 
     slowDown() {

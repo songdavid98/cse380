@@ -118,12 +118,16 @@ export class Dungeon1 extends DayScene {
             this.items[i].x *= 5;
             this.items[i].y *= 5;
         }
-        this.map.createFromObjects('objectsLayer', 20, {
+        let treasure = this.map.createFromObjects('objectsLayer', 20, {
             key: 'treasure'
         });
         this.door = this.map.createFromObjects('objectsLayer', 2, {
             key: 'door'
         })[0];
+
+        console.log(treasure, this.door);
+
+
         this.door = this.physics.add.existing(this.door);
         this.door.body.setSize(this.door.body.width, this.door.body.height);
         this.door.body.setOffset(0, 0);
