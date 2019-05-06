@@ -197,6 +197,8 @@
             <key type="filename">../images/heroes/swordHero/attackUp/0002.png</key>
             <key type="filename">../images/heroes/swordHero/attackUp/0003.png</key>
             <key type="filename">../images/heroes/swordHero/attackUp/0004.png</key>
+            <key type="filename">../images/heroes/swordHero/left/0005.png</key>
+            <key type="filename">../images/heroes/swordHero/right/0005.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -281,6 +281,7 @@ export class DayScene extends Phaser.Scene {
     spawnMoreSlimes(){
          //Create the enemies
          for (var i = 0; i < this.slimeCount; i++) {
+             
             let scaleX = 5;
             let scaleY = 5;
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(scaleX, scaleY);

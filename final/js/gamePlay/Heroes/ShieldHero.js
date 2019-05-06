@@ -12,7 +12,7 @@ export class ShieldHero extends DayPlayer {
         super(data);
         this.playerType = HEROES.SHIELD_HERO; //Sword, mage, shield?
         this.health = 3;
-        this.basicAttack = 0;
+        this.basicAttack = 1;
         this.basicAttackSpeed = 300;
         this.specialAttack = 2;
         this.specialAttackSpeed = 3;
@@ -277,8 +277,6 @@ export class ShieldHero extends DayPlayer {
             } else if (this.angle <= 3 * Math.PI / 4 && this.angle > Math.PI / 4) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("downBasicAttackShield", true);
-                    console.log("Comes here");
-
                 } else {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("downIdleShield");
@@ -297,7 +295,6 @@ export class ShieldHero extends DayPlayer {
     //When this is called, for now, launch a projectile with the correct animation
     attackBasic(cursor) {
         this.isAttacking = true; //Need this for animation
-        console.log("attttacking");
         //  console.log(shieldSprite);
         //tempSprite.anims.play("shield", true);
         let pointY;
@@ -392,7 +389,6 @@ export class ShieldHero extends DayPlayer {
 
 
     swap() {
-        console.log(this.playerType);
         return super.swap(this.playerType);
     }
 

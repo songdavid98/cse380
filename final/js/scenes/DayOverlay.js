@@ -36,15 +36,15 @@ export class DayOverlayScene extends Phaser.Scene {
     }
     create() {
 
-
-        let textBar = this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
-        
-        this.text = this.add.text(30, 790, "Welcome to the tutorial", {
-            fontSize: '32px',
-            fill: '#000000',
-        }).setDepth(4);
-
-        
+        if(this.dayScene.mapLevel == 'tutorial'){
+            let textBar = this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
+            
+            this.text = this.add.text(30, 790, "Welcome to the tutorial", {
+                fontSize: '32px',
+                fill: '#000000',
+            }).setDepth(4);
+        }
+        console.log(this.dayScene.mapLevel);
 
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
@@ -167,10 +167,11 @@ export class DayOverlayScene extends Phaser.Scene {
         }
 
         //------------------- Text box stuff -----------------------
-        if(this.text != this.dayScene.textWords){
-            this.text.setText(this.dayScene.textWords);
+        if(this.dayScene.mapLevel == 'tutorial'){
+            if(this.text != this.dayScene.textWords){
+                this.text.setText(this.dayScene.textWords);
+            }
         }
-
 
         //---------------------------------------------------------
 
