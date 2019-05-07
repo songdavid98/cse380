@@ -20,7 +20,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         this.attackCooldown = 5;
         this.attacking = null;
         this.targetFound = null;
-        this.speed = 40;
+        this.speed = 125;
         this.movement = Math.floor(Math.random() * 200) + 25; //Monster keeps moving in square pattern for now
         this.killCost = 10;
         this.lastAttacked = 0;

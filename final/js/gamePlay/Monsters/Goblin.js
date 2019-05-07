@@ -4,7 +4,7 @@ import {
 
 import {
     Enemy
-} from "../Enemy.js";   
+} from "../Enemy.js";
 
 export class Goblin extends Enemy {
 
@@ -362,9 +362,7 @@ export class Goblin extends Enemy {
             gobClass.sprite.anims.play("downIdleGoblin");
         }
 
-
     }
-
 
 
     /*
@@ -542,8 +540,6 @@ export class Goblin extends Enemy {
             }
         }
     */
-
-
 
 
     nightUpdate(time, level) {

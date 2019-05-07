@@ -45,17 +45,17 @@ export class NightScene extends Phaser.Scene {
         this.map;
 
         this.gameEndTime = -1;
-        this.wavesLeft = 3;
 
         this.level = data.level;
         this.mapLevel;
+        this.music = null;
 
         //to place buttons
         this.buttonYinc = 100;
         this.buttonX = 150;
 
         //the limits on where you can place a tower
-        this.minX = 470;
+        this.minX = 290;
         this.minY = 60;
 
         //for tower test
@@ -68,18 +68,26 @@ export class NightScene extends Phaser.Scene {
 
         this.enemies = new Array();
         this.defStrs = new Array();
-
         this.defStrsSpritesGroup = this.physics.add.group();
         this.enemySpritesGroup = this.physics.add.group(); //a bunch of enemy sprites
 
         this.towerToBePlaced = null;
         this.towerSpriteForBuying = null;
 
-        this.music = null;
+        this.enemiesSpawned = 0;
+        this.numEnemySpawns = 30;
+        this.spawnX = 1600;
+        this.spawnY = 170;
+        this.enemiesToSpawn = [];
+        //        [30, ENEMIES.GOBLIN, 500] spawn 30 goblins at 0.5sec intervals
+        this.spawnIntervalVar = null;
+        this.timeToStopInterval = null;
+        this.currentlySpawning = null;
+        this.startWavePressed = false;
     }
 
     preload() {
-        this.load.image("terrain1", "./assets/tilemaps/uniqueTileSet.png");
+        this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
 
         this.load.image("buyarrow", "./assets/images/buttons/buyarrowturret.JPG");
         this.load.image("buycannon", "./assets/images/buttons/buycannonturret.JPG");
@@ -109,10 +117,13 @@ export class NightScene extends Phaser.Scene {
         this.music.play()
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
-        let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain1");
-        this.groundLayer = this.map.createStaticLayer("background ground", [terrain], 0, 0).setScale(5, 3);
-        this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(5, 3);
-        this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(5, 3);
+        this.terrain = this.map.addTilesetImage("addableTiles", "terrain");
+        this.groundLayer = this.map.createStaticLayer("background ground", [this.terrain], 0, 0).setScale(5, 3);
+        this.pathLayer = this.map.createStaticLayer("background path", [this.terrain], 1, 0).setScale(5, 3);
+        this.plantLayer = this.map.createStaticLayer("background plants", [this.terrain], 2, 0).setScale(5, 3);
+        this.rockLayer = this.map.createStaticLayer("background rocks", [this.terrain], 2, 0).setScale(5, 3);
+        this.wallLayer = this.map.createStaticLayer("background wall", [this.terrain], 4, 0).setScale(5, 3);
+
 
         //add money info
         this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(1);
@@ -150,125 +161,21 @@ export class NightScene extends Phaser.Scene {
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
-            if (this.wavesLeft < 1)
+            if (this.startWavePressed)
                 return;
-            this.wavesLeft--;
+            this.startWavePressed = true;
             //make a swtich case, to spawn different things for each level
             //Create the enemies
-            let slimeSpawnArr = [];
-            let slimeCount = 0;
-            let goblinSpawnArr = [];
-            let goblinCount = 0;
-            let golemSpawnArr = [];
-            let golemCount = 0;
             switch (this.level) {
                 case 1:
-                    slimeSpawnArr = [
-                        [1600, 160],
-                        [1600, 320],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700]
-                    ];
-                    slimeCount = slimeSpawnArr.length;
-                    for (let i = 0; i < slimeCount; i++) {
-                        let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newSlime = new Slime({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newSlime);
-                    }
-                    //Set collisions
-                    this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
+                    this.enemiesToSpawn = [
+                        [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
+                        [10, ENEMIES.GOBLIN, 1000]
+                    ]
                     break;
-
                 case 2:
-                    goblinSpawnArr = [
-                        [1600, 100],
-                        [1600, 200],
-                        [1600, 300],
-                        [1600, 400],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700],
-                        [1600, 350],
-                        [1600, 450],
-                        [1600, 550]
-                    ];
-                    goblinCount = goblinSpawnArr.length;
-                    for (let i = 0; i < goblinCount; i++) {
-                        let enemySprite = this.physics.add.sprite(goblinSpawnArr[i][0], goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'goblin/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newgoblin = new Goblin({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newgoblin);
-                    }
-                    slimeSpawnArr = [
-                        [1600, 100],
-                        [1600, 200],
-                        [1600, 300],
-                        [1600, 400],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700],
-                        [1600, 150],
-                        [1600, 250],
-                        [1600, 350],
-                        [1600, 450],
-                        [1600, 550],
-                        [1600, 650],
-                        [1600, 750]
-                    ];
-                    slimeCount = slimeSpawnArr.length;
-                    for (let i = 0; i < slimeCount; i++) {
-                        let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newSlime = new Slime({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newSlime);
-                    }
-                    //Set collisions
-                    this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
                     break;
                 case 3:
-                    golemSpawnArr = [
-                        [1600, 100],
-                        [1600, 200],
-                        [1600, 300],
-                        [1600, 400],
-                        [1600, 500],
-                        [1600, 600],
-                        [1600, 700],
-                        [1600, 150],
-                        [1600, 250],
-                        [1600, 350],
-                        [1600, 450],
-                        [1600, 550],
-                        [1600, 650],
-                        [1600, 750]
-                    ];
-                    golemCount = golemSpawnArr.length;
-                    for (let i = 0; i < golemCount; i++) {
-                        let enemySprite = this.physics.add.sprite(golemSpawnArr[i][0], golemSpawnArr[i][1], ENEMIES.GOLEM, 'golem/down/0001.png').setScale(5, 5);
-                        this.enemySpritesGroup.add(enemySprite);
-                        let newgolem = new Golem({
-                            "sprite": enemySprite,
-                            "physics": this.physics,
-                            "anims": this.anims
-                        });
-                        this.enemies.push(newgolem);
-                    }
-                    //Set collisions
-                    this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
                     break;
                 default:
                     break;
@@ -347,6 +254,25 @@ export class NightScene extends Phaser.Scene {
         this.input.keyboard.addKeys('One,Two,Three,Four,Five,Six,I');
     }
     update(time, delta) {
+        //enemy update, so that when the game ends, the enemy Pathfinding doesn't shut down
+        if (this.enemies) {
+            for (let i = 0; i < this.enemies.length; i++) {
+                let enem = this.enemies[i];
+                if (enem.sprite.x <= 0) {
+                    if (!this.invulnerable) {
+                        this.villageHealth--;
+                    }
+                    enem.health = 0;
+                }
+                if (enem.health <= 0) {
+                    enem.sprite.destroy();
+                    enem.active = false;
+                    this.enemies.splice(i, 1);
+                    i--;
+                } else
+                    enem.nightUpdate(time, this.level);
+            }
+        }
         // if the game is over
         if (this.gameEndTime != -1) {
             //  if 5 seconds has passed
@@ -361,7 +287,7 @@ export class NightScene extends Phaser.Scene {
         }
 
         //you win after you've defeating everything and village still alive
-        if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+        if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.enemiesSpawned >= this.numEnemySpawns && this.villageHealth > 0) {
             this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
@@ -382,6 +308,7 @@ export class NightScene extends Phaser.Scene {
             this.gameEndTime = time;
         }
 
+        //for pausing
         if (this.input.keyboard.keys[27].isDown && !this.justPaused) {
             this.justPaused = true
             this.music.pause();
@@ -394,28 +321,26 @@ export class NightScene extends Phaser.Scene {
             this.music.resume();
         }
 
+        //for stopping/restarting the spawn of enemies
+        if (this.timeToStopInterval && time >= this.timeToStopInterval) {
+
+            clearInterval(this.spawnIntervalVar);
+
+            if (this.enemiesToSpawn.length == 0) {
+                this.timeToStopInterval = null;
+                this.spawnIntervalVar = null;
+            } else {
+                let nextSetOfEnemies = this.enemiesToSpawn.shift();
+                this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
+            }
+        } else if (!this.spawnIntervalVar && this.enemiesToSpawn.length > 0) {
+            let nextSetOfEnemies = this.enemiesToSpawn.shift();
+            this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
+        }
+
         if (this.defStrs) {
             for (let i = 0; i < this.defStrs.length; i++)
                 this.defStrs[i].update(time, this.enemies);
-        }
-
-        if (this.enemies) {
-            for (let i = 0; i < this.enemies.length; i++) {
-                let enem = this.enemies[i];
-                if (enem.sprite.x <= 0) {
-                    if (!this.invulnerable) {
-                        this.villageHealth--;
-                    }
-                    enem.health = 0;
-                }
-                if (enem.health <= 0) {
-                    enem.sprite.destroy();
-                    enem.active = false;
-                    this.enemies.splice(i, 1);
-                    i--;
-                } else
-                    enem.nightUpdate(time, this.level);
-            }
         }
 
         this.moneyText.setText(":" + this.money);
@@ -453,34 +378,54 @@ export class NightScene extends Phaser.Scene {
             });
             this.scene.stop();
         }
-        /*else if(this.input.keyboard.keys[52].isDown){
-        >>>>>>> 2445a66226ec1d3aaa54b5cfd183f05317961ee6
-                    this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.NIGHT, {
-                        "money": this.money,
-                        "level": 1
-                    });
-                    this.scene.stop();
-                } else if (this.input.keyboard.keys[53].isDown) {
-                    this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.NIGHT, {
-                        "money": this.money,
-                        "level": 2
-                    });
-                    this.scene.stop();
-                } else if (this.input.keyboard.keys[54].isDown) {
-                    this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.NIGHT, {
-                        "money": this.money,
-                        "level": 3
-                    });
-                    this.scene.stop();
-                }*/
+    }
 
+    spawnEnemy(enemyType) {
+        let enemySprite = null;
+        switch (enemyType) {
+            case ENEMIES.SLIME:
+                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'slime/left/0001.png').setScale(5, 5);
+                this.enemySpritesGroup.add(enemySprite);
+                let newSlime = new Slime({
+                    "sprite": enemySprite,
+                    "physics": this.physics,
+                    "anims": this.anims
+                });
+                this.enemies.push(newSlime);
+                //Set collisions
+                break;
+            case ENEMIES.GOBLIN:
+                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOBLIN, 'goblin/left/0001.png').setScale(5, 5);
+                this.enemySpritesGroup.add(enemySprite);
+                let newgoblin = new Goblin({
+                    "sprite": enemySprite,
+                    "physics": this.physics,
+                    "anims": this.anims
+                });
+                this.enemies.push(newgoblin);
+                break;
+            case ENEMIES.GOLEM:
+                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOLEM, 'golem/left/0001.png').setScale(5, 5);
+                this.enemySpritesGroup.add(enemySprite);
+                let newgolem = new Golem({
+                    "sprite": enemySprite,
+                    "physics": this.physics,
+                    "anims": this.anims
+                });
+                this.enemies.push(newgolem);
+                this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
+                break;
+            default:
+                console.log("invalid enemy type in spawnEnemy");
+                break;
 
+        }
+    }
+
+    spawnMultipleEnemies(numberOfEnemies, enemyType, millisecInterval) {
+        this.currentlySpawning = enemyType;
+        this.timeToStopInterval = this.time.now + numberOfEnemies * millisecInterval;
+        this.spawnIntervalVar = setInterval(this.spawnEnemy.bind(this, this.currentlySpawning), millisecInterval);
     }
 
 }

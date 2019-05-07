@@ -45,7 +45,6 @@ export class NightScene extends Phaser.Scene {
         this.map;
 
         this.gameEndTime = -1;
-        this.wavesLeft = 3;
 
         this.level = data.level;
         this.mapLevel;
@@ -111,8 +110,10 @@ export class NightScene extends Phaser.Scene {
         this.map = this.add.tilemap(this.mapLevel);
         let terrain = this.map.addTilesetImage("uniqueTileSet", "terrain1");
         this.groundLayer = this.map.createStaticLayer("background ground", [terrain], 0, 0).setScale(5, 3);
-        this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 1, 0).setScale(5, 3);
-        this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 2, 0).setScale(5, 3);
+        this.pathLayer = this.map.createStaticLayer("background path", [terrain], 1, 0).setScale(5, 3);
+        this.plantLayer = this.map.createStaticLayer("background plants", [terrain], 2, 0).setScale(5, 3);
+        this.rockLayer = this.map.createStaticLayer("background rocks", [terrain], 3, 0).setScale(5, 3);
+        this.wallLayer = this.map.createStaticLayer("background wall", [terrain], 4, 0).setScale(5, 3);
 
         //add money info
         this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(1);
@@ -149,10 +150,6 @@ export class NightScene extends Phaser.Scene {
         //add button events
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
-            console.log("startwave pressed");
-            if (this.wavesLeft < 1)
-                return;
-            this.wavesLeft--;
             //make a swtich case, to spawn different things for each level
             //Create the enemies
             let slimeSpawnArr = [];
@@ -361,7 +358,7 @@ export class NightScene extends Phaser.Scene {
         }
 
         //you win after you've defeating everything and village still alive
-        if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.wavesLeft <= 0 && this.villageHealth > 0) {
+        if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.villageHealth > 0) {
             this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
@@ -453,34 +450,34 @@ export class NightScene extends Phaser.Scene {
             });
             this.scene.stop();
         }
-        /*else if(this.input.keyboard.keys[52].isDown){
-        >>>>>>> 2445a66226ec1d3aaa54b5cfd183f05317961ee6
-                    this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.NIGHT, {
-                        "money": this.money,
-                        "level": 1
-                    });
-                    this.scene.stop();
-                } else if (this.input.keyboard.keys[53].isDown) {
-                    this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.NIGHT, {
-                        "money": this.money,
-                        "level": 2
-                    });
-                    this.scene.stop();
-                } else if (this.input.keyboard.keys[54].isDown) {
-                    this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.NIGHT, {
-                        "money": this.money,
-                        "level": 3
-                    });
-                    this.scene.stop();
-                }*/
-
-
     }
 
+    spawnEnemy(enemyType, x, y) {
+        switch (enemyType) {
+            case ENEMIES.SLIME:
+
+                break;
+            case ENEMIES.GOBLIN:
+                break;
+            case ENEMIES.GOLEM:
+                break;
+            default:
+                console.log("incorrect enemy type in spawnEnemy function in nightScene.");
+                break;
+        }
+
+        slimeCount = slimeSpawnArr.length;
+        for (let i = 0; i < slimeCount; i++) {
+            let enemySprite = this.physics.add.sprite(slimeSpawnArr[i][0], slimeSpawnArr[i][1], ENEMIES.SLIME, 'slime/down/0001.png').setScale(5, 5);
+            this.enemySpritesGroup.add(enemySprite);
+            let newSlime = new Slime({
+                "sprite": enemySprite,
+                "physics": this.physics,
+                "anims": this.anims
+            });
+            this.enemies.push(newSlime);
+        }
+        //Set collisions
+        this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);
+    }
 }
