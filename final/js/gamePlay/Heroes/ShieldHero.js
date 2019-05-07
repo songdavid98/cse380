@@ -324,6 +324,13 @@ export class ShieldHero extends DayPlayer {
         this.scene.physics.add.collider(shieldBeamSprite, this.scene.wallLayer);
         //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
 
+        if(this.scene.barrel){
+            this.scene.barrel.body.immovable = false;
+            console.log("comes here");
+            this.scene.physics.add.collider(shieldBeamSprite, this.scene.barrel);
+        }   
+
+
         let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.angle)));
         let yy = Math.abs(shieldBeamSprite.width * (Math.cos(this.angle))) + Math.abs(shieldBeamSprite.height * (Math.cos(this.angle + Math.PI / 2)));
 
@@ -348,6 +355,14 @@ export class ShieldHero extends DayPlayer {
             }
             this.colliding = null;
             this.enemiesHit = null;
+
+            //Stop moving the barrels
+            if(this.class.scene.barrel){
+                this.class.scene.barrel.body.velocity.x = 0;
+                this.class.scene.barrel.body.velocity.y = 0;
+                this.class.scene.barrel.body.immovable = true;
+            }
+
             this.destroy();
         });
 

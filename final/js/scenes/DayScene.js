@@ -27,6 +27,8 @@ import {
 import {
     Goblin
 } from "../gamePlay/Monsters/Goblin.js";
+import { DangerGrass } from "../gamePlay/Tiles/DangerGrass.js";
+import { Lava } from "../gamePlay/Tiles/Lava.js";
 
 
 export class DayScene extends Phaser.Scene {
@@ -88,7 +90,21 @@ export class DayScene extends Phaser.Scene {
         this.map = this.add.tilemap(this.mapLevel);
         console.log(this.map);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
-       //this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
+
+
+        //Create environmental hazards
+        this.dangerGrass = new DangerGrass({
+            "physics": this.physics,
+            "anims": this.anims,
+            "scene": this
+        });
+
+        this.lava = new Lava({
+            "physics": this.physics,
+            "anims": this.anims,
+            "scene": this
+        });
+
 
 
         //Keyboard stuff

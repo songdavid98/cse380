@@ -10,6 +10,9 @@ import {
     ENEMIES
 } from "../constants/EnemyTypes.js";
 import {
+    ENVIRONMENT
+} from "../constants/EnvironmentTypes.js";
+import {
     Slime
 } from "../gamePlay/Monsters/Slime.js";
 import {

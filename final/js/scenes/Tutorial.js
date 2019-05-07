@@ -5,6 +5,7 @@ import{
 
 import { DayScene } from "./DayScene.js";
 import { HEROES } from "../constants/PlayerTypes.js";
+import { ENVIRONMENT } from "../constants/EnvironmentTypes.js";
 
 export class Tutorial extends DayScene {
     constructor() {
@@ -34,11 +35,9 @@ export class Tutorial extends DayScene {
         ];
         this.goblinCount = this.goblinSpawnArr.length;
 
-        this.clearTask1 = false;
-        this.clearTask2 = false;
-        this.clearTask3 = false;
-        this.clearTask4 = false;
 
+        //Lesson stuff
+        this.clearedTasks = false;
         this.lessonStep = 1;
         this.stepLength = 2;   //3 seconds
         this.doneOnce = false;
@@ -70,58 +69,66 @@ export class Tutorial extends DayScene {
         //this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
         this.baseLayer = this.map.createStaticLayer("groundLayer", [this.terrain], 0, 0).setScale(5, 5);
         this.grassLayer = this.map.createStaticLayer("grassLayer", [this.terrain], 0, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrassLayer", [this.terrain], 0, 0).setScale(5, 5);
         this.wallLayer = this.map.createStaticLayer("rockLayer", [this.terrain], 0, 0).setScale(5, 5);
-        //this.doorLayer = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
 
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
+
+        this.dangerGrassLayer.class = this.dangerGrass;
+
+
 
         //Keyboard stuff
         this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,Two,Three,Four,Five,Six');
 
         //collisions
         this.wallLayer.setCollision(6);     //For tutorial
-        //this.doorLayer.setCollision(18);
 
         this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
-        console.log(this.map.objects);
-        //this.doorCollider = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer);
 
 
         //Objects?
-        
         this.scaleObjects(.5);
         let doors = this.createObjects('objectsLayer','door','door', 16, 16);
         let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
         
-        /*doors = this.physics.add.existing(doors);
-        barrels[0] = this.physics.add.existing(barrels[0]);
+        doors[0] = this.physics.add.existing(doors[0]);
+        this.barrel = this.physics.add.existing(barrels[0]);
 
-        console.log(barrels);
-        console.log(barrels.body.width,barrels.body.height);
-        barrels[0].setSize(164, 164);
+        this.barrel.body.setSize(this.barrel.body.width, this.barrel.body.height);
+        doors[0].body.setSize(doors[0].body.width, doors[0].body.height);
 
-        doors.body.setSize(doors.body.width, doors.body.height);
-        doors.body.setOffset(0, 0);
-        barrels.body.setOffset(0, 0);
+        doors[0].body.setOffset(0, 0);
+        this.barrel.body.setOffset(0, 0);
 
-        this.physics.add.collider(this.playerGroup, barrels[0]);
-        */
-        console.log(barrels);
-        this.physics.add.collider(this.playerGroup.getChildren(), barrels.getChildren());
-        this.physics.add.collider(this.wallLayer,barrels.getChildren());
+        this.barrel.body.immovable = true;
+
+        this.physics.add.collider(this.playerGroup, this.barrel);
+        this.physics.add.collider(this.barrel, this.wallLayer);
+
         //door overlap
-        console.log(doors);
-        this.physics.add.overlap(doors.getChildren(), this.playerGroup.getChildren(), function (o1) {
-            console.log("OVERLAPPING");
-            o1.scene.music.pause();
-            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON1, {
-                "money": o1.scene.money,
-                "level": 1
-            });
-            o1.scene.scene.stop();
-            console.log("It's a whole new world");
+        this.physics.add.overlap(doors, this.playerGroup.getChildren(), function (o1) {
+            if(this.clearTasks){
+                o1.scene.music.pause();
+                o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+                o1.scene.scene.start(SCENES.DUNGEON1, {
+                    "money": o1.scene.money,
+                    "level": 1
+                });
+                o1.scene.scene.stop();
+                console.log("It's a whole new world");
+            }
+            else{
+                let temp = this.textWords;
+                console.log("Comes n ", temp);
+
+                this.textWords = "You can't move onto the next level until you cleared all the tasks.";
+            }
+        });
+
+        this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (player,hazard) {
+            player.damage(hazard.class);
         });
         
         this.map.currentLayer = this.baseLayer;
@@ -492,6 +499,7 @@ export class Tutorial extends DayScene {
                     this.lessonStep = 9;
                     this.doneOnce = false;  //Reset
                     this.resetStep = false;
+                    this.clearedTasks = true;
                 }
             }
         }

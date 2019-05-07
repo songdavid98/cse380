@@ -3,6 +3,8 @@
 import {SCENES} from "../constants/SceneNames.js";
 import {HEROES} from "../constants/PlayerTypes.js";
 import {ENEMIES} from "../constants/EnemyTypes.js";
+import {ENVIRONMENT} from "../constants/EnvironmentTypes.js";
+
 //import {DayPlayer} from "../gamePlay/DayPlayer.js";   //Don't use this!!!!!!!!!
 //import {Enemy} from "../gamePlay/Enemy.js";           //Don't use this!!!!!!!!!
 import {Slime} from "../gamePlay/Monsters/Slime.js";
