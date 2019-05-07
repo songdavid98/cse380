@@ -410,6 +410,12 @@ export class DayScene extends Phaser.Scene {
         */
     }
 
+    healAllHeroes(){
+        this.shieldHero.health = 3;
+        this.swordHero.health = 3;
+        this.mageHero.health = 3;
+    }
+
     swapHero() {
 
         let tempX = this.player.sprite.x; //Save temporary placement of the current hero
@@ -531,6 +537,27 @@ export class DayScene extends Phaser.Scene {
             this.money += money;
         } else {
             this.money = "MAXED_OUT";
+        }
+    }
+    createObjects(layer, name, key, spriteWidth, spriteHeight){
+        let objectGroup = this.physics.add.group(); //create new empty physics group
+        let objects = this.map.createFromObjects(layer,name,{key:key}); //create sprites not affected by physics
+        objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
+        let children = objectGroup.getChildren();
+        for(var i = 0; i < children.length; i++){
+            children[i].body.setSize(spriteWidth, spriteHeight);
+            children[i].body.setOffset(0,0);
+        }
+        objects = null //for garbage collection
+        return objectGroup;
+    }
+    scaleObjects(factor){
+        let items = this.map.objects[0].objects;
+        for (var i = 0; i < items.length; i++) {
+            items[i].width *= 5;
+            items[i].height *= 5;
+            items[i].x *= 5;
+            items[i].y *= 5;
         }
     }
 }

@@ -202,6 +202,21 @@
             <key type="filename">../images/tiles/newerTileImages/tallGrass.png</key>
             <key type="filename">../images/tiles/newerTileImages/treasure.png</key>
             <key type="filename">../images/tiles/newerTileImages/zhardgrass.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadBottom.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadDL.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadDR.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadLR.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadLeft.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadLeftBottom.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadLeftTop.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadNothing.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadRight.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadRightBottom.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadRightTop.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadTop.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadUD.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadUL.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zroadUR.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

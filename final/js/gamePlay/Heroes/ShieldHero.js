@@ -233,7 +233,6 @@ export class ShieldHero extends DayPlayer {
             if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("rightBasicAttackShield", true);
-                    console.log("Comes here");
                 } else {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("rightIdleShield");
@@ -247,8 +246,6 @@ export class ShieldHero extends DayPlayer {
             } else if (this.angle > -3 * Math.PI / 4 && this.angle <= -Math.PI / 4) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("upBasicAttackShield", true);
-                    console.log("Comes here");
-
                 } else {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("upIdleShield");
@@ -262,8 +259,6 @@ export class ShieldHero extends DayPlayer {
             } else if ((this.angle > 3 * Math.PI / 4 && this.angle <= Math.PI) || (this.angle <= -3 * Math.PI / 4 && this.angle >= -Math.PI)) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("leftBasicAttackShield", true);
-                    console.log("Comes here");
-
                 } else {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("leftIdleShield");

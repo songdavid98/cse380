@@ -163,6 +163,5 @@ export class LevelSelectionScene extends Phaser.Scene {
         if (this.input.keyboard.keys[27].isDown) {
             this.scene.start(SCENES.MAIN_MENU);
         }
-        console.log(this.music);
     }
 }
