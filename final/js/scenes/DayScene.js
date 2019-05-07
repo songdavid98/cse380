@@ -539,4 +539,16 @@ export class DayScene extends Phaser.Scene {
             this.money = "MAXED_OUT";
         }
     }
+    createObjects(layer, name, key){
+        return this.map.createFromObjects(layer,id,{key:key});
+    }
+    scaleObjects(factor){
+        let items = this.map.objects[0].objects;
+        for (var i = 0; i < items.length; i++) {
+            items[i].width *= 5;
+            items[i].height *= 5;
+            items[i].x *= 5;
+            items[i].y *= 5;
+        }
+    }
 }

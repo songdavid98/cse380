@@ -84,14 +84,17 @@ export class Tutorial extends DayScene {
 
         this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
+        console.log(this.map.objects);
         //this.doorCollider = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer);
 
 
         //Objects?
         
-        console.log(barrel, door);  
-
-        door = this.physics.add.existing(door);
+        this.scaleObjects(.5);
+        let doors = this.createObjects('objectsLayer','door','door');
+        let barrels = this.createObjects('objectsLayer','barrel','barrel');
+        
+        /*door = this.physics.add.existing(door);
         barrel = this.physics.add.existing(barrel);
 
         door.body.setSize(door.body.width, door.body.height);
@@ -113,7 +116,7 @@ export class Tutorial extends DayScene {
             o1.scene.scene.stop();
             console.log("It's a whole new world");
         });
-
+        */
         this.map.currentLayer = this.baseLayer;
 
     }
