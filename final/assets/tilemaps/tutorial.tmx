@@ -140,6 +140,6 @@
  </layer>
  <objectgroup id="6" name="objectsLayer">
   <object id="1" name="door" gid="2" x="50" y="400" width="16" height="16"/>
-  <object id="2" name="barrel" gid="1" x="50" y="410" width="16" height="16"/>
+  <object id="2" name="barrel" gid="1" x="35.5" y="439" width="16" height="16"/>
  </objectgroup>
 </map>

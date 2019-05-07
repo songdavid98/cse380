@@ -89,6 +89,23 @@ export class Tutorial extends DayScene {
 
 
         //Objects?
+        console.log(this.map.objects[0]);
+
+        this.items = this.map.objects[0].objects;
+        for (var i = 0; i < this.items.length; i++) {
+            this.items[i].width *= 5;
+            this.items[i].height *= 5;
+            this.items[i].x *= 5;
+            this.items[i].y *= 5;
+        }
+        
+        let barrel = this.map.createFromObjects('objectsLayer', 1, {
+            key: 'barrel'
+        })[1];
+        let door = this.map.createFromObjects('objectsLayer', 2, {
+            key: 'door'
+        })[0];
+
         
         this.scaleObjects(.5);
         let doors = this.createObjects('objectsLayer','door','door');
@@ -99,9 +116,9 @@ export class Tutorial extends DayScene {
 
         door.body.setSize(door.body.width, door.body.height);
         door.body.setOffset(0, 0);
-        barrel.body.setOffset(0, 0);
+        //barrel.body.setOffset(0, 0);
 
-        this.physics.add.collider(this.playerGroup, barrel);
+        //this.physics.add.collider(this.playerGroup, barrel);
 
 
         //door overlap
@@ -285,7 +302,6 @@ export class Tutorial extends DayScene {
                         this.textWords = "Great, you defeated a slime!";
                         this.saidOnce = true;
                     }
-                    console.log(time, this.timeOfStepFinished);
                 }
                 else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
                     if(this.saidOnce){
