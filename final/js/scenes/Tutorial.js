@@ -91,10 +91,10 @@ export class Tutorial extends DayScene {
         //Objects?
         
         this.scaleObjects(.5);
-        let doors = this.createObjects('objectsLayer','door','door');
-        let barrels = this.createObjects('objectsLayer','barrel','barrel');
+        let doors = this.createObjects('objectsLayer','door','door', 16, 16);
+        let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
         
-        doors = this.physics.add.existing(doors);
+        /*doors = this.physics.add.existing(doors);
         barrels[0] = this.physics.add.existing(barrels[0]);
 
         console.log(barrels);
@@ -106,10 +106,13 @@ export class Tutorial extends DayScene {
         barrels.body.setOffset(0, 0);
 
         this.physics.add.collider(this.playerGroup, barrels[0]);
-
-
+        */
+        console.log(barrels);
+        this.physics.add.collider(this.playerGroup.getChildren(), barrels.getChildren());
+        this.physics.add.collider(this.wallLayer,barrels.getChildren());
         //door overlap
-        this.physics.add.overlap(doors, this.playerGroup.getChildren(), function (o1) {
+        console.log(doors);
+        this.physics.add.overlap(doors.getChildren(), this.playerGroup.getChildren(), function (o1) {
             console.log("OVERLAPPING");
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);

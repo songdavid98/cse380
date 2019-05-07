@@ -539,8 +539,17 @@ export class DayScene extends Phaser.Scene {
             this.money = "MAXED_OUT";
         }
     }
-    createObjects(layer, name, key){
-        return this.map.createFromObjects(layer,name,{key:key});
+    createObjects(layer, name, key, spriteWidth, spriteHeight){
+        let objectGroup = this.physics.add.group(); //create new empty physics group
+        let objects = this.map.createFromObjects(layer,name,{key:key}); //create sprites not affected by physics
+        objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
+        let children = objectGroup.getChildren();
+        for(var i = 0; i < children.length; i++){
+            children[i].body.setSize(spriteWidth, spriteHeight);
+            children[i].body.setOffset(0,0);
+        }
+        objects = null //for garbage collection
+        return objectGroup;
     }
     scaleObjects(factor){
         let items = this.map.objects[0].objects;
