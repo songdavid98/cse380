@@ -89,40 +89,27 @@ export class Tutorial extends DayScene {
 
 
         //Objects?
-        console.log(this.map.objects[0]);
-
-        this.items = this.map.objects[0].objects;
-        for (var i = 0; i < this.items.length; i++) {
-            this.items[i].width *= 5;
-            this.items[i].height *= 5;
-            this.items[i].x *= 5;
-            this.items[i].y *= 5;
-        }
-        
-        let barrel = this.map.createFromObjects('objectsLayer', 1, {
-            key: 'barrel'
-        })[1];
-        let door = this.map.createFromObjects('objectsLayer', 2, {
-            key: 'door'
-        })[0];
-
         
         this.scaleObjects(.5);
         let doors = this.createObjects('objectsLayer','door','door');
         let barrels = this.createObjects('objectsLayer','barrel','barrel');
         
-        /*door = this.physics.add.existing(door);
-        barrel = this.physics.add.existing(barrel);
+        doors = this.physics.add.existing(doors);
+        barrels[0] = this.physics.add.existing(barrels[0]);
 
-        door.body.setSize(door.body.width, door.body.height);
-        door.body.setOffset(0, 0);
-        //barrel.body.setOffset(0, 0);
+        console.log(barrels);
+        console.log(barrels.body.width,barrels.body.height);
+        barrels[0].setSize(164, 164);
 
-        //this.physics.add.collider(this.playerGroup, barrel);
+        doors.body.setSize(doors.body.width, doors.body.height);
+        doors.body.setOffset(0, 0);
+        barrels.body.setOffset(0, 0);
+
+        this.physics.add.collider(this.playerGroup, barrels[0]);
 
 
         //door overlap
-        this.physics.add.overlap(door, this.playerGroup.getChildren(), function (o1) {
+        this.physics.add.overlap(doors, this.playerGroup.getChildren(), function (o1) {
             console.log("OVERLAPPING");
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
@@ -133,7 +120,7 @@ export class Tutorial extends DayScene {
             o1.scene.scene.stop();
             console.log("It's a whole new world");
         });
-        */
+        
         this.map.currentLayer = this.baseLayer;
 
     }

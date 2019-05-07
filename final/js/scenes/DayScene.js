@@ -540,7 +540,7 @@ export class DayScene extends Phaser.Scene {
         }
     }
     createObjects(layer, name, key){
-        return this.map.createFromObjects(layer,id,{key:key});
+        return this.map.createFromObjects(layer,name,{key:key});
     }
     scaleObjects(factor){
         let items = this.map.objects[0].objects;
