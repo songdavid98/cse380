@@ -31,6 +31,12 @@
          "id":7,
          "name":"dangerGrassLayer",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"damage",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":36,

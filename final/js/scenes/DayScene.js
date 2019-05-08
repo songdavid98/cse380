@@ -114,9 +114,9 @@ export class DayScene extends Phaser.Scene {
         this.enemyGroup = this.physics.add.group();
         
         //Create the heroes
-        this.shieldHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5);
-        this.swordHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5);
-        this.mageHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5);
+        this.shieldHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
+        this.swordHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
+        this.mageHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
 
         this.playerGroup = this.physics.add.group();
 
@@ -277,10 +277,7 @@ export class DayScene extends Phaser.Scene {
 
 
         this.input.on('pointerdown', function (pointer) {
-
-            if (this.player.dead) {
-
-            } else if (pointer.leftButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
+            if (!this.player.dead && pointer.leftButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
@@ -430,6 +427,9 @@ export class DayScene extends Phaser.Scene {
         this.shieldHero.health = 3;
         this.swordHero.health = 3;
         this.mageHero.health = 3;
+        this.shieldHero.dead = false;
+        this.swordHero.dead = false;
+        this.mageHero.dead = false;
     }
 
     swapHero() {
@@ -558,12 +558,16 @@ export class DayScene extends Phaser.Scene {
     createObjects(layer, name, key, spriteWidth, spriteHeight){
         let objectGroup = this.physics.add.group(); //create new empty physics group
         let objects = this.map.createFromObjects(layer,name,{key:key}); //create sprites not affected by physics
+
         objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
         let children = objectGroup.getChildren();
         for(var i = 0; i < children.length; i++){
             children[i].body.setSize(spriteWidth, spriteHeight);
             children[i].body.setOffset(0,0);
+            children[i].setDepth(0);   
         }
+        console.log(objectGroup);
+        
         objects = null //for garbage collection
         return objectGroup;
     }

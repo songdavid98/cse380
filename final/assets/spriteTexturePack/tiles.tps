@@ -217,6 +217,18 @@
             <key type="filename">../images/tiles/newerTileImages/zroadUD.png</key>
             <key type="filename">../images/tiles/newerTileImages/zroadUL.png</key>
             <key type="filename">../images/tiles/newerTileImages/zroadUR.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzdangerGrass.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava1.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava10.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava11.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava2.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava3.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava4.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava5.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava6.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava7.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava8.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava9.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

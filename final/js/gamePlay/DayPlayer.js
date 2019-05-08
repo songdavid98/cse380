@@ -199,7 +199,7 @@ export class DayPlayer {
                 this.invulnerable = true;
                 this.active = false;
 
-                if (this.health > 0) {
+                if (this.health > 0 && !this.semiInvincible) {
                     this.health -= monster.class.basicAttack;
                     if (this.health <= 0) {
                         this.dead = true;
@@ -218,7 +218,38 @@ export class DayPlayer {
                     console.log(this.lastDamaged);
                 }
                 else if(this.dead && this.semiInvincible){
-                    this.health = 3;
+                    this.scene.healAllHeroes();
+                    this.dead = false;
+                }
+            }
+        }
+    }
+
+    hazardDamage(value){
+        if(!this.invincible){
+            if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
+                this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
+                this.invulnerable = true;
+                this.active = false;
+
+                if (this.health > 0 && !this.semiInvincible) {
+                    this.health -= value;
+                    if (this.health <= 0) {
+                        this.dead = true;
+                    }
+                }
+                
+                //Push back stuff
+                if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
+                    this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
+                } 
+                if (this.dead && !this.semiInvincible) {
+                    this.scene.swapHero(this.scene.lastDamaged);
+                    console.log("I'm dead so I'll swap");
+                    console.log(this.lastDamaged);
+                }
+                else if(this.dead && this.semiInvincible){
+                    this.scene.healAllHeroes();
                     this.dead = false;
                 }
             }

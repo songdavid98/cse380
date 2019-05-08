@@ -37,8 +37,6 @@ export class Tutorial extends DayScene {
 
 
         //Lesson stuff
-        this.clearedTasks = false;
-        this.lessonStep = 1;
         this.stepLength = 2;   //3 seconds
         this.doneOnce = false;
         this.resetStep = false;
@@ -74,10 +72,6 @@ export class Tutorial extends DayScene {
 
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
 
-        this.dangerGrassLayer.class = this.dangerGrass;
-
-
-
         //Keyboard stuff
         this.input.keyboard.addKeys('W,S,A,D,Space,Esc,I,Two,Three,Four,Five,Six');
 
@@ -93,31 +87,21 @@ export class Tutorial extends DayScene {
         let doors = this.createObjects('objectsLayer','door','door', 16, 16);
         let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
         
-        doors[0] = this.physics.add.existing(doors[0]);
-        this.barrel = this.physics.add.existing(barrels[0]);
-
-        this.barrel.body.setSize(this.barrel.body.width, this.barrel.body.height);
-        doors[0].body.setSize(doors[0].body.width, doors[0].body.height);
-
-        doors[0].body.setOffset(0, 0);
-        this.barrel.body.setOffset(0, 0);
+        this.door = this.physics.add.existing(doors.getChildren()[0]);
+        this.barrel = this.physics.add.existing(barrels.getChildren()[0]);
 
         this.barrel.body.immovable = true;
+        this.door.lessonStep = 1; 
+        this.door.clearedTasks = false;       
 
         this.physics.add.collider(this.playerGroup, this.barrel);
         this.physics.add.collider(this.barrel, this.wallLayer);
 
         //door overlap
-        this.physics.add.overlap(doors, this.playerGroup.getChildren(), function (o1) {
-            if(this.clearTasks){
-                o1.scene.music.pause();
-                o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-                o1.scene.scene.start(SCENES.DUNGEON1, {
-                    "money": o1.scene.money,
-                    "level": 1
-                });
-                o1.scene.scene.stop();
-                console.log("It's a whole new world");
+        this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1,o2) {
+            if(o1.lessonStep == 8){
+                o1.clearedTasks = true;
+                console.log("Duneon enter");
             }
             else{
                 let temp = this.textWords;
@@ -127,10 +111,21 @@ export class Tutorial extends DayScene {
             }
         });
 
-        this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (player,hazard) {
-            player.damage(hazard.class);
+
+
+
+        this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (playerSprite,hazard) {
+            if(hazard.index != -1){
+                playerSprite.class.hazardDamage(hazard.layer.properties[0].value);
+                console.log("Getting hit by some weed");
+            }
         });
-        
+        this.physics.add.overlap(this.enemyGroup.getChildren(), this.dangerGrassLayer, function (enemySprite,hazard) {
+            if(hazard.index != -1){
+                enemySprite.class.damaged(hazard.layer.properties[0].value);
+                console.log("Getting hit by some weed");
+            }
+        });
         this.map.currentLayer = this.baseLayer;
 
     }
@@ -138,11 +133,14 @@ export class Tutorial extends DayScene {
     //Walk and attack slimes, get coins
     tasks(time){
         //Walk with ASDW
-        if(this.lessonStep == 1){
+        if(this.door.lessonStep == 1){
             if(this.player.sprite.x <= this.initPos[0]+250 && this.player.sprite.x >= this.initPos[0]-250 && this.player.sprite.y <= this.initPos[1]+250 && this.player.sprite.y >= this.initPos[1]-250){
                 if(!this.doneOnce){
                     this.textWords = "Your first task is to move. Press the A,S,W,D keys on the keyboard to move\nthe player.";
                     this.doneOnce = true;
+                    this.shieldHero.semiInvincible = true;
+                    this.swordHero.semiInvincible = true;
+                    this.mageHero.semiInvincible = true;
                 }
             }
             else if(this.doneOnce && !this.resetStep){
@@ -161,7 +159,7 @@ export class Tutorial extends DayScene {
                         }
                     }
                     else{
-                        this.lessonStep = 2;
+                        this.door.lessonStep = 2;
                         this.doneOnce = false;  //Reset
                         this.resetStep = false;
                         this.tempMoney = this.money;    //debugging purpose
@@ -173,7 +171,7 @@ export class Tutorial extends DayScene {
         }
 
         //Direction with mouse
-        else if(this.lessonStep == 2){
+        else if(this.door.lessonStep == 2){
             if(180*this.player.properAngle()/Math.PI+5 >= 0 && 180*this.player.properAngle()/Math.PI-5 <= 0){
                 this.clearedAngle[0] = true;
             }
@@ -208,7 +206,7 @@ export class Tutorial extends DayScene {
                         }
                     }
                     else{
-                        this.lessonStep = 3;
+                        this.door.lessonStep = 3;
                         this.doneOnce = false;  //Reset
                         this.resetStep = false;
                     }
@@ -217,11 +215,10 @@ export class Tutorial extends DayScene {
         }
 
         //Click to attack
-        else if(this.lessonStep == 3){
+        else if(this.door.lessonStep == 3){
             if(this.money == 0){
                 if(!this.doneOnce && !this.slimeFound){
                     this.textWords = "A single slime will spawn somewhere on the map. Try locating\nit and then attacking by left-clicking the mouse.\nFor now, you will have infinite lives.";
-                    this.player.semiInvincible = true;
                     this.spawn();
                     this.doneOnce = true;
                 }
@@ -243,19 +240,19 @@ export class Tutorial extends DayScene {
                     else{
                         switch(this.currentPlayer){
                             case HEROES.SWORD_HERO:
-                                this.lessonStep = 4;    //Go to mage
+                            this.door.lessonStep = 4;    //Go to mage
                                 this.killedWithShield = false;
                                 this.killedWithSword = true;
                                 this.killedWithMage = false;
                                 break;
                             case HEROES.MAGE_HERO:
-                                this.lessonStep = 5;    //Go to shield
+                            this.door.lessonStep = 5;    //Go to shield
                                 this.killedWithShield = false;
                                 this.killedWithSword = false;
                                 this.killedWithMage = true;
                                 break;
                             case HEROES.SHIELD_HERO:
-                                this.lessonStep = 6;    //Go to sword
+                            this.door.lessonStep = 6;    //Go to sword
                                 this.killedWithShield = true;
                                 this.killedWithSword = false;
                                 this.killedWithMage = false;
@@ -272,7 +269,7 @@ export class Tutorial extends DayScene {
         }
 
         //Swapping heroes to mage
-        else if(this.lessonStep == 4){
+        else if(this.door.lessonStep == 4){
             if(this.player.playerType != HEROES.MAGE_HERO && !this.killedWithMage){
                 if(!this.doneOnce){
                     this.textWords = "Now, try switching heroes. Press the space bar to turn in to the MAGE hero.\nFind and defeat a slime with the mage hero.";
@@ -286,7 +283,7 @@ export class Tutorial extends DayScene {
                 }
             }
             //Go here if you kill the slime with the mage
-            else if(this.player.playerType == HEROES.MAGE_HERO && this.doneOnce && !this.slimeFound){
+            else if((this.player.playerType == HEROES.MAGE_HERO && this.doneOnce && !this.slimeFound) || (!this.onlyOnce)){
                 if(this.onlyOnce){
                     this.timeOfStepFinished = time;
                     this.onlyOnce = false;
@@ -310,10 +307,10 @@ export class Tutorial extends DayScene {
                 else if(this.youCanMoveOn){
                     console.log("FINISHED MAGE");
                     if(this.killedWithShield){ 
-                        if(this.killedWithSword){ this.lessonStep = 7; }    //Go to next step
-                        else{ this.lessonStep = 6; }                        //Go to sword
+                        if(this.killedWithSword){ this.door.lessonStep = 7; }    //Go to next step
+                        else{ this.door.lessonStep = 6; }                        //Go to sword
                     }
-                    else{ this.lessonStep = 5; }                            //Go to shield
+                    else{ this.door.lessonStep = 5; }                            //Go to shield
                     
                     this.doneOnce = false;  //Reset
                     this.saidOnce = false;  //Reset
@@ -327,7 +324,7 @@ export class Tutorial extends DayScene {
         }
 
         //Swap to shield 
-        else if(this.lessonStep == 5){
+        else if(this.door.lessonStep == 5){
             if(this.player.playerType != HEROES.SHIELD_HERO && !this.killedWithShield){
                 if(!this.doneOnce){
                     this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SHIELD hero.\nThe shield hero doesn't deal damage. But you can use her attack to push monsters into hazardous environment!\nFind and defeat a slime with the shield hero.";
@@ -340,7 +337,7 @@ export class Tutorial extends DayScene {
 
                 }
             }
-            else if(this.player.playerType == HEROES.SHIELD_HERO && this.doneOnce && !this.slimeFound){
+            else if((this.player.playerType == HEROES.SHIELD_HERO && this.doneOnce && !this.slimeFound) || (!this.onlyOnce)){
                 if(this.onlyOnce){
                     this.timeOfStepFinished = time;
                     this.onlyOnce = false;
@@ -364,10 +361,10 @@ export class Tutorial extends DayScene {
                 else if(this.youCanMoveOn){
                     console.log("FINISHED SHIELD");
                     if(this.killedWithMage){ 
-                        if(this.killedWithSword){ this.lessonStep = 7; }    //Go to next step
-                        else{ this.lessonStep = 6; }                        //Go to sword
+                        if(this.killedWithSword){ this.door.lessonStep = 7; }    //Go to next step
+                        else{ this.door.lessonStep = 6; }                        //Go to sword
                     }
-                    else{ this.lessonStep = 4; }                            //Go to mage
+                    else{ this.door.lessonStep = 4; }                            //Go to mage
                     
                     this.doneOnce = false;  //Reset
                     this.saidOnce = false;
@@ -380,7 +377,7 @@ export class Tutorial extends DayScene {
         }
 
         //Swapping heroes to sword
-        else if(this.lessonStep == 6){
+        else if(this.door.lessonStep == 6){
             if(this.player.playerType != HEROES.SWORD_HERO && !this.killedWithSword){
                 if(!this.doneOnce){
                     this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SWORD hero.\nFind and defeat a slime with the sword hero.";
@@ -392,7 +389,7 @@ export class Tutorial extends DayScene {
                     console.log(this.slimeCount);
                 }
             }
-            else if(this.player.playerType == HEROES.SWORD_HERO && this.doneOnce && !this.slimeFound){
+            else if((this.player.playerType == HEROES.SWORD_HERO && this.doneOnce && !this.slimeFound) || (!this.onlyOnce)){
                 if(this.onlyOnce){
                     this.timeOfStepFinished = time;
                     this.killedWithSword = true;
@@ -415,10 +412,10 @@ export class Tutorial extends DayScene {
                 }
                 else if(this.youCanMoveOn){
                     if(this.killedWithShield){ 
-                        if(this.killedWithMage){ this.lessonStep = 7; }    //Go to next step
-                        else{ this.lessonStep = 4; }                        //Go to mage
+                        if(this.killedWithMage){ this.door.lessonStep = 7; }    //Go to next step
+                        else{ this.door.lessonStep = 4; }                        //Go to mage
                     }
-                    else{ this.lessonStep = 5; }                            //Go to shield
+                    else{ this.door.lessonStep = 5; }                            //Go to shield
                     
                     this.doneOnce = false;  //Reset
                     this.saidOnce = false;
@@ -433,20 +430,22 @@ export class Tutorial extends DayScene {
 
 
         //Look at coins and defeat more monsters
-        else if(this.lessonStep == 7){
+        else if(this.door.lessonStep == 7){
             //console.log("WELCOME TO THE NEXT LEVEL", this.tempMoney, this.money);
             if(this.tempMoney+30 > this.money){
-                if(!this.doneOnce && Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
-                    this.textWords = "When you defeat a monster, you will get coins.Take a look at the top right of\nthe screen. The more coins you collect, the more defence structures you will\nbe able to buy for night.";
+                if(!this.doneOnce && Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+3){
+                    this.textWords = "When you defeat a monster, you will get coins. Take a look at the top right of\nthe screen. The more coins you collect, the more defence structures you will\nbe able to buy for night.";
                     this.doneOnce = true;
                     this.killedWithSword = false;
                     this.killedWithShield = false;
                     this.killedWithMage = false;
                 }
                 else{
-                    if(this.doneOnce&& Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) > this.stepLength){
-                        this.textWords = "Now, more slimes will spawn. Find and defeat 3 more slimes.\nAll your health will be restored now,\nbut this time, you won't be invincible so becareful!";
-                        this.player.semiInvincible = false;
+                    if(this.doneOnce&& Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) > this.stepLength+6){
+                        this.textWords = "Now, more slimes will spawn. Find and defeat 3 more slimes.\nAll your health will be restored now, but this time, you won't be invincible\nso becareful!";
+                        this.shieldHero.semiInvincible = false;
+                        this.swordHero.semiInvincible = false;
+                        this.mageHero.semiInvincible = false;
                         this.healAllHeroes();
                         this.spawn(3);
                         this.doneOnce = false;
@@ -467,7 +466,7 @@ export class Tutorial extends DayScene {
                     }
                 }
                 else{
-                    this.lessonStep = 8;
+                    this.door.lessonStep = 8;
                     this.doneOnce = false;  //Reset
                     this.resetStep = false;
                 }
@@ -475,11 +474,12 @@ export class Tutorial extends DayScene {
         }
 
             //Look at coins and defeat more monsters
-        else if(this.lessonStep == 8){
-            if(!this.slimeFound){
+        else if(this.door.lessonStep == 8){
+            if(!this.door.clearedTasks){
                 if(!this.doneOnce && !this.slimeFound){
-                    this.textWords = "Now, find the dungeon door! If you need to move objects to get through, use the shield hero!";
+                    this.textWords = "Now, find the dungeon door! If you need to move objects to get through,\nuse the shield hero!";
                     this.doneOnce = true;
+                    this.healAllHeroes();
                 }
             }
             else if(this.doneOnce && !this.resetStep){
@@ -489,17 +489,22 @@ export class Tutorial extends DayScene {
                 console.log("CLEARED");
             }
             else{
-                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
+                console.log("Enter");
+                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+2){
                     if(!this.doneOnce){
-                        this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as you can before the time runs out. Good luck!";
+                        this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
                         this.doneOnce = true;
                     }
                 }
                 else{
-                    this.lessonStep = 9;
-                    this.doneOnce = false;  //Reset
-                    this.resetStep = false;
-                    this.clearedTasks = true;
+                    this.music.pause();
+                    this.scene.stop(SCENES.DAY_OVERLAY);
+                    this.scene.start(SCENES.DUNGEON1, {
+                        "money": this.money,
+                        "level": 1
+                    });
+                    this.scene.stop();
+                    console.log("It's a whole new world");
                 }
             }
         }

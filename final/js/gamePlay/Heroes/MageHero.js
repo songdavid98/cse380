@@ -304,8 +304,8 @@ export class MageHero extends DayPlayer {
         let xx = Math.abs(magicBeamSprite.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(magicBeamSprite.width * (Math.sin(this.angle)));
         let yy = Math.abs(magicBeamSprite.width * (Math.cos(this.angle))) + Math.abs(magicBeamSprite.height * (Math.cos(this.angle + Math.PI / 2)));
 
-        magicBeamSprite.body.setSize(xx, yy);
-        magicBeamSprite.body.setOffset(magicBeamSprite.body.offset.x - 35, magicBeamSprite.body.offset.y - 50);
+        magicBeamSprite.body.setSize(xx-15, yy-15);
+        magicBeamSprite.body.setOffset(magicBeamSprite.body.offset.x - 65, magicBeamSprite.body.offset.y - 65);
         //shieldBeamSprite.body.reset(shieldBeamSprite.x, shieldBeamSprite.y);
 
         magicBeamSprite.setRotation(this.angle);
