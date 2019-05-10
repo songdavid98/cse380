@@ -83,14 +83,15 @@ export class NightScene extends Phaser.Scene {
         this.spawnIntervalVar = null;
         this.currentlySpawning = null;
         this.startWavePressed = false;
+        this.timeToStopInterval = null;
     }
 
     preload() {
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
 
-        this.load.image("buyarrow", "./assets/images/buttons/buyarrowturret.JPG");
+        this.load.image("buyicetower", "./assets/images/buttons/buyicetower.JPG");
         this.load.image("buycannon", "./assets/images/buttons/buycannonturret.JPG");
-        this.load.image("buywall", "./assets/images/buttons/buywall.JPG");
+
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
         this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
@@ -144,9 +145,8 @@ export class NightScene extends Phaser.Scene {
 
         //create buttons
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
-        let buywall = this.add.image(this.buttonX, this.buttonYinc * 3, "buywall").setDepth(3).setScale(1.5, 1.5);
-        let buyarrow = this.add.image(this.buttonX, this.buttonYinc * 4, "buyarrow").setDepth(3).setScale(1.5, 1.5);
-        let buycannon = this.add.image(this.buttonX, this.buttonYinc * 5, "buycannon").setDepth(3).setScale(1, 1);
+        let buyicetower = this.add.image(this.buttonX, this.buttonYinc * 6, "buyicetower").setDepth(3).setScale(1, 1);
+        let buycannon = this.add.image(this.buttonX, this.buttonYinc * 7, "buycannon").setDepth(3).setScale(1, 1);
 
 
         this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the the town! Enemies coming from the forest!", {
@@ -196,14 +196,10 @@ export class NightScene extends Phaser.Scene {
 
         });
 
-        buywall.setInteractive();
-        buywall.on("pointerdown", () => {
-            console.log("buywall pressed");
-        });
 
-        buyarrow.setInteractive();
-        buyarrow.on("pointerdown", () => {
-            console.log("buyArrow pressed");
+        buyicetower.setInteractive();
+        buyicetower.on("pointerdown", () => {
+            console.log("buyicetower pressed");
         });
 
         buycannon.setInteractive();
@@ -341,9 +337,11 @@ export class NightScene extends Phaser.Scene {
             clearInterval(this.spawnIntervalVar);
 
             if (this.enemiesToSpawn.length == 0) {
+                this.timeToStopInterval = null;
                 this.spawnIntervalVar = null;
             } else {
                 let nextSetOfEnemies = this.enemiesToSpawn.shift();
+                console.log(nextSetOfEnemies);
                 this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
             }
         } else if (!this.spawnIntervalVar && this.enemiesToSpawn.length > 0) {
@@ -445,7 +443,8 @@ export class NightScene extends Phaser.Scene {
             args:[enemyType],
             callbackScope: this,
             repeat:numberOfEnemies
-        })
+        });
+        this.timeToStopInterval = numberOfEnemies * msInterval + this.time.now;
     }
 
 
