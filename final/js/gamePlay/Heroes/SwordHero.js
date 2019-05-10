@@ -23,7 +23,12 @@ export class SwordHero extends DayPlayer {
 
         this.attackCooldown = 1;
         this.damageCooldown = 3;
-        this.sprite.class = this;
+        this.sprite.class = this; 
+
+        this.continueSpecialAttack = false;
+        this.startSpecialAttackTime;
+        this.specialAttackDuration = 2; //10 seconds
+
         this.create();
     }
     init() {}
@@ -194,6 +199,60 @@ export class SwordHero extends DayPlayer {
             repeat: 0
         });
 
+        var downBasicAttackFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, {
+            start: 1,
+            end: 4,
+            zeroPad: 4,
+            prefix: 'attackDown/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'downBasicAttackSword',
+            frames: downBasicAttackFrame,
+            frameRate: 13,
+            repeat: 0
+        });
+
+        var downBasicAttackFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, {
+            start: 1,
+            end: 4,
+            zeroPad: 4,
+            prefix: 'attackDown/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'downBasicAttackSword',
+            frames: downBasicAttackFrame,
+            frameRate: 13,
+            repeat: 0
+        });
+
+        var downBasicAttackFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, {
+            start: 1,
+            end: 4,
+            zeroPad: 4,
+            prefix: 'attackDown/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'downBasicAttackSword',
+            frames: downBasicAttackFrame,
+            frameRate: 13,
+            repeat: 0
+        });
+
+        var specialStartFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 1,end: 9, zeroPad: 4, prefix: 'specialStart/',suffix: '.png'});
+        this.anims.create({ key: 'specialStart', frames: specialStartFrame, frameRate: 10, repeat: 0 });
+
+        var specialAttackFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 1,end: 5, zeroPad: 4, prefix: 'special/',suffix: '.png'});
+        this.anims.create({ key: 'special', frames: specialAttackFrame, frameRate: 5, repeat: -1 });
+        
+        var specialEndFrame = this.anims.generateFrameNames(HEROES.SWORD_HERO, { start: 1,end: 9, zeroPad: 4, prefix: 'specialStart/',suffix: '.png'});
+        this.anims.create({ key: 'specialEnd', frames: specialEndFrame, frameRate: 10, repeat: 0 });
+
+
+
+
         this.sprite.on('animationcomplete', function (anim, frame) {
             this.emit('animationcomplete_' + anim.key, anim, frame);
         }, this.sprite);
@@ -208,9 +267,19 @@ export class SwordHero extends DayPlayer {
             this.class.attacking = false;
         });
         this.sprite.on('animationcomplete_downBasicAttackSword', function () {
-            //console.log("print");
             this.class.attacking = false;
         });
+        this.sprite.on('animationcomplete_specialStart', function (o1) {
+            this.class.continueSpecialAttack = true;
+            this.anims.play("special", true);
+            this.class.startSpecialAttackTime = this.class.time;
+        });
+        this.sprite.on('animationcomplete_specialEnd', function () {
+            this.class.attacking = false;
+            this.class.invincible = false;
+        });
+
+
 
         // animation
 
@@ -234,9 +303,13 @@ export class SwordHero extends DayPlayer {
         //this.sprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
 
     }
-    update(angle, time) {
+    update(time, angle) {
         if (this.active && this.sprite.body) {
             super.update(time);
+
+            if(this.continueSpecialAttack){
+                this.attackSpecialContinued(time);
+            }
 
             if (!this.attacking) {
                 if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
@@ -289,11 +362,7 @@ export class SwordHero extends DayPlayer {
             this.sprite.anims.play("downBasicAttackSword", true);
         }
 
-
-
         console.log("attttacking");
-        //  console.log(shieldSprite);
-        //tempSprite.anims.play("shield", true);
         let pointY;
         let pointX;
 
@@ -357,12 +426,32 @@ export class SwordHero extends DayPlayer {
     }
 
     attackSpecial(cursor, angle) {
+        this.attacking = true;
+        this.sprite.anims.play("specialStart", true);
+        this.angle = 0;
+        //When the animation is completed, it will run the rest of the function
+    }
 
-
+    //This function follows after attackSpecial()
+    attackSpecialContinued(time){
+        if(Math.floor(time/1000) - Math.floor(this.startSpecialAttackTime/1000) < this.specialAttackDuration){
+            this.invincible = true;
+            
+            
+            this.scene.physics.add.overlap(this.sprite, this.scene.enemyGroup.getChildren(), function (tornado, enemySprite) {
+                if (!tornado.enemiesHit.includes(enemySprite)) {
+                    tornado.enemiesHit.push(enemySprite);
+                    tornado.scene.hittingWithTornado(tornado, enemySprite);
+                }
+            });
+        }
+        else{
+            this.sprite.anims.playReverse("specialEnd");
+            this.continueSpecialAttack = false;
+        }
     }
 
     swap() {
-
         return super.swap(this.playerType);
     }
 
