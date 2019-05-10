@@ -351,11 +351,26 @@ export class DayScene extends Phaser.Scene {
             return;
         }
         enemySprite.setVelocity(tornado.body.velocity.x, tornado.body.velocity.y);
-        enemySprite.class.damaged(tornado.class.basicAttack);
 
-        //console.log(enemySprite.texture," got hit");
-        enemySprite.class.lastDamaged = tornado.scene.time.now; //Need this for damage cooldown
-        enemySprite.class.justGotHit = true;
+        if(!enemySprite.class.justGotHit){
+            enemySprite.class.lastDamaged = tornado.scene.time.now; //Need this for damage cooldown
+            enemySprite.class.justGotHit = true;
+            console.log("falseing");
+        }
+        else{
+            console.log("nah");
+        }
+        //console.log(Math.floor(tornado.scene.time.now/1000),Math.floor(enemySprite.class.lastDamaged/1000),enemySprite.class.specialDamageCooldown);
+
+        if(Math.floor(tornado.scene.time.now/1000) - Math.floor(enemySprite.class.lastDamaged/1000) > enemySprite.class.specialDamageCooldown){
+            enemySprite.class.damaged(tornado.class.basicAttack);
+            console.log("Damaged");
+        }
+        else{
+            enemySprite.class.justGotHit = false;
+
+        }
+
 
         if (!tornado.colliding) {
             tornado.colliding = [];

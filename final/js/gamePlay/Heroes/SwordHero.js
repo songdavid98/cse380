@@ -27,7 +27,9 @@ export class SwordHero extends DayPlayer {
 
         this.continueSpecialAttack = false;
         this.startSpecialAttackTime;
-        this.specialAttackDuration = 2; //10 seconds
+        this.specialAttackDuration = 5; //5 seconds
+        this.specialBlinkSpeed = 200;
+        this.lastSpecialBlinked = 0;
 
         this.create();
     }
@@ -282,7 +284,6 @@ export class SwordHero extends DayPlayer {
 
 
         // animation
-
         var swordFrame = this.anims.generateFrameNames(this.playerType, {
             start: 1,
             end: 3,
@@ -406,7 +407,6 @@ export class SwordHero extends DayPlayer {
             this.destroy();
         });
 
-
         swordSlashSprite.body.setVelocityY(this.basicAttackSpeed * Math.sin(this.angle));
         swordSlashSprite.body.setVelocityX(this.basicAttackSpeed * Math.cos(this.angle));
         //console.log(shieldSprite);        
@@ -435,19 +435,37 @@ export class SwordHero extends DayPlayer {
     //This function follows after attackSpecial()
     attackSpecialContinued(time){
         if(Math.floor(time/1000) - Math.floor(this.startSpecialAttackTime/1000) < this.specialAttackDuration){
+                    
             this.invincible = true;
-            
-            
+            this.sprite.enemiesHit = [];
+
             this.scene.physics.add.overlap(this.sprite, this.scene.enemyGroup.getChildren(), function (tornado, enemySprite) {
                 if (!tornado.enemiesHit.includes(enemySprite)) {
                     tornado.enemiesHit.push(enemySprite);
                     tornado.scene.hittingWithTornado(tornado, enemySprite);
                 }
             });
+
+            if(Math.floor(time/1000) - Math.floor(this.startSpecialAttackTime/1000) > this.specialAttackDuration-2){
+                if(this.scene.time.now - this.lastSpecialBlinked >  + this.specialBlinkSpeed){
+                    this.blink();
+                    this.lastSpecialBlinked = this.scene.time.now;
+                }
+            }
         }
         else{
             this.sprite.anims.playReverse("specialEnd");
             this.continueSpecialAttack = false;
+            this.sprite.clearTint();
+        }
+    }
+
+    blink(){
+        if(!this.sprite.isTinted){
+            this.sprite.tint = 0x6283ff;
+        }
+        else{
+            this.sprite.clearTint();
         }
     }
 

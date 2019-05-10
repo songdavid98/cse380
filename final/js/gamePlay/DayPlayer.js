@@ -104,6 +104,7 @@ export class DayPlayer {
         }
     }
 
+
     //When this is called, for now, launch a projectile with the correct animation
     attackBasic(cursor, angle, tempSprite) {
 
