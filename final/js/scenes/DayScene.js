@@ -338,6 +338,22 @@ export class DayScene extends Phaser.Scene {
         }
         shieldBeamSprite.colliding.push(enemySprite);
     }
+    hittingWithTornado(tornado, enemySprite) {
+        if (!tornado.anims) {
+            return;
+        }
+        enemySprite.setVelocity(tornado.body.velocity.x, tornado.body.velocity.y);
+        enemySprite.class.damaged(tornado.class.basicAttack);
+
+        //console.log(enemySprite.texture," got hit");
+        enemySprite.class.lastDamaged = tornado.scene.time.now; //Need this for damage cooldown
+        enemySprite.class.justGotHit = true;
+
+        if (!tornado.colliding) {
+            tornado.colliding = [];
+        }
+        tornado.colliding.push(enemySprite);
+    }
 
     hittingWithMagicBeam(magicBeamSprite, enemySprite) {
         if (!magicBeamSprite.anims) {
@@ -504,6 +520,7 @@ export class DayScene extends Phaser.Scene {
             this.scene.start(SCENES.MAIN_MENU, 'dead');
             this.scene.stop();
         } else {
+            
             this.player.update(time);
             //Space bar for swapping heroes
             if (this.input.keyboard.keys[32].isDown && Math.floor(time / 1000) - this.player.lastSwapped >= this.player.swapCooldown) {

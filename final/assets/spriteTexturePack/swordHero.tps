@@ -199,6 +199,20 @@
             <key type="filename">../images/heroes/swordHero/attackUp/0004.png</key>
             <key type="filename">../images/heroes/swordHero/left/0005.png</key>
             <key type="filename">../images/heroes/swordHero/right/0005.png</key>
+            <key type="filename">../images/heroes/swordHero/special/0001.png</key>
+            <key type="filename">../images/heroes/swordHero/special/0002.png</key>
+            <key type="filename">../images/heroes/swordHero/special/0003.png</key>
+            <key type="filename">../images/heroes/swordHero/special/0004.png</key>
+            <key type="filename">../images/heroes/swordHero/special/0005.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0001.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0002.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0003.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0004.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0005.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0006.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0007.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0008.png</key>
+            <key type="filename">../images/heroes/swordHero/specialStart/0009.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

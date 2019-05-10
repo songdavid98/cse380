@@ -55,7 +55,6 @@ export class DayPlayer {
     update(time) {
         //Gets the time of the game and stores it as a variable
         this.time = time;
-
         if (this.active === true && this.sprite.body) {
             //console.log('helo');
             //if either are released, set velocityX to 0 for now
