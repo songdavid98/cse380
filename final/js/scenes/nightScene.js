@@ -219,6 +219,7 @@ export class NightScene extends Phaser.Scene {
                     "physics": this.physics,
                     "anims": this.anims
                 });
+                this.towerToBePlaced.placeable = false; 
                 this.towerSpriteForBuying.class = this.towerToBePlaced;
 
                 this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
@@ -235,16 +236,26 @@ export class NightScene extends Phaser.Scene {
 
         this.input.on("pointermove", function (pointer) {
             if (this.scene.startDragging) {
+                let rectangle = new Phaser.Geom.Rectangle(this.scene.towerSpriteForBuying.body.position.x,this.scene.towerSpriteForBuying.body.position.y,this.scene.towerSpriteForBuying.body.width,this.scene.towerSpriteForBuying.body.height);
+                let pathArray = this.scene.pathLayer.getTilesWithinShape(rectangle);
+                let placeable = true;
+                pathArray.forEach(function(pathTile){
+                    if(pathTile.index != -1){
+                        placeable = false;
+                    }
+                });
+                this.scene.towerToBePlaced.placeable = placeable;
                 if (this.scene.towerToBePlaced.defStrType == DEFSTR.CANNON) {
                     this.scene.towerSpriteForBuying.x = pointer.x;
                     this.scene.towerSpriteForBuying.y = pointer.y;
                 }
                 //if the pointer is not in bounds
-                if (pointer.x <= this.scene.minX || pointer.y <= this.scene.minY) {
+                if (pointer.x <= this.scene.minX || pointer.y <= this.scene.minY || !this.scene.towerToBePlaced.placeable) {
                     this.scene.towerSpriteForBuying.alpha = 0.5;
                 } else {
                     this.scene.towerSpriteForBuying.alpha = 1;
                 }
+                rectangle = null;
             }
             pointer = null;
         });
@@ -253,7 +264,7 @@ export class NightScene extends Phaser.Scene {
         this.groundLayer.setInteractive();
         this.groundLayer.on("pointerdown", (pointer) => {
             //if pointer is in bounds and a tower is chosen
-            if (this.towerToBePlaced != null && pointer.x > this.minX && pointer.y > this.minY) {
+            if (this.towerToBePlaced != null && pointer.x > this.minX && pointer.y > this.minY && this.towerToBePlaced.placeable) {
                 this.towerToBePlaced.placed = true;
                 this.startDragging = false;
                 this.towerToBePlaced = null;
