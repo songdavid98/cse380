@@ -28,6 +28,9 @@ import {
     Goblin
 } from "../gamePlay/Monsters/Goblin.js";
 import {
+    Minotaur
+} from "../gamePlay/Monsters/Minotaur.js";
+import {
     DangerGrass
 } from "../gamePlay/Tiles/DangerGrass.js";
 import {
@@ -265,6 +268,33 @@ export class DayScene extends Phaser.Scene {
             });
             goblinSprite.class = goblin;
             this.monsterArray.push(goblin);
+        }
+
+        for (var i = 0; i < this.minotaurLength; i++) {
+            let scaleX = 8;
+            let scaleY = 8;
+            let minotaurSprite = this.physics.add.sprite(this.minotaurSpawnArr[i][0], this.minotaurSpawnArr[i][1], ENEMIES.GOBLIN, 'down/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(minotaurSprite);
+            let minotaur = new Minotaur({
+                "sprite": minotaurSprite,
+                "healthBar": healthBarSprite,
+                "greenBar": healthSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.GOBLIN,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY": scaleY
+            });
+            minotaurSprite.class = minotaur;
+            this.monsterArray.push(minotaur);
         }
 
         //Damaging the player

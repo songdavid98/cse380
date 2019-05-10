@@ -12,7 +12,7 @@ export class Minotaur extends Enemy {
         super(data);
         this.zzzSprite = data.zzzSprite;
         this.enemyType = ENEMIES.GOBLIN; // like slime
-        this.health = 100;
+        this.health = 50;
         this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
@@ -195,7 +195,7 @@ export class Minotaur extends Enemy {
         if (this.active && !this.dead) {
             switch (this.state) {
                 case "waiting":
-                    this.sprite.anims.play("minotaurIdle", true);
+                    this.sprite.anims.play("rightIdleGoblin", true);
                     break;
                 case "basic":
 
@@ -220,251 +220,68 @@ export class Minotaur extends Enemy {
     }
 
 
-    attackDist(gobX, gobY, playerX, playerY) {
-        let gobClass = this;
+    attackDist(enemX, enemY, playerX, playerY) {
+        let enemClass = this;
 
-        let dist = Math.sqrt(Math.pow(gobX - playerX, 2) + Math.pow(gobY - playerY, 2));
+        let dist = Math.sqrt(Math.pow(enemX - playerX, 2) + Math.pow(enemY - playerY, 2));
 
-        let currentEnemXTile = Math.floor(gobX);
-        let currentEnemYtile = Math.floor(gobY);
+        let currentEnemXTile = Math.floor(enemX);
+        let currentEnemYtile = Math.floor(enemY);
         let currentNextPointX = Math.floor(playerX);
         let currentNextPointY = Math.floor(playerY);
 
 
-        if (currentNextPointX < currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
+        if (currentNextPointX < currentEnemXTile && currentNextPointY < currentEnemYTile) {
             //console.log("GO LEFT UP");
-            gobClass.sprite.body.setVelocityX(-gobClass.speed);
-            gobClass.sprite.body.setVelocityY(-gobClass.speed);
-            gobClass.sprite.anims.play("leftGoblin", true);
-        } else if (currentNextPointX == currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(-enemClass.speed);
+            enemClass.sprite.body.setVelocityY(-enemClass.speed);
+            enemClass.sprite.anims.play("leftGoblin", true);
+        } else if (currentNextPointX == currentEnemXTile && currentNextPointY < currentEnemYTile) {
             //console.log("GO UP");
-            gobClass.sprite.body.setVelocityX(0);
-            gobClass.sprite.body.setVelocityY(-gobClass.speed);
-            gobClass.sprite.anims.play("upGoblin", true);
-        } else if (currentNextPointX > currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(0);
+            enemClass.sprite.body.setVelocityY(-enemClass.speed);
+            enemClass.sprite.anims.play("upGoblin", true);
+        } else if (currentNextPointX > currentEnemXTile && currentNextPointY < currentEnemYTile) {
             //console.log("GO RIGHT UP");                     
-            gobClass.sprite.body.setVelocityX(gobClass.speed);
-            gobClass.sprite.body.setVelocityY(-gobClass.speed);
-            gobClass.sprite.anims.play("rightGoblin", true);
-        } else if (currentNextPointX < currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(enemClass.speed);
+            enemClass.sprite.body.setVelocityY(-enemClass.speed);
+            enemClass.sprite.anims.play("rightGoblin", true);
+        } else if (currentNextPointX < currentEnemXTile && currentNextPointY == currentEnemYTile) {
             //console.log("GO LEFT");                     
-            gobClass.sprite.body.setVelocityX(-gobClass.speed);
-            gobClass.sprite.body.setVelocityY(0);
-            gobClass.sprite.anims.play("leftGoblin", true);
-        } else if (currentNextPointX > currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(-enemClass.speed);
+            enemClass.sprite.body.setVelocityY(0);
+            enemClass.sprite.anims.play("leftGoblin", true);
+        } else if (currentNextPointX > currentEnemXTile && currentNextPointY == currentEnemYTile) {
             //console.log("GO RIGHT");                         
-            gobClass.sprite.body.setVelocityX(gobClass.speed);
-            gobClass.sprite.body.setVelocityY(0);
-            gobClass.sprite.anims.play("rightGoblin", true);
-        } else if (currentNextPointX > currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(enemClass.speed);
+            enemClass.sprite.body.setVelocityY(0);
+            enemClass.sprite.anims.play("rightGoblin", true);
+        } else if (currentNextPointX > currentEnemXTile && currentNextPointY > currentEnemYTile) {
             //console.log("GO RIGHT DOWN");                       
-            gobClass.sprite.body.setVelocityX(gobClass.speed);
-            gobClass.sprite.body.setVelocityY(gobClass.speed);
-            gobClass.sprite.anims.play("rightGoblin", true);
-        } else if (currentNextPointX == currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(enemClass.speed);
+            enemClass.sprite.body.setVelocityY(enemClass.speed);
+            enemClass.sprite.anims.play("rightGoblin", true);
+        } else if (currentNextPointX == currentEnemXTile && currentNextPointY > currentEnemYTile) {
             //console.log("GO DOWN");                        
-            gobClass.sprite.body.setVelocityX(0);
-            gobClass.sprite.body.setVelocityY(gobClass.speed);
-            gobClass.sprite.anims.play("downGoblin", true);
-        } else if (currentNextPointX < currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
+            enemClass.sprite.body.setVelocityX(0);
+            enemClass.sprite.body.setVelocityY(enemClass.speed);
+            enemClass.sprite.anims.play("downGoblin", true);
+        } else if (currentNextPointX < currentEnemXTile && currentNextPointY > currentEnemYTile) {
             //console.log("GO LEFT DOWN");    
-            gobClass.sprite.body.setVelocityX(-gobClass.speed);
-            gobClass.sprite.body.setVelocityY(gobClass.speed);
-            gobClass.sprite.anims.play("leftGoblin", true);
+            enemClass.sprite.body.setVelocityX(-enemClass.speed);
+            enemClass.sprite.body.setVelocityY(enemClass.speed);
+            enemClass.sprite.anims.play("leftGoblin", true);
         } else {
-            gobClass.sprite.body.setVelocityX(0);
-            gobClass.sprite.body.setVelocityY(0);
-            gobClass.sprite.anims.play("downIdleGoblin");
+            enemClass.sprite.body.setVelocityX(0);
+            enemClass.sprite.body.setVelocityY(0);
+            enemClass.sprite.anims.play("downIdleGoblin");
         }
 
     }
 
-
-    /*
-        attack2(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile,playerSprite){
-            let gobClass = this;
-            if(!currentPlayerXtile && !currentPlayerYtile){
-                //console.log("PLAYER NOT FOUND");
-            }
-            if(currentGoblinXtile != currentPlayerXtile && currentGoblinYtile != currentPlayerYtile){
-                //console.log(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile,currentPlayerYtile);
-                this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path) {
-                    let currentNextPointX = null;
-                    let currentNextPointY = null;
-                    let tileWidth = 16;
-                    let tileHeight = 16;
-                    
-                    if (path === null) {
-                        //console.log("The path to the destination point was not found.");
-                    }
-                    if (path) {
-                        //console.log(path);
-                        currentNextPointX = path[1].x;
-                        currentNextPointY = path[1].y;
-                        console.log(path);
-                        console.log(currentNextPointX*tileWidth*5);
-                        console.log(currentNextPointY*tileHeight*5);
-
-                        console.log(playerSprite.body.position.x);
-                        console.log(playerSprite.body.position.y);
-                        gobClass.sprite.setPosition(currentNextPointX*tileWidth*5,currentNextPointY*tileHeight*5);
-                        
-                        console.log(gobClass.sprite.position.x, gobClass.sprite.position.y);
-                    }
-
-                    if (currentNextPointX < currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
-                        //console.log("GO LEFT UP");
-                        //gobClass.sprite.body.setVelocityX(-gobClass.speed);
-                        //gobClass.sprite.body.setVelocityY(-gobClass.speed);
-                        gobClass.sprite.anims.play("leftGoblin",true);
-                    }
-                    else if (currentNextPointX == currentGoblinXtile && currentNextPointY < currentGoblinYtile){
-                        //console.log("GO UP");
-                        //gobClass.sprite.body.setVelocityX(0);
-                        //gobClass.sprite.body.setVelocityY(-gobClass.speed);
-                        gobClass.sprite.anims.play("upGoblin",true);                      
-                    }
-                    else if (currentNextPointX > currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
-                        //console.log("GO RIGHT UP");                     
-                        //gobClass.sprite.body.setVelocityX(gobClass.speed);
-                        //gobClass.sprite.body.setVelocityY(-gobClass.speed);
-                        gobClass.sprite.anims.play("rightGoblin",true);
-                    }
-                    else if (currentNextPointX < currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
-                        //console.log("GO LEFT");                     
-                        //gobClass.sprite.body.setVelocityX(-gobClass.speed);
-                        //gobClass.sprite.body.setVelocityY(0);
-                        gobClass.sprite.anims.play("leftGoblin",true);
-                    }
-                    else if (currentNextPointX > currentGoblinXtile && currentNextPointY == currentGoblinYtile){
-                        //console.log("GO RIGHT");                         
-                        //gobClass.sprite.body.setVelocityX(gobClass.speed);
-                        //gobClass.sprite.body.setVelocityY(0);
-                        gobClass.sprite.anims.play("rightGoblin",true);
-                    }
-                    else if (currentNextPointX > currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                        //console.log("GO RIGHT DOWN");                       
-                        //gobClass.sprite.body.setVelocityX(gobClass.speed);
-                        //gobClass.sprite.body.setVelocityY(gobClass.speed);
-                        gobClass.sprite.anims.play("rightGoblin",true);
-                    }
-                    else if (currentNextPointX == currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                        //console.log("GO DOWN");                        
-                        //gobClass.sprite.body.setVelocityX(0);
-                        //gobClass.sprite.body.setVelocityY(gobClass.speed);
-                        gobClass.sprite.anims.play("downGoblin",true);
-                    }
-                    else if (currentNextPointX < currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                        //console.log("GO LEFT DOWN");    
-                        //gobClass.sprite.body.setVelocityX(-gobClass.speed);
-                        //gobClass.sprite.body.setVelocityY(gobClass.speed);
-                        gobClass.sprite.anims.play("leftGoblin",true);
-                    }
-                    else{
-                        //gobClass.sprite.body.setVelocityX(0);
-                        //gobClass.sprite.body.setVelocityY(0); 
-                        gobClass.sprite.anims.play("downIdleGoblin");
-                    }
-                });
-
-                this.scene.easystar.calculate();
-                //console.log(this.sprite.body);
-            }
-        }               
-    */
-    /*
-        attack(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile){
-            let gobClass = this;
-            if(!currentPlayerXtile && !currentPlayerYtile){
-                //console.log("PLAYER NOT FOUND");
-            }
-            if(currentGoblinXtile != currentPlayerXtile && currentGoblinYtile != currentPlayerYtile){
-                //console.log(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile,currentPlayerYtile);
-                this.scene.easystar.findPath(currentGoblinXtile, currentGoblinYtile, currentPlayerXtile, currentPlayerYtile, function( path) {
-                    let currentNextPointX = null;
-                    let currentNextPointY = null;
-                    
-                    if (path === null) {
-                        //console.log("The path to the destination point was not found.");
-                    }
-                    if (path) {
-                        //console.log(path);
-                        currentNextPointX = path[1].x;
-                        currentNextPointY = path[1].y;
-                        //console.log(currentNextPointX);
-                        //console.log(currentNextPointY);
-                    }
-
-                    if (currentNextPointX < currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
-                        //console.log("GO LEFT UP");
-                        gobClass.sprite.body.setVelocityX(-gobClass.speed);
-                        gobClass.sprite.body.setVelocityY(-gobClass.speed);
-                        gobClass.sprite.anims.play("leftGoblin",true);
-                    }
-                    else if (currentNextPointX == currentGoblinXtile && currentNextPointY < currentGoblinYtile){
-                        //console.log("GO UP");
-                        gobClass.sprite.body.setVelocityX(0);
-                        gobClass.sprite.body.setVelocityY(-gobClass.speed);
-                        gobClass.sprite.anims.play("upGoblin",true);                      
-                    }
-                    else if (currentNextPointX > currentGoblinXtile && currentNextPointY < currentGoblinYtile) {
-                        //console.log("GO RIGHT UP");                     
-                        gobClass.sprite.body.setVelocityX(gobClass.speed);
-                        gobClass.sprite.body.setVelocityY(-gobClass.speed);
-                        gobClass.sprite.anims.play("rightGoblin",true);
-                    }
-                    else if (currentNextPointX < currentGoblinXtile && currentNextPointY == currentGoblinYtile) {
-                        //console.log("GO LEFT");                     
-                        gobClass.sprite.body.setVelocityX(-gobClass.speed);
-                        gobClass.sprite.body.setVelocityY(0);
-                        gobClass.sprite.anims.play("leftGoblin",true);
-                    }
-                    else if (currentNextPointX > currentGoblinXtile && currentNextPointY == currentGoblinYtile){
-                        //console.log("GO RIGHT");                         
-                        gobClass.sprite.body.setVelocityX(gobClass.speed);
-                        gobClass.sprite.body.setVelocityY(0);
-                        gobClass.sprite.anims.play("rightGoblin",true);
-                    }
-                    else if (currentNextPointX > currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                        //console.log("GO RIGHT DOWN");                       
-                        gobClass.sprite.body.setVelocityX(gobClass.speed);
-                        gobClass.sprite.body.setVelocityY(gobClass.speed);
-                        gobClass.sprite.anims.play("rightGoblin",true);
-                    }
-                    else if (currentNextPointX == currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                        //console.log("GO DOWN");                        
-                        gobClass.sprite.body.setVelocityX(0);
-                        gobClass.sprite.body.setVelocityY(gobClass.speed);
-                        gobClass.sprite.anims.play("downGoblin",true);
-                    }
-                    else if (currentNextPointX < currentGoblinXtile && currentNextPointY > currentGoblinYtile) {
-                        //console.log("GO LEFT DOWN");    
-                        gobClass.sprite.body.setVelocityX(-gobClass.speed);
-                        gobClass.sprite.body.setVelocityY(gobClass.speed);
-                        gobClass.sprite.anims.play("leftGoblin",true);
-                    }
-                    else{
-                        gobClass.sprite.body.setVelocityX(0);
-                        gobClass.sprite.body.setVelocityY(0); 
-                        gobClass.sprite.anims.play("downIdleGoblin");
-                    }
-                });
-
-                this.scene.easystar.calculate();
-                //console.log(this.sprite.body);
-            }
-        }
-    */
-
-
     nightUpdate(time, level) {
         super.nightUpdate(time, level);
-        this.sprite.anims.play("leftGoblin", true);
-        //        if (this.active) {
-        //            this.sprite.body.setVelocityX(-1 * this.speed);
-        //            this.sprite.body.setVelocityY(0);
-        //            this.sprite.anims.play("leftSlime", true);
-        //        }
+        //play animation here
     }
 
 }

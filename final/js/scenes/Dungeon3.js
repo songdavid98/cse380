@@ -21,6 +21,9 @@ import {
 import {
     Goblin
 } from "../gamePlay/Monsters/Goblin.js";
+import {
+     Minotaur 
+} from "../gamePlay/Monsters/Minotaur.js";
 
 import {
     ShieldHero
@@ -80,6 +83,11 @@ export class Dungeon3 extends DayScene {
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
+
+        this.minotaurSpawnArr = [
+            [1600,800]
+        ];
+        this.minotaurLength = this.minotaurSpawnArr.length;
 
 
     }
@@ -170,6 +178,12 @@ export class Dungeon3 extends DayScene {
         //console.log(this.player.sprite.body.position);
         super.update(time);
         //console.log(this.buttonsPressed);
+        if(!this.doorLayer && !this.doorLayer2 && this.player.sprite.body.y < 2800){
+            this.doorLayer2 = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
+            this.doorLayer2.setCollision(18);
+            this.doorCollider2 = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer2);
+            this.physics.add.collider(this.enemyGroup.getChildren(), this.doorLayer2);
+        }
         if (this.player.sprite.body && this.player.sprite.body.position.x > 1400 && this.player.sprite.body.position.x < 1700 && this.player.sprite.body.position.y < 50) {
             this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
