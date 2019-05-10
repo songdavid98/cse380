@@ -36,10 +36,8 @@ export class DayPlayer {
 
     init() {}
 
-    preload() {
-        this.load.audio("audiohurt", "./assets/audio/gettinghurt.wav");
-        this.load.audio("audiodeath", "./assets/audio/death.wav");
-    }
+    preload() {}
+
     create() {
         this.sprite.body.setSize(15, 20, false);
         this.sprite.body.setOffset((Math.abs(this.sprite.x) + this.sprite.width / 2) - Math.abs(this.sprite.body.center.x), (Math.abs(this.sprite.y) + this.sprite.height / 2) - Math.abs(this.sprite.body.center.y));
@@ -202,8 +200,24 @@ export class DayPlayer {
                 if (this.health > 0 && !this.semiInvincible) {
                     this.health -= monster.class.basicAttack;
                     if (this.health <= 0) {
-                        this.scene.play();
                         this.dead = true;
+                        if (this.playerType == HEROES.SHIELD_HERO)
+                            this.scene.sound.play("audiofemaledeath", {
+                                "volume": 30
+                            });
+                        else
+                            this.scene.sound.play("audiomaledeath", {
+                                "volume": 30
+                            });
+                    } else {
+                        if (this.playerType == HEROES.SHIELD_HERO)
+                            this.scene.sound.play("audiohurtshield", {
+                                "volume": 30
+                            });
+                        else
+                            this.scene.sound.play("audiohurtmale", {
+                                "volume": 30
+                            });
                     }
                 }
 
@@ -236,14 +250,25 @@ export class DayPlayer {
                 if (this.health > 0 && !this.semiInvincible) {
                     this.health -= value;
                     if (this.health <= 0) {
-                        this.scene.sound.play("audiodeath", {
-                            "volume": 30
-                        });
                         this.dead = true;
-                    } else
-                        this.scene.sound.play("audiohurt", {
-                            "volume": 30
-                        });
+                        if (this.playerType == HEROES.SHIELD_HERO)
+                            this.scene.sound.play("audiofemaledeath", {
+                                "volume": 30
+                            });
+                        else
+                            this.scene.sound.play("audiomaledeath", {
+                                "volume": 30
+                            });
+                    } else {
+                        if (this.playerType == HEROES.SHIELD_HERO)
+                            this.scene.sound.play("audiohurtshield", {
+                                "volume": 30
+                            });
+                        else
+                            this.scene.sound.play("audiohurtmale", {
+                                "volume": 30
+                            });
+                    }
                 }
 
                 //Push back stuff

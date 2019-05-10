@@ -81,7 +81,6 @@ export class NightScene extends Phaser.Scene {
         this.enemiesToSpawn = [];
         //        [30, ENEMIES.GOBLIN, 500] spawn 30 goblins at 0.5sec intervals
         this.spawnIntervalVar = null;
-        this.timeToStopInterval = null;
         this.currentlySpawning = null;
         this.startWavePressed = false;
     }
@@ -147,7 +146,7 @@ export class NightScene extends Phaser.Scene {
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
         let buywall = this.add.image(this.buttonX, this.buttonYinc * 3, "buywall").setDepth(3).setScale(1.5, 1.5);
         let buyarrow = this.add.image(this.buttonX, this.buttonYinc * 4, "buyarrow").setDepth(3).setScale(1.5, 1.5);
-        let buycannon = this.add.image(this.buttonX, this.buttonYinc * 5, "buycannon").setDepth(3).setScale(1.5, 1.5);
+        let buycannon = this.add.image(this.buttonX, this.buttonYinc * 5, "buycannon").setDepth(3).setScale(1, 1);
 
 
         this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the the town! Enemies coming from the forest!", {
@@ -164,18 +163,32 @@ export class NightScene extends Phaser.Scene {
             if (this.startWavePressed)
                 return;
             this.startWavePressed = true;
+            startwave.alpha = 0.5;
             //make a swtich case, to spawn different things for each level
             //Create the enemies
             switch (this.level) {
                 case 1:
                     this.enemiesToSpawn = [
                         [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
-                        [10, ENEMIES.GOBLIN, 1000]
+                        [10, ENEMIES.GOBLIN, 2000]
                     ]
+                    this.numEnemySpawns = 20;
                     break;
                 case 2:
+                    this.enemiesToSpawn = [
+                        [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
+                        [20, ENEMIES.GOBLIN, 1000],
+                        [10, ENEMIES.GOLEM, 1000]
+                    ]
+                    this.numEnemySpawns = 40;
                     break;
                 case 3:
+                    his.enemiesToSpawn = [
+                        [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
+                        [20, ENEMIES.GOBLIN, 1000],
+                        [10, ENEMIES.GOLEM, 1000]
+                    ]
+                    this.numEnemySpawns = 40;
                     break;
                 default:
                     break;
@@ -278,6 +291,7 @@ export class NightScene extends Phaser.Scene {
             //  if 5 seconds has passed
             if (((time - this.gameEndTime) / 1000) >= 5) {
                 this.music.stop();
+
                 this.scene.start(SCENES.SPLASH);
                 this.scene.stop();
             }
@@ -327,7 +341,6 @@ export class NightScene extends Phaser.Scene {
             clearInterval(this.spawnIntervalVar);
 
             if (this.enemiesToSpawn.length == 0) {
-                this.timeToStopInterval = null;
                 this.spawnIntervalVar = null;
             } else {
                 let nextSetOfEnemies = this.enemiesToSpawn.shift();
@@ -420,12 +433,21 @@ export class NightScene extends Phaser.Scene {
                 break;
 
         }
+        this.enemiesSpawned++;
     }
 
-    spawnMultipleEnemies(numberOfEnemies, enemyType, millisecInterval) {
+    spawnMultipleEnemies(numberOfEnemies, enemyType, msInterval) {
+        console.log(enemyType);
         this.currentlySpawning = enemyType;
-        this.timeToStopInterval = this.time.now + numberOfEnemies * millisecInterval;
-        this.spawnIntervalVar = setInterval(this.spawnEnemy.bind(this, this.currentlySpawning), millisecInterval);
+        this.spawnIntervalVar = this.time.addEvent({
+            delay: msInterval, // ms
+            callback: this.spawnEnemy,
+            args:[enemyType],
+            callbackScope: this,
+            repeat:numberOfEnemies
+        })
     }
+
+
 
 }

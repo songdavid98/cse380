@@ -77,6 +77,10 @@ export class DayScene extends Phaser.Scene {
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
         this.load.audio("audioshieldattack1", "./assets/audio/shieldheroha.wav");
         this.load.audio("audioshieldattack2", "./assets/audio/shieldherohuh.wav");
+        this.load.audio("audiohurtshield", "./assets/audio/gettinghurtshield.wav");
+        this.load.audio("audiohurtmale", "./assets/audio/gettinghurtmale.wav");
+        this.load.audio("audiofemaledeath", "./assets/audio/femaledeath.wav");
+        this.load.audio("audiomaledeath", "./assets/audio/maledeath.wav");
     }
     create(data) {
         if (!data) {
