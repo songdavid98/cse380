@@ -45,38 +45,38 @@ export class Dungeon3 extends DayScene {
         super.init(data);
 
         this.slimeSpawnArr = [
-            [1800, 600],
-            [2320, 300],
-            [1500, 500],
-            [1750, 1300],
-            [1700, 1200],
-            [1950, 1000],
-            [1600, 1200],
-            [1550, 1600],
-            [1500, 1000],
-            [1600, 1500]
+            [1800, 600+3200],
+            [2320, 300+3200],
+            [1500, 500+3200],
+            [1750, 1300+3200],
+            [1700, 1200+3200],
+            [1950, 1000+3200],
+            [1600, 1200+3200],
+            [1550, 1600+3200],
+            [1500, 1000+3200],
+            [1600, 1500+3200]
         ];
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
-            [1900, 1200],
-            [1400, 1500]
+            [1900, 1200+3200],
+            [1400, 1500+3200]
         ];
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            [1300, 1400],
-            [1400, 600],
-            [1500, 1400],
-            [1600, 1000],
-            [1700, 900],
-            [1800, 1800],
-            [1600, 400],
-            [1800, 600],
-            [1220, 1300],
-            [1600, 600],
-            [1700, 900],
-            [1800, 800],
+            [1300, 1400+3200],
+            [1400, 600+3200],
+            [1500, 1400+3200],
+            [1600, 1000+3200],
+            [1700, 900+3200],
+            [1800, 1800+3200],
+            [1600, 400+3200],
+            [1800, 600+3200],
+            [1220, 1300+3200],
+            [1600, 600+3200],
+            [1700, 900+3200],
+            [1800, 800+3200],
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
@@ -94,7 +94,7 @@ export class Dungeon3 extends DayScene {
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
 
-        this.load.tilemapTiledJSON("map3", "./assets/tilemaps/DayDungeon3.json");
+        this.load.tilemapTiledJSON("map3", "./assets/tilemaps/PuzzleDungeonv2.json");
         this.mapLevel = "map3";
         console.log("make suer this dungeon even exits, dumbo");
     }
@@ -109,7 +109,7 @@ export class Dungeon3 extends DayScene {
         this.buttonsLayer = this.map.createStaticLayer("buttons", [this.terrain], 1, 0).setScale(4, 4);
         this.prisonLayer = this.map.createStaticLayer("prison", [this.terrain], 1, 0).setScale(4, 4);
         this.doorLayer = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
-        super.create({"initialX":1600, "initialY":3000});
+        super.create({"initialX":1600, "initialY":3000+2600});
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 4, this.map.heightInPixels * 4);
         //add objects
         this.items = this.map.objects[0].objects;
