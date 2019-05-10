@@ -27,8 +27,12 @@ import {
 import {
     Goblin
 } from "../gamePlay/Monsters/Goblin.js";
-import { DangerGrass } from "../gamePlay/Tiles/DangerGrass.js";
-import { Lava } from "../gamePlay/Tiles/Lava.js";
+import {
+    DangerGrass
+} from "../gamePlay/Tiles/DangerGrass.js";
+import {
+    Lava
+} from "../gamePlay/Tiles/Lava.js";
 
 
 export class DayScene extends Phaser.Scene {
@@ -57,7 +61,7 @@ export class DayScene extends Phaser.Scene {
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("greenHealth", "./assets/images/icons/bar1.png");
         this.load.image("healthBar", "./assets/images/icons/bar2.png");
-        
+
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
@@ -67,7 +71,7 @@ export class DayScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
 
-    
+
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
         this.load.audio("audioswordslice", "./assets/audio/swordslice.wav");
         this.load.audio("audiomageattack", "./assets/audio/mageattack.wav");
@@ -75,12 +79,12 @@ export class DayScene extends Phaser.Scene {
         this.load.audio("audioshieldattack2", "./assets/audio/shieldherohuh.wav");
     }
     create(data) {
-        if(!data){
+        if (!data) {
             data = {};
         }
         let initialX = data['initialX'] || 200;
         let initialY = data['initialY'] || 200;
-        this.initPos = [initialX, initialY];    //Need this for tutorial
+        this.initPos = [initialX, initialY]; //Need this for tutorial
 
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
@@ -112,7 +116,7 @@ export class DayScene extends Phaser.Scene {
 
         //Create the enemies
         this.enemyGroup = this.physics.add.group();
-        
+
         //Create the heroes
         this.shieldHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
         this.swordHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
@@ -180,9 +184,9 @@ export class DayScene extends Phaser.Scene {
             let scaleX = 5;
             let scaleY = 5;
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(scaleX, scaleY);
-            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
-            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
-            
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
             healthBarSprite.visible = false;
             healthSprite.visible = false;
 
@@ -190,14 +194,14 @@ export class DayScene extends Phaser.Scene {
             let slime = new Slime({
                 "sprite": slimeSprite,
                 "healthBar": healthBarSprite,
-                "greenBar":healthSprite,
+                "greenBar": healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.SLIME,
                 "anims": this.anims,
                 "scene": this,
                 "scaleX": scaleX,
-                "scaleY":scaleY
+                "scaleY": scaleY
             });
             slimeSprite.class = slime;
             this.monsterArray.push(slime);
@@ -207,9 +211,9 @@ export class DayScene extends Phaser.Scene {
             let scaleX = 8;
             let scaleY = 8;
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(scaleX, scaleY);
-            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
-            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
-   
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
             healthBarSprite.visible = false;
             healthSprite.visible = false;
 
@@ -217,14 +221,14 @@ export class DayScene extends Phaser.Scene {
             let golem = new Golem({
                 "sprite": golemSprite,
                 "healthBar": healthBarSprite,
-                "greenBar":healthSprite,
+                "greenBar": healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.GOLEM,
                 "anims": this.anims,
                 "scene": this,
                 "scaleX": scaleX,
-                "scaleY":scaleY
+                "scaleY": scaleY
             });
             golemSprite.class = golem;
             this.monsterArray.push(golem);
@@ -234,10 +238,10 @@ export class DayScene extends Phaser.Scene {
             let scaleX = 5;
             let scaleY = 5;
             let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(scaleX, scaleY);
-            let zzzSprite = this.add.sprite(this.goblinSpawnArr[i][0]+100, this.goblinSpawnArr[i][1]-100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(scaleX, scaleY);
-            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
-            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
-   
+            let zzzSprite = this.add.sprite(this.goblinSpawnArr[i][0] + 100, this.goblinSpawnArr[i][1] - 100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
             healthBarSprite.visible = false;
             healthSprite.visible = false;
 
@@ -245,15 +249,15 @@ export class DayScene extends Phaser.Scene {
             let goblin = new Goblin({
                 "sprite": goblinSprite,
                 "healthBar": healthBarSprite,
-                "greenBar":healthSprite,
-                "zzzSprite":zzzSprite,
+                "greenBar": healthSprite,
+                "zzzSprite": zzzSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.GOBLIN,
                 "anims": this.anims,
                 "scene": this,
                 "scaleX": scaleX,
-                "scaleY":scaleY
+                "scaleY": scaleY
             });
             goblinSprite.class = goblin;
             this.monsterArray.push(goblin);
@@ -291,16 +295,16 @@ export class DayScene extends Phaser.Scene {
         this.pathFinding();
     }
 
-    spawnMoreSlimes(){
-         //Create the enemies
-         for (var i = 0; i < this.slimeCount; i++) {
-             
+    spawnMoreSlimes() {
+        //Create the enemies
+        for (var i = 0; i < this.slimeCount; i++) {
+
             let scaleX = 5;
             let scaleY = 5;
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(scaleX, scaleY);
-            let healthBarSprite = this.add.sprite(0,0,'healthBar').setScale(2,2);
-            let healthSprite = this.add.sprite(0,0,'greenHealth').setScale(2,2);
-            
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
             healthBarSprite.visible = false;
             healthSprite.visible = false;
 
@@ -308,14 +312,14 @@ export class DayScene extends Phaser.Scene {
             let slime = new Slime({
                 "sprite": slimeSprite,
                 "healthBar": healthBarSprite,
-                "greenBar":healthSprite,
+                "greenBar": healthSprite,
                 "allEnemySprites": this.enemyGroup.getChildren(),
                 "physics": this.physics,
                 "enemyType": ENEMIES.SLIME,
                 "anims": this.anims,
                 "scene": this,
                 "scaleX": scaleX,
-                "scaleY":scaleY
+                "scaleY": scaleY
             });
             slimeSprite.class = slime;
             this.monsterArray.push(slime);
@@ -423,7 +427,7 @@ export class DayScene extends Phaser.Scene {
         */
     }
 
-    healAllHeroes(){
+    healAllHeroes() {
         this.shieldHero.health = 3;
         this.swordHero.health = 3;
         this.mageHero.health = 3;
@@ -555,23 +559,25 @@ export class DayScene extends Phaser.Scene {
             this.money = "MAXED_OUT";
         }
     }
-    createObjects(layer, name, key, spriteWidth, spriteHeight){
+    createObjects(layer, name, key, spriteWidth, spriteHeight) {
         let objectGroup = this.physics.add.group(); //create new empty physics group
-        let objects = this.map.createFromObjects(layer,name,{key:key}); //create sprites not affected by physics
+        let objects = this.map.createFromObjects(layer, name, {
+            key: key
+        }); //create sprites not affected by physics
 
         objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
         let children = objectGroup.getChildren();
-        for(var i = 0; i < children.length; i++){
+        for (var i = 0; i < children.length; i++) {
             children[i].body.setSize(spriteWidth, spriteHeight);
-            children[i].body.setOffset(0,0);
-            children[i].setDepth(0);   
+            children[i].body.setOffset(0, 0);
+            children[i].setDepth(0);
         }
         console.log(objectGroup);
-        
+
         objects = null //for garbage collection
         return objectGroup;
     }
-    scaleObjects(factor){
+    scaleObjects(factor) {
         let items = this.map.objects[0].objects;
         for (var i = 0; i < items.length; i++) {
             items[i].width *= 5;

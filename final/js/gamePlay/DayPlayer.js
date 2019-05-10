@@ -26,8 +26,8 @@ export class DayPlayer {
         this.invulnerable = false;
         this.blinkSpeed = 200;
         this.lastBlinked = 0;
-        this.invincible = false;        //Prone to any damage
-        this.semiInvincible = false;    //You will lose hearts, but regain if you run out. No hero swap
+        this.invincible = false; //Prone to any damage
+        this.semiInvincible = false; //You will lose hearts, but regain if you run out. No hero swap
 
         this.playerColorGray = false;
 
@@ -36,22 +36,24 @@ export class DayPlayer {
 
     init() {}
 
-    preload() {}
+    preload() {
+        this.load.audio("audiohurt", "./assets/audio/gettinghurt.wav");
+        this.load.audio("audiodeath", "./assets/audio/death.wav");
+    }
     create() {
-        this.sprite.body.setSize(15,20,false);
-        this.sprite.body.setOffset((Math.abs(this.sprite.x) + this.sprite.width/2)-Math.abs(this.sprite.body.center.x) , (Math.abs(this.sprite.y) + this.sprite.height/2) - Math.abs(this.sprite.body.center.y));
+        this.sprite.body.setSize(15, 20, false);
+        this.sprite.body.setOffset((Math.abs(this.sprite.x) + this.sprite.width / 2) - Math.abs(this.sprite.body.center.x), (Math.abs(this.sprite.y) + this.sprite.height / 2) - Math.abs(this.sprite.body.center.y));
     }
 
-    properAngle(){
-        if(this.angle <= 0){
+    properAngle() {
+        if (this.angle <= 0) {
             return Math.abs(this.angle);
-        }
-        else{
-            return Math.abs(2*Math.PI - this.angle);
+        } else {
+            return Math.abs(2 * Math.PI - this.angle);
         }
     }
 
-    
+
     update(time) {
         //Gets the time of the game and stores it as a variable
         this.time = time;
@@ -88,9 +90,8 @@ export class DayPlayer {
                 this.invulnerable = false;
                 this.active = true;
                 this.sprite.clearTint();
-            }
-            else if(this.invulnerable){
-                if(this.scene.time.now - this.lastBlinked >  + this.blinkSpeed){
+            } else if (this.invulnerable) {
+                if (this.scene.time.now - this.lastBlinked > +this.blinkSpeed) {
                     this.blink();
                     this.lastBlinked = this.scene.time.now;
                 }
@@ -98,11 +99,10 @@ export class DayPlayer {
         }
     }
 
-    blink(){
-        if(!this.sprite.isTinted){
+    blink() {
+        if (!this.sprite.isTinted) {
             this.sprite.tint = 0xbf5353;
-        }
-        else{
+        } else {
             this.sprite.clearTint();
         }
     }
@@ -191,9 +191,9 @@ export class DayPlayer {
         return playerType;
     }
 
-
+    //damage from monster
     damage(monster) {
-        if(!this.invincible){
+        if (!this.invincible) {
             if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
                 this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
                 this.invulnerable = true;
@@ -202,10 +202,11 @@ export class DayPlayer {
                 if (this.health > 0 && !this.semiInvincible) {
                     this.health -= monster.class.basicAttack;
                     if (this.health <= 0) {
+                        this.scene.play();
                         this.dead = true;
                     }
                 }
-                
+
                 //Push back stuff
                 if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
                     this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
@@ -216,8 +217,7 @@ export class DayPlayer {
                     this.scene.swapHero(this.scene.lastDamaged);
                     console.log("I'm dead so I'll swap");
                     console.log(this.lastDamaged);
-                }
-                else if(this.dead && this.semiInvincible){
+                } else if (this.dead && this.semiInvincible) {
                     this.scene.healAllHeroes();
                     this.dead = false;
                 }
@@ -225,8 +225,9 @@ export class DayPlayer {
         }
     }
 
-    hazardDamage(value){
-        if(!this.invincible){
+    //for environmental damage
+    hazardDamage(value) {
+        if (!this.invincible) {
             if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
                 this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time
                 this.invulnerable = true;
@@ -235,20 +236,25 @@ export class DayPlayer {
                 if (this.health > 0 && !this.semiInvincible) {
                     this.health -= value;
                     if (this.health <= 0) {
+                        this.scene.sound.play("audiodeath", {
+                            "volume": 30
+                        });
                         this.dead = true;
-                    }
+                    } else
+                        this.scene.sound.play("audiohurt", {
+                            "volume": 30
+                        });
                 }
-                
+
                 //Push back stuff
                 if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
                     this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
-                } 
+                }
                 if (this.dead && !this.semiInvincible) {
                     this.scene.swapHero(this.scene.lastDamaged);
                     console.log("I'm dead so I'll swap");
                     console.log(this.lastDamaged);
-                }
-                else if(this.dead && this.semiInvincible){
+                } else if (this.dead && this.semiInvincible) {
                     this.scene.healAllHeroes();
                     this.dead = false;
                 }
