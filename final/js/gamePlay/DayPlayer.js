@@ -177,13 +177,25 @@ export class DayPlayer {
     swap(playerType) {
         switch (playerType) {
             case HEROES.SHIELD_HERO:
-                playerType = HEROES.SWORD_HERO; //Set player type
+                if(!this.scene.swordHero.dead){
+                    playerType = HEROES.SWORD_HERO; //Set player type
+                }else if(!this.scene.mageHero.dead){
+                    playerType = HEROES.MAGE_HERO
+                }
                 break;
             case HEROES.SWORD_HERO:
-                playerType = HEROES.MAGE_HERO; //Set player type
+                if(!this.scene.mageHero.dead){
+                    playerType = HEROES.MAGE_HERO; //Set player type
+                }else if(!this.scene.shieldHero.dead){
+                    playerType = HEROES.SHIELD_HERO;
+                }
                 break;
             case HEROES.MAGE_HERO:
-                playerType = HEROES.SHIELD_HERO; //Set player type
+                if(!this.scene.shieldHero.dead){
+                    playerType = HEROES.SHIELD_HERO; //Set player type
+                }else if(!this.scene.swordHero.dead){
+                    playerType = HEROES.SWORD_HERO;
+                }
                 break;
             default:
                 console.log("SWAAAAAAAAAAPPPPPPPPPPING ERRRRRRRRRRRRORRRRRRRRRRRRR");

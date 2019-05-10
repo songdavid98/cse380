@@ -84,6 +84,7 @@ export class Dungeon3 extends DayScene {
 
     }
     preload() {
+        super.preload();
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
@@ -99,6 +100,7 @@ export class Dungeon3 extends DayScene {
     }
     create() {
         //Generate map
+        this.buttonsPressed = 0;
         this.map = this.add.tilemap(this.mapLevel);
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
@@ -167,6 +169,7 @@ export class Dungeon3 extends DayScene {
     update(time, delta) {
         //console.log(this.player.sprite.body.position);
         super.update(time);
+        //console.log(this.buttonsPressed);
         if (this.player.sprite.body && this.player.sprite.body.position.x > 1400 && this.player.sprite.body.position.x < 1700 && this.player.sprite.body.position.y < 50) {
             this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
