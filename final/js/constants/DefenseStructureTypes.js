@@ -1,5 +1,4 @@
 export const DEFSTR = {
     CANNON: "CANNON",
-    ARROW: "ARROW",
-    WALL: "WALL"
+    ICE: "ICE"
 }

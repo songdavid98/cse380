@@ -87,7 +87,7 @@ export class NightDefenseStructure {
         }
         let timePassed = (time - this.prevTime) / 1000;
 
-        if (timePassed < this.cooldown)
+        if (timePassed < this.rateOfFire)
             return;
 
         let targetEnem = this.searchForTarget(enemies);

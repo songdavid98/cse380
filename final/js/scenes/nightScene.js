@@ -31,6 +31,10 @@ import {
     Cannon
 } from "../gamePlay/Towers/Cannon.js";
 
+import {
+    Ice
+} from "../gamePlay/Towers/Ice.js";
+
 
 export class NightScene extends Phaser.Scene {
     constructor() {
@@ -106,7 +110,9 @@ export class NightScene extends Phaser.Scene {
 
         //Load defense structure images
         console.log(this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure"));
-
+        
+        console.log(this.load.multiatlas(DEFSTR.ICE, './assets/images/defenseStructure/ice.json', "./assets/images/defenseStructure"));
+        
         //Load song
         this.load.audio("audionightbackgroundsong", "./assets/audio/nightbackgroundsong.wav");
     }

@@ -13,9 +13,7 @@ export class Cannon extends NightDefenseStructure {
     constructor(data) {
         super(data);
         this.defStrType = DEFSTR.CANNON;
-        this.health = 3;
         this.damage = 3;
-        this.speed = 128;
         this.range = 300; //units in pixels, I think
 
         //        this.sprite = data.sprite;
@@ -23,7 +21,7 @@ export class Cannon extends NightDefenseStructure {
         //        this.anims = data.anims;
         this.active = true; //FIXME: remove this
         this.shoots = true;
-        this.cooldown = 3;
+        this.rateOfFire = 3;
         this.prevTime = 0;
 
         this.placed = false;
