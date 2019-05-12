@@ -106,6 +106,7 @@ export class DayOverlayScene extends Phaser.Scene {
             strokeThickness: 10,
             stroke: "#ffffff"
         });
+        this.deathText.setDepth(5);
         this.deathText.visible = false;
         this.haveShownDeathText = false;
 
@@ -124,7 +125,6 @@ export class DayOverlayScene extends Phaser.Scene {
             strokeThickness: 10,
             stroke: "#000000"
         });
-        this.deathText = null;
 
         
     }
@@ -219,8 +219,9 @@ export class DayOverlayScene extends Phaser.Scene {
 
         //---------------------------------------------------------
 
-        if (this.shieldHero.health <= 0 && this.swordHero.health <= 0 && this.mageHero.health <= 0 && this.deathText == null) {
+        if (this.shieldHero.health <= 0 && this.swordHero.health <= 0 && this.mageHero.health <= 0) {
             if(!this.haveShownDeathText){
+                console.log("I'm completely dead");
                 this.deathText.visible = true;
                 this.haveShownDeathText = true;
             }
@@ -256,17 +257,20 @@ export class DayOverlayScene extends Phaser.Scene {
             this.scene.stop(this.sceneKey);
 
             let transitionScene;
-
+            console.log(this.scene.scene.sceneKey);
             switch(this.scene.scene.sceneKey){
                 case SCENES.DUNGEON1:
                     transitionScene = "n1";
-                break;
+                    break;
                 case SCENES.DUNGEON2:
                     transitionScene = "n2";
-                break;
+                    break;
                 case SCENES.DUNGEON3:
                     transitionScene = "n3";
-                break;
+                    break;
+                case SCENES.DUNGEON4:
+                    transitionScene = "n3";
+                    break;
             }
 
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, {

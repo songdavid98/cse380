@@ -131,10 +131,6 @@ export class Dungeon2 extends DayScene{
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
         this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
-        this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
-        
         this.load.tilemapTiledJSON("map2", "./assets/tilemaps/Dungeon4.json");
         this.mapLevel = "map2";
     }
@@ -145,9 +141,9 @@ export class Dungeon2 extends DayScene{
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
         this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5,5); 
-        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 0, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
 
         super.create();
 
@@ -158,13 +154,14 @@ export class Dungeon2 extends DayScene{
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
 
 
-
-
         this.scaleObjects(.5);
         console.log(this.map.objects);
-        let doors = this.createObjects('objectsLayer',60,'door', 16, 16);
-        let barrels = this.createObjects('objectsLayer',59,'barrel', 16, 16);
-        let treasures = this.createObjects('objectsLayer',78,'treasure', 16, 16);
+        let doors = this.createObjects('objectsLayer',2,'door', 16, 16);
+        let barrels = this.createObjects('objectsLayer',1,'barrel', 16, 16);
+        let treasures = this.createObjects('objectsLayer',20,'treasure', 16, 16);
+
+
+        this.barrels = barrels; //Need this to push barrels in shield hero class
 
         this.door = this.physics.add.existing(doors.getChildren()[0]);
 

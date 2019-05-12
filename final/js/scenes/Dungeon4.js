@@ -102,18 +102,17 @@ export class Dungeon4 extends DayScene {
         //Generate map
         console.log("COmes");
         this.map = this.add.tilemap(this.mapLevel);
+
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
-        this.terrain2 = this.map.addTilesetImage("addableTiles2", "terrain"); //Variable used in pathfinding
-
-        this.baseLayer = this.map.createStaticLayer("base", [this.terrain, this.terrain2], 0, 0).setScale(5, 5);
-        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain, this.terrain2], 1, 0).setScale(5, 5);
-        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain2], 1, 0).setScale(5, 5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain, this.terrain2], 1, 0).setScale(5, 5);
-        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain, this.terrain2], 1, 0).setScale(5, 5);
-
-
+        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
+        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5, 5);
+        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain], 1, 0).setScale(5, 5);
 
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
+
+
 
         //collisions
         this.wallLayer.setCollision(6); 
@@ -124,14 +123,56 @@ export class Dungeon4 extends DayScene {
 
 
         this.scaleObjects(.5);
-        let doors = this.createObjects('objectsLayer',60,'door', 16, 16);
-        let barrels = this.createObjects('objectsLayer',59,'barrel', 16, 16);
-        let treasures = this.createObjects('objectsLayer',78,'treasure', 16, 16);
+        let doors = this.createObjects('objectsLayer',2,'door', 16, 16);
+        this.barrels = this.createObjects('objectsLayer',1,'barrel', 16, 16);   //It needs a "this" keyword
+        let barrels = this.barrels;
+        let treasures = this.createObjects('objectsLayer',20,'treasure', 16, 16);
+        let goblinSpawnPoints = this.createObjects('goblinSpawnPoints',59,'barrel', 16, 16);
+        let slimeSpawnPoints = this.createObjects('slimeSpawnPoints', 120, 'barrel', 16,16);
 
-        console.log(doors);
 
+        for(let i = 0; i < slimeSpawnPoints.getChildren().length; i++){
+
+            let halfOfTileWidth = slimeSpawnPoints.getChildren()[0].width/2;
+            let halfOfTileHeight = slimeSpawnPoints.getChildren()[0].height/2;
+            
+            let x = (slimeSpawnPoints.getChildren()[i].x-halfOfTileWidth)*5;
+            let y = (slimeSpawnPoints.getChildren()[i].y-halfOfTileHeight)*5;
+            this.slimeSpawnArr.push([x,y]);
+        }
+        this.spawnMoreSlimes();
+
+
+
+
+        console.log(goblinSpawnPoints, goblinSpawnPoints.getChildren().length);
+        
+        for(let i = 0; i < goblinSpawnPoints.getChildren().length; i++){
+
+            let halfOfTileWidth = goblinSpawnPoints.getChildren()[0].width/2;
+            let halfOfTileHeight = goblinSpawnPoints.getChildren()[0].height/2;
+            
+            let x = (goblinSpawnPoints.getChildren()[i].x-halfOfTileWidth)*5;
+            let y = (goblinSpawnPoints.getChildren()[i].y-halfOfTileHeight)*5;
+            this.goblinSpawnArr.push([x,y]);
+        }
+        this.spawnMoreGoblins();
+
+
+
+
+
+
+
+
+
+
+        
         this.door1 = this.physics.add.existing(doors.getChildren()[0]);
         this.door2 = this.physics.add.existing(doors.getChildren()[1]);
+
+        this.door1.otherDoor = this.door2;
+        this.door2.otherDoor = this.door1;
 
         this.barrel1 = this.physics.add.existing(barrels.getChildren()[0]);
         this.barrel2 = this.physics.add.existing(barrels.getChildren()[1]);
@@ -157,7 +198,13 @@ export class Dungeon4 extends DayScene {
 
         //door overlap
         this.physics.add.overlap(this.door1, this.playerGroup.getChildren(), function (o1,o2) {
-            console.log(o2);
+            o2.x = o1.otherDoor.x;
+            o2.y = o1.otherDoor.y + 50*3;
+            
+        });
+        this.physics.add.overlap(this.door2, this.playerGroup.getChildren(), function (o1,o2) {
+            o2.x = o1.otherDoor.x + 50*3;
+            o2.y = o1.otherDoor.y;
         });
 
         //Treasure stuff
@@ -188,6 +235,11 @@ export class Dungeon4 extends DayScene {
 
         this.map.currentLayer = this.baseLayer;
     }
+
+
+
+
+
 
     update(time, delta) {
         super.update(time);
