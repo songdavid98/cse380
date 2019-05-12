@@ -82,7 +82,6 @@ export class NightDefenseStructure {
 
     update(time, enemies) {
         if(this.targetFound){
-            console.log("hello");
             return;
         }
         let timePassed = (time - this.prevTime) / 1000;
@@ -96,8 +95,7 @@ export class NightDefenseStructure {
         this.targetEnem = targetEnem;
         console.log(this.targetEnem);
         this.targetFound = true;
-        this.sprite.anims.play('rightCannon');
-        //targetEnem.health -= this.damage;
+        this.sprite.anims.play('rightIce'); //enemy takes damage in animation
         this.prevTime = time;
     }
 

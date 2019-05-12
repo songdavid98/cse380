@@ -47,10 +47,9 @@ export class Ice extends NightDefenseStructure {
             repeat: 0
         });
         this.sprite.on('animationcomplete', function (anim, frame) {
-//            console.log("wata");
-//            console.log(this.targetEnem);
-//            console.log(this);
+            
             this.class.targetEnem.health -= this.class.damage;
+            this.class.targetEnem.slowDown();
             this.class.targetFound = false;
         }, this.sprite);
         console.log(this.anims);

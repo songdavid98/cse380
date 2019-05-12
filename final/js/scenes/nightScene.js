@@ -109,12 +109,13 @@ export class NightScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
 
+        this.load.image("greenHealth", "./assets/images/icons/bar1.png");
+        this.load.image("healthBar", "./assets/images/icons/bar2.png");
+        
         //Load defense structure images
         console.log(this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure"));
         
-        console.log("before ice load");
         console.log(this.load.multiatlas(DEFSTR.ICE, './assets/images/defenseStructure/ice.json', "./assets/images/defenseStructure"));
-        console.log("after ice load");
         //Load song
         this.load.audio("audionightbackgroundsong", "./assets/audio/nightbackgroundsong.wav");
     }
@@ -213,7 +214,7 @@ export class NightScene extends Phaser.Scene {
                 this.alreadyClicked = true;
                 buyicetower.alpha = 0.5;
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(5, 5);
-                this.towerToBePlaced = new Cannon({
+                this.towerToBePlaced = new Ice({
                     "sprite": this.towerSpriteForBuying,
                     "physics": this.physics,
                     "anims": this.anims
@@ -446,14 +447,20 @@ export class NightScene extends Phaser.Scene {
 
     spawnEnemy(enemyType) {
         let enemySprite = null;
+        let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+        let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+        
         switch (enemyType) {
             case ENEMIES.SLIME:
+                
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'slime/left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newSlime = new Slime({
                     "sprite": enemySprite,
                     "physics": this.physics,
-                    "anims": this.anims
+                    "anims": this.anims,
+                    "healthBar": healthBarSprite,
+                    "greenBar": healthSprite
                 });
                 this.enemies.push(newSlime);
                 //Set collisions
@@ -464,7 +471,9 @@ export class NightScene extends Phaser.Scene {
                 let newgoblin = new Goblin({
                     "sprite": enemySprite,
                     "physics": this.physics,
-                    "anims": this.anims
+                    "anims": this.anims,
+                    "healthBar": healthBarSprite,
+                    "greenBar": healthSprite
                 });
                 this.enemies.push(newgoblin);
                 break;
@@ -474,7 +483,9 @@ export class NightScene extends Phaser.Scene {
                 let newgolem = new Golem({
                     "sprite": enemySprite,
                     "physics": this.physics,
-                    "anims": this.anims
+                    "anims": this.anims,
+                    "healthBar": healthBarSprite,
+                    "greenBar": healthSprite
                 });
                 this.enemies.push(newgolem);
                 this.physics.add.collider(this.enemySpritesGroup.getChildren(), this.wallLayer);

@@ -100,49 +100,49 @@ export class Enemy {
     }
 
     nightUpdate(time, level) {
-        if (this.active) {
-            switch (this.nightWaypoint) {
-                case 0:
-                    if (this.sprite.x > 1425) {
-                        this.distanceTraveled += this.speed;
-                        this.sprite.body.setVelocityX(-1 * this.speed);
-                        this.sprite.body.setVelocityY(0);
-                        break;
-                    }
-                    this.nightWaypoint = 1;
-                case 1:
-                    if (this.sprite.y < 700) {
-                        this.distanceTraveled += this.speed;
-                        this.sprite.body.setVelocityX(0);
-                        this.sprite.body.setVelocityY(this.speed);
-                        break;
-                    }
-                    this.nightWaypoint = 2;
-                case 2:
-                    if (this.sprite.x > 700) {
-                        this.distanceTraveled += this.speed;
-                        this.sprite.body.setVelocityX(-1 * this.speed);
-                        this.sprite.body.setVelocityY(0);
-                        break;
-                    }
-                    this.nightWaypoint = 3;
-                case 3:
-                    if (this.sprite.y > 420) {
-                        this.distanceTraveled += this.speed;
-                        this.sprite.body.setVelocityX(0);
-                        this.sprite.body.setVelocityY(-1 * this.speed);
-                        break;
-                    }
-                    this.nightWaypoint = 4;
-                case 4:
+        switch (this.nightWaypoint) {
+            case 0:
+                if (this.sprite.x > 1425) {
                     this.distanceTraveled += this.speed;
                     this.sprite.body.setVelocityX(-1 * this.speed);
                     this.sprite.body.setVelocityY(0);
                     break;
-            }
-
+                }
+                this.nightWaypoint = 1;
+            case 1:
+                if (this.sprite.y < 700) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 2;
+            case 2:
+                if (this.sprite.x > 700) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(-1 * this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 3;
+            case 3:
+                if (this.sprite.y > 420) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(-1 * this.speed);
+                    break;
+                }
+                this.nightWaypoint = 4;
+            case 4:
+                this.distanceTraveled += this.speed;
+                this.sprite.body.setVelocityX(-1 * this.speed);
+                this.sprite.body.setVelocityY(0);
+                break;
         }
-
+        this.healthBar.x = this.sprite.x;
+        this.healthBar.y = this.sprite.y - this.sprite.height * this.scaleY / 2 - 20;
+        this.greenBar.x = this.sprite.x - this.healthBar.width + ((this.greenBar.width) * this.greenBar.scaleX / 2);
+        this.greenBar.y = this.sprite.y - this.sprite.height * this.scaleY / 2 - 20;
     }
 
 }

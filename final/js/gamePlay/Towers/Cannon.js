@@ -21,7 +21,7 @@ export class Cannon extends NightDefenseStructure {
         //        this.anims = data.anims;
         this.active = true; //FIXME: remove this
         this.shoots = true;
-        this.rateOfFire = 3;
+        this.rateOfFire = 3; //once every x seconds
         this.prevTime = 0;
         this.price = 100;
 
@@ -47,9 +47,6 @@ export class Cannon extends NightDefenseStructure {
             repeat: 0
         });
         this.sprite.on('animationcomplete', function (anim, frame) {
-//            console.log("wata");
-//            console.log(this.targetEnem);
-//            console.log(this);
             this.class.targetEnem.health -= this.class.damage;
             this.class.targetFound = false;
         }, this.sprite);
