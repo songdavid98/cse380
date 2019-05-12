@@ -89,7 +89,6 @@ export class Dungeon4 extends DayScene {
     }
     preload() {
         super.preload();
-        this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
 
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
@@ -104,12 +103,13 @@ export class Dungeon4 extends DayScene {
         console.log("COmes");
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
+        this.terrain2 = this.map.addTilesetImage("addableTiles2", "terrain"); //Variable used in pathfinding
 
-        this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
-        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5, 5);
-        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5, 5);
-        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain], 1, 0).setScale(5, 5);
+        this.baseLayer = this.map.createStaticLayer("base", [this.terrain, this.terrain2], 0, 0).setScale(5, 5);
+        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain, this.terrain2], 1, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain2], 1, 0).setScale(5, 5);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain, this.terrain2], 1, 0).setScale(5, 5);
+        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain, this.terrain2], 1, 0).setScale(5, 5);
 
 
 
@@ -124,9 +124,9 @@ export class Dungeon4 extends DayScene {
 
 
         this.scaleObjects(.5);
-        let doors = this.createObjects('objectsLayer',118,'door', 16, 16);
-        let barrels = this.createObjects('objectsLayer',117,'barrel', 16, 16);
-        let treasures = this.createObjects('objectsLayer',136,'treasure', 16, 16);
+        let doors = this.createObjects('objectsLayer',60,'door', 16, 16);
+        let barrels = this.createObjects('objectsLayer',59,'barrel', 16, 16);
+        let treasures = this.createObjects('objectsLayer',78,'treasure', 16, 16);
 
         console.log(doors);
 
