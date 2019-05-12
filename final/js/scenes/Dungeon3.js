@@ -177,7 +177,7 @@ export class Dungeon3 extends DayScene {
     update(time, delta) {
         //console.log(this.player.sprite.body.position);
         super.update(time);
-        console.log(this.player.sprite.body.position);
+            //console.log(this.player.sprite.body.position);
         if(this.player.active && this.player.sprite.body.position.y <= 1240 & this.player.sprite.body.position.y > 0){
             console.log("hello");
             this.player.active = false;

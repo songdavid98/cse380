@@ -42,6 +42,11 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("nightmap2Thumb", "./assets/images/icons/nightmap2.png");
         this.load.image("textBar", "assets/images/icons/textBar.png");
 
+        this.load.image("shieldIcon", "./assets/images/icons/shield.png");
+        this.load.image("swordIcon", "./assets/images/icons/sword.png");
+        this.load.image("staffIcon", "./assets/images/icons/staff.png");
+
+
 
         // add audio files
         //        this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");

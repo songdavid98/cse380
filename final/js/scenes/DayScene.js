@@ -183,7 +183,8 @@ export class DayScene extends Phaser.Scene {
             "shieldHero": this.shieldHero,
             "swordHero": this.swordHero,
             "mageHero": this.mageHero,
-            "playerType": this.player.playerType
+            "playerType": this.player.playerType,
+            "timer": 120
         });
 
         //Create the enemies
@@ -326,7 +327,7 @@ export class DayScene extends Phaser.Scene {
 
         this.input.mouse.disableContextMenu();
         this.map.currentLayer = this.baseLayer;
-        this.pathFinding();
+        //this.pathFinding();
     }
 
     spawnMoreSlimes() {
@@ -447,6 +448,7 @@ export class DayScene extends Phaser.Scene {
         var tileset = this.map.tilesets[0];
         var properties = tileset.tileProperties;
         console.log(tileset);
+        console.log(grid);
         var acceptableTiles = [];
 
         // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
@@ -469,11 +471,11 @@ export class DayScene extends Phaser.Scene {
 
     //Used in pathfinding
     getTileID(x, y) {
-        /*var tile = this.map.getTileAt(x, y, true, 'walls');
+        var tile = this.map.getTileAt(x, y, true, 'walls');
         if (tile.index == -1) {
             tile = this.map.getTileAt(x, y, true, 'base');
         }
-        return tile.index;*/
+        return tile.index;
     }
     checkCollision(x, y) {
         var tile = this.map.getTileAt(x, y, true);

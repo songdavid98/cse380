@@ -63,6 +63,18 @@ export class DayOverlayScene extends Phaser.Scene {
 
         this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(1);
 
+
+        this.shieldIcon = this.add.image(300, 100, "shieldIcon").setScale(4).setDepth(1);
+        this.shieldIcon.visible = false;
+        this.swordIcon = this.add.image(300, 100, "swordIcon").setScale(4).setDepth(1);
+        this.swordIcon.visible = false;
+        this.staffIcon = this.add.image(300, 100, "staffIcon").setScale(4).setDepth(1);
+        this.staffIcon.visible = false;
+
+
+
+
+
         //add timer
         let seconds = this.timer % 60;
         if (seconds < 10) {
@@ -74,6 +86,29 @@ export class DayOverlayScene extends Phaser.Scene {
             strokeThickness: 10,
             stroke: "#000000"
         });
+
+        this.bigTimerText = this.add.text(450, 300, Math.floor(this.timer / 60) + ':' + seconds, {
+            fontSize: '270px',
+            fill: '#fff',
+            strokeThickness: 10,
+            stroke: "#000000"
+        });
+        this.bigTimerText.visible = false;
+        this.haveShownBigTimerText = false;
+
+
+
+
+        //Death stuff
+        this.deathText = this.add.text(600, 400, 'You are dead', {
+            fontSize: '70px',
+            fill: '#a700ff',
+            strokeThickness: 10,
+            stroke: "#ffffff"
+        });
+        this.deathText.visible = false;
+        this.haveShownDeathText = false;
+
 
         //variables
         this.shieldHealth = this.shieldHero.health;
@@ -98,12 +133,21 @@ export class DayOverlayScene extends Phaser.Scene {
         this.heartDepth; //Shield, Sword, Mage   [depth, depth, depth, yPos, yPos, yPos]
             switch (this.dayScene.player.playerType) {
                 case HEROES.SHIELD_HERO:
+                    this.shieldIcon.visible = true;
+                    this.swordIcon.visible = false;
+                    this.staffIcon.visible = false;
                     this.heartDepth = [3, 2, 1, 150, 130, 110];
                     break;
                 case HEROES.SWORD_HERO:
+                    this.shieldIcon.visible = false;
+                    this.swordIcon.visible = true;
+                    this.staffIcon.visible = false;
                     this.heartDepth = [1, 3, 2, 110, 150, 130];
                     break;
                 case HEROES.MAGE_HERO:
+                    this.shieldIcon.visible = false;
+                    this.swordIcon.visible = false;
+                    this.staffIcon.visible = true;
                     this.heartDepth = [2, 1, 3, 130, 110, 150];
                     break;
             }
@@ -176,12 +220,10 @@ export class DayOverlayScene extends Phaser.Scene {
         //---------------------------------------------------------
 
         if (this.shieldHero.health <= 0 && this.swordHero.health <= 0 && this.mageHero.health <= 0 && this.deathText == null) {
-            this.deathText = this.add.text(600, 400, 'You are dead', {
-                fontSize: '70px',
-                fill: '#a700ff',
-                strokeThickness: 10,
-                stroke: "#ffffff"
-            });
+            if(!this.haveShownDeathText){
+                this.deathText.visible = true;
+                this.haveShownDeathText = true;
+            }
         }
 
         //--------------------------- Money Stuff -------------------------
@@ -200,12 +242,35 @@ export class DayOverlayScene extends Phaser.Scene {
             seconds = "0" + seconds;
         }
         this.timerText.setText(Math.floor(timeRemaining / 60) + ":" + seconds);
+        this.bigTimerText.setText(Math.floor(timeRemaining / 60) + ":" + seconds);
+
+
+        if (timeRemaining <= 5 && !this.haveShownBigTimerText){
+            this.bigTimerText.visible = true;
+            this.haveShownBigTimerText = true;
+        }
+
+
         if (timeRemaining <= 0) {
             this.dayScene.music.stop();
             this.scene.stop(this.sceneKey);
-            console.log(this.dayScene.money);
-            this.scene.start(SCENES.NIGHT, {
-                "level": 1,
+
+            let transitionScene;
+
+            switch(this.scene.scene.sceneKey){
+                case SCENES.DUNGEON1:
+                    transitionScene = "n1";
+                break;
+                case SCENES.DUNGEON2:
+                    transitionScene = "n2";
+                break;
+                case SCENES.DUNGEON3:
+                    transitionScene = "n3";
+                break;
+            }
+
+            this.scene.start(SCENES.DAY_NIGHT_TRANSITION, {
+                "transitionScene": transitionScene,
                 "money": this.dayScene.money + 200
             });
             this.scene.stop();
