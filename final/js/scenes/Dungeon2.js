@@ -147,7 +147,7 @@ export class Dungeon2 extends DayScene{
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
         this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
         this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5,5); 
-        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 0, 0).setScale(5, 5);
 
         super.create();
 
