@@ -14,7 +14,6 @@ import {
     NightDefenseStructure
 } from "../gamePlay/NightDefenseStructure.js";
 
-
 import {
     Slime
 } from "../gamePlay/Monsters/Slime.js";
@@ -88,6 +87,8 @@ export class NightScene extends Phaser.Scene {
         this.currentlySpawning = null;
         this.startWavePressed = false;
         this.timeToStopInterval = null;
+        
+        this.alreadyClicked = false;
     }
 
     preload() {
@@ -111,13 +112,15 @@ export class NightScene extends Phaser.Scene {
         //Load defense structure images
         console.log(this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure"));
         
+        console.log("before ice load");
         console.log(this.load.multiatlas(DEFSTR.ICE, './assets/images/defenseStructure/ice.json', "./assets/images/defenseStructure"));
-        
+        console.log("after ice load");
         //Load song
         this.load.audio("audionightbackgroundsong", "./assets/audio/nightbackgroundsong.wav");
     }
 
     create() {
+        console.log("start create in nightscene");
         this.music = this.sound.add("audionightbackgroundsong");
         this.music.setLoop(true);
         this.music.play()
@@ -206,15 +209,37 @@ export class NightScene extends Phaser.Scene {
         buyicetower.setInteractive();
         buyicetower.on("pointerdown", () => {
             console.log("buyicetower pressed");
+            if (!this.alreadyClicked && this.money >= 150 && !this.startDragging) {
+                this.alreadyClicked = true;
+                buyicetower.alpha = 0.5;
+                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0003.png').setScale(5, 5);
+                this.towerToBePlaced = new Cannon({
+                    "sprite": this.towerSpriteForBuying,
+                    "physics": this.physics,
+                    "anims": this.anims
+                });
+                this.towerToBePlaced.placeable = false; 
+                this.towerSpriteForBuying.class = this.towerToBePlaced;
+
+                this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
+                this.startDragging = true;
+            }
+            else {
+                buyice.alpha = 1;
+                this.alreadyClicked = false;
+                this.towerSpriteForBuying.destroy();
+                this.towerSpriteForBuying = null;
+                this.startDragging = false;
+                this.towerToBePlaced = null;
+            }
         });
 
         buycannon.setInteractive();
         buycannon.on("pointerdown", () => {
             console.log("buycannon pressed");
-            //console.log(this);
-
             if (!this.alreadyClicked && this.money >= 100 && !this.startDragging) {
-
+                this.alreadyClicked = true;
+                buycannon.alpha = 0.5;
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
                 this.towerToBePlaced = new Cannon({
                     "sprite": this.towerSpriteForBuying,
@@ -225,16 +250,19 @@ export class NightScene extends Phaser.Scene {
                 this.towerSpriteForBuying.class = this.towerToBePlaced;
 
                 this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
-                this.money -= 100;
                 this.startDragging = true;
-
-                //tower.placed = false;
-                //placed will be false by default on creation
-                this.defStrs.push(this.towerToBePlaced);
-
             }
-
+            else {
+                buycannon.alpha = 1;
+                this.alreadyClicked = false;
+                this.towerSpriteForBuying.destroy();
+                this.towerSpriteForBuying = null;
+                this.startDragging = false;
+                this.towerToBePlaced = null;
+            }
         });
+        
+        
 
         this.input.on("pointermove", function (pointer) {
             if (this.scene.startDragging) {
@@ -247,10 +275,12 @@ export class NightScene extends Phaser.Scene {
                     }
                 });
                 this.scene.towerToBePlaced.placeable = placeable;
-                if (this.scene.towerToBePlaced.defStrType == DEFSTR.CANNON) {
-                    this.scene.towerSpriteForBuying.x = pointer.x;
-                    this.scene.towerSpriteForBuying.y = pointer.y;
-                }
+                this.scene.towerSpriteForBuying.x = pointer.x;
+                this.scene.towerSpriteForBuying.y = pointer.y;
+//                if (this.scene.towerToBePlaced.defStrType == DEFSTR.CANNON) {
+//                    this.scene.towerSpriteForBuying.x = pointer.x;
+//                    this.scene.towerSpriteForBuying.y = pointer.y;
+//                }
                 //if the pointer is not in bounds
                 if (pointer.x <= this.scene.minX || pointer.y <= this.scene.minY || !this.scene.towerToBePlaced.placeable) {
                     this.scene.towerSpriteForBuying.alpha = 0.5;
@@ -268,9 +298,14 @@ export class NightScene extends Phaser.Scene {
             //if pointer is in bounds and a tower is chosen
             if (this.towerToBePlaced != null && pointer.x > this.minX && pointer.y > this.minY && this.towerToBePlaced.placeable) {
                 this.towerToBePlaced.placed = true;
+                this.defStrs.push(this.towerToBePlaced);
                 this.startDragging = false;
+                this.money -= this.towerToBePlaced.price;
                 this.towerToBePlaced = null;
                 this.towerSpriteForBuying = null;
+                this.alreadyClicked = false;
+                buycannon.alpha = 1;
+                buyicetower.alpha = 1;
             }
             pointer = null;
         });
@@ -278,6 +313,7 @@ export class NightScene extends Phaser.Scene {
 
         this.input.keyboard.addKeys('Esc');
         this.input.keyboard.addKeys('One,Two,Three,Four,Five,Six,I');
+        console.log("end of create in nightscene");
     }
     update(time, delta) {
         //enemy update, so that when the game ends, the enemy Pathfinding doesn't shut down
@@ -343,11 +379,11 @@ export class NightScene extends Phaser.Scene {
                 "scenes": [SCENES.NIGHT]
             });
             this.scene.pause();
-        } else if (this.input.keyboard.keys[27].isUp) {
+        } else if (this.input.keyboard.keys[27].isUp && this.justPaused) {
             this.justPaused = false;
             this.music.resume();
         }
-
+        
         //for stopping/restarting the spawn of enemies
         if (this.timeToStopInterval && time >= this.timeToStopInterval) {
 
