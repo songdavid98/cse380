@@ -183,7 +183,8 @@ export class DayScene extends Phaser.Scene {
             "shieldHero": this.shieldHero,
             "swordHero": this.swordHero,
             "mageHero": this.mageHero,
-            "playerType": this.player.playerType
+            "playerType": this.player.playerType,
+            "timer": 620
         });
 
         //Create the enemies
@@ -196,6 +197,9 @@ export class DayScene extends Phaser.Scene {
 
             healthBarSprite.visible = false;
             healthSprite.visible = false;
+
+
+
 
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({
@@ -326,11 +330,13 @@ export class DayScene extends Phaser.Scene {
 
         this.input.mouse.disableContextMenu();
         this.map.currentLayer = this.baseLayer;
-        this.pathFinding();
+        //this.pathFinding();
     }
+
 
     spawnMoreSlimes() {
         //Create the enemies
+        this.slimeCount = this.slimeSpawnArr.length;
         for (var i = 0; i < this.slimeCount; i++) {
 
             let scaleX = 5;
@@ -338,6 +344,10 @@ export class DayScene extends Phaser.Scene {
             let slimeSprite = this.physics.add.sprite(this.slimeSpawnArr[i][0], this.slimeSpawnArr[i][1], ENEMIES.SLIME, 'down/0001.png').setScale(scaleX, scaleY);
             let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
             let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
+
+            console.log(slimeSprite);
+            console.log(this.anims);
 
             healthBarSprite.visible = false;
             healthSprite.visible = false;
@@ -357,6 +367,74 @@ export class DayScene extends Phaser.Scene {
             });
             slimeSprite.class = slime;
             this.monsterArray.push(slime);
+        }
+    }
+
+    spawnMoreGoblins() {
+        //Create the enemies
+        this.goblinCount = this.goblinSpawnArr.length;
+        console.log(this.goblinSpawnArr);
+        for (var i = 0; i < this.goblinCount; i++) {
+            let scaleX = 5;
+            let scaleY = 5;
+            let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(scaleX, scaleY);
+            console.log(goblinSprite);
+            
+            let zzzSprite = this.add.sprite(this.goblinSpawnArr[i][0] + 100, this.goblinSpawnArr[i][1] - 100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(goblinSprite);
+            let goblin = new Goblin({
+                "sprite": goblinSprite,
+                "healthBar": healthBarSprite,
+                "greenBar": healthSprite,
+                "zzzSprite": zzzSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.GOBLIN,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY": scaleY
+            });
+            goblinSprite.class = goblin;
+            this.monsterArray.push(goblin);
+        }
+    }
+
+    spawnMoreGolems() {
+        //Create the enemies
+        this.golemCount = this.golemSpawnArr.length;
+        for (var i = 0; i < this.golemCount; i++) {
+
+            let scaleX = 5;
+            let scaleY = 5;
+            let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(scaleX, scaleY);
+            let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
+            let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
+
+            healthBarSprite.visible = false;
+            healthSprite.visible = false;
+
+            this.enemyGroup.add(golemSprite);
+            let golem = new Golem({
+                "sprite": golemSprite,
+                "healthBar": healthBarSprite,
+                "greenBar": healthSprite,
+                "allEnemySprites": this.enemyGroup.getChildren(),
+                "physics": this.physics,
+                "enemyType": ENEMIES.GOLEM,
+                "anims": this.anims,
+                "scene": this,
+                "scaleX": scaleX,
+                "scaleY": scaleY
+            });
+            golemSprite.class = golem;
+            this.monsterArray.push(golem);
         }
     }
 
@@ -447,6 +525,7 @@ export class DayScene extends Phaser.Scene {
         var tileset = this.map.tilesets[0];
         var properties = tileset.tileProperties;
         console.log(tileset);
+        console.log(grid);
         var acceptableTiles = [];
 
         // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
@@ -469,11 +548,11 @@ export class DayScene extends Phaser.Scene {
 
     //Used in pathfinding
     getTileID(x, y) {
-        /*var tile = this.map.getTileAt(x, y, true, 'walls');
+        var tile = this.map.getTileAt(x, y, true, 'walls');
         if (tile.index == -1) {
             tile = this.map.getTileAt(x, y, true, 'base');
         }
-        return tile.index;*/
+        return tile.index;
     }
     checkCollision(x, y) {
         var tile = this.map.getTileAt(x, y, true);
@@ -630,7 +709,10 @@ export class DayScene extends Phaser.Scene {
         let objects = this.map.createFromObjects(layer, name, {
             key: key
         }); //create sprites not affected by physics
+        console.log(objects);
 
+
+        
         objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
         let children = objectGroup.getChildren();
         for (var i = 0; i < children.length; i++) {
@@ -640,6 +722,17 @@ export class DayScene extends Phaser.Scene {
         }
         console.log(objectGroup);
 
+        objects = null //for garbage collection
+        return objectGroup;
+    }
+    createSpawnPoints(layer, name, key) {
+        let objectGroup = this.add.group(); //create new empty physics group
+        let objects = this.map.createFromObjects(layer, name, {
+            key: key
+        }); //create sprites not affected by physics
+
+        objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
+        
         objects = null //for garbage collection
         return objectGroup;
     }

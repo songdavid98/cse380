@@ -101,21 +101,21 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "level": 0
             }
-            this.scene.start(SCENES.TUTORIAL, data);
+            this.scene.start(SCENES.BEGINNING, data);
         });
         level1Button.on("pointerdown", () => {
             this.music.stop();
             let data = {
-                "level": 1
+                "level": 4
             }
-            this.scene.start(SCENES.DUNGEON1, data);
+            this.scene.start(SCENES.DUNGEON4, data);
         });
         level2Button.on("pointerdown", () => {
             this.music.stop();
             let data = {
                 "level": 2
             }
-            this.scene.start(SCENES.BEGINNING, data);
+            this.scene.start(SCENES.DUNGEON2, data);
         });
         level3Button.on("pointerdown", () => {
             this.music.stop();

@@ -129,23 +129,21 @@ export class Dungeon2 extends DayScene{
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
+        this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
-        this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
-        this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
-        
         this.load.tilemapTiledJSON("map2", "./assets/tilemaps/Dungeon4.json");
         this.mapLevel = "map2";
     }
     create(){
         //Generate map
-
+        console.log(this.mapLevel);
         this.map = this.add.tilemap(this.mapLevel);
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5,5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
         this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5,5); 
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5,5); 
 
         super.create();
 
@@ -154,6 +152,92 @@ export class Dungeon2 extends DayScene{
         
         this.physics.add.collider(this.playerGroup.getChildren(),this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+
+
+        this.scaleObjects(.5);
+        console.log(this.map.objects);
+        let doors = this.createObjects('objectsLayer',2,'door', 16, 16);
+        let barrels = this.createObjects('objectsLayer',1,'barrel', 16, 16);
+        let treasures = this.createObjects('objectsLayer',20,'treasure', 16, 16);
+
+
+        this.barrels = barrels; //Need this to push barrels in shield hero class
+
+        this.door = this.physics.add.existing(doors.getChildren()[0]);
+
+
+        console.log(doors);
+        this.barrel1 = this.physics.add.existing(barrels.getChildren()[0]);
+        this.barrel2 = this.physics.add.existing(barrels.getChildren()[1]);
+        this.barrel3 = this.physics.add.existing(barrels.getChildren()[2]);
+        this.barrel4 = this.physics.add.existing(barrels.getChildren()[3]);
+        this.barrel5 = this.physics.add.existing(barrels.getChildren()[4]);
+        this.barrel6 = this.physics.add.existing(barrels.getChildren()[5]);
+        this.barrel7 = this.physics.add.existing(barrels.getChildren()[6]);
+        this.barrel8 = this.physics.add.existing(barrels.getChildren()[7]);
+        this.barrel9 = this.physics.add.existing(barrels.getChildren()[8]);
+        this.barrel10 = this.physics.add.existing(barrels.getChildren()[9]);
+        this.barrel11 = this.physics.add.existing(barrels.getChildren()[10]);
+
+
+        this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
+        this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+
+        this.barrel1.body.immovable = true;
+        this.barrel2.body.immovable = true;
+        this.barrel3.body.immovable = true;
+        this.barrel4.body.immovable = true;
+        this.barrel5.body.immovable = true;
+        this.barrel6.body.immovable = true;
+        this.barrel7.body.immovable = true;
+        this.barrel8.body.immovable = true;
+        this.barrel9.body.immovable = true;
+        this.barrel10.body.immovable = true;
+        this.barrel11.body.immovable = true;
+
+        this.physics.add.collider(this.playerGroup, barrels.getChildren());
+        this.physics.add.collider(this.enemyGroup, barrels.getChildren());
+        this.physics.add.collider(barrels.getChildren(), this.wallLayer);
+
+
+
+        //door overlap
+        this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1) {
+            o1.scene.music.pause();
+            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+            o1.scene.scene.start(SCENES.DUNGEON4, {
+                "money": o1.scene.money,
+                "level": 4
+            });
+            o1.scene.scene.stop();
+        });
+
+        //Treasure stuff
+        this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 500;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure2, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 1000;
+            o1.destroy();
+        });
+
+        //Danger grass stuffs
+        this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (playerSprite,hazard) {
+            if(hazard.index != -1){
+                playerSprite.class.hazardDamage(hazard.layer.properties[0].value);
+                console.log("Getting hit by some weed");
+            }
+        });
+        this.physics.add.overlap(this.enemyGroup.getChildren(), this.dangerGrassLayer, function (enemySprite,hazard) {
+            if(hazard.index != -1){
+                console.log(hazard);
+                console.log(enemySprite);
+                enemySprite.class.damaged(hazard.layer.properties[0].value);
+                console.log("Getting hit by some weed");
+            }
+        });
 
         this.map.currentLayer = this.baseLayer;
     }

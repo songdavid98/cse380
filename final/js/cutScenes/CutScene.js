@@ -30,8 +30,9 @@ export class CutScene extends Phaser.Scene{
         }
         this.lineCounter = 0;
 
-        this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
-        
+        if(this.map){
+            this.cameras.main.setBounds(0,0,this.map.widthInPixels*5, this.map.heightInPixels*5);
+        }
         //Show the heroes facing frontwards
         this.shieldHeroSprite = this.physics.add.sprite(200,200, HEROES.SHIELD_HERO, 'left/0001.png').setScale(5, 5);
         this.swordHeroSprite = this.physics.add.sprite(300,200, HEROES.SWORD_HERO, 'left/0001.png').setScale(5, 5);        

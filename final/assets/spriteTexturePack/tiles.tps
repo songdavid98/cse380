@@ -102,7 +102,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -221,7 +221,17 @@
             <key type="filename">../images/tiles/newerTileImages/zzlava1.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava10.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava11.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava12.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava13.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava14.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava15.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava16.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava17.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava18.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava19.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava2.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava20.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzlava21.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava3.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava4.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava5.png</key>
