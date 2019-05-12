@@ -121,14 +121,13 @@ export class Dungeon1 extends DayScene {
             this.items[i].x *= 5;
             this.items[i].y *= 5;
         }
-        let treasure = this.map.createFromObjects('objectsLayer', 20, {
+        this.treasure = this.map.createFromObjects('objectsLayer', 20, {
             key: 'treasure'
-        });
+        })[0];
         this.door = this.map.createFromObjects('objectsLayer', 2, {
             key: 'door'
         })[0];
 
-        console.log(treasure, this.door);
 
 
         this.door = this.physics.add.existing(this.door);
@@ -145,6 +144,17 @@ export class Dungeon1 extends DayScene {
             });
             o1.scene.scene.stop();
             console.log("hello");
+        });
+
+
+        this.treasure = this.physics.add.existing(this.treasure);
+        this.treasure.body.setSize(this.treasure.body.width, this.treasure.body.height);
+        this.treasure.body.setOffset(0, 0);
+
+        this.physics.add.overlap(this.treasure, this.playerGroup.getChildren(), function (o1,o2) {
+            console.log("Treasure");
+            o1.scene.money += 500;
+            o1.destroy();
         });
 
         this.map.currentLayer = this.baseLayer;

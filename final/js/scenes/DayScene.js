@@ -632,7 +632,10 @@ export class DayScene extends Phaser.Scene {
         let objects = this.map.createFromObjects(layer, name, {
             key: key
         }); //create sprites not affected by physics
+        console.log(objects);
 
+
+        
         objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
         let children = objectGroup.getChildren();
         for (var i = 0; i < children.length; i++) {

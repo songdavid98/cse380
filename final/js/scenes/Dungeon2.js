@@ -129,6 +129,7 @@ export class Dungeon2 extends DayScene{
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
+        this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
         this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
@@ -139,7 +140,7 @@ export class Dungeon2 extends DayScene{
     }
     create(){
         //Generate map
-
+        console.log(this.mapLevel);
         this.map = this.add.tilemap(this.mapLevel);
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
@@ -154,6 +155,64 @@ export class Dungeon2 extends DayScene{
         
         this.physics.add.collider(this.playerGroup.getChildren(),this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(),this.wallLayer);
+
+
+
+
+        this.scaleObjects(.5);
+        let doors = this.createObjects('objectsLayer','door','door', 16, 16);
+        let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
+        let treasures = this.createObjects('objectsLayer','treasure','treasure', 16, 16);
+
+        this.door = this.physics.add.existing(doors.getChildren()[0]);
+
+
+        console.log(barrels);
+        this.barrel1 = this.physics.add.existing(barrels.getChildren()[0]);
+        this.barrel2 = this.physics.add.existing(barrels.getChildren()[1]);
+        this.barrel3 = this.physics.add.existing(barrels.getChildren()[2]);
+        this.barrel4 = this.physics.add.existing(barrels.getChildren()[3]);
+        this.barrel5 = this.physics.add.existing(barrels.getChildren()[4]);
+        this.barrel6 = this.physics.add.existing(barrels.getChildren()[5]);
+        this.barrel7 = this.physics.add.existing(barrels.getChildren()[5]);
+        this.barrel8 = this.physics.add.existing(barrels.getChildren()[5]);
+        this.barrel9 = this.physics.add.existing(barrels.getChildren()[5]);
+        this.barrel10 = this.physics.add.existing(barrels.getChildren()[5]);
+        this.barrel11 = this.physics.add.existing(barrels.getChildren()[5]);
+
+
+        this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
+        this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+
+        this.barrel1.body.immovable = true;
+        this.barrel2.body.immovable = true;
+        this.barrel3.body.immovable = true;
+        this.barrel4.body.immovable = true;
+        this.barrel5.body.immovable = true;
+        this.barrel6.body.immovable = true;
+        this.barrel7.body.immovable = true;
+        this.barrel8.body.immovable = true;
+        this.barrel9.body.immovable = true;
+        this.barrel10.body.immovable = true;
+        this.barrel11.body.immovable = true;
+
+        this.physics.add.collider(this.playerGroup, this.barrels.getChildren());
+        this.physics.add.collider(this.barrels.getChildren(), this.wallLayer);
+
+
+
+        //door overlap
+        this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1) {
+            o1.scene.music.pause();
+            o1.scene.scene.stop(SCENES.DAY_OVERLAY);
+            o1.scene.scene.start(SCENES.DUNGEON4, {
+                "money": o1.scene.money,
+                "level": 4
+            });
+            o1.scene.scene.stop();
+        });
+
+
 
         this.map.currentLayer = this.baseLayer;
     }

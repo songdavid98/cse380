@@ -87,6 +87,8 @@ export class Tutorial extends DayScene {
         let doors = this.createObjects('objectsLayer','door','door', 16, 16);
         let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
         
+        console.log(doors);
+
         this.door = this.physics.add.existing(doors.getChildren()[0]);
         this.barrel = this.physics.add.existing(barrels.getChildren()[0]);
 

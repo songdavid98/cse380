@@ -37,6 +37,9 @@ import {
 import{
     Dungeon3
 } from "../scenes/Dungeon3.js"
+import{
+    Dungeon4
+} from "../scenes/Dungeon4.js"
 
 import { Beginning } from "../cutScenes/Beginning.js"; //Testing a cut scene
 import { DayNightTransition } from "../cutScenes/DayNightTransition.js"; //Testing a cut scene
@@ -48,7 +51,7 @@ let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene: [
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, NightScene, Dungeon1, Dungeon2, Dungeon3, Beginning, DayNightTransition, Tutorial, DayOverlayScene, PauseScene
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, NightScene, Dungeon1, Dungeon2, Dungeon3, Dungeon4, Beginning, DayNightTransition, Tutorial, DayOverlayScene, PauseScene
     ],
 
     //----------------------------------mine 
