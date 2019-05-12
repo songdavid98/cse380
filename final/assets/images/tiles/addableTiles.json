@@ -4,7 +4,7 @@
 			"image": "addableTiles.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 960,
+				"w": 992,
 				"h": 16
 			},
 			"scale": 1,
@@ -1249,28 +1249,7 @@
 					}
 				},
 				{
-					"filename": "zzzclearTile2.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 16,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 16,
-						"h": 16
-					},
-					"frame": {
-						"x": 928,
-						"y": 0,
-						"w": 16,
-						"h": 16
-					}
-				},
-				{
-					"filename": "zzzzblueTile.png",
+					"filename": "zzzgoblinTile.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1289,6 +1268,48 @@
 						"w": 16,
 						"h": 16
 					}
+				},
+				{
+					"filename": "zzzgolemTile.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 960,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "zzzslimeTile.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 976,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					}
 				}
 			]
 		}
@@ -1296,6 +1317,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:f5c53b9b76703fded72685359ea224e2:038a53d4dec5d12177cb284efe71595f:11d06ef642067bb7c73082114d2e6a6f$"
+		"smartupdate": "$TexturePacker:SmartUpdate:f36ede815fa5d3974ccb917540ffc2e2:64456c60986c5d7cfab296717a1e2529:11d06ef642067bb7c73082114d2e6a6f$"
 	}
 }

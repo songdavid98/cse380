@@ -212,7 +212,7 @@
          "name":"goblinSpawnPoints",
          "objects":[
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":17,
                  "name":"goblin",
@@ -224,7 +224,7 @@
                  "y":923.25
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":18,
                  "name":"goblin",
@@ -236,7 +236,7 @@
                  "y":901
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":19,
                  "name":"goblin",
@@ -248,7 +248,7 @@
                  "y":953.5
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":20,
                  "name":"goblin",
@@ -260,7 +260,7 @@
                  "y":988.333
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":21,
                  "name":"goblin",
@@ -272,7 +272,7 @@
                  "y":946.667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":22,
                  "name":"goblin",
@@ -280,11 +280,11 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":850,
-                 "y":822.667
+                 "x":845.333333333333,
+                 "y":806.333666666667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":23,
                  "name":"goblin",
@@ -296,7 +296,7 @@
                  "y":730
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":25,
                  "name":"goblin",
@@ -308,7 +308,7 @@
                  "y":788
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":27,
                  "name":"goblin",
@@ -320,7 +320,7 @@
                  "y":828.667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":29,
                  "name":"goblin",
@@ -332,7 +332,7 @@
                  "y":876
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":33,
                  "name":"goblin",
@@ -344,7 +344,7 @@
                  "y":955.333
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":34,
                  "name":"goblin",
@@ -356,7 +356,7 @@
                  "y":958
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":35,
                  "name":"goblin",
@@ -368,55 +368,7 @@
                  "y":900
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":36,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":786,
-                 "y":854
-                }, 
-                {
-                 "gid":59,
-                 "height":16,
-                 "id":37,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":775.333,
-                 "y":728.667
-                }, 
-                {
-                 "gid":59,
-                 "height":16,
-                 "id":41,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":765.667,
-                 "y":789.667
-                }, 
-                {
-                 "gid":59,
-                 "height":16,
-                 "id":42,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":791,
-                 "y":808
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":43,
                  "name":"goblin",
@@ -428,19 +380,7 @@
                  "y":731.333
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":44,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":769,
-                 "y":828
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":45,
                  "name":"goblin",
@@ -452,7 +392,7 @@
                  "y":862
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":46,
                  "name":"goblin",
@@ -460,23 +400,11 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":951,
-                 "y":793.333
+                 "x":962.666666666667,
+                 "y":748.333
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":47,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":816.667,
-                 "y":939.667
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":48,
                  "name":"goblin",
@@ -488,7 +416,7 @@
                  "y":732.333
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":49,
                  "name":"goblin",
@@ -500,19 +428,7 @@
                  "y":767
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":51,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":835.667,
-                 "y":791.333
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":52,
                  "name":"goblin",
@@ -520,11 +436,11 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":815,
-                 "y":832
+                 "x":802,
+                 "y":815.666666666667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":53,
                  "name":"goblin",
@@ -533,10 +449,10 @@
                  "visible":true,
                  "width":16,
                  "x":963,
-                 "y":842.333
+                 "y":790.333
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":54,
                  "name":"goblin",
@@ -548,7 +464,7 @@
                  "y":856
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":55,
                  "name":"goblin",
@@ -560,19 +476,7 @@
                  "y":883.333
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":56,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":840.333,
-                 "y":916.333
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":57,
                  "name":"goblin",
@@ -584,19 +488,7 @@
                  "y":969
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":58,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":862,
-                 "y":962
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":59,
                  "name":"goblin",
@@ -608,19 +500,7 @@
                  "y":910.333
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":60,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":875.667,
-                 "y":865.333
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":61,
                  "name":"goblin",
@@ -632,7 +512,7 @@
                  "y":810.667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":62,
                  "name":"goblin",
@@ -644,19 +524,7 @@
                  "y":763.333
                 }, 
                 {
-                 "gid":59,
-                 "height":16,
-                 "id":63,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":897.333,
-                 "y":742.333
-                }, 
-                {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":64,
                  "name":"goblin",
@@ -664,11 +532,11 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":917.333,
-                 "y":775
+                 "x":924.999666666667,
+                 "y":740.666666666667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":65,
                  "name":"goblin",
@@ -680,7 +548,7 @@
                  "y":829
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":66,
                  "name":"goblin",
@@ -692,7 +560,7 @@
                  "y":862.667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":67,
                  "name":"goblin",
@@ -704,7 +572,7 @@
                  "y":879
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":68,
                  "name":"goblin",
@@ -712,11 +580,11 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":919,
-                 "y":907.667
+                 "x":919.333333333333,
+                 "y":784.333666666667
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":69,
                  "name":"goblin",
@@ -728,7 +596,7 @@
                  "y":934.333
                 }, 
                 {
-                 "gid":59,
+                 "gid":122,
                  "height":16,
                  "id":70,
                  "name":"goblin",
@@ -738,18 +606,6 @@
                  "width":16,
                  "x":947.333,
                  "y":941.667
-                }, 
-                {
-                 "gid":59,
-                 "height":16,
-                 "id":71,
-                 "name":"goblin",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":909,
-                 "y":969.333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -763,7 +619,7 @@
          "name":"slimeSpawnPoints",
          "objects":[
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
                  "id":72,
                  "name":"slime",
@@ -775,7 +631,7 @@
                  "y":249.333
                 }, 
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
                  "id":73,
                  "name":"slime",
@@ -783,11 +639,11 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":26,
-                 "y":115.333
+                 "x":432,
+                 "y":234.833
                 }, 
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
                  "id":74,
                  "name":"slime",
@@ -795,56 +651,271 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":103.333,
-                 "y":46
+                 "x":397.333,
+                 "y":304.5
                 }, 
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
-                 "id":75,
+                 "id":80,
                  "name":"slime",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":148,
-                 "y":812
+                 "x":347,
+                 "y":340
                 }, 
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
-                 "id":76,
+                 "id":81,
                  "name":"slime",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":151.333,
-                 "y":778.667
+                 "x":943,
+                 "y":453.5
                 }, 
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
-                 "id":77,
+                 "id":82,
                  "name":"slime",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":148,
-                 "y":752
+                 "x":945,
+                 "y":527
                 }, 
                 {
-                 "gid":120,
+                 "gid":124,
                  "height":16,
-                 "id":78,
+                 "id":83,
                  "name":"slime",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":150.667,
-                 "y":832.667
+                 "x":561.5,
+                 "y":544.5
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":84,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":502,
+                 "y":571
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":85,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":801,
+                 "y":212
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":86,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":959.5,
+                 "y":131
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":87,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":884.5,
+                 "y":67.5
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":88,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":824,
+                 "y":150
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":89,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":208.5,
+                 "y":388
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":90,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":285,
+                 "y":487.5
+                }, 
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":91,
+                 "name":"slime",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":103.5,
+                 "y":488
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":14,
+         "name":"golemSpawnPoints",
+         "objects":[
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":92,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":457,
+                 "y":378.5
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":93,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":408,
+                 "y":180
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":94,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":47,
+                 "y":375
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":95,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":806,
+                 "y":476
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":96,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":700,
+                 "y":259
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":97,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":713,
+                 "y":106
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":98,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":518,
+                 "y":781
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":99,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":565,
+                 "y":875
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":100,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":584,
+                 "y":744
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -852,29 +923,29 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":14,
- "nextobjectid":80,
+ "nextlayerid":15,
+ "nextobjectid":101,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.3",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":60,
+         "columns":62,
          "firstgid":1,
          "image":"..\/images\/tiles\/addableTiles.png",
          "imageheight":16,
-         "imagewidth":960,
+         "imagewidth":992,
          "margin":0,
          "name":"addableTiles",
          "spacing":0,
-         "tilecount":60,
+         "tilecount":62,
          "tileheight":16,
          "tilewidth":16,
          "transparentcolor":"#ffffff"
         }, 
         {
-         "firstgid":61,
+         "firstgid":63,
          "source":"addableTiles.tsx"
         }],
  "tilewidth":16,

@@ -725,6 +725,17 @@ export class DayScene extends Phaser.Scene {
         objects = null //for garbage collection
         return objectGroup;
     }
+    createSpawnPoints(layer, name, key) {
+        let objectGroup = this.add.group(); //create new empty physics group
+        let objects = this.map.createFromObjects(layer, name, {
+            key: key
+        }); //create sprites not affected by physics
+
+        objectGroup.addMultiple(objects); //add array of objects to physics group, thus adding them to physics
+        
+        objects = null //for garbage collection
+        return objectGroup;
+    }
     scaleObjects(factor) {
         let items = this.map.objects[0].objects;
         for (var i = 0; i < items.length; i++) {

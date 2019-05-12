@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="80">
- <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="60" columns="60">
-  <image source="../images/tiles/addableTiles.png" trans="ffffff" width="960" height="16"/>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="101">
+ <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="62" columns="62">
+  <image source="../images/tiles/addableTiles.png" trans="ffffff" width="992" height="16"/>
  </tileset>
- <tileset firstgid="61" source="addableTiles.tsx"/>
+ <tileset firstgid="63" source="addableTiles.tsx"/>
  <layer id="5" name="base" width="64" height="64">
   <data encoding="csv">
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
@@ -363,59 +363,66 @@
   <object id="12" name="treasure2" gid="20" x="1040" y="1000" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="12" name="goblinSpawnPoints">
-  <object id="17" name="goblin" gid="59" x="93" y="923.25" width="16" height="16"/>
-  <object id="18" name="goblin" gid="59" x="143" y="901" width="16" height="16"/>
-  <object id="19" name="goblin" gid="59" x="153" y="953.5" width="16" height="16"/>
-  <object id="20" name="goblin" gid="59" x="168" y="988.333" width="16" height="16"/>
-  <object id="21" name="goblin" gid="59" x="204" y="946.667" width="16" height="16"/>
-  <object id="22" name="goblin" gid="59" x="850" y="822.667" width="16" height="16"/>
-  <object id="23" name="goblin" gid="59" x="740.667" y="730" width="16" height="16"/>
-  <object id="25" name="goblin" gid="59" x="740" y="788" width="16" height="16"/>
-  <object id="27" name="goblin" gid="59" x="739.333" y="828.667" width="16" height="16"/>
-  <object id="29" name="goblin" gid="59" x="740.667" y="876" width="16" height="16"/>
-  <object id="33" name="goblin" gid="59" x="738" y="955.333" width="16" height="16"/>
-  <object id="34" name="goblin" gid="59" x="780" y="958" width="16" height="16"/>
-  <object id="35" name="goblin" gid="59" x="780.667" y="900" width="16" height="16"/>
-  <object id="36" name="goblin" gid="59" x="786" y="854" width="16" height="16"/>
-  <object id="37" name="goblin" gid="59" x="775.333" y="728.667" width="16" height="16"/>
-  <object id="41" name="goblin" gid="59" x="765.667" y="789.667" width="16" height="16"/>
-  <object id="42" name="goblin" gid="59" x="791" y="808" width="16" height="16"/>
-  <object id="43" name="goblin" gid="59" x="858.333" y="731.333" width="16" height="16"/>
-  <object id="44" name="goblin" gid="59" x="769" y="828" width="16" height="16"/>
-  <object id="45" name="goblin" gid="59" x="766.333" y="862" width="16" height="16"/>
-  <object id="46" name="goblin" gid="59" x="951" y="793.333" width="16" height="16"/>
-  <object id="47" name="goblin" gid="59" x="816.667" y="939.667" width="16" height="16"/>
-  <object id="48" name="goblin" gid="59" x="816.667" y="732.333" width="16" height="16"/>
-  <object id="49" name="goblin" gid="59" x="811.333" y="767" width="16" height="16"/>
-  <object id="51" name="goblin" gid="59" x="835.667" y="791.333" width="16" height="16"/>
-  <object id="52" name="goblin" gid="59" x="815" y="832" width="16" height="16"/>
-  <object id="53" name="goblin" gid="59" x="963" y="842.333" width="16" height="16"/>
-  <object id="54" name="goblin" gid="59" x="841" y="856" width="16" height="16"/>
-  <object id="55" name="goblin" gid="59" x="816.667" y="883.333" width="16" height="16"/>
-  <object id="56" name="goblin" gid="59" x="840.333" y="916.333" width="16" height="16"/>
-  <object id="57" name="goblin" gid="59" x="823.333" y="969" width="16" height="16"/>
-  <object id="58" name="goblin" gid="59" x="862" y="962" width="16" height="16"/>
-  <object id="59" name="goblin" gid="59" x="873" y="910.333" width="16" height="16"/>
-  <object id="60" name="goblin" gid="59" x="875.667" y="865.333" width="16" height="16"/>
-  <object id="61" name="goblin" gid="59" x="880.667" y="810.667" width="16" height="16"/>
-  <object id="62" name="goblin" gid="59" x="854" y="763.333" width="16" height="16"/>
-  <object id="63" name="goblin" gid="59" x="897.333" y="742.333" width="16" height="16"/>
-  <object id="64" name="goblin" gid="59" x="917.333" y="775" width="16" height="16"/>
-  <object id="65" name="goblin" gid="59" x="922" y="829" width="16" height="16"/>
-  <object id="66" name="goblin" gid="59" x="907.667" y="862.667" width="16" height="16"/>
-  <object id="67" name="goblin" gid="59" x="937.667" y="879" width="16" height="16"/>
-  <object id="68" name="goblin" gid="59" x="919" y="907.667" width="16" height="16"/>
-  <object id="69" name="goblin" gid="59" x="902" y="934.333" width="16" height="16"/>
-  <object id="70" name="goblin" gid="59" x="947.333" y="941.667" width="16" height="16"/>
-  <object id="71" name="goblin" gid="59" x="909" y="969.333" width="16" height="16"/>
+  <object id="17" name="goblin" gid="122" x="93" y="923.25" width="16" height="16"/>
+  <object id="18" name="goblin" gid="122" x="143" y="901" width="16" height="16"/>
+  <object id="19" name="goblin" gid="122" x="153" y="953.5" width="16" height="16"/>
+  <object id="20" name="goblin" gid="122" x="168" y="988.333" width="16" height="16"/>
+  <object id="21" name="goblin" gid="122" x="204" y="946.667" width="16" height="16"/>
+  <object id="22" name="goblin" gid="122" x="845.333" y="806.334" width="16" height="16"/>
+  <object id="23" name="goblin" gid="122" x="740.667" y="730" width="16" height="16"/>
+  <object id="25" name="goblin" gid="122" x="740" y="788" width="16" height="16"/>
+  <object id="27" name="goblin" gid="122" x="739.333" y="828.667" width="16" height="16"/>
+  <object id="29" name="goblin" gid="122" x="740.667" y="876" width="16" height="16"/>
+  <object id="33" name="goblin" gid="122" x="738" y="955.333" width="16" height="16"/>
+  <object id="34" name="goblin" gid="122" x="780" y="958" width="16" height="16"/>
+  <object id="35" name="goblin" gid="122" x="780.667" y="900" width="16" height="16"/>
+  <object id="43" name="goblin" gid="122" x="858.333" y="731.333" width="16" height="16"/>
+  <object id="45" name="goblin" gid="122" x="766.333" y="862" width="16" height="16"/>
+  <object id="46" name="goblin" gid="122" x="962.667" y="748.333" width="16" height="16"/>
+  <object id="48" name="goblin" gid="122" x="816.667" y="732.333" width="16" height="16"/>
+  <object id="49" name="goblin" gid="122" x="811.333" y="767" width="16" height="16"/>
+  <object id="52" name="goblin" gid="122" x="802" y="815.667" width="16" height="16"/>
+  <object id="53" name="goblin" gid="122" x="963" y="790.333" width="16" height="16"/>
+  <object id="54" name="goblin" gid="122" x="841" y="856" width="16" height="16"/>
+  <object id="55" name="goblin" gid="122" x="816.667" y="883.333" width="16" height="16"/>
+  <object id="57" name="goblin" gid="122" x="823.333" y="969" width="16" height="16"/>
+  <object id="59" name="goblin" gid="122" x="873" y="910.333" width="16" height="16"/>
+  <object id="61" name="goblin" gid="122" x="880.667" y="810.667" width="16" height="16"/>
+  <object id="62" name="goblin" gid="122" x="854" y="763.333" width="16" height="16"/>
+  <object id="64" name="goblin" gid="122" x="925" y="740.667" width="16" height="16"/>
+  <object id="65" name="goblin" gid="122" x="922" y="829" width="16" height="16"/>
+  <object id="66" name="goblin" gid="122" x="907.667" y="862.667" width="16" height="16"/>
+  <object id="67" name="goblin" gid="122" x="937.667" y="879" width="16" height="16"/>
+  <object id="68" name="goblin" gid="122" x="919.333" y="784.334" width="16" height="16"/>
+  <object id="69" name="goblin" gid="122" x="902" y="934.333" width="16" height="16"/>
+  <object id="70" name="goblin" gid="122" x="947.333" y="941.667" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="13" name="slimeSpawnPoints">
-  <object id="72" name="slime" gid="120" x="359.333" y="249.333" width="16" height="16"/>
-  <object id="73" name="slime" gid="120" x="26" y="115.333" width="16" height="16"/>
-  <object id="74" name="slime" gid="120" x="103.333" y="46" width="16" height="16"/>
-  <object id="75" name="slime" gid="120" x="148" y="812" width="16" height="16"/>
-  <object id="76" name="slime" gid="120" x="151.333" y="778.667" width="16" height="16"/>
-  <object id="77" name="slime" gid="120" x="148" y="752" width="16" height="16"/>
-  <object id="78" name="slime" gid="120" x="150.667" y="832.667" width="16" height="16"/>
+  <object id="72" name="slime" gid="124" x="359.333" y="249.333" width="16" height="16"/>
+  <object id="73" name="slime" gid="124" x="432" y="234.833" width="16" height="16"/>
+  <object id="74" name="slime" gid="124" x="397.333" y="304.5" width="16" height="16"/>
+  <object id="80" name="slime" gid="124" x="347" y="340" width="16" height="16"/>
+  <object id="81" name="slime" gid="124" x="943" y="453.5" width="16" height="16"/>
+  <object id="82" name="slime" gid="124" x="945" y="527" width="16" height="16"/>
+  <object id="83" name="slime" gid="124" x="561.5" y="544.5" width="16" height="16"/>
+  <object id="84" name="slime" gid="124" x="502" y="571" width="16" height="16"/>
+  <object id="85" name="slime" gid="124" x="801" y="212" width="16" height="16"/>
+  <object id="86" name="slime" gid="124" x="959.5" y="131" width="16" height="16"/>
+  <object id="87" name="slime" gid="124" x="884.5" y="67.5" width="16" height="16"/>
+  <object id="88" name="slime" gid="124" x="824" y="150" width="16" height="16"/>
+  <object id="89" name="slime" gid="124" x="208.5" y="388" width="16" height="16"/>
+  <object id="90" name="slime" gid="124" x="285" y="487.5" width="16" height="16"/>
+  <object id="91" name="slime" gid="124" x="103.5" y="488" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="14" name="golemSpawnPoints">
+  <object id="92" name="golem" gid="123" x="457" y="378.5" width="16" height="16"/>
+  <object id="93" name="golem" gid="123" x="408" y="180" width="16" height="16"/>
+  <object id="94" name="golem" gid="123" x="47" y="375" width="16" height="16"/>
+  <object id="95" name="golem" gid="123" x="806" y="476" width="16" height="16"/>
+  <object id="96" name="golem" gid="123" x="700" y="259" width="16" height="16"/>
+  <object id="97" name="golem" gid="123" x="713" y="106" width="16" height="16"/>
+  <object id="98" name="golem" gid="123" x="518" y="781" width="16" height="16"/>
+  <object id="99" name="golem" gid="123" x="565" y="875" width="16" height="16"/>
+  <object id="100" name="golem" gid="123" x="584" y="744" width="16" height="16"/>
  </objectgroup>
 </map>
