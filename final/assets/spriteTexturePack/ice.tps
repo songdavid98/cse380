@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/defenseStructure/beamer.json</filename>
+                <filename>../images/defenseStructure/ice.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,7 +181,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/defenseStructure/beamer/right/0001.png</key>
+            <key type="filename">../images/defenseStructure/ice/right/0001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -197,7 +197,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/defenseStructure/beamer</filename>
+            <filename>../images/defenseStructure/ice</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

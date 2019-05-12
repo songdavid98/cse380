@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "beamer.png",
+			"image": "ice.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 18,
@@ -36,6 +36,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:2c93c831c0ffe2aba4739cec2212ebdc:5a3a38e6afcaa2b638e007ebe4f49fd2:e92487b2f9832639f802a0f67d73d61c$"
+		"smartupdate": "$TexturePacker:SmartUpdate:14aa56ad1ea815b30031bbb95a03d25e:5a3a38e6afcaa2b638e007ebe4f49fd2:12ed4ba9ba864cb29a9721ff8be126b7$"
 	}
 }

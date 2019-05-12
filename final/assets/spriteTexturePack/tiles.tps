@@ -239,6 +239,10 @@
             <key type="filename">../images/tiles/newerTileImages/zzlava7.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava8.png</key>
             <key type="filename">../images/tiles/newerTileImages/zzlava9.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzzclearTile.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzzgoblinTile.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzzgolemTile.png</key>
+            <key type="filename">../images/tiles/newerTileImages/zzzslimeTile.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
