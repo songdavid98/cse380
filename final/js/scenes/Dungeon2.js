@@ -160,14 +160,15 @@ export class Dungeon2 extends DayScene{
 
 
         this.scaleObjects(.5);
-        let doors = this.createObjects('objectsLayer','door','door', 16, 16);
-        let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
-        let treasures = this.createObjects('objectsLayer','treasure','treasure', 16, 16);
+        console.log(this.map.objects);
+        let doors = this.createObjects('objectsLayer',60,'door', 16, 16);
+        let barrels = this.createObjects('objectsLayer',59,'barrel', 16, 16);
+        let treasures = this.createObjects('objectsLayer',78,'treasure', 16, 16);
 
         this.door = this.physics.add.existing(doors.getChildren()[0]);
 
 
-        console.log(barrels);
+        console.log(doors);
         this.barrel1 = this.physics.add.existing(barrels.getChildren()[0]);
         this.barrel2 = this.physics.add.existing(barrels.getChildren()[1]);
         this.barrel3 = this.physics.add.existing(barrels.getChildren()[2]);
@@ -196,8 +197,8 @@ export class Dungeon2 extends DayScene{
         this.barrel10.body.immovable = true;
         this.barrel11.body.immovable = true;
 
-        this.physics.add.collider(this.playerGroup, this.barrels.getChildren());
-        this.physics.add.collider(this.barrels.getChildren(), this.wallLayer);
+        this.physics.add.collider(this.playerGroup, barrels.getChildren());
+        this.physics.add.collider(barrels.getChildren(), this.wallLayer);
 
 
 
