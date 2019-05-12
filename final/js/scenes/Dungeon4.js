@@ -89,6 +89,8 @@ export class Dungeon4 extends DayScene {
     }
     preload() {
         super.preload();
+        this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
+
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
         this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
@@ -104,10 +106,10 @@ export class Dungeon4 extends DayScene {
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
 
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
-        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 0, 0).setScale(5, 5);
-        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 0, 0).setScale(5, 5);
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
-        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain], 0, 0).setScale(5, 5);
+        this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5, 5);
+        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain], 1, 0).setScale(5, 5);
 
 
 
@@ -122,9 +124,9 @@ export class Dungeon4 extends DayScene {
 
 
         this.scaleObjects(.5);
-        let doors = this.createObjects('objectsLayer','door','door', 16, 16);
-        let barrels = this.createObjects('objectsLayer','barrel','barrel', 16, 16);
-        let treasures = this.createObjects('objectsLayer','treasure','treasure', 16, 16);
+        let doors = this.createObjects('objectsLayer',118,'door', 16, 16);
+        let barrels = this.createObjects('objectsLayer',117,'barrel', 16, 16);
+        let treasures = this.createObjects('objectsLayer',136,'treasure', 16, 16);
 
         console.log(doors);
 
@@ -148,20 +150,17 @@ export class Dungeon4 extends DayScene {
         this.barrel5.body.immovable = true;
         this.barrel6.body.immovable = true;
 
-
-
-
-
-
-        this.physics.add.collider(this.playerGroup, this.barrels.getChildren());
-        this.physics.add.collider(this.barrels.getChildren(), this.wallLayer);
+        this.physics.add.collider(this.playerGroup, barrels.getChildren());
+        this.physics.add.collider(this.enemyGroup, barrels.getChildren());
+        this.physics.add.collider(barrels.getChildren(), this.wallLayer);
 
 
         //door overlap
         this.physics.add.overlap(this.door1, this.playerGroup.getChildren(), function (o1,o2) {
-            
+            console.log(o2);
         });
 
+        //Treasure stuff
         this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
             o1.scene.money += 1500;
             o1.destroy();
@@ -170,6 +169,21 @@ export class Dungeon4 extends DayScene {
         this.physics.add.overlap(this.treasure2, this.playerGroup.getChildren(), function (o1,o2) {
             o1.scene.money += 4000;
             o1.destroy();
+        });
+
+
+        //Danger grass stuffs
+        this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (playerSprite,hazard) {
+            if(hazard.index != -1){
+                playerSprite.class.hazardDamage(hazard.layer.properties[0].value);
+                console.log("Getting hit by some weed");
+            }
+        });
+        this.physics.add.overlap(this.enemyGroup.getChildren(), this.dangerGrassLayer, function (enemySprite,hazard) {
+            if(hazard.index != -1){
+                enemySprite.class.damaged(hazard.layer.properties[0].value);
+                console.log("Getting hit by some weed");
+            }
         });
 
         this.map.currentLayer = this.baseLayer;

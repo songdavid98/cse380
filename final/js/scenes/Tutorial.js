@@ -124,6 +124,8 @@ export class Tutorial extends DayScene {
         });
         this.physics.add.overlap(this.enemyGroup.getChildren(), this.dangerGrassLayer, function (enemySprite,hazard) {
             if(hazard.index != -1){
+                console.log(hazard);
+                console.log(enemySprite);
                 enemySprite.class.damaged(hazard.layer.properties[0].value);
                 console.log("Getting hit by some weed");
             }
