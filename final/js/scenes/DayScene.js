@@ -328,6 +328,10 @@ export class DayScene extends Phaser.Scene {
             }
         }, this);
 
+        //Creating projectileGroup
+        this.projectileGroup = this.physics.add.group();
+
+
         this.input.mouse.disableContextMenu();
         this.map.currentLayer = this.baseLayer;
         //this.pathFinding();
@@ -468,7 +472,6 @@ export class DayScene extends Phaser.Scene {
         enemySprite.setVelocity(swordBeamSprite.body.velocity.x, swordBeamSprite.body.velocity.y);
         enemySprite.class.damaged(swordBeamSprite.class.basicAttack);
 
-        //console.log(enemySprite.texture," got hit");
         enemySprite.class.lastDamaged = swordBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
 
@@ -528,6 +531,9 @@ export class DayScene extends Phaser.Scene {
         if (!shieldBeamSprite.anims) {
             return;
         }
+        enemyProjectile.reflected = true;
+        console.log("SLIME BALL TOUCHED", enemyProjectile.reflected);
+
         enemyProjectile.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
 
         if (!shieldBeamSprite.colliding) {
