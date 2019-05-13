@@ -101,9 +101,9 @@ export class Dungeon4 extends DayScene {
         this.barrels = this.createObjects('objectsLayer',1,'barrel', 16, 16);   //It needs a "this" keyword
         let barrels = this.barrels;
         let treasures = this.createObjects('objectsLayer',20,'treasure', 16, 16);
-        let goblinSpawnPoints = this.createSpawnPoints('goblinSpawnPoints',122,'barrel');
-        let slimeSpawnPoints = this.createSpawnPoints('slimeSpawnPoints', 124, 'barrel');
-        let golemSpawnPoints = this.createSpawnPoints('golemSpawnPoints', 124, 'barrel');
+        let goblinSpawnPoints = this.createSpawnPoints('goblinSpawnPoints',60,'clear');
+        let slimeSpawnPoints = this.createSpawnPoints('slimeSpawnPoints', 62, 'clear');
+        let golemSpawnPoints = this.createSpawnPoints('golemSpawnPoints', 61, 'clear');
 
 
         for(let i = 0; i < slimeSpawnPoints.getChildren().length; i++){
@@ -171,13 +171,13 @@ export class Dungeon4 extends DayScene {
 
         //door overlap
         this.physics.add.overlap(this.door1, this.playerGroup.getChildren(), function (o1,o2) {
-            o2.x = o1.otherDoor.x;
-            o2.y = o1.otherDoor.y + 50*3;
+            o2.x = o1.otherDoor.x + 100;
+            o2.y = o1.otherDoor.y + 150;
             
         });
         this.physics.add.overlap(this.door2, this.playerGroup.getChildren(), function (o1,o2) {
-            o2.x = o1.otherDoor.x + 50*3;
-            o2.y = o1.otherDoor.y;
+            o2.x = o1.otherDoor.x - 100;
+            o2.y = o1.otherDoor.y + 50;
         });
 
         //Treasure stuff

@@ -203,6 +203,12 @@ export class DayPlayer {
 
     //damage from monster
     damage(monster) {
+        if(monster.class.enemyType == ENEMIES.GOBLIN ){
+            if(monster.class.state == "sleeping"){
+                monster.class.justWokeUp = true;
+                return;
+            }
+        }
         if (!this.invincible) {
             if (!this.invulnerable && this.scene.time.now - this.scene.lastDamaged >= this.damageCooldown * 1000) { //Uses the cooldown variable to allow time buffer between damages
                 this.scene.lastDamaged = this.scene.time.now; //Set the prevTime to current time

@@ -5,6 +5,7 @@ import {
 import {
     DayPlayer
 } from "../DayPlayer.js";
+import { ENEMIES } from "../../constants/EnemyTypes.js";
 
 export class ShieldHero extends DayPlayer {
 
@@ -377,6 +378,13 @@ export class ShieldHero extends DayPlayer {
                 shieldBeamSprite.enemiesHit.push(enemySprite);
                 enemySprite.class.active = false;
                 shieldBeamSprite.scene.hittingWithShieldBeam(shieldBeamSprite, enemySprite);
+            }
+        });
+        this.scene.physics.add.overlap(shieldBeamSprite, this.scene.projectileGroup, function (shieldBeamSprite, enemySprite) {
+            if (!shieldBeamSprite.enemiesHit.includes(enemySprite)) {
+                shieldBeamSprite.enemiesHit.push(enemySprite);
+                enemySprite.class.active = false;
+                shieldBeamSprite.scene.hittingProjectiles(shieldBeamSprite, enemySprite);
             }
         });
         if (this.scene.barrels) {

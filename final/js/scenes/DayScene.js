@@ -411,8 +411,8 @@ export class DayScene extends Phaser.Scene {
         this.golemCount = this.golemSpawnArr.length;
         for (var i = 0; i < this.golemCount; i++) {
 
-            let scaleX = 5;
-            let scaleY = 5;
+            let scaleX = 8;
+            let scaleY = 8;
             let golemSprite = this.physics.add.sprite(this.golemSpawnArr[i][0], this.golemSpawnArr[i][1], ENEMIES.GOLEM, 'down/0001.png').setScale(scaleX, scaleY);
             let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
             let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
@@ -442,6 +442,9 @@ export class DayScene extends Phaser.Scene {
         if (!shieldBeamSprite.anims) {
             return;
         }
+        if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
+            enemySprite.class.justWokeUp = true;
+        }
         enemySprite.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
         enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
 
@@ -454,25 +457,42 @@ export class DayScene extends Phaser.Scene {
         }
         shieldBeamSprite.colliding.push(enemySprite);
     }
+    hittingWithSwordBeam(swordBeamSprite, enemySprite) {
+        if (!swordBeamSprite.anims) {
+            return;
+        }
+
+        if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
+            enemySprite.class.state = "attacking";
+        }
+        enemySprite.setVelocity(swordBeamSprite.body.velocity.x, swordBeamSprite.body.velocity.y);
+        enemySprite.class.damaged(swordBeamSprite.class.basicAttack);
+
+        //console.log(enemySprite.texture," got hit");
+        enemySprite.class.lastDamaged = swordBeamSprite.scene.time.now; //Need this for damage cooldown
+        enemySprite.class.justGotHit = true;
+
+        if (!swordBeamSprite.colliding) {
+            swordBeamSprite.colliding = [];
+        }
+        swordBeamSprite.colliding.push(enemySprite);
+    }
     hittingWithTornado(tornado, enemySprite) {
         if (!tornado.anims) {
             return;
+        }
+        if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
+            enemySprite.class.state = "attacking";
         }
         enemySprite.setVelocity(tornado.body.velocity.x, tornado.body.velocity.y);
 
         if(!enemySprite.class.justGotHit){
             enemySprite.class.lastDamaged = tornado.scene.time.now; //Need this for damage cooldown
             enemySprite.class.justGotHit = true;
-            console.log("falseing");
         }
-        else{
-            console.log("nah");
-        }
-        //console.log(Math.floor(tornado.scene.time.now/1000),Math.floor(enemySprite.class.lastDamaged/1000),enemySprite.class.specialDamageCooldown);
-
+        
         if(Math.floor(tornado.scene.time.now/1000) - Math.floor(enemySprite.class.lastDamaged/1000) > enemySprite.class.specialDamageCooldown){
             enemySprite.class.damaged(tornado.class.basicAttack);
-            console.log("Damaged");
         }
         else{
             enemySprite.class.justGotHit = false;
@@ -485,12 +505,13 @@ export class DayScene extends Phaser.Scene {
         }
         tornado.colliding.push(enemySprite);
     }
-
     hittingWithMagicBeam(magicBeamSprite, enemySprite) {
         if (!magicBeamSprite.anims) {
             return;
         }
-        console.log(magicBeamSprite.class.basicAttack);
+        if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
+            enemySprite.class.state = "attacking";
+        }
         enemySprite.class.damaged(magicBeamSprite.class.basicAttack);
 
         //Slows the enemy down by half the speed
@@ -503,6 +524,18 @@ export class DayScene extends Phaser.Scene {
         }
         magicBeamSprite.colliding.push(enemySprite);
     }
+    hittingProjectiles(shieldBeamSprite, enemyProjectile){
+        if (!shieldBeamSprite.anims) {
+            return;
+        }
+        enemyProjectile.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
+
+        if (!shieldBeamSprite.colliding) {
+            shieldBeamSprite.colliding = [];
+        }
+        shieldBeamSprite.colliding.push(enemyProjectile);
+    }
+
 
 
     //Setting up pathfinding
