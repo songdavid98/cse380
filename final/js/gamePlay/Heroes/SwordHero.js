@@ -416,7 +416,7 @@ export class SwordHero extends DayPlayer {
         this.scene.physics.add.overlap(swordSlashSprite, this.scene.enemyGroup.getChildren(), function (swordSlashSprite, enemySprite) {
             if (!swordSlashSprite.enemiesHit.includes(enemySprite)) {
                 swordSlashSprite.enemiesHit.push(enemySprite);
-                swordSlashSprite.scene.hittingWithShieldBeam(swordSlashSprite, enemySprite);
+                swordSlashSprite.scene.hittingWithSwordBeam(swordSlashSprite, enemySprite);
             }
         });
         //play sound

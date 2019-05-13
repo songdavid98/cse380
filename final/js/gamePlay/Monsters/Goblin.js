@@ -20,6 +20,9 @@ export class Goblin extends Enemy {
         this.movement = 60; //Monster keeps moving in square pattern for now
         this.killCost = 25;
         this.state = "sleeping"; //The behavioral states of the goblin
+        this.justWokeUp = false;
+        this.wakeUpOnce = true;
+        this.wakeUpLength = 1; //1 seconds
         this.detectionRange = 1000; //Need this to know how far away the player has to be to get detected
         this.frmRt = 10;
         this.behaviourCounter = 0;
@@ -199,10 +202,25 @@ export class Goblin extends Enemy {
             switch (this.state) {
                 case "sleeping":
                     this.sprite.anims.play("sleepGoblin", true);
-                    this.zzzSprite.anims.play("zzz", true);
-
-                    if (this.beenAttacked) {
-                        this.state = "patrolling";
+             
+                    if(this.justWokeUp){
+                        if(this.wakeUpOnce){
+                            this.wakeUpTime = time;
+                            this.wakeUpOnce = false;
+                        }
+                        if((Math.floor(time / 1000) - Math.floor(this.wakeUpTime / 1000)) > this.wakeUpLength){
+                            console.log("ALREADY AWAKE");
+                            this.state = "attacking";
+                        }
+                        else{
+                            if(this.zzzSprite){
+                                this.zzzSprite.visible = false;
+                                this.zzzSprite.destroy();
+                            }
+                        }
+                    }
+                    else{
+                        this.zzzSprite.anims.play("zzz", true);
                     }
 
                     break;
@@ -257,44 +275,41 @@ export class Goblin extends Enemy {
                     }
                     break;
                 case "attacking":
-
-                    if (!player) {
-                        //console.log("CAN'T detect plaeyer");
+                    if(this.zzzSprite){
+                        this.zzzSprite.visible = false;
+                        this.zzzSprite.destroy();
                     }
-                    try {
-                        if (!this.withinVacinity(player.sprite, this.sprite)) {
-                            //this.state = "patrolling";
-                            //console.log("Player out of bounds");
-                            this.sprite.body.setVelocityX(0);
-                            this.sprite.body.setVelocityY(0);
-                            break;
-                        }
 
 
-                        let gobX = Math.floor((this.sprite.body.position.x + this.sprite.width / 2) / 80);
-                        let gobY = Math.floor((this.sprite.body.position.y + this.sprite.height / 2) / 80);
-                        //console.log(player.sprite.body.position);
-                        let heroX = Math.floor((player.sprite.body.position.x + this.sprite.width / 2) / 80);
-                        let heroY = Math.floor((player.sprite.body.position.y + this.sprite.height / 2) / 80);
-                        //if(gobX > 0 && gobY > 0 && heroX > 0 && heroY > 0){
-                            //this.attack2(gobX, gobY, heroX, heroY, player.sprite);
-                        //}
+                        try {
+                            if (!this.withinVacinity(player.sprite, this.sprite)) {
+                                this.state = "patrolling";
+                                //console.log("Player out of bounds");
+                                this.sprite.body.setVelocityX(0);
+                                this.sprite.body.setVelocityY(0);
+                                break;
+                            }
+                            let gobX = Math.floor((this.sprite.body.position.x + this.sprite.width / 2) / 80);
+                            let gobY = Math.floor((this.sprite.body.position.y + this.sprite.height / 2) / 80);
+                            //console.log(player.sprite.body.position);
+                            let heroX = Math.floor((player.sprite.body.position.x + this.sprite.width / 2) / 80);
+                            let heroY = Math.floor((player.sprite.body.position.y + this.sprite.height / 2) / 80);
+                            //if(gobX > 0 && gobY > 0 && heroX > 0 && heroY > 0){
+                                //this.attack2(gobX, gobY, heroX, heroY, player.sprite);
+                            //}
 
-                        if(this.counter > this.movementTime){
-                            this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
-                            this.counter = 0;
-                            this.gobPosX = this.sprite.body.position.x;
-                            this.gobPosY = this.sprite.body.position.y;
-                        }
-                        else{
-                            this.counter++;
-                        }
+                            if(this.counter > this.movementTime){
+                                this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
+                                this.counter = 0;
+                                this.gobPosX = this.sprite.body.position.x;
+                                this.gobPosY = this.sprite.body.position.y;
+                            }
+                            else{
+                                this.counter++;
+                            }
 
-
-
-
-                    } catch (error) {}
-
+                        } catch (error) {}
+                    
                     break;
             }
         }

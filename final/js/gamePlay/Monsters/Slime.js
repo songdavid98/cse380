@@ -24,7 +24,7 @@ export class Slime extends Enemy { // ---- someone fix this~
         this.movement = Math.floor(Math.random() * 200) + 25; //Monster keeps moving in square pattern for now
         this.killCost = 10;
         this.lastAttacked = 0;
-
+        this.projectileGroup;
         //taken care of in super constructor
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;
@@ -247,6 +247,10 @@ export class Slime extends Enemy { // ---- someone fix this~
         let pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - angle));
 
         let attackBall = this.scene.physics.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'magic/0001.png').setScale(2, 2);
+        
+        this.projectileGroup = this.physics.add.group();
+        this.projectileGroup.add(attackBall);
+        
         attackBall.body.setVelocityY(this.basicAttackSpeed * Math.sin(angle));
         attackBall.body.setVelocityX(this.basicAttackSpeed * Math.cos(angle));
         attackBall.setRotation(angle);
