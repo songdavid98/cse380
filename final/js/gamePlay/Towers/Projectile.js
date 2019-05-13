@@ -25,7 +25,6 @@ export class Projectile {
             this.sprite.body.setVelocityY( this.vy * this.speed);
         }
         
-        
         if (enemies && enemies.length > 0) {
             for (let j = 0; j < enemies.length; j++) {
                 let enem = enemies[j];
@@ -43,6 +42,8 @@ export class Projectile {
                 enem.health -= this.damage;
                 this.sprite.x = -1000;
                 this.sprite.y = -1000;
+                this.sprite.body.setVelocityX( 0 );
+                this.sprite.body.setVelocityY( 0 );
                 this.dead = true;
                 return;
             }
