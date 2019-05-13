@@ -236,7 +236,7 @@ export class NightScene extends Phaser.Scene {
                 this.startDragging = true;
             }
             else {
-                buyicetowewr.alpha = 1;
+                buyicetower.alpha = 1;
                 this.alreadyClicked = false;
                 this.towerSpriteForBuying.destroy();
                 this.towerSpriteForBuying = null;

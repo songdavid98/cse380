@@ -57,8 +57,7 @@ export class NightDefenseStructure {
 
     searchForTarget(enemies) {
 
-        if (enemies && enemies.length > 0 && this.placed) {
-
+        if (enemies.length > 0 && this.placed) {
             let chosenEnem = null;
             for (let j = 0; j < enemies.length; j++) {
                 let enem = enemies[j];

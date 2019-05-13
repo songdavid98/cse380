@@ -1,7 +1,7 @@
 export class Projectile {
     constructor(data) {
         this.damage = data.damage;
-        this.speed = 500;
+        this.speed = 700;
         this.size = 50;
         this.sprite = data.sprite;
 //        this.sprite.body.setVelocityX( data.vx );

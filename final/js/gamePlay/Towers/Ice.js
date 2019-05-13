@@ -23,7 +23,7 @@ export class Ice extends NightDefenseStructure {
         this.shoots = true;
         this.rateOfFire = 3;
         this.prevTime = 0;
-        this.price = 150;
+        this.price = 400;
         
         this.placed = false;
         this.create();
@@ -68,18 +68,53 @@ export class Ice extends NightDefenseStructure {
         //This animationComplete function is specific to "rightCannon". Underscore is necessary.
         //Make more for each different animation (if you want to do something after completeing loop)
         this.sprite.on('animationcomplete_rightIce', function (o1) {
-            this.class.targetEnem.health -= this.class.damage;
-            if (this.class.targetEnem.notTakenEffect) {
-                this.class.targetEnem.slowDown();
-                this.class.targetEnem.sprite.tint = 0x5647ff;
+            for (let i = 0; i < this.class.targetEnem.length; i++) {
+                let enem = this.class.targetEnem[i];
+                enem.health -= this.class.damage;
+                if (enem.notTakenEffect) {
+                    enem.slowDown();
+                    enem.sprite.tint = 0x00dfff;
+                }
             }
             this.class.targetFound = false;
         });
     }
 
     update(time, enemies) {
-        super.update(time, enemies);
+        if(this.targetFound)
+            return;
 
+        //Find enemies nearby
+        let enemInRange = new Array();
+        for (let i = 0; i < enemies.length; i++) {
+            let enem = enemies[i];
+            let defX = this.sprite.x;
+            let defY = this.sprite.y;
+            let enemX = enem.sprite.x;
+            let enemY = enem.sprite.y;
+
+            let enemDistToTower = this.distanceCalc(defX, defY, enemX, enemY);
+
+            if (enemDistToTower > this.range)
+                continue;
+            enemInRange.push( enem );
+        }
+        this.targetEnem = enemInRange;
+        if (this.targetEnem.length == 0){
+            this.playAnimation = false;    
+            return;
+        }
+        //Cooldown for the defence structures
+        let timePassed = (time - this.prevTime) / 1000;
+        if (timePassed < this.rateOfFire){
+            this.playAnimation = false;
+            return;
+        }
+
+        //If timePassed is > this.rateOfFire and this.targetEnem exists, 
+        this.playAnimation = true;    
+        this.targetFound = true;
+        this.prevTime = time;
 
         //this.playAnimation is from the generic class. 
         if(this.playAnimation){
