@@ -26,6 +26,9 @@ export class Cannon extends NightDefenseStructure {
         this.price = 100;
 
         this.placed = false;
+        
+        this.projectile = null;
+        
         this.create();
 
     }
@@ -57,7 +60,6 @@ export class Cannon extends NightDefenseStructure {
             frames: rightIdleFrames,
             frameRate: 15,
             repeat: 0
-
         });
 
 
@@ -68,18 +70,37 @@ export class Cannon extends NightDefenseStructure {
         }, this.sprite);
 
         //This animationComplete function is specific to "rightCannon". Underscore is necessary.
-        //Make more for each different animation (if you want to do something after completeing loop)
+        //Make more for each different animation (if you want to do something after completing loop)
         this.sprite.on('animationcomplete_rightCannon', function (o1) {
-            this.class.targetEnem.health -= this.class.damage;
+            //this.class.targetEnem.health -= this.class.damage;
+            let enemX = this.class.targetEnem.sprite.x;
+            let enemY = this.class.targetEnem.sprite.y;
+            
+            this.class.projectile.sprite.x = this.class.sprite.x;
+            this.class.projectile.sprite.y = this.class.sprite.y;
+            
+            let enemDistToTower= this.class.distanceCalc(this.class.sprite.x, this.class.sprite.y, enemX, enemY);
+            
+            let vx = (enemX - this.class.sprite.x) / enemDistToTower;
+            let vy = (enemY - this.class.sprite.y) / enemDistToTower;
+            
+            this.class.projectile.vx = vx;
+            this.class.projectile.vy = vy;
+            this.class.projectile.dead = false;
+            
             this.class.targetFound = false;
         });
 
         console.log(this.anims);
     }
-
+    
+//    distanceCalc(x1, y1, x2, y2) {
+//        return super.distanceCalc(x1, y1, x2, y2);
+//    }
+    
     update(time, enemies) {
         super.update(time, enemies);
-
+        
         //this.playAnimation is from the generic class. 
         if(this.playAnimation){
             this.sprite.anims.play('rightCannon',true); //enemy takes damage in animation

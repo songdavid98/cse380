@@ -34,6 +34,10 @@ import {
     Ice
 } from "../gamePlay/Towers/Ice.js";
 
+import {
+    Projectile
+} from "../gamePlay/Towers/Projectile.js"
+
 
 export class NightScene extends Phaser.Scene {
     constructor() {
@@ -71,6 +75,7 @@ export class NightScene extends Phaser.Scene {
 
         this.enemies = new Array();
         this.defStrs = new Array();
+        this.projectiles = new Array();
         this.defStrsSpritesGroup = this.physics.add.group();
         this.enemySpritesGroup = this.physics.add.group(); //a bunch of enemy sprites
 
@@ -113,9 +118,12 @@ export class NightScene extends Phaser.Scene {
         this.load.image("healthBar", "./assets/images/icons/bar2.png");
         
         //Load defense structure images
-        console.log(this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure"));
+        this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure");
         
-        console.log(this.load.multiatlas(DEFSTR.ICE, './assets/images/defenseStructure/ice.json', "./assets/images/defenseStructure"));
+        this.load.multiatlas(DEFSTR.ICE, './assets/images/defenseStructure/ice.json', "./assets/images/defenseStructure");
+        
+        this.load.multiatlas(DEFSTR.CANNONBALL, './assets/images/defenseStructure/cannonBall.json', "./assets/images/defenseStructure");
+        
         //Load song
         this.load.audio("audionightbackgroundsong", "./assets/audio/nightbackgroundsong.wav");
     }
@@ -214,6 +222,8 @@ export class NightScene extends Phaser.Scene {
                 this.alreadyClicked = true;
                 buyicetower.alpha = 0.5;
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(8, 8);
+
+                
                 this.towerToBePlaced = new Ice({
                     "sprite": this.towerSpriteForBuying,
                     "physics": this.physics,
@@ -226,7 +236,7 @@ export class NightScene extends Phaser.Scene {
                 this.startDragging = true;
             }
             else {
-                buyice.alpha = 1;
+                buyicetowewr.alpha = 1;
                 this.alreadyClicked = false;
                 this.towerSpriteForBuying.destroy();
                 this.towerSpriteForBuying = null;
@@ -242,11 +252,20 @@ export class NightScene extends Phaser.Scene {
                 this.alreadyClicked = true;
                 buycannon.alpha = 0.5;
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
+                
                 this.towerToBePlaced = new Cannon({
                     "sprite": this.towerSpriteForBuying,
                     "physics": this.physics,
                     "anims": this.anims
                 });
+                
+                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(5,5);
+                let proj = new Projectile({
+                    "damage": this.towerToBePlaced.damage,
+                    "sprite": projSprite
+                });
+                this.towerToBePlaced.projectile = proj;
+                
                 this.towerToBePlaced.placeable = false; 
                 this.towerSpriteForBuying.class = this.towerToBePlaced;
 
@@ -300,6 +319,8 @@ export class NightScene extends Phaser.Scene {
             if (this.towerToBePlaced != null && pointer.x > this.minX && pointer.y > this.minY && this.towerToBePlaced.placeable) {
                 this.towerToBePlaced.placed = true;
                 this.defStrs.push(this.towerToBePlaced);
+                if (this.towerToBePlaced.projectile)
+                    this.projectiles.push(this.towerToBePlaced.projectile);
                 this.startDragging = false;
                 this.money -= this.towerToBePlaced.price;
                 this.towerToBePlaced = null;
@@ -403,9 +424,15 @@ export class NightScene extends Phaser.Scene {
             this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
         }
 
-        if (this.defStrs) {
+        if (this.defStrs.length > 0) {
             for (let i = 0; i < this.defStrs.length; i++)
                 this.defStrs[i].update(time, this.enemies);
+        }
+        
+        if (this.projectiles.length > 0) {
+            for (let i = 0; i < this.projectiles.length; i++)
+                this.projectiles[i].update(time, this.enemies);
+            
         }
 
         this.moneyText.setText(":" + this.money);

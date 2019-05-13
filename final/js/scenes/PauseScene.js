@@ -6,7 +6,7 @@ export class PauseScene extends Phaser.Scene{
         })
     }
     init(data){
-        console.log(data);
+        //console.log(data);
         this.scenes = data["scenes"];
     }
     create(){
@@ -19,7 +19,7 @@ export class PauseScene extends Phaser.Scene{
         let text = this.add.text(this.game.renderer.width*.425,this.game.renderer.height*.2,"Paused", {fontSize: 64, color: "#000000", strokeThickness:3, stroke:"#ffffff"}).setDepth(3);
         let continueText = this.add.text(this.game.renderer.width*.452,this.game.renderer.height*.485,"Continue", {fontSize: 32, color: "#000000"}).setDepth(3);
         let exitText = this.add.text(this.game.renderer.width*.475,this.game.renderer.height*.685,"Exit", {fontSize: 32, color: "#000000"}).setDepth(3);
-        console.log(text);
+        //console.log(text);
         
         //set any colors and opacities
         pauseBox.alpha = 0.75;
