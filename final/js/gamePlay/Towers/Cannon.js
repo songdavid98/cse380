@@ -39,22 +39,54 @@ export class Cannon extends NightDefenseStructure {
             prefix: 'right/',
             suffix: '.png'
         });
-        console.log(rightFrames);
         this.anims.create({
             key: 'rightCannon',
             frames: rightFrames,
             frameRate: 15,
             repeat: 0
         });
+        var rightIdleFrames = this.anims.generateFrameNames('CANNON', {
+            start: 3,
+            end: 3,
+            zeroPad: 4,
+            prefix: 'right/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'rightIdleCannon',
+            frames: rightIdleFrames,
+            frameRate: 15,
+            repeat: 0
+
+        });
+
+
+        //This is a generic animationComplete function. This sends it to different 'complete' animation functions
+        //Only need this once. 
         this.sprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, this.sprite);
+
+        //This animationComplete function is specific to "rightCannon". Underscore is necessary.
+        //Make more for each different animation (if you want to do something after completeing loop)
+        this.sprite.on('animationcomplete_rightCannon', function (o1) {
             this.class.targetEnem.health -= this.class.damage;
             this.class.targetFound = false;
-        }, this.sprite);
+        });
+
         console.log(this.anims);
     }
 
     update(time, enemies) {
         super.update(time, enemies);
+
+        //this.playAnimation is from the generic class. 
+        if(this.playAnimation){
+            this.sprite.anims.play('rightCannon',true); //enemy takes damage in animation
+        }
+        else{
+            this.sprite.anims.play('rightIdleCannon'); 
+        }
     }
 
 

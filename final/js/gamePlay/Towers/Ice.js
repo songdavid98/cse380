@@ -34,29 +34,57 @@ export class Ice extends NightDefenseStructure {
     create() {
         var rightFrames = this.anims.generateFrameNames('ICE', {
             start: 1,
-            end: 5,
+            end: 4,
             zeroPad: 4,
             prefix: 'right/',
             suffix: '.png'
         });
-        console.log(rightFrames);
         this.anims.create({
             key: 'rightIce',
             frames: rightFrames,
             frameRate: 15,
             repeat: 0
         });
+        var rightIdleFrames = this.anims.generateFrameNames('ICE', {
+            start: 1,
+            end: 1,
+            zeroPad: 4,
+            prefix: 'right/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'rightIdleIce',
+            frames: rightIdleFrames,
+            frameRate: 15,
+            repeat: 0
+        });
+        
+        //This is a generic animationComplete function. This sends it to different 'complete' animation functions
+        //Only need this once. 
         this.sprite.on('animationcomplete', function (anim, frame) {
-            
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, this.sprite);
+
+        //This animationComplete function is specific to "rightCannon". Underscore is necessary.
+        //Make more for each different animation (if you want to do something after completeing loop)
+        this.sprite.on('animationcomplete_rightIce', function (o1) {
             this.class.targetEnem.health -= this.class.damage;
             this.class.targetEnem.slowDown();
             this.class.targetFound = false;
-        }, this.sprite);
-        console.log(this.anims);
+        });
     }
 
     update(time, enemies) {
         super.update(time, enemies);
+
+
+        //this.playAnimation is from the generic class. 
+        if(this.playAnimation){
+            this.sprite.anims.play('rightIce',true); //enemy takes damage in animation
+        }
+        else{
+            this.sprite.anims.play('rightIdleIce'); 
+        }
     }
 
 

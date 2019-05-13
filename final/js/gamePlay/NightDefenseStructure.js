@@ -84,18 +84,24 @@ export class NightDefenseStructure {
         if(this.targetFound){
             return;
         }
+
+        //Find enemies nearby
+        this.targetEnem = this.searchForTarget(enemies);
+        if (this.targetEnem == null){
+            this.playAnimation = false;    
+            return;
+        }
+
+        //Cooldown for the defence structures
         let timePassed = (time - this.prevTime) / 1000;
-
-        if (timePassed < this.rateOfFire)
+        if (timePassed < this.rateOfFire){
+            this.playAnimation = false;
             return;
+        }
 
-        let targetEnem = this.searchForTarget(enemies);
-        if (targetEnem == null)
-            return;
-        this.targetEnem = targetEnem;
-        console.log(this.targetEnem);
+        //If timePassed is > this.rateOfFire and this.targetEnem exists, 
+        this.playAnimation = true;    
         this.targetFound = true;
-        this.sprite.anims.play('rightIce'); //enemy takes damage in animation
         this.prevTime = time;
     }
 
