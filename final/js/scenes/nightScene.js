@@ -213,7 +213,7 @@ export class NightScene extends Phaser.Scene {
             if (!this.alreadyClicked && this.money >= 150 && !this.startDragging) {
                 this.alreadyClicked = true;
                 buyicetower.alpha = 0.5;
-                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(5, 5);
+                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(8, 8);
                 this.towerToBePlaced = new Ice({
                     "sprite": this.towerSpriteForBuying,
                     "physics": this.physics,
@@ -453,7 +453,7 @@ export class NightScene extends Phaser.Scene {
         switch (enemyType) {
             case ENEMIES.SLIME:
                 
-                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'slime/left/0001.png').setScale(5, 5);
+                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newSlime = new Slime({
                     "sprite": enemySprite,
@@ -466,7 +466,7 @@ export class NightScene extends Phaser.Scene {
                 //Set collisions
                 break;
             case ENEMIES.GOBLIN:
-                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOBLIN, 'goblin/left/0001.png').setScale(5, 5);
+                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOBLIN, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newgoblin = new Goblin({
                     "sprite": enemySprite,
@@ -478,7 +478,7 @@ export class NightScene extends Phaser.Scene {
                 this.enemies.push(newgoblin);
                 break;
             case ENEMIES.GOLEM:
-                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOLEM, 'golem/left/0001.png').setScale(5, 5);
+                enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOLEM, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newgolem = new Golem({
                     "sprite": enemySprite,
