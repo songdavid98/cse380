@@ -49,7 +49,10 @@ export class Ice extends NightDefenseStructure {
         this.sprite.on('animationcomplete', function (anim, frame) {
             
             this.class.targetEnem.health -= this.class.damage;
-            this.class.targetEnem.slowDown();
+            if (this.class.targetEnem.notTakenEffect) {
+                this.class.targetEnem.slowDown();
+                this.class.targetEnem.sprite.tint = 0x5647ff;
+            }
             this.class.targetFound = false;
         }, this.sprite);
         console.log(this.anims);
