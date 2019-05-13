@@ -102,7 +102,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -233,6 +233,44 @@
                 <rect>5,7,11,15</rect>
                 <key>scale9Paddings</key>
                 <rect>5,7,11,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/heroes/mageHero/superMagic/0001.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0002.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0003.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0004.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0005.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0006.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0007.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0008.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0009.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0010.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0011.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0012.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0013.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0014.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0015.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0016.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0017.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0018.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0019.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0020.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0021.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0022.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0023.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0024.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0025.png</key>
+            <key type="filename">../images/heroes/mageHero/superMagic/0026.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>45,7,90,13</rect>
+                <key>scale9Paddings</key>
+                <rect>45,7,90,13</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
