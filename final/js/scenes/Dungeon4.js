@@ -196,13 +196,13 @@ export class Dungeon4 extends DayScene {
         this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (playerSprite,hazard) {
             if(hazard.index != -1){
                 playerSprite.class.hazardDamage(hazard.layer.properties[0].value);
-                console.log("Getting hit by some weed");
+                //console.log("Getting hit by some weed");
             }
         });
         this.physics.add.overlap(this.enemyGroup.getChildren(), this.dangerGrassLayer, function (enemySprite,hazard) {
             if(hazard.index != -1){
                 enemySprite.class.damaged(hazard.layer.properties[0].value);
-                console.log("Getting hit by some weed");
+                //console.log("Getting hit by some weed");
             }
         });
 

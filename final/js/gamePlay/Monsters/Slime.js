@@ -248,8 +248,7 @@ export class Slime extends Enemy { // ---- someone fix this~
 
         let attackBall = this.scene.physics.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'magic/0001.png').setScale(2, 2);
         
-        this.projectileGroup = this.physics.add.group();
-        this.projectileGroup.add(attackBall);
+        this.scene.projectileGroup.add(attackBall);
         
         attackBall.body.setVelocityY(this.basicAttackSpeed * Math.sin(angle));
         attackBall.body.setVelocityX(this.basicAttackSpeed * Math.cos(angle));
@@ -257,12 +256,19 @@ export class Slime extends Enemy { // ---- someone fix this~
         attackBall.body.setOffset(0, 0);
         attackBall.anims.play('magic');
         attackBall.class = this;
+        attackBall.reflected = false;
+
         attackBall.on('animationcomplete', function (anim, frame) {
             this.emit('animationcomplete_' + anim.key, anim, frame);
         }, attackBall);
 
         attackBall.on('animationcomplete_magic', function (o1) {
-            this.destroy();
+            if(!this.reflected){
+                this.destroy();
+            }
+            else{
+                console.log("REFLECTEDDDDDDDDDDDDDD OWWWWWWWWWOOOOOOOOO");
+            }
         });
 
         //add colliders
