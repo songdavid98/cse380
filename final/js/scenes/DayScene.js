@@ -46,7 +46,6 @@ export class DayScene extends Phaser.Scene {
         this.sceneKey = data['key'];
     }
     init(data) {
-        this.timer; //Day Countdown timer ~ 2min?
         this.map;
         this.monsterArray = new Array();
         this.level = data.level;
@@ -56,6 +55,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
+        this.timeLimit = 120; //Day Countdown timer ~ 2min?
 
         this.textWords;
 
@@ -184,7 +184,7 @@ export class DayScene extends Phaser.Scene {
             "swordHero": this.swordHero,
             "mageHero": this.mageHero,
             "playerType": this.player.playerType,
-            "timer": 620
+            "timer": this.timeLimit
         });
 
         //Create the enemies

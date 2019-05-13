@@ -220,6 +220,20 @@ export class ShieldHero extends DayPlayer {
             repeat: 0
         });
 
+        var superShieldBeamFrame = this.anims.generateFrameNames(HEROES.SHIELD_HERO, {
+            start: 1,
+            end: 4,
+            zeroPad: 4,
+            prefix: 'superShieldBeam/',
+            suffix: '.png'
+        });
+        this.anims.create({
+            key: 'superShield',
+            frames: superShieldBeamFrame,
+            frameRate: 10,
+            repeat: 0
+        });
+
         //Changing the size of the bounding box and offsetting it 
         //this.sprite.body.setSize(15,20,false);
         //this.sprite.body.setOffset((this.sprite.x + this.sprite.width/2)-this.sprite.body.center.x , (this.sprite.y + this.sprite.height/2) - this.sprite.body.center.y);
@@ -281,6 +295,7 @@ export class ShieldHero extends DayPlayer {
                         //console.log(this.sprite.anims); 
                     }
                 }
+
                 this.sprite.setRotation(this.angle - Math.PI / 2); //Rotates the image
                 this.rotation = this.angle - Math.PI / 2;
                 this.sprite.body.angle = this.angle - Math.PI / 2; //Rotates the box (playerclass)
@@ -412,6 +427,68 @@ export class ShieldHero extends DayPlayer {
 
 
     attackSpecial(cursor, angle) {
+        this.isAttacking = true; //Need this for animation
+        let pointY;
+        let pointX;
+
+        let dist = 0;
+        pointX = this.sprite.x + dist * (Math.sin(Math.PI / 2 - this.angle));
+        pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - this.angle));
+
+
+        let superShieldBeam = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'superShieldBeam/0001.png').setScale(8, 8);
+        superShieldBeam.class = this;
+        superShieldBeam.enemiesHit = [];
+        this.beam = superShieldBeam;
+
+        let xx = Math.abs(superShieldBeam.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superShieldBeam.width * (Math.sin(this.angle)));
+        let yy = Math.abs(superShieldBeam.width * (Math.cos(this.angle))) + Math.abs(superShieldBeam.height * (Math.cos(this.angle + Math.PI / 2)));
+
+        console.log("SUPER MAGIC",xx,yy );
+        superShieldBeam.body.setSize(yy/3,xx/3);
+        //superMagicBeamSprite.body.setOffset(80,10);
+        console.log(superShieldBeam.body);
+        console.log(this.sprite.x, this.sprite.y);
+        superShieldBeam.body.x = 0;
+        superShieldBeam.body.y = 0;
+
+        //superMagicBeamSprite.body.setOffset(superMagicBeamSprite.body.offset.x-40, superMagicBeamSprite.body.offset.y-40);
+
+        superShieldBeam.setRotation(this.angle);
+
+        superShieldBeam.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, superShieldBeam);
+
+        superShieldBeam.on('animationcomplete_superShield', function (o1) {
+            this.destroy();
+        });
+
+        //superMagicBeamSprite.body.setVelocityY(this.basicAttackSpeed * Math.sin(this.angle));
+        //superMagicBeamSprite.body.setVelocityX(this.basicAttackSpeed * Math.cos(this.angle));
+        superShieldBeam.anims.play("superShield", true);
+
+        //The beam attacked
+        this.scene.physics.add.overlap(superShieldBeam, this.scene.enemyGroup.getChildren(), function (superShieldBeam, enemySprite) {
+            if (!superShieldBeam.enemiesHit.includes(enemySprite)) {
+                superShieldBeam.enemiesHit.push(enemySprite);
+                superShieldBeam.scene.hittingWithShieldBeam(superShieldBeam, enemySprite);
+            }
+        });
+
+
+
+        if (Math.random() > 0.5)
+        this.scene.sound.play("audioshieldattack1", {
+            "volume": 15
+        });
+    else
+        this.scene.sound.play("audioshieldattack2", {
+            "volume": 15
+        });
+
+
+
 
 
     }
