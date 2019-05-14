@@ -1,6 +1,9 @@
 import {
     ENEMIES
 } from "../../constants/EnemyTypes.js";
+import {
+    HEROES
+} from "../../constants/PlayerTypes.js";
 
 import {
     Enemy
@@ -13,6 +16,8 @@ export class Minotaur extends Enemy {
         this.zzzSprite = data.zzzSprite;
         this.enemyType = ENEMIES.GOBLIN; // like slime
         this.health = 50;
+        this.atkDist = 150; 
+        this.hitBoxSize = 1.3;
         this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
@@ -23,6 +28,11 @@ export class Minotaur extends Enemy {
         this.detectionRange = 1000; //Need this to know how far away the player has to be to get detected
         this.frmRt = 10;
         this.behaviourCounter = 0;
+        this.active = true;
+        this.dead = false;
+
+        this.lastAttacked = 0;
+        this.atkCooldown = 3;
 
 
 
@@ -191,6 +201,12 @@ export class Minotaur extends Enemy {
 
         //Call the enemy class dayUpdate
         super.dayUpdate(time);
+        let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.position.x,this.scene.player.sprite.body.position.y);
+        //console.log(Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.position.x,this.scene.player.sprite.body.position.y));
+        if(this.state != 'attacking' && this.state != 'basic' && distance <= 500){
+            this.state = 'basic';
+            console.log("testing");
+        }
 
         if (this.active && !this.dead) {
             switch (this.state) {
@@ -210,8 +226,15 @@ export class Minotaur extends Enemy {
                         let heroY = Math.floor((player.sprite.body.position.y + this.sprite.height / 2) / 80);
 
                         this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
+                        if(distance <= 300 && time - this.lastAttacked >= this.atkCooldown*1000){
+                            this.lastAttacked = time;
+                            console.log(this.state);
+                            this.sprite.body.setVelocity(0,0);
+                            this.state = 'attacking';
+                            this.attack();
+                        }
 
-                    } catch (error) {}
+                    } catch (error) {console.log(error);}
 
                     break;
             }
@@ -221,14 +244,17 @@ export class Minotaur extends Enemy {
 
 
     attackDist(enemX, enemY, playerX, playerY) {
+        console.log('enters attack');
         let enemClass = this;
 
         let dist = Math.sqrt(Math.pow(enemX - playerX, 2) + Math.pow(enemY - playerY, 2));
 
         let currentEnemXTile = Math.floor(enemX);
-        let currentEnemYtile = Math.floor(enemY);
+        let currentEnemYTile = Math.floor(enemY);
         let currentNextPointX = Math.floor(playerX);
         let currentNextPointY = Math.floor(playerY);
+        //console.log(currentEnemXTile);
+        //console.log(currentNextPointX);
 
 
         if (currentNextPointX < currentEnemXTile && currentNextPointY < currentEnemYTile) {
@@ -272,6 +298,7 @@ export class Minotaur extends Enemy {
             enemClass.sprite.body.setVelocityY(enemClass.speed);
             enemClass.sprite.anims.play("leftGoblin", true);
         } else {
+            //console.log("GO DOWN");
             enemClass.sprite.body.setVelocityX(0);
             enemClass.sprite.body.setVelocityY(0);
             enemClass.sprite.anims.play("downIdleGoblin");
@@ -282,6 +309,50 @@ export class Minotaur extends Enemy {
     nightUpdate(time, level) {
         super.nightUpdate(time, level);
         //play animation here
+    }
+    attack(){
+        console.log("attacckckckk!!111");
+        let pointY;
+        let pointX;
+        let angle = Phaser.Math.Angle.BetweenPoints(this.sprite, this.scene.player.sprite);
+        pointX = this.sprite.x + this.atkDist * (Math.sin(Math.PI / 2 - angle));
+        pointY = this.sprite.y + this.atkDist * (Math.cos(Math.PI / 2 - angle));
+
+
+        let swordSlashSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SWORD_HERO, 'sword/0001.png').setScale(5, 5);
+        swordSlashSprite.class = this;
+
+        this.scene.physics.add.collider(swordSlashSprite, this.scene.wallLayer);
+        //this.scene.physics.add.collider(swordSlashSprite,this.scene.enemyGroup.getChildren());
+        
+        let xx = Math.abs(this.hitBoxSize*swordSlashSprite.height * (Math.sin(angle + Math.PI / 2))) + this.hitBoxSize*Math.abs(swordSlashSprite.width * (Math.sin(angle)));
+        let yy = Math.abs(this.hitBoxSize*swordSlashSprite.width * (Math.cos(angle))) + this.hitBoxSize*Math.abs(swordSlashSprite.height * (Math.cos(angle + Math.PI / 2)));
+
+        swordSlashSprite.body.setSize(xx, yy);
+
+
+        let radius = 2;
+        //swordSlashSprite.body.setOffset(radius*Math.cos(super.properAngle())-swordSlashSprite.width/2,radius*Math.sin(super.properAngle())-swordSlashSprite.height/2);
+        swordSlashSprite.body.setOffset(0,0);
+
+        swordSlashSprite.setRotation(angle - Math.PI / 4);
+
+        swordSlashSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, swordSlashSprite);
+
+        swordSlashSprite.on('animationcomplete_sword', function (o1, o2, o3) {
+            console.log(this);
+            this.class.state = 'basic';
+            this.destroy();
+        });
+
+        swordSlashSprite.body.setVelocityY(this.basicAttackSpeed * Math.sin(this.angle));
+        swordSlashSprite.body.setVelocityX(this.basicAttackSpeed * Math.cos(this.angle));
+        //console.log(shieldSprite);        
+        swordSlashSprite.anims.play("sword");
+
+        //The beam attacked
     }
 
 }

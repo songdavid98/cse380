@@ -117,7 +117,7 @@ export class Dungeon3 extends DayScene {
         this.buttonsLayer = this.map.createStaticLayer("buttons", [this.terrain], 1, 0).setScale(4, 4);
         this.prisonLayer = this.map.createStaticLayer("prison", [this.terrain], 1, 0).setScale(4, 4);
         this.doorLayer = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
-        super.create({"initialX":1600, "initialY":3000+2600});
+        super.create({"initialX":1600, "initialY":1200});//3000+2600});
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 4, this.map.heightInPixels * 4);
         //add objects
         this.items = this.map.objects[0].objects;
@@ -179,7 +179,7 @@ export class Dungeon3 extends DayScene {
         super.update(time);
             //console.log(this.player.sprite.body.position);
         if(this.player.active && this.player.sprite.body.position.y <= 1240 & this.player.sprite.body.position.y > 0){
-            console.log("hello");
+            //console.log("hello");
             this.player.active = false;
         }
         //console.log(this.buttonsPressed);
