@@ -15,6 +15,7 @@ export class DayNightTransition extends CutScene{
         super.init(data);
         this.transitionScene = data.transitionScene;
         this.transferMoney = data.money;
+        this.transferToLevel = data.level;
 
         this.lastTransition = 0;
         this.sceneTimeLength = 2; //2 seconds
@@ -122,12 +123,44 @@ export class DayNightTransition extends CutScene{
                 break;
             case 2: 
                 if(Math.floor((time)/1000) - Math.floor(this.lastTransition)/1000 > this.sceneTimeLength){
-                    console.log("DONE");
-                    console.log(this.transferMoney);
-                    this.scene.start(SCENES.NIGHT, {
-                        "level": 1,
-                        "money": this.transferMoney + 200
-                    });
+                    this.music.stop();
+
+                    switch(this.transferToLevel){
+                        case 1: 
+                            this.scene.start(SCENES.DUNGEON1, {
+                                "level": 1,
+                            });
+                            break;
+                        case 2: 
+                            this.scene.start(SCENES.NIGHT, {
+                                "level": 2,
+                                "money": this.transferMoney
+                            });
+                            break;
+                        case 3:
+                            this.scene.start(SCENES.DUNGEON2, {
+                                "level": 3,
+                            });
+                            break;
+                        case 4:
+                            this.scene.start(SCENES.NIGHT, {
+                                "level": 4,
+                                "money": this.transferMoney
+                            });
+                            break;
+                        case 5:
+                            this.scene.start(SCENES.DUNGEON3, {
+                                "level": 5,
+                            });
+                            break;
+                        case 6:
+                            this.scene.start(SCENES.NIGHT, {
+                                "level": 6,
+                                "money": this.transferMoney
+                            });
+                            break;
+                    }
+
                     this.scene.stop();
                 }
                 else{

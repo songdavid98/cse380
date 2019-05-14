@@ -37,14 +37,42 @@ export class DayOverlayScene extends Phaser.Scene {
     create() {
 
         if(this.dayScene.mapLevel == 'tutorial'){
-            let textBar = this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
+            this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
             
             this.text = this.add.text(30, 790, "Welcome to the tutorial", {
                 fontSize: '32px',
                 fill: '#000000',
             }).setDepth(4);
         }
-        console.log(this.dayScene.mapLevel);
+        else{
+            
+            //add timer
+            let seconds = this.timer % 60;
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            this.timerText = this.add.text(20, 10, Math.floor(this.timer / 60) + ':' + seconds, {
+                fontSize: '70px',
+                fill: '#fff',
+                strokeThickness: 10,
+                stroke: "#000000"
+            });
+
+            this.bigTimerText = this.add.text(450, 300, Math.floor(this.timer / 60) + ':' + seconds, {
+                fontSize: '270px',
+                fill: '#fff',
+                strokeThickness: 10,
+                stroke: "#000000"
+            });
+            this.bigTimerText.visible = false;
+            this.haveShownBigTimerText = false;
+        }
+
+
+
+
+
+
 
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
@@ -75,26 +103,6 @@ export class DayOverlayScene extends Phaser.Scene {
 
 
 
-        //add timer
-        let seconds = this.timer % 60;
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-        this.timerText = this.add.text(20, 10, Math.floor(this.timer / 60) + ':' + seconds, {
-            fontSize: '70px',
-            fill: '#fff',
-            strokeThickness: 10,
-            stroke: "#000000"
-        });
-
-        this.bigTimerText = this.add.text(450, 300, Math.floor(this.timer / 60) + ':' + seconds, {
-            fontSize: '270px',
-            fill: '#fff',
-            strokeThickness: 10,
-            stroke: "#000000"
-        });
-        this.bigTimerText.visible = false;
-        this.haveShownBigTimerText = false;
 
 
 
@@ -237,47 +245,43 @@ export class DayOverlayScene extends Phaser.Scene {
 
 
         //------------------------- Time Stuff ------------------------------------
-        let timeRemaining = this.timer - (Math.floor(time / 1000) - Math.floor(this.initTime / 1000));
-        let seconds = timeRemaining % 60;
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-        this.timerText.setText(Math.floor(timeRemaining / 60) + ":" + seconds);
-        this.bigTimerText.setText(Math.floor(timeRemaining / 60) + ":" + seconds);
-
-
-        if (timeRemaining <= 5 && !this.haveShownBigTimerText){
-            this.bigTimerText.visible = true;
-            this.haveShownBigTimerText = true;
-        }
-
-
-        if (timeRemaining <= 0) {
-            this.dayScene.music.stop();
-            this.scene.stop(this.sceneKey);
-
-            let transitionScene;
-            console.log(this.scene.scene.sceneKey);
-            switch(this.scene.scene.sceneKey){
-                case SCENES.DUNGEON1:
-                    transitionScene = "n1";
-                    break;
-                case SCENES.DUNGEON2:
-                    transitionScene = "n2";
-                    break;
-                case SCENES.DUNGEON3:
-                    transitionScene = "n3";
-                    break;
-                case SCENES.DUNGEON4:
-                    transitionScene = "n3";
-                    break;
+        if(this.dayScene.mapLevel != 'tutorial'){
+            let timeRemaining = this.timer - (Math.floor(time / 1000) - Math.floor(this.initTime / 1000));
+            let seconds = timeRemaining % 60;
+            if (seconds < 10) {
+                seconds = "0" + seconds;
             }
+            this.timerText.setText(Math.floor(timeRemaining / 60) + ":" + seconds);
+            this.bigTimerText.setText(Math.floor(timeRemaining / 60) + ":" + seconds);
 
-            this.scene.start(SCENES.DAY_NIGHT_TRANSITION, {
-                "transitionScene": transitionScene,
-                "money": this.dayScene.money + 200
-            });
-            this.scene.stop();
+
+            if (timeRemaining <= 5 && !this.haveShownBigTimerText){
+                this.bigTimerText.visible = true;
+                this.haveShownBigTimerText = true;
+            }
+            if (timeRemaining <= 0 && this.dayScene.level != 0) {
+                this.dayScene.music.stop();
+                this.scene.stop(this.sceneKey);
+    
+                //you win
+                switch(this.dayScene.level){
+                    case 1: 
+                        this.unlockedLevels = [1,1,0,0,0,0,0];
+                        break;
+                    case 3: 
+                        this.unlockedLevels = [1,1,1,1,0,0,0];
+                        break;
+                    case 5: 
+                        this.unlockedLevels = [1,1,1,1,1,1,0];
+                        break;
+                }
+                let data = {
+                    "str":"moving to level select",
+                    "unlockedLevels":this.unlockedLevels
+                }
+                this.scene.start(SCENES.LEVEL_SELECT,data);
+                this.scene.stop();
+            }
         }
     }
 
