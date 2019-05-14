@@ -112,7 +112,8 @@ export class DayScene extends Phaser.Scene {
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
         this.music.play();
-
+        
+        
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         console.log(this.map);

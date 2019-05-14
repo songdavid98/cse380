@@ -98,8 +98,8 @@ export class Enemy {
             this.greenBar.y = this.sprite.y - this.sprite.height * this.scaleY / 2 - 20;
         }
     }
-
-    nightUpdate(time, level) {
+    
+    nightLevel1Pathfinding() {
         switch (this.nightWaypoint) {
             case 0:
                 if (this.sprite.x > 1425) {
@@ -139,6 +139,140 @@ export class Enemy {
                 this.sprite.body.setVelocityY(0);
                 break;
         }
+    }
+
+    nightLevel2Pathfinding() {
+        switch (this.nightWaypoint) {
+            case 0:
+                if (this.sprite.x > 500) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(-1 * this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 1;
+            case 1:
+                if (this.sprite.y < 400) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 2;
+            case 2:
+                if (this.sprite.x > 700) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 3;
+            case 3:
+                if (this.sprite.y < 800) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 4;
+            case 4:
+                if (this.sprite.x > 300) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(-1 * this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 5;
+            case 5:
+                if (this.sprite.y > 420) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 6;
+            case 6:
+                this.distanceTraveled += this.speed;
+                this.sprite.body.setVelocityX(-1 * this.speed);
+                this.sprite.body.setVelocityY(0);
+                break;
+        }
+    }
+    
+    nightLevel3Pathfinding() {
+        switch (this.nightWaypoint) {
+            case 0:
+                if (this.sprite.x > 600) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(-1 * this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 1;
+            case 1:
+                if (this.sprite.y < 700) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 2;
+            case 2:
+                if (this.sprite.x > 1400) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 3;
+            case 3:
+                if (this.sprite.y > 200) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 4;
+            case 4:
+                if (this.sprite.x > 400) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(-1 * this.speed);
+                    this.sprite.body.setVelocityY(0);
+                    break;
+                }
+                this.nightWaypoint = 5;
+            case 5:
+                if (this.sprite.y < 420) {
+                    this.distanceTraveled += this.speed;
+                    this.sprite.body.setVelocityX(0);
+                    this.sprite.body.setVelocityY(this.speed);
+                    break;
+                }
+                this.nightWaypoint = 6;
+            case 6:
+                this.distanceTraveled += this.speed;
+                this.sprite.body.setVelocityX(-1 * this.speed);
+                this.sprite.body.setVelocityY(0);
+                break;
+        }
+    }
+    
+    nightUpdate(time, level) {
+        switch (level) {
+            case 1:
+                this.nightLevel1Pathfinding();
+                break;
+            case 2:
+                this.nightLevel2Pathfinding();
+                break;
+            case 3:
+                this.nightLevel3Pathfinding();
+                break;
+            default:
+                console.log("invalid level in nightupdate");
+                break;       
+        }
+        
         this.healthBar.x = this.sprite.x;
         this.healthBar.y = this.sprite.y - this.sprite.height * this.scaleY / 2 - 20;
         this.greenBar.x = this.sprite.x - this.healthBar.width + ((this.greenBar.width) * this.greenBar.scaleX / 2);
