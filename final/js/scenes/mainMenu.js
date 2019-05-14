@@ -9,6 +9,7 @@ export class MenuScene extends Phaser.Scene {
     }
     init(data) {
         this.music = data.music;
+        this.unlockedLevels = data.unlockedLevels || 0;
         console.log(data.str);
     }
     preload() {
@@ -44,13 +45,13 @@ export class MenuScene extends Phaser.Scene {
 
         playButton.on("pointerdown", () => {
             //this.music.pause();
-            let unlockedLevels = [0,0,0,0,0,0];
             let data = {
                 "music":this.music,
                 "str":"moving to level select",
-                "unlockedLevels":unlockedLevels
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.LEVEL_SELECT, data);
+            this.scene.stop();
         });
         controlsButton.on("pointerdown", () => {
             //this.music.pause();
@@ -59,6 +60,8 @@ export class MenuScene extends Phaser.Scene {
                 "str":"moving to controls"
             }
             this.scene.start(SCENES.CONTROLS, data);
+            this.scene.stop();
+
         });
         helpButton.on("pointerdown", () => {
             //this.music.pause();
@@ -67,6 +70,8 @@ export class MenuScene extends Phaser.Scene {
                 "str":"moving to help"
             }
             this.scene.start(SCENES.HELP, data);
+            this.scene.stop();
+
         });
     }
 }

@@ -33,9 +33,13 @@ export class SplashScene extends Phaser.Scene {
         });
         startButton.on("pointerdown", () => {
             //this.music.pause();
+
+            let unlockedLevels = [0,0,0,0,0,0];
+
             let data = {
                 "music":this.music,
-                "str":"splashin in ;)"
+                "str":"splashin in ;)",
+                "unlockedLevels":unlockedLevels
             }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
