@@ -8,6 +8,7 @@ export class ControlsScene extends Phaser.Scene {
         })
     }
     init(data) {
+        this.music = data.music;
         console.log(data);
         console.log("entered controls");
     }
@@ -47,7 +48,10 @@ export class ControlsScene extends Phaser.Scene {
         backButton.setInteractive();
         backButton.on("pointerdown", () => {
             console.log("hello");
-            let data = "main menu from controls"
+            let data = {
+                "str":"main menu from controls",
+                "music":this.music
+            }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
 

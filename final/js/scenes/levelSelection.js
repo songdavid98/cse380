@@ -166,7 +166,10 @@ export class LevelSelectionScene extends Phaser.Scene {
 
         backButton.on("pointerdown", () => {
             //this.music.pause();
-            let data = "main menu from level select"
+            let data = {
+                "str":"main menu from level select",
+                "music":this.music
+            }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
 
