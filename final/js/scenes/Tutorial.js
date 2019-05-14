@@ -502,12 +502,14 @@ export class Tutorial extends DayScene {
                 else{
                     this.music.pause();
                     this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.DUNGEON1, {
-                        "money": this.money,
-                        "level": 1
-                    });
+                    let unlockedLevels = [1,0,0,0,0,0,0];
+
+                    let data = {
+                        "str":"Day 1 Unlocked",
+                        "unlockedLevels":unlockedLevels
+                    }
+                    this.scene.start(SCENES.LEVEL_SELECT,data);
                     this.scene.stop();
-                    console.log("It's a whole new world");
                 }
             }
         }

@@ -56,7 +56,6 @@ export class DayScene extends Phaser.Scene {
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.timeLimit = 120; //Day Countdown timer ~ 2min?
-
         this.textWords;
 
     }
@@ -729,7 +728,8 @@ export class DayScene extends Phaser.Scene {
                 this.input.keyboard.keys[83].isDown = false
                 this.scene.launch(SCENES.PAUSE, {
                     "scenes": [this.sceneKey, SCENES.DAY_OVERLAY],
-                    "scene":this
+                    "scene":this,
+                    "level":this.level
                 });
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();
