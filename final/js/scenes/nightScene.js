@@ -52,6 +52,7 @@ export class NightScene extends Phaser.Scene {
         this.map;
 
         this.gameEndTime = -1;
+        this.winGame = false;
 
         this.level = data.level;
         this.mapLevel;
@@ -185,14 +186,14 @@ export class NightScene extends Phaser.Scene {
             //make a swtich case, to spawn different things for each level
             //Create the enemies
             switch (this.level) {
-                case 1:
+                case 2:
                     this.enemiesToSpawn = [
                         [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
                         [10, ENEMIES.GOBLIN, 2000]
                     ]
                     this.numEnemySpawns = 20;
                     break;
-                case 2:
+                case 4:
                     this.enemiesToSpawn = [
                         [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
                         [20, ENEMIES.GOBLIN, 1000],
@@ -200,7 +201,7 @@ export class NightScene extends Phaser.Scene {
                     ]
                     this.numEnemySpawns = 40;
                     break;
-                case 3:
+                case 6:
                     his.enemiesToSpawn = [
                         [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
                         [20, ENEMIES.GOBLIN, 1000],
@@ -366,9 +367,29 @@ export class NightScene extends Phaser.Scene {
             //  if 5 seconds has passed
             if (((time - this.gameEndTime) / 1000) >= 5) {
                 this.music.stop();
-
-                this.scene.start(SCENES.SPLASH);
+                if(this.winGame){
+                    switch(this.level){
+                        case 2: 
+                            this.unlockedLevels = [1,1,1,0,0,0,0];
+                            break;
+                        case 4: 
+                            this.unlockedLevels = [1,1,1,1,1,0,0];
+                            break;
+                        case 6: 
+                            this.unlockedLevels = [1,1,1,1,1,1,1];
+                            break;
+                    }
+                    let data = {
+                        "str":"moving to level select",
+                        "unlockedLevels":this.unlockedLevels
+                    }
+                    this.scene.start(SCENES.LEVEL_SELECT,data);
+                }
+                else{
+                    this.scene.start(SCENES.SPLASH);
+                }
                 this.scene.stop();
+
             }
             //  do nothing and wait until the 5 seconds has passed
             else
@@ -384,6 +405,7 @@ export class NightScene extends Phaser.Scene {
                 stroke: "#000000"
             });
             this.gameEndTime = time;
+            this.winGame = true;
         }
 
         //obviously lose here
@@ -395,6 +417,7 @@ export class NightScene extends Phaser.Scene {
                 stroke: "#000000"
             });
             this.gameEndTime = time;
+            this.winGame = false;
         }
 
         //for pausing

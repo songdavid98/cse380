@@ -44,9 +44,11 @@ export class MenuScene extends Phaser.Scene {
 
         playButton.on("pointerdown", () => {
             //this.music.pause();
+            let unlockedLevels = [0,0,0,0,0,0];
             let data = {
                 "music":this.music,
-                "str":"moving to level select"
+                "str":"moving to level select",
+                "unlockedLevels":unlockedLevels
             }
             this.scene.start(SCENES.LEVEL_SELECT, data);
         });
