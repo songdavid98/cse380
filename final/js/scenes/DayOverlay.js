@@ -187,6 +187,9 @@ export class DayOverlayScene extends Phaser.Scene {
 
         if (this.initTime == 0) {
             this.initTime = this.time.now;
+            this.dayScene.initTime = this.time.now;
+        }else{
+            this.initTime = this.dayScene.initTime;
         }
         if (this.shieldHero.health > this.shieldHealth) {
             this.shieldHearts.push(this.add.image(50 + this.shieldHealth * 75, this.heartDepth[3], "heart1").setScale(2, 2).setDepth(this.heartDepth[0]));
