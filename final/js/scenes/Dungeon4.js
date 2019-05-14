@@ -40,6 +40,7 @@ export class Dungeon4 extends DayScene {
         })
     }
     init(data) {
+        
         super.init(data);
 
         this.slimeSpawnArr = [
@@ -60,6 +61,7 @@ export class Dungeon4 extends DayScene {
 
     }
     preload() {
+        this.level = 4;
         super.preload();
 
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
@@ -68,7 +70,6 @@ export class Dungeon4 extends DayScene {
         this.load.image("clear", "./assets/images/tiles/newerTileImages/zzzclearTile.png");
 
 
-        this.level = 4;
         this.load.tilemapTiledJSON("map4", "assets/tilemaps/FireRoom.json");
         this.mapLevel = "map4";
     }

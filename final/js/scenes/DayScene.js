@@ -61,6 +61,23 @@ export class DayScene extends Phaser.Scene {
 
     }
     preload() {
+        
+        //adding cookie for unlocking levels
+        if(document.cookie || document.cookie.length > 0){
+            let cookie = document.cookie.replace("unlock=", "");
+            if(cookie = parseInt(cookie)){
+                console.log("cookie");
+                if(cookie < this.level){
+                    document.cookie = "unlock=" + this.level;
+                }
+            }else{
+                document.cookie = "unlock=" + this.level;
+            }
+        }else{
+            document.cookie = "unlock=" + this.level;
+        }
+        
+
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("greenHealth", "./assets/images/icons/bar1.png");
         this.load.image("healthBar", "./assets/images/icons/bar2.png");
