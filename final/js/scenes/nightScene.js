@@ -218,7 +218,9 @@ export class NightScene extends Phaser.Scene {
         buyicetower.setInteractive();
         buyicetower.on("pointerdown", () => {
             console.log("buyicetower pressed");
-            if (!this.alreadyClicked && this.money >= 150 && !this.startDragging) {
+            if ( this.money < 400 )
+                return;
+            if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buyicetower.alpha = 0.5;
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(8, 8);
@@ -248,7 +250,9 @@ export class NightScene extends Phaser.Scene {
         buycannon.setInteractive();
         buycannon.on("pointerdown", () => {
             console.log("buycannon pressed");
-            if (!this.alreadyClicked && this.money >= 100 && !this.startDragging) {
+            if ( this.money < 100 )
+                return;
+            if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buycannon.alpha = 0.5;
                 this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
