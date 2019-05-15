@@ -52,6 +52,7 @@ export class NightScene extends Phaser.Scene {
         this.winGame = false;
 
         this.level = data.level;
+        this.money = data.money;
         this.unlockedLevels = data.unlockedLevels;
         console.log(data.unlockedLevels);
 
@@ -67,12 +68,12 @@ export class NightScene extends Phaser.Scene {
         this.minY = 60;
 
         this.spawnX = 1700;
-        //for tower test
-        this.maxAttackDistance = 500;
+
+        this.rangeCircle = null; // for towers
+
 
         this.justPaused = false;
-
-        this.money = data.money;
+        
         this.villageHealth = 3;
 
         this.enemies = new Array();
@@ -85,7 +86,6 @@ export class NightScene extends Phaser.Scene {
         this.towerSpriteForBuying = null;
 
         this.enemiesSpawned = 0;
-
         this.enemiesToSpawn = [];
         //        [30, ENEMIES.GOBLIN, 500] spawn 30 goblins at 0.5sec intervals
         this.spawnIntervalVar = null;
@@ -104,6 +104,7 @@ export class NightScene extends Phaser.Scene {
 
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
+        this.load.image("rangeCircle", "./assets/images/defenseStructure/circle/circle.png");
 //        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
 //        this.mapLevel = "night-map2";
         console.log("Welcome to level " + this.level);
@@ -166,7 +167,7 @@ export class NightScene extends Phaser.Scene {
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
         let buyicetower = this.add.image(this.buttonX, this.buttonYinc * 6, "buyicetower").setDepth(3).setScale(1, 1);
         let buycannon = this.add.image(this.buttonX, this.buttonYinc * 7, "buycannon").setDepth(3).setScale(1, 1);
-
+        this.rangeCircle = this.add.image(800, 450, "rangeCircle").setDepth(3).setScale(10, 10);
 
         this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the town! Enemies coming from the right!", {
             fontSize: '30px',
@@ -190,14 +191,14 @@ export class NightScene extends Phaser.Scene {
 
 
         buyicetower.setInteractive();
-        buyicetower.on("pointerdown", () => {
+        buyicetower.on("pointerdown", (pointer) => {
             console.log("buyicetower pressed");
             if ( this.money < 400 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buyicetower.alpha = 0.5;
-                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(5, 5);
+                this.towerSpriteForBuying = this.physics.add.sprite(pointer.x, pointer.y, DEFSTR.ICE, 'right/0001.png').setScale(5, 5);
 
                 
                 this.towerToBePlaced = new Ice({
@@ -222,14 +223,14 @@ export class NightScene extends Phaser.Scene {
         });
 
         buycannon.setInteractive();
-        buycannon.on("pointerdown", () => {
+        buycannon.on("pointerdown", (pointer) => {
             console.log("buycannon pressed");
             if ( this.money < 100 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buycannon.alpha = 0.5;
-                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(4, 4);
+                this.towerSpriteForBuying = this.physics.add.sprite(pointer.x, pointer.y, DEFSTR.CANNON, 'right/0003.png').setScale(4, 4);
                 
                 this.towerToBePlaced = new Cannon({
                     "sprite": this.towerSpriteForBuying,
