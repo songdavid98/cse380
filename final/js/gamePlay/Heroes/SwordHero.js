@@ -313,37 +313,32 @@ export class SwordHero extends DayPlayer {
             }
 
             if (!this.attacking) {
-                if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
+                if (this.angle > -3*Math.PI / 8 && this.angle <= 3*Math.PI / 8) {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("rightIdleSword");
                     } else {
                         this.sprite.anims.play("rightSword", true);
                     }
-                    this.sprite.setRotation(this.angle); //Rotates the image
-                    this.sprite.body.angle = this.angle; //Rotates the box (playerclass)
-                } else if (this.angle > -3 * Math.PI / 4 && this.angle <= -Math.PI / 4) {
+                } else if (this.angle >= -5* Math.PI / 8 && this.angle <= -3*Math.PI / 8) {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("upIdleSword");
                     } else {
                         this.sprite.anims.play("upSword", true);
                     }
-                    this.sprite.setRotation(this.angle + Math.PI / 2); //Rotates the image
                     this.sprite.body.angle = this.angle + Math.PI / 2; //Rotates the box (playerclass)
-                } else if ((this.angle > 3 * Math.PI / 4 && this.angle <= Math.PI) || (this.angle <= -3 * Math.PI / 4 && this.angle >= -Math.PI)) {
+                } else if ((this.angle > 5 * Math.PI / 8 && this.angle <= Math.PI) || (this.angle < -5 * Math.PI / 8 && this.angle >= -Math.PI)) {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("leftIdleSword");
                     } else {
                         this.sprite.anims.play("leftSword", true);
                     }
-                    this.sprite.setRotation(this.angle - Math.PI); //Rotates the image
                     this.sprite.body.angle = this.angle - Math.PI; //Rotates the box (playerclass)
-                } else if (this.angle <= 3 * Math.PI / 4 && this.angle > Math.PI / 4) {
+                } else if (this.angle <= 5 * Math.PI / 8 && this.angle > 3*Math.PI / 8) {
                     if (this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0) {
                         this.sprite.anims.play("downIdleSword");
                     } else {
                         this.sprite.anims.play("downSword", true);
                     }
-                    this.sprite.setRotation(this.angle - Math.PI / 2); //Rotates the image
                     this.sprite.body.angle = this.angle - Math.PI / 2; //Rotates the box (playerclass)
                 }
             }         
@@ -353,13 +348,13 @@ export class SwordHero extends DayPlayer {
     //When this is called, for now, launch a projectile with the correct animation
     attackBasic(cursor, angle, shieldSprite) {
         this.attacking = true;
-        if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
+        if (this.angle > -3*Math.PI / 8 && this.angle <= 3*Math.PI / 8) {
             this.sprite.anims.play("rightBasicAttackSword", true);
-        } else if (this.angle > -3 * Math.PI / 4 && this.angle <= -Math.PI / 4) {
+        } else if (this.angle >= -5* Math.PI / 8 && this.angle <= -3*Math.PI / 8) {
             this.sprite.anims.play("upBasicAttackSword", true);
-        } else if ((this.angle > 3 * Math.PI / 4 && this.angle <= Math.PI) || (this.angle <= -3 * Math.PI / 4 && this.angle >= -Math.PI)) {
+        } else if ((this.angle > 5 * Math.PI / 8 && this.angle <= Math.PI) || (this.angle < -5 * Math.PI / 8 && this.angle >= -Math.PI)) {
             this.sprite.anims.play("leftBasicAttackSword", true);
-        } else if (this.angle <= 3 * Math.PI / 4 && this.angle > Math.PI / 4) {
+        } else if (this.angle <= 5 * Math.PI / 8 && this.angle > 3*Math.PI / 8) {
             this.sprite.anims.play("downBasicAttackSword", true);
         }
 

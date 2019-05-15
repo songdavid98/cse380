@@ -93,6 +93,37 @@ export class DayPlayer {
                     this.lastBlinked = this.scene.time.now;
                 }
             }
+
+
+ 
+            if(this.angle > -Math.PI/8 && this.angle <= Math.PI/8){
+                this.sprite.setRotation(0);
+            }
+
+            else if(this.angle < -Math.PI/8 && this.angle >= -3*Math.PI/8){
+                this.sprite.setRotation(-Math.PI/4); //Rotates the image
+            }
+            else if(this.angle < -3*Math.PI/8 && this.angle >= -5*Math.PI/8 ){
+                this.sprite.setRotation(0);
+            }
+            else if(this.angle < -5*Math.PI/8 && this.angle >= -7*Math.PI/8){
+                this.sprite.setRotation(Math.PI/4);
+            }
+
+            else if((this.angle < -7*Math.PI/8 && this.angle >= -Math.PI) ||(this.angle > 7*Math.PI/8 && this.angle <= Math.PI) ){
+                this.sprite.setRotation(0);
+            }
+
+            else if(this.angle > Math.PI/8 && this.angle <= 3*Math.PI/8){
+                this.sprite.setRotation(Math.PI/4);
+            }
+            else if(this.angle > 3*Math.PI/8 && this.angle <= 5*Math.PI/8){
+                this.sprite.setRotation(0);
+            }
+            else if(this.angle > 5*Math.PI/8 && this.angle <= 7*Math.PI/8){
+                this.sprite.setRotation(-Math.PI/4);
+            }
+
         }
     }
 

@@ -245,7 +245,7 @@ export class ShieldHero extends DayPlayer {
             super.update(time);
 
 
-            if (this.angle > -Math.PI / 4 && this.angle <= Math.PI / 4) {
+            if (this.angle > -3*Math.PI / 8 && this.angle <= 3*Math.PI / 8) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("rightBasicAttackShield", true);
                 } else {
@@ -255,10 +255,7 @@ export class ShieldHero extends DayPlayer {
                         this.sprite.anims.play("rightShield", true);
                     }
                 }
-                this.sprite.setRotation(this.angle); //Rotates the image
-                this.rotation = this.angle;
-                this.sprite.body.angle = this.angle; //Rotates the box (playerclass)
-            } else if (this.angle > -3 * Math.PI / 4 && this.angle <= -Math.PI / 4) {
+            } else if (this.angle >= -5* Math.PI / 8 && this.angle <= -3*Math.PI / 8) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("upBasicAttackShield", true);
                 } else {
@@ -268,10 +265,7 @@ export class ShieldHero extends DayPlayer {
                         this.sprite.anims.play("upShield", true);
                     }
                 }
-                this.sprite.setRotation(this.angle + Math.PI / 2); //Rotates the image
-                this.rotation = this.angle + Math.PI / 2
-                this.sprite.body.angle = this.angle + Math.PI / 2; //Rotates the box (playerclass)
-            } else if ((this.angle > 3 * Math.PI / 4 && this.angle <= Math.PI) || (this.angle <= -3 * Math.PI / 4 && this.angle >= -Math.PI)) {
+            } else if ((this.angle > 5 * Math.PI / 8 && this.angle <= Math.PI) || (this.angle < -5 * Math.PI / 8 && this.angle >= -Math.PI)) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("leftBasicAttackShield", true);
                 } else {
@@ -281,10 +275,7 @@ export class ShieldHero extends DayPlayer {
                         this.sprite.anims.play("leftShield", true);
                     }
                 }
-                this.sprite.setRotation(this.angle - Math.PI); //Rotates the image
-                this.rotation = this.angle - Math.PI;
-                this.sprite.body.angle = this.angle - Math.PI; //Rotates the box (playerclass)
-            } else if (this.angle <= 3 * Math.PI / 4 && this.angle > Math.PI / 4) {
+            } else if (this.angle <= 5 * Math.PI / 8 && this.angle > 3*Math.PI / 8) {
                 if (this.isAttacking) {
                     this.sprite.anims.play("downBasicAttackShield", true);
                 } else {
@@ -295,10 +286,6 @@ export class ShieldHero extends DayPlayer {
                         //console.log(this.sprite.anims); 
                     }
                 }
-
-                this.sprite.setRotation(this.angle - Math.PI / 2); //Rotates the image
-                this.rotation = this.angle - Math.PI / 2;
-                this.sprite.body.angle = this.angle - Math.PI / 2; //Rotates the box (playerclass)
             }
         }
     }

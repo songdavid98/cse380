@@ -193,6 +193,8 @@ export class Golem extends Enemy { //   ---- Someone fix this~
     }
     nightUpdate(time, level) {
         super.nightUpdate(time, level);
+        this.sprite.anims.play("leftGolem", true);
+
         //        if (this.active) {
         //            this.sprite.body.setVelocityX(-1 * this.speed);
         //            this.sprite.body.setVelocityY(0);
