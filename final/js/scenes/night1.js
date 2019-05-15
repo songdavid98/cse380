@@ -48,7 +48,6 @@ export class Night1 extends NightScene {
     
     init(data) {
         super.init(data);
-        this.spawnX = 1600;
         this.spawnY = 235;
         this.enemiesToSpawn = [
             [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.

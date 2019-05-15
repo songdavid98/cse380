@@ -66,6 +66,7 @@ export class NightScene extends Phaser.Scene {
         this.minX = 290;
         this.minY = 60;
 
+        this.spawnX = 1700;
         //for tower test
         this.maxAttackDistance = 500;
 

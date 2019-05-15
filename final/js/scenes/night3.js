@@ -48,8 +48,7 @@ export class Night3 extends NightScene {
     
     init(data) {
         super.init(data);
-        this.spawnX = 1600;
-        this.spawnY = 350;
+        this.spawnY = 375;
         this.enemiesToSpawn = [
             [10, ENEMIES.GOLEM, 1000],
             [20, ENEMIES.SLIME, 500],        
