@@ -47,7 +47,7 @@ export class Enemy {
     }
 
     //When the hero tries to kill the monster
-    damaged(intDamageTaken) {
+    damaged(intDamageTaken, player) {
         if (this.health > 0) {
             if (!this.healthBar.visible && !this.greenBar.visible) {
                 this.healthBar.visible = true;
@@ -58,6 +58,9 @@ export class Enemy {
             this.greenBar.setScale(2 * (this.health / this.totalHealth), 2);
 
             if (this.health <= 0) {
+                if(player){
+                    player.kills++;
+                }
                 this.dead = true;
                 this.active = false;
                 console.log("killed");

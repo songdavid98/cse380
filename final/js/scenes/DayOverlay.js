@@ -253,6 +253,23 @@ export class DayOverlayScene extends Phaser.Scene {
             }
 
         }
+        if(this.swordHero.kills && this.kills != this.swordHero.kills){
+            this.kills = this.swordHero.kills;
+            if(!this.swordHero.specialAttacked){
+                if(Math.floor(time/1000) - Math.floor(this.chargeBlueTime/1000) > this.mageHero.chargingBlueIncrementTime){
+                    console.log("CHARGING", this.superBlue);
+                    console.log("CHARGINGg ", this.superBar);
+
+                    this.superBlue.setScale(this.superBlue.scaleX+ 1, 4);
+                    this.superBlue.x =  this.superBar.width + 7 + ((this.superBlue.width) * this.superBlue.scaleX / 2) - this.superBlue.scaleX*0.75;
+
+                    this.chargeBlueTime = time;
+                    if(this.superBlue.scaleX >= this.superBar.scaleX){
+                        this.mageHero.chargeNow = false;
+                    }
+                }
+            }
+        }
 
 
 

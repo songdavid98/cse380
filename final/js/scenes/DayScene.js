@@ -55,7 +55,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 10; //Day Countdown timer ~ 2min?
+        this.timeLimit = 300; //Day Countdown timer ~ 2min?
         this.textWords;
         this.unlockedLevels = data.unlockedLevels || [2,0,0,0,0,0,0,0];
         console.log(this.unlockedLevels);
@@ -386,9 +386,13 @@ export class DayScene extends Phaser.Scene {
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
             } else if (pointer.rightButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown && !this.player.specialAttacked && !this.player.chargeNow) {
-                this.player.specialAttacked = true;
-                this.player.previousTime = Math.floor(this.time.now / 1000);
-                this.player.attackSpecial(pointer, this.player.angle);
+                if(this.player == this.swordHero && this.swordHero.kills < this.swordHero.reqKills){
+                    
+                }else{
+                    this.player.specialAttacked = true;
+                    this.player.previousTime = Math.floor(this.time.now / 1000);
+                    this.player.attackSpecial(pointer, this.player.angle);
+                }
             }
         }, this);
 
@@ -554,7 +558,7 @@ export class DayScene extends Phaser.Scene {
             enemySprite.class.state = "attacking";
         }
         enemySprite.setVelocity(swordBeamSprite.body.velocity.x, swordBeamSprite.body.velocity.y);
-        enemySprite.class.damaged(swordBeamSprite.class.basicAttack);
+        enemySprite.class.damaged(swordBeamSprite.class.basicAttack, this.swordHero);
 
         enemySprite.class.lastDamaged = swordBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
@@ -579,7 +583,7 @@ export class DayScene extends Phaser.Scene {
         }
         
         if(Math.floor(tornado.scene.time.now/1000) - Math.floor(enemySprite.class.lastDamaged/1000) < enemySprite.class.specialDamageCooldown){
-            enemySprite.class.damaged(tornado.class.specialAttack);
+            enemySprite.class.damaged(tornado.class.specialAttack, this.swordHero);
         }
         else{
             enemySprite.class.justGotHit = false;

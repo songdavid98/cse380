@@ -23,7 +23,8 @@ export class SwordHero extends DayPlayer {
 
         this.attackCooldown = 1;
         this.damageCooldown = 3;
-        this.sprite.class = this; 
+        this.sprite.class = this;
+        this.reqKills = 10; 
 
         this.continueSpecialAttack = false;
         this.startSpecialAttackTime;
@@ -306,6 +307,7 @@ export class SwordHero extends DayPlayer {
 
     }
     update(time, angle) {
+        console.log(this.kills);
         if (this.active && this.sprite.body) {
             super.update(time);
 
@@ -425,6 +427,7 @@ export class SwordHero extends DayPlayer {
         this.attacking = true;
         this.sprite.anims.play("specialStart", true);
         this.angle = 0;
+        this.kills = 0;
         //When the animation is completed, it will run the rest of the function
     }
 
