@@ -476,6 +476,7 @@ export class ShieldHero extends DayPlayer {
         }, superShieldBeam);
 
         superShieldBeam.on('animationcomplete_superShield', function (o1) {
+            this.class.specialAttacked = false;
             for(var i = 0; i < this.box.getChildren().length; i++){
                 this.box.getChildren()[i].destroy();
                 i--;

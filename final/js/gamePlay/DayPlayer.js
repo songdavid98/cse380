@@ -28,6 +28,7 @@ export class DayPlayer {
         this.lastBlinked = 0;
         this.invincible = false; //Prone to any damage
         this.semiInvincible = false; //You will lose hearts, but regain if you run out. No hero swap
+        this.specialAttacked = false;
 
         this.playerColorGray = false;
 

@@ -380,11 +380,13 @@ export class DayScene extends Phaser.Scene {
 
 
         this.input.on('pointerdown', function (pointer) {
+            console.log(this.player.specialAttacked);
             if (!this.player.dead && pointer.leftButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
-            } else if (pointer.rightButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
+            } else if (pointer.rightButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown && !this.player.specialAttacked && !this.player.chargeNow) {
+                this.player.specialAttacked = true;
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 this.player.attackSpecial(pointer, this.player.angle);
             }
