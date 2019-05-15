@@ -7,7 +7,7 @@ export class PauseScene extends Phaser.Scene{
     }
     init(data){
         //console.log(data);
-        this.dayScene = data['scene'];
+        this.pausedScene = data['scene'];
         this.scenes = data["scenes"];
         this.unlockedLevels = data.unlockedLevels;
         console.log(data);
@@ -36,6 +36,9 @@ export class PauseScene extends Phaser.Scene{
         continueButton.on("pointerdown", ()=>{
             for(var i = 0; i < this.scenes.length; i++){
                 this.scene.resume(this.scenes[i]);
+                this.pausedScene.music.resume();
+                if (this.pausedScene.spawnIntervalVar)
+                    this.pausedScene.spawnIntervalVar.paused = false;
             }
             this.scene.stop();
         });
@@ -61,11 +64,12 @@ export class PauseScene extends Phaser.Scene{
         }
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             console.log("unpausing");
+            if (this.pausedScene.spawnIntervalVar)
+                    this.pausedScene.spawnIntervalVar.paused = false;
             for(var i = 0; i < this.scenes.length; i++){
                 this.scene.resume(this.scenes[i]);
             }
-            if (this.dayScene)
-                this.dayScene.initTime += this.time.now - this.initTime;
+            this.pausedScene.initTime += this.time.now - this.initTime;
             this.scene.stop();
         }else if(this.input.keyboard.keys[27].isDown){
             this.justPaused = false;

@@ -84,15 +84,13 @@ export class NightScene extends Phaser.Scene {
         this.towerSpriteForBuying = null;
 
         this.enemiesSpawned = 0;
-//        this.numEnemySpawns = 30;
-//        this.spawnX = 1600;
-//        this.spawnY = 170;
+
         this.enemiesToSpawn = [];
         //        [30, ENEMIES.GOBLIN, 500] spawn 30 goblins at 0.5sec intervals
         this.spawnIntervalVar = null;
         this.currentlySpawning = null;
         this.startWavePressed = false;
-        this.timeToStopInterval = null;
+        //this.timeToStopInterval = null;
 
         this.alreadyClicked = false; // describes if a buytower button has been clicked
     }
@@ -180,6 +178,9 @@ export class NightScene extends Phaser.Scene {
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
+            console.log("this.enemiesSpawned "+this.enemiesSpawned);
+            console.log("this.spawnInt: ");
+            console.log(this.spawnIntervalVar);
             if (this.startWavePressed)
                 return;
             this.startWavePressed = true;
@@ -195,7 +196,7 @@ export class NightScene extends Phaser.Scene {
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buyicetower.alpha = 0.5;
-                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(8, 8);
+                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.ICE, 'right/0001.png').setScale(5, 5);
 
                 
                 this.towerToBePlaced = new Ice({
@@ -227,7 +228,7 @@ export class NightScene extends Phaser.Scene {
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buycannon.alpha = 0.5;
-                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(5, 5);
+                this.towerSpriteForBuying = this.physics.add.sprite(400, 500, DEFSTR.CANNON, 'right/0003.png').setScale(4, 4);
                 
                 this.towerToBePlaced = new Cannon({
                     "sprite": this.towerSpriteForBuying,
@@ -235,7 +236,7 @@ export class NightScene extends Phaser.Scene {
                     "anims": this.anims
                 });
                 
-                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(5,5);
+                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(4,4);
                 let proj = new Projectile({
                     "damage": this.towerToBePlaced.damage,
                     "sprite": projSprite
@@ -258,7 +259,6 @@ export class NightScene extends Phaser.Scene {
             }
         });
         
-        
 
         this.input.on("pointermove", function (pointer) {
             if (this.scene.startDragging) {
@@ -273,10 +273,7 @@ export class NightScene extends Phaser.Scene {
                 this.scene.towerToBePlaced.placeable = placeable;
                 this.scene.towerSpriteForBuying.x = pointer.x;
                 this.scene.towerSpriteForBuying.y = pointer.y;
-//                if (this.scene.towerToBePlaced.defStrType == DEFSTR.CANNON) {
-//                    this.scene.towerSpriteForBuying.x = pointer.x;
-//                    this.scene.towerSpriteForBuying.y = pointer.y;
-//                }
+
                 //if the pointer is not in bounds
                 if (pointer.x <= this.scene.minX || pointer.y <= this.scene.minY || !this.scene.towerToBePlaced.placeable) {
                     this.scene.towerSpriteForBuying.alpha = 0.5;
@@ -325,7 +322,7 @@ export class NightScene extends Phaser.Scene {
                     enem.health = 0;
                 }
                 if (enem.health <= 0) {
-                    enem.sprite.destroy();
+                    enem.destroySprite();
                     enem.active = false;
                     this.enemies.splice(i, 1);
                     i--;
@@ -368,7 +365,11 @@ export class NightScene extends Phaser.Scene {
         }
 
         //you win after you've defeating everything and village still alive
-        if (this.gameEndTime == -1 && this.enemies && this.enemies.length == 0 && this.enemiesSpawned >= this.numEnemySpawns && this.villageHealth > 0) {
+        if (this.gameEndTime == -1 && this.enemies && 
+                this.enemies.length == 0 && 
+                this.enemiesSpawned >= this.numEnemySpawns && 
+                this.villageHealth > 0)
+        {
             this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .45, "You win!", {
                 fontSize: '65px',
                 fill: '#fff',
@@ -395,32 +396,29 @@ export class NightScene extends Phaser.Scene {
         if (this.input.keyboard.keys[27].isDown && !this.justPaused) {
             this.justPaused = true
             this.music.pause();
+            this.spawnIntervalVar.paused = true;
             this.scene.launch(SCENES.PAUSE, {
                 "scenes": [this.sceneKey],
+                "scene":this,
                 "unlockedLevels":this.unlockedLevels
             });
             this.scene.pause();
         } else if (this.input.keyboard.keys[27].isUp && this.justPaused) {
             this.justPaused = false;
             this.music.resume();
+            this.spawnIntervalVar.paused = false;
         }
         
         //for stopping/restarting the spawn of enemies
-        if (this.timeToStopInterval && time >= this.timeToStopInterval) {
-            
-            this.spawnIntervalVar.remove();
-
-            if (this.enemiesToSpawn.length == 0) {
-                this.timeToStopInterval = null;
-                this.spawnIntervalVar = null;
-            } else {
+        if (this.startWavePressed) {
+            if (!this.spawnIntervalVar && this.enemiesToSpawn.length > 0) {
                 let nextSetOfEnemies = this.enemiesToSpawn.shift();
-                console.log(nextSetOfEnemies);
                 this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
+            } else if (this.spawnIntervalVar.repeatCount == 0 && this.enemiesToSpawn.length > 0) {
+                this.spawnIntervalVar.remove();
+                let nextSetOfEnemies = this.enemiesToSpawn.shift();
+                this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);                
             }
-        } else if (this.startWavePressed && !this.spawnIntervalVar && this.enemiesToSpawn.length > 0) {
-            let nextSetOfEnemies = this.enemiesToSpawn.shift();
-            this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
         }
 
         if (this.defStrs.length > 0) {
@@ -428,10 +426,10 @@ export class NightScene extends Phaser.Scene {
                 this.defStrs[i].update(time, this.enemies);
         }
         
+
         if (this.projectiles.length > 0) {
             for (let i = 0; i < this.projectiles.length; i++)
                 this.projectiles[i].update(time, this.enemies);
-            
         }
 
         this.moneyText.setText(":" + this.money);
@@ -478,7 +476,6 @@ export class NightScene extends Phaser.Scene {
         
         switch (enemyType) {
             case ENEMIES.SLIME:
-                
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newSlime = new Slime({
@@ -522,6 +519,7 @@ export class NightScene extends Phaser.Scene {
 
         }
         this.enemiesSpawned++;
+        enemySprite.y = this.spawnY - enemySprite.height*2.5;
     }
 
     spawnMultipleEnemies(numberOfEnemies, enemyType, msInterval) {
@@ -534,7 +532,8 @@ export class NightScene extends Phaser.Scene {
             callbackScope: this,
             repeat:numberOfEnemies
         });
-        this.timeToStopInterval = numberOfEnemies * msInterval + this.time.now;
+        console.log(this.spawnIntervalVar);
+        //this.timeToStopInterval = numberOfEnemies * msInterval + this.time.now;
     }
 
 

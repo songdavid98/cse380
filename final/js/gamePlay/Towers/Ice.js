@@ -73,7 +73,7 @@ export class Ice extends NightDefenseStructure {
                 enem.health -= this.class.damage;
                 if (enem.notTakenEffect) {
                     enem.slowDown();
-                    enem.sprite.tint = 0x00dfff;
+                    enem.sprite.tint = 0x0072ff;
                 }
             }
             this.class.targetFound = false;
