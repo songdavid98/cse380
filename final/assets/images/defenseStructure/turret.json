@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "arrowTower.png",
+			"image": "turret.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 118,
@@ -99,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:2f14b67fc60966ac30db552e2e9f2573:9461e7f6d424e73764b5f481515f6706:e2a6e56bc5966cf33ecb95b832487206$"
+		"smartupdate": "$TexturePacker:SmartUpdate:5ef3ca4010d7ef43b87588f540f2e53b:9461e7f6d424e73764b5f481515f6706:26057a831b32959680a28025ef05a3b1$"
 	}
 }
