@@ -55,7 +55,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 300; //Day Countdown timer ~ 2min?
+        this.timeLimit = 10; //Day Countdown timer ~ 2min?
         this.textWords;
         this.unlockedLevels = data.unlockedLevels;
         console.log(this.unlockedLevels);
@@ -87,6 +87,9 @@ export class DayScene extends Phaser.Scene {
         this.load.image("greenHealth", "./assets/images/icons/bar1.png");
         this.load.image("healthBar", "./assets/images/icons/bar2.png");
         this.load.image("beamPart", './assets/images/beamPart.png');
+        this.load.image("superShieldBox", "./assets/images/superShieldBox.png");
+
+
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
@@ -508,7 +511,27 @@ export class DayScene extends Phaser.Scene {
         if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
             enemySprite.class.justWokeUp = true;
         }
-        enemySprite.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
+        if(shieldBeamSprite.body.velocity.x > 0){
+            enemySprite.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
+        }else{
+            let velXSign;
+            let velYSign;
+            if(enemySprite.x > shieldBeamSprite.x){
+                velXSign = 1
+            }else if(enemySprite.X < shieldBeamSprite.x){
+                velXSign = -1;
+            }else{
+                velXSign = 0;
+            }
+            if(enemySprite.y > shieldBeamSprite.y){
+                velYSign = 1
+            }else if(enemySprite.y < shieldBeamSprite.y){
+                velYSign = -1;
+            }else{
+                velYSign = 0;
+            }
+            enemySprite.setVelocity(1000*velXSign,1000*velYSign);
+        }
         enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
 
         //console.log(enemySprite.texture," got hit");

@@ -18,6 +18,7 @@ export class ShieldHero extends DayPlayer {
         this.specialAttack = 2;
         this.specialAttackSpeed = 3;
         this.speed = 400;
+        this.beams = [];
 
         this.damageCooldown = 3;
         this.attackCooldown = 1;
@@ -288,6 +289,20 @@ export class ShieldHero extends DayPlayer {
                 }
             }
         }
+        for(var i=0; i<this.beams.length; i++){
+            if(this.beams[i].counter == 2){
+                console.log("heelo");
+                this.beams[i].box.getChildren()[0].destroy();
+                let superShieldBox = this.scene.physics.add.sprite(this.beams[i].pointX,this.beams[i].pointY,'superShieldBox').setScale(this.beams[i].factor+.2,this.beams[i].factor+.2);
+                superShieldBox.beam = this.beams[i];
+                this.beams[i].box.add(superShieldBox);
+
+                this.beams[i].factor++;
+                this.beams[i].counter = 0;
+            }else{
+                this.beams[i].counter++;
+            }
+        }
     }
 
     //When this is called, for now, launch a projectile with the correct animation
@@ -429,21 +444,29 @@ export class ShieldHero extends DayPlayer {
 
 
         let superShieldBeam = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'superShieldBeam/0001.png').setScale(8, 8);
+        superShieldBeam.factor = 2;
+        superShieldBeam.counter = 0;
+        superShieldBeam.pointX = pointX;
+        superShieldBeam.pointY = pointY;
         superShieldBeam.class = this;
         superShieldBeam.enemiesHit = [];
+        superShieldBeam.box = this.scene.physics.add.group();
+        let superShieldBox = this.scene.physics.add.sprite(pointX,pointY,'superShieldBox').setScale(1,1);
+        superShieldBox.beam = superShieldBeam;
+        superShieldBeam.box.add(superShieldBox);
         this.beam = superShieldBeam;
+        this.beams.push(superShieldBeam);
 
         let xx = Math.abs(superShieldBeam.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superShieldBeam.width * (Math.sin(this.angle)));
         let yy = Math.abs(superShieldBeam.width * (Math.cos(this.angle))) + Math.abs(superShieldBeam.height * (Math.cos(this.angle + Math.PI / 2)));
 
         console.log("SUPER MAGIC",xx,yy );
-        superShieldBeam.body.setSize(yy/3,xx/3);
+        //superShieldBeam.body.setSize(yy/3,xx/3);
         //superMagicBeamSprite.body.setOffset(80,10);
         console.log(superShieldBeam.body);
         console.log(this.sprite.x, this.sprite.y);
-        superShieldBeam.body.x = 0;
-        superShieldBeam.body.y = 0;
-
+        //superShieldBeam.body.x = 0;
+        //superShieldBeam.body.y = 0;
         //superMagicBeamSprite.body.setOffset(superMagicBeamSprite.body.offset.x-40, superMagicBeamSprite.body.offset.y-40);
 
         superShieldBeam.setRotation(this.angle);
@@ -453,6 +476,22 @@ export class ShieldHero extends DayPlayer {
         }, superShieldBeam);
 
         superShieldBeam.on('animationcomplete_superShield', function (o1) {
+            for(var i = 0; i < this.box.getChildren().length; i++){
+                this.box.getChildren()[i].destroy();
+                i--;
+            }
+            if (this.colliding) {
+                for (var i = 0; i < this.colliding.length; i++) {
+                    if (this.colliding[i]) {
+                        this.colliding[i].class.active = true;
+                    }
+                }
+            }
+            this.colliding = null;
+            this.enemiesHit = null;
+            this.box.destroy();
+            this.box = null;
+            this.class.beams.splice(this.class.beams.indexOf(this),1);
             this.destroy();
         });
 
@@ -461,10 +500,11 @@ export class ShieldHero extends DayPlayer {
         superShieldBeam.anims.play("superShield", true);
 
         //The beam attacked
-        this.scene.physics.add.overlap(superShieldBeam, this.scene.enemyGroup.getChildren(), function (superShieldBeam, enemySprite) {
-            if (!superShieldBeam.enemiesHit.includes(enemySprite)) {
-                superShieldBeam.enemiesHit.push(enemySprite);
-                superShieldBeam.scene.hittingWithShieldBeam(superShieldBeam, enemySprite);
+        this.scene.physics.add.overlap(superShieldBeam.box.getChildren(), this.scene.enemyGroup.getChildren(), function (superShieldBox, enemySprite) {
+            if (!superShieldBox.beam.enemiesHit.includes(enemySprite)) {
+                superShieldBox.beam.enemiesHit.push(enemySprite);
+                enemySprite.class.active = false;
+                superShieldBox.beam.scene.hittingWithShieldBeam(superShieldBox.beam, enemySprite);
             }
         });
 
