@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="10">
- <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="20" columns="20">
-  <image source="../images/tiles/addableTiles.png" width="320" height="16"/>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="11">
+ <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="62" columns="62">
+  <image source="../images/tiles/addableTiles.png" width="992" height="16"/>
   <tile id="4">
    <properties>
     <property name="collide" type="bool" value="true"/>
@@ -18,11 +18,11 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="21" name="addableTiles" tilewidth="16" tileheight="16" tilecount="20" columns="20">
+ <tileset firstgid="63" name="addableTiles" tilewidth="16" tileheight="16" tilecount="62" columns="62">
   <properties>
    <property name="collide" type="bool" value="true"/>
   </properties>
-  <image source="../images/tiles/addableTiles.png" width="320" height="16"/>
+  <image source="../images/tiles/addableTiles.png" width="992" height="16"/>
   <tile id="3">
    <properties>
     <property name="collide" type="bool" value="true"/>
@@ -148,5 +148,6 @@
  <objectgroup id="11" name="objectsLayer">
   <object id="8" name="door" gid="2" x="255.969" y="32.125" width="16" height="16"/>
   <object id="9" name="treasure" gid="20" x="173.667" y="50.3333" width="16" height="16"/>
+  <object id="10" name="player" gid="121" x="53" y="82" width="16" height="16"/>
  </objectgroup>
 </map>

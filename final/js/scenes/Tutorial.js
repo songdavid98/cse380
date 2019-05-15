@@ -37,7 +37,7 @@ export class Tutorial extends DayScene {
 
 
         //Lesson stuff
-        this.stepLength = 2;   //3 seconds
+        this.stepLength = 2;   //2 seconds
         this.doneOnce = false;
         this.resetStep = false;
         this.killedSlime = false;
@@ -55,32 +55,18 @@ export class Tutorial extends DayScene {
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
         this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
-        this.load.image("skipButton", "assets/images/buttons/skipButton.png");
 
         this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
         this.mapLevel = "tutorial";
 
     }
+
     create() {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
 
-        //Add this
-        let skipButton = this.add.image(this.game.renderer.width * .95, this.game.renderer.height * .1, "skipButton").setDepth(3).setScale(2, 2);
-        skipButton.setInteractive();
-        skipButton.on("pointerdown", () => {
-            this.music.stop();
-            this.scene.stop(SCENES.DAY_OVERLAY);
-            let unlockedLevels = [1,2,0,0,0,0,0,0];
 
-            let data = {
-                "str":"Day 1 Unlocked",
-                "unlockedLevels":unlockedLevels
-            }
-            this.scene.start(SCENES.LEVEL_SELECT,data);
-            this.scene.stop();
-        });
 
 
         //this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
@@ -152,6 +138,18 @@ export class Tutorial extends DayScene {
 
     }
 
+    skip(){
+        this.music.stop();
+        this.scene.stop(SCENES.DAY_OVERLAY);
+        let unlockedLevels = [1,2,0,0,0,0,0,0];
+
+        let data = {
+            "str":"Day 1 Unlocked",
+            "unlockedLevels":unlockedLevels
+        }
+        this.scene.start(SCENES.MINI_DUNGEON,data);
+        this.scene.stop();
+    }
     //Walk and attack slimes, get coins
     tasks(time){
         //Walk with ASDW
@@ -512,7 +510,7 @@ export class Tutorial extends DayScene {
             }
             else{
                 console.log("Enter");
-                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+2){
+                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
                     if(!this.doneOnce){
                         this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
                         this.doneOnce = true;
@@ -520,14 +518,13 @@ export class Tutorial extends DayScene {
                 }
                 else{
                     this.music.stop();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
                     let unlockedLevels = [1,2,0,0,0,0,0,0];
 
                     let data = {
                         "str":"Day 1 Unlocked",
                         "unlockedLevels":unlockedLevels
                     }
-                    this.scene.start(SCENES.LEVEL_SELECT,data);
+                    this.scene.start(SCENES.MINI_DUNGEON,data);
                     this.scene.stop();
                 }
             }
@@ -568,7 +565,6 @@ export class Tutorial extends DayScene {
         if(this.enemyGroup.getChildren().length == 0){
             this.slimeFound = false;    //This is the reset counter
         }
- 
 
         if(!this.clearTasks){ this.tasks(time); }
         else{
@@ -578,9 +574,6 @@ export class Tutorial extends DayScene {
             this.scene.stop();
         }
    
-
-
-
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
             //console.log("hello");
             this.player.active = true;

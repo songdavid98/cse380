@@ -308,22 +308,7 @@ export class LevelSelectionScene extends Phaser.Scene {
                 this.allLevelsUnlocked = true;
         }
 
-        else if(this.input.keyboard.keys[50].isDown){
-                this.level1Button.setInteractive(false);
-                this.nightLevel1Button.setInteractive(false);
-                this.level2Button.setInteractive(false);
-                this.nightLevel2Button.setInteractive(false);
-                this.level3Button.setInteractive(false);
-                this.nightLevel3Button.setInteractive(false);
 
-                this.lock1.visible = true;
-                this.lock3.visible = true;
-                this.lock5.visible = true;
-                this.lock2.visible = true;
-                this.lock4.visible = true;
-                this.lock6.visible = true;
-                this.allLevelsUnlocked = false;
-        }
 
 
     }

@@ -149,6 +149,7 @@ export class DayNightTransition extends CutScene{
                                 "level": 3,
                                 "unlockedLevels":this.unlockedLevels
                             });
+                            console.log(this.unlockedLevels);
                             break;
                         case 4:
                             this.scene.start(SCENES.NIGHT, {

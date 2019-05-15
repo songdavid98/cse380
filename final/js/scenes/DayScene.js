@@ -55,8 +55,10 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 1; //Day Countdown timer ~ 2min?
+        this.timeLimit = 300; //Day Countdown timer ~ 2min?
         this.textWords;
+        this.unlockedLevels = data.unlockedLevels;
+        console.log(this.unlockedLevels);
 
     }
     preload() {
@@ -100,16 +102,45 @@ export class DayScene extends Phaser.Scene {
         this.load.audio("audiohurtmale", "./assets/audio/gettinghurtmale.wav");
         this.load.audio("audiofemaledeath", "./assets/audio/femaledeath.wav");
         this.load.audio("audiomaledeath", "./assets/audio/maledeath.wav");
+
+        this.load.image("clear", "./assets/images/tiles/newerTileImages/zzzclearTile.png");
+
     }
     create(data) {
         if (!data) {
             data = {};
         }
-        let initialX = data['initialX'] || 200;
-        let initialY = data['initialY'] || 200;
+
+        
+        let initialX;
+        let initialY;
+        let player = this.createSpawnPoints('objectsLayer',121,'clear');
+        if(player.getChildren().length == 0){
+            player = this.createSpawnPoints('objectsLayer',59,'clear');
+            console.log("Used 59");
+        }
+        if(player.getChildren().length == 0){
+           initialX = data['initialY'] || 200;
+           initialY = data['initialY'] || 200;
+        }
+        else{
+
+            let halfOfTileWidth = player.getChildren()[0].width/2;
+            let halfOfTileHeight = player.getChildren()[0].height/2;
+            initialX= (player.getChildren()[0].x-halfOfTileWidth)*5;
+            initialY = (player.getChildren()[0].y-halfOfTileHeight)*5;
+            console.log("player spawned from spawn point");
+        }
+
+
+
+
+
+        //let initialX = data['initialY'] || 200;
+        //let initialY = data['initialY'] || 200;
         this.initPos = [initialX, initialY]; //Need this for tutorial
 
-        this.unlockedLevels = data.unlockedLevels;
+
 
 
         this.music = this.sound.add("audiobackgroundsong");

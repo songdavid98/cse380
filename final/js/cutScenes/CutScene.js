@@ -136,8 +136,12 @@ export class CutScene extends Phaser.Scene{
         this.noButton.active = false;
         this.noButton.visible = false;
 
+        this.screenActive = true;
+
         this.input.on('pointerdown', function (pointer) {
-            this.lineCounter += 0.5;
+            if(this.screenActive){
+                this.lineCounter += 0.5;
+            }
         }, this);
 
 
