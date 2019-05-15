@@ -417,7 +417,7 @@ export class SwordHero extends DayPlayer {
         });
         //play sound
         this.scene.sound.play("audioswordslice", {
-            "volume": 30
+            "volume": 15
         });
     }
 

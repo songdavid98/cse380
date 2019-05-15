@@ -136,7 +136,7 @@ export class NightScene extends Phaser.Scene {
         this.music = this.sound.add("audionightbackgroundsong");
         this.music.setLoop(true);
         this.music.play()
-        this.music.setVolume(0.25);
+        this.music.setVolume(1);
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain");

@@ -403,7 +403,7 @@ export class MageHero extends DayPlayer {
         });
 
         this.scene.sound.play("audiomageattack", {
-            "volume": 30
+            "volume": 20
         });
     }
 
@@ -523,7 +523,7 @@ export class MageHero extends DayPlayer {
 
 
         this.scene.sound.play("audiomageattack", {
-            "volume": 30
+            "volume": 20
         });
         
     }
