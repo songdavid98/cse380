@@ -30,6 +30,7 @@ import {
 import {
     Turret
 } from "../gamePlay/Towers/Turret.js";
+
 import {
     Projectile
 } from "../gamePlay/Towers/Projectile.js"
@@ -104,7 +105,7 @@ export class NightScene extends Phaser.Scene {
 
         this.load.image("buyicetower", "./assets/images/buttons/buyicetower.JPG");
         this.load.image("buycannon", "./assets/images/buttons/buycannonturret.JPG");
-
+        this.load.image("buyturret", "./assets/images/buttons/buyturret.JPG");
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
         this.load.image("rangeCircle", "./assets/images/defenseStructure/circle/newcircle.png");
@@ -125,6 +126,8 @@ export class NightScene extends Phaser.Scene {
         this.load.multiatlas(DEFSTR.CANNON, './assets/images/defenseStructure/cannon.json', "./assets/images/defenseStructure");
         
         this.load.multiatlas(DEFSTR.ICE, './assets/images/defenseStructure/ice.json', "./assets/images/defenseStructure");
+
+        this.load.multiatlas(DEFSTR.TURRET, './assets/images/defenseStructure/turret.json', "./assets/images/defenseStructure");
         
         this.load.multiatlas(DEFSTR.CANNONBALL, './assets/images/defenseStructure/cannonBall.json', "./assets/images/defenseStructure");
         
@@ -148,12 +151,6 @@ export class NightScene extends Phaser.Scene {
         this.wallLayer = this.map.createStaticLayer("background wall", [this.terrain], 4, 0).setScale(5, 3);
 
 
-
-
-
-
-
-
         //add money info
         this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(1);
         this.moneyText = this.add.text(1335, 68, ':' + this.money, {
@@ -174,9 +171,9 @@ export class NightScene extends Phaser.Scene {
 
         //create buttons
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
-        let buyicetower = this.add.image(this.buttonX, this.buttonYinc * 6, "buyicetower").setDepth(3).setScale(1, 1);
-        let buycannon = this.add.image(this.buttonX, this.buttonYinc * 7, "buycannon").setDepth(3).setScale(1, 1);
-        
+        let buyicetower = this.add.image(this.buttonX, this.buttonYinc * 5, "buyicetower").setDepth(3).setScale(1, 1);
+        let buycannon = this.add.image(this.buttonX, this.buttonYinc * 6, "buycannon").setDepth(3).setScale(1, 1);
+        let buyturret = this.add.image(this.buttonX, this.buttonYinc * 7, "buyturret").setDepth(3).setScale(1, 1);
         // place circle off screen
         this.rangeCircle = this.add.image(-1000, -1000, "rangeCircle").setDepth(3).setScale(1, 1);
         this.rangeCircle.alpha = 0.15;
@@ -265,7 +262,7 @@ export class NightScene extends Phaser.Scene {
                     "anims": this.anims
                 });
                 
-                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(4,4);
+                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(8,8);
                 let proj = new Projectile({
                     "damage": this.towerToBePlaced.damage,
                     "sprite": projSprite
@@ -294,6 +291,55 @@ export class NightScene extends Phaser.Scene {
             this.descriptionText.y = pointer.y - 50;
         });
         buycannon.on("pointerout", (pointer) => {
+            this.descriptionText.alpha = 0;
+        });
+
+
+        buyturret.setInteractive();
+        buyturret.on("pointerdown", (pointer) => {
+            console.log("buyturret pressed");
+            if ( this.money < 100 )
+                return;
+            if (!this.alreadyClicked && !this.startDragging) {
+                this.alreadyClicked = true;
+                buyturret.alpha = 0.5;
+                this.towerSpriteForBuying = this.physics.add.sprite(pointer.x, pointer.y, DEFSTR.TURRET, 'right/0001.png').setScale(4, 4);
+                
+                this.towerToBePlaced = new Turret({
+                    "sprite": this.towerSpriteForBuying,
+                    "physics": this.physics,
+                    "anims": this.anims
+                });
+                
+                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(3,3);
+                let proj = new Projectile({
+                    "damage": this.towerToBePlaced.damage,
+                    "sprite": projSprite
+                });
+                this.towerToBePlaced.projectile = proj;
+                
+                this.towerToBePlaced.placeable = false; 
+                this.towerSpriteForBuying.class = this.towerToBePlaced;
+
+                this.defStrsSpritesGroup.add(this.towerSpriteForBuying);
+                this.startDragging = true;
+            }
+            else {
+                buyturret.alpha = 1;
+                this.alreadyClicked = false;
+                this.towerSpriteForBuying.destroy();
+                this.towerSpriteForBuying = null;
+                this.startDragging = false;
+                this.towerToBePlaced = null;
+            }
+        });
+        buyturret.on("pointerover", (pointer) => {
+            this.descriptionText.alpha = 1;
+            this.descriptionText.setText("Turret\nSingle target damage\nRange: 200\nDamage: 1\nRate of Fire: 0.8sec");
+            this.descriptionText.x = this.game.renderer.width * 0.2;
+            this.descriptionText.y = pointer.y - 50;
+        });
+        buyturret.on("pointerout", (pointer) => {
             this.descriptionText.alpha = 0;
         });
 

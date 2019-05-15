@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "arrowTower.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 118,
+				"h": 24
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "right/0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 10,
+						"w": 31,
+						"h": 22
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 31,
+						"h": 22
+					}
+				},
+				{
+					"filename": "right/0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 10,
+						"w": 31,
+						"h": 22
+					},
+					"frame": {
+						"x": 34,
+						"y": 1,
+						"w": 31,
+						"h": 22
+					}
+				},
+				{
+					"filename": "right/0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 10,
+						"w": 30,
+						"h": 22
+					},
+					"frame": {
+						"x": 67,
+						"y": 1,
+						"w": 30,
+						"h": 22
+					}
+				},
+				{
+					"filename": "right/0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 10,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 99,
+						"y": 1,
+						"w": 18,
+						"h": 22
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:2f14b67fc60966ac30db552e2e9f2573:9461e7f6d424e73764b5f481515f6706:e2a6e56bc5966cf33ecb95b832487206$"
+	}
+}
