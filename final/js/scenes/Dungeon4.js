@@ -207,6 +207,21 @@ export class Dungeon4 extends DayScene {
             }
         });
 
+        //Danger grass stuffs
+        this.physics.add.overlap(this.playerGroup.getChildren(), this.lavaLayer, function (playerSprite,lava) {
+            if(lava.index != -1){
+                playerSprite.class.hazardDamage(lava.layer.properties[0].value);
+                
+                //console.log("Getting hit by some weed");
+            }
+        });
+        this.physics.add.overlap(this.enemyGroup.getChildren(), this.lavaLayer, function (enemySprite,lava) {
+            if(lava.index != -1){
+                enemySprite.class.damaged(lava.layer.properties[0].value);
+                //console.log("Getting hit by some weed");
+            }
+        });
+
         this.map.currentLayer = this.baseLayer;
     }
 

@@ -14,7 +14,7 @@ export class Minotaur extends Enemy {
     constructor(data) {
         super(data);
         this.zzzSprite = data.zzzSprite;
-        this.enemyType = ENEMIES.GOBLIN; // like slime
+        this.enemyType = ENEMIES.MINOTAUR; // like slime
         this.health = 50;
         this.atkDist = 150; 
         this.hitBoxSize = 1.3;
@@ -24,12 +24,14 @@ export class Minotaur extends Enemy {
         this.speed = 200;
         this.movement = 60; //Monster keeps moving in square pattern for now
         this.killCost = 25;
-        this.state = "waiting"; //The behavioral states of the goblin
+        this.state = "waiting"; //The behavioral states of the mino
         this.detectionRange = 1000; //Need this to know how far away the player has to be to get detected
         this.frmRt = 10;
         this.behaviourCounter = 0;
         this.active = true;
         this.dead = false;
+        this.movementTime = 20;
+
 
         this.lastAttacked = 0;
         this.atkCooldown = 3;
@@ -54,7 +56,7 @@ export class Minotaur extends Enemy {
 
     create() {
         this.frameRate = 3; //Frame rate has to be defined here (with var)
-        var leftFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var leftFramesMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
             end: 4,
             zeroPad: 4,
@@ -62,12 +64,12 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'leftGoblin',
-            frames: leftFramesGoblin,
+            key: 'leftMinotaur',
+            frames: leftFramesMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
-        var leftIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var leftIdleFrameMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 2,
             end: 2,
             zeroPad: 4,
@@ -75,13 +77,13 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'leftIdleGoblin',
-            frames: leftIdleFrameGoblin,
+            key: 'leftIdleMinotaur',
+            frames: leftIdleFrameMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
 
-        var rightFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var rightFramesMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
             end: 4,
             zeroPad: 4,
@@ -89,12 +91,12 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'rightGoblin',
-            frames: rightFramesGoblin,
+            key: 'rightMinotaur',
+            frames: rightFramesMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
-        var rightIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var rightIdleFrameMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 2,
             end: 2,
             zeroPad: 4,
@@ -102,13 +104,13 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'rightIdleGoblin',
-            frames: rightIdleFrameGoblin,
+            key: 'rightIdleMinotaur',
+            frames: rightIdleFrameMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
 
-        var upFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var upFramesMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
             end: 4,
             zeroPad: 4,
@@ -116,12 +118,12 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'upGoblin',
-            frames: upFramesGoblin,
+            key: 'upMinotaur',
+            frames: upFramesMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
-        var upIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var upIdleFrameMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
             end: 1,
             zeroPad: 4,
@@ -129,13 +131,13 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'upIdleGoblin',
-            frames: upIdleFrameGoblin,
+            key: 'upIdleMinotaur',
+            frames: upIdleFrameMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
 
-        var downFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var downFramesMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
             end: 4,
             zeroPad: 4,
@@ -143,12 +145,12 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'downGoblin',
-            frames: downFramesGoblin,
+            key: 'downMinotaur',
+            frames: downFramesMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
-        var downIdleFrameGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var downIdleFrameMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 2,
             end: 2,
             zeroPad: 4,
@@ -156,39 +158,41 @@ export class Minotaur extends Enemy {
             suffix: '.png'
         });
         this.anims.create({
-            key: 'downIdleGoblin',
-            frames: downIdleFrameGoblin,
+            key: 'downIdleMinotaur',
+            frames: downIdleFrameMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
 
-        var sleepFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var attackLeftFramesMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
             end: 4,
             zeroPad: 4,
-            prefix: 'sleep/',
+            prefix: 'swingLeft/',
             suffix: '.png'
         });
         this.anims.create({
-            key: 'sleepGoblin',
-            frames: sleepFramesGoblin,
+            key: 'attackLeftMinotaur',
+            frames: attackLeftFramesMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
 
-        var zzzFramesGoblin = this.anims.generateFrameNames(ENEMIES.GOBLIN, {
+        var attackRightFramesMinotaur = this.anims.generateFrameNames(ENEMIES.MINOTAUR, {
             start: 1,
-            end: 3,
+            end: 4,
             zeroPad: 4,
-            prefix: 'zzz/',
+            prefix: 'swingRight/',
             suffix: '.png'
         });
         this.anims.create({
-            key: 'zzz',
-            frames: zzzFramesGoblin,
+            key: 'attackRightMinotaur',
+            frames: attackRightFramesMinotaur,
             frameRate: this.frameRate,
             repeat: -1
         });
+
+
 
 
     }
@@ -198,45 +202,47 @@ export class Minotaur extends Enemy {
 
     dayUpdate(time, player) {
         //have dayscene activity here
+        if(!this.dead){
+            //Call the enemy class dayUpdate
+            super.dayUpdate(time);
+        
+            let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.position.x,this.scene.player.sprite.body.position.y);
+            //console.log(Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.position.x,this.scene.player.sprite.body.position.y));
+            if(this.state != 'attacking' && this.state != 'basic' && distance <= 500){
+                this.state = 'basic';
+                console.log("testing");
+            }
 
-        //Call the enemy class dayUpdate
-        super.dayUpdate(time);
-        let distance = Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.position.x,this.scene.player.sprite.body.position.y);
-        //console.log(Phaser.Math.Distance.Between(this.sprite.body.position.x,this.sprite.body.position.y,this.scene.player.sprite.body.position.x,this.scene.player.sprite.body.position.y));
-        if(this.state != 'attacking' && this.state != 'basic' && distance <= 500){
-            this.state = 'basic';
-            console.log("testing");
-        }
+            if (this.active && !this.dead) {
+                switch (this.state) {
+                    case "waiting":
+                        this.sprite.anims.play("rightIdleMinotaur", true);
+                        break;
+                    case "basic":
 
-        if (this.active && !this.dead) {
-            switch (this.state) {
-                case "waiting":
-                    this.sprite.anims.play("rightIdleGoblin", true);
-                    break;
-                case "basic":
-
-                    if (!player) {
-                        //console.log("CAN'T detect plaeyer");
-                    }
-                    try {
-
-                        let enemX = Math.floor((this.sprite.body.position.x + this.sprite.width / 2) / 80);
-                        let enemY = Math.floor((this.sprite.body.position.y + this.sprite.height / 2) / 80);
-                        let heroX = Math.floor((player.sprite.body.position.x + this.sprite.width / 2) / 80);
-                        let heroY = Math.floor((player.sprite.body.position.y + this.sprite.height / 2) / 80);
-
-                        this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
-                        if(distance <= 300 && time - this.lastAttacked >= this.atkCooldown*1000){
-                            this.lastAttacked = time;
-                            console.log(this.state);
-                            this.sprite.body.setVelocity(0,0);
-                            this.state = 'attacking';
-                            this.attack();
+                        if (!player) {
+                            //console.log("CAN'T detect plaeyer");
                         }
+                        try {
 
-                    } catch (error) {console.log(error);}
+                            if(this.counter > this.movementTime){                        
+                                this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
+                                if(distance <= 300 && time - this.lastAttacked >= this.atkCooldown*1000){
+                                    this.lastAttacked = time;
+                                    console.log(this.state);
+                                    this.sprite.body.setVelocity(0,0);
+                                    this.state = 'attacking';
+                                    this.attack();
+                                }
+                            }
+                            else{
+                                this.counter++;
+                            }
 
-                    break;
+                        } catch (error) {console.log(error);}
+
+                        break;
+                }
             }
         }
 
@@ -261,47 +267,47 @@ export class Minotaur extends Enemy {
             //console.log("GO LEFT UP");
             enemClass.sprite.body.setVelocityX(-enemClass.speed);
             enemClass.sprite.body.setVelocityY(-enemClass.speed);
-            enemClass.sprite.anims.play("leftGoblin", true);
+            enemClass.sprite.anims.play("leftMinotaur", true);
         } else if (currentNextPointX == currentEnemXTile && currentNextPointY < currentEnemYTile) {
             //console.log("GO UP");
             enemClass.sprite.body.setVelocityX(0);
             enemClass.sprite.body.setVelocityY(-enemClass.speed);
-            enemClass.sprite.anims.play("upGoblin", true);
+            enemClass.sprite.anims.play("upMinotaur", true);
         } else if (currentNextPointX > currentEnemXTile && currentNextPointY < currentEnemYTile) {
             //console.log("GO RIGHT UP");                     
             enemClass.sprite.body.setVelocityX(enemClass.speed);
             enemClass.sprite.body.setVelocityY(-enemClass.speed);
-            enemClass.sprite.anims.play("rightGoblin", true);
+            enemClass.sprite.anims.play("rightMinotaur", true);
         } else if (currentNextPointX < currentEnemXTile && currentNextPointY == currentEnemYTile) {
             //console.log("GO LEFT");                     
             enemClass.sprite.body.setVelocityX(-enemClass.speed);
             enemClass.sprite.body.setVelocityY(0);
-            enemClass.sprite.anims.play("leftGoblin", true);
+            enemClass.sprite.anims.play("leftMinotaur", true);
         } else if (currentNextPointX > currentEnemXTile && currentNextPointY == currentEnemYTile) {
             //console.log("GO RIGHT");                         
             enemClass.sprite.body.setVelocityX(enemClass.speed);
             enemClass.sprite.body.setVelocityY(0);
-            enemClass.sprite.anims.play("rightGoblin", true);
+            enemClass.sprite.anims.play("rightMinotaur", true);
         } else if (currentNextPointX > currentEnemXTile && currentNextPointY > currentEnemYTile) {
             //console.log("GO RIGHT DOWN");                       
             enemClass.sprite.body.setVelocityX(enemClass.speed);
             enemClass.sprite.body.setVelocityY(enemClass.speed);
-            enemClass.sprite.anims.play("rightGoblin", true);
+            enemClass.sprite.anims.play("rightMinotaur", true);
         } else if (currentNextPointX == currentEnemXTile && currentNextPointY > currentEnemYTile) {
             //console.log("GO DOWN");                        
             enemClass.sprite.body.setVelocityX(0);
             enemClass.sprite.body.setVelocityY(enemClass.speed);
-            enemClass.sprite.anims.play("downGoblin", true);
+            enemClass.sprite.anims.play("downMinotaur", true);
         } else if (currentNextPointX < currentEnemXTile && currentNextPointY > currentEnemYTile) {
             //console.log("GO LEFT DOWN");    
             enemClass.sprite.body.setVelocityX(-enemClass.speed);
             enemClass.sprite.body.setVelocityY(enemClass.speed);
-            enemClass.sprite.anims.play("leftGoblin", true);
+            enemClass.sprite.anims.play("leftMinotaur", true);
         } else {
             //console.log("GO DOWN");
             enemClass.sprite.body.setVelocityX(0);
             enemClass.sprite.body.setVelocityY(0);
-            enemClass.sprite.anims.play("downIdleGoblin");
+            enemClass.sprite.anims.play("downIdleMinotaur");
         }
 
     }
@@ -351,6 +357,14 @@ export class Minotaur extends Enemy {
         swordSlashSprite.body.setVelocityX(this.basicAttackSpeed * Math.cos(this.angle));
         //console.log(shieldSprite);        
         swordSlashSprite.anims.play("sword");
+
+        if(angle > -Math.PI/2 && angle < Math.PI/2){
+            this.sprite.anims.play("attackRightMinotaur");
+        }
+        else{
+            this.sprite.anims.play("attackLeftMinotaur");
+
+        }
 
         //The beam attacked
     }

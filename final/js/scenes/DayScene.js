@@ -55,7 +55,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 10; //Day Countdown timer ~ 2min?
+        this.timeLimit = 300; //Day Countdown timer ~ 2min?
         this.textWords;
         this.unlockedLevels = data.unlockedLevels || [2,0,0,0,0,0,0,0];
         console.log(this.unlockedLevels);
@@ -98,6 +98,7 @@ export class DayScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.MINOTAUR, './assets/images/enemies/minotaur.json', "assets/images/enemies");
 
 
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
@@ -258,9 +259,6 @@ export class DayScene extends Phaser.Scene {
 
             healthBarSprite.visible = false;
             healthSprite.visible = false;
-
-
-
 
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({
