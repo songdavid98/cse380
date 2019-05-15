@@ -311,7 +311,7 @@ export class NightScene extends Phaser.Scene {
                     "anims": this.anims
                 });
                 
-                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(3,3);
+                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(4, 4);
                 let proj = new Projectile({
                     "damage": this.towerToBePlaced.damage,
                     "sprite": projSprite
@@ -397,6 +397,7 @@ export class NightScene extends Phaser.Scene {
                 this.alreadyClicked = false;
                 buycannon.alpha = 1;
                 buyicetower.alpha = 1;
+                buyturret.alpha = 1;
                 this.rangeCircle.x = -1000;
                 this.rangeCircle.y = -1000;
             }
@@ -599,6 +600,7 @@ export class NightScene extends Phaser.Scene {
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOBLIN, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newgoblin = new Goblin({
+                    "scene": this,
                     "sprite": enemySprite,
                     "physics": this.physics,
                     "anims": this.anims,
@@ -611,6 +613,7 @@ export class NightScene extends Phaser.Scene {
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOLEM, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newgolem = new Golem({
+                    "scene": this,
                     "sprite": enemySprite,
                     "physics": this.physics,
                     "anims": this.anims,
