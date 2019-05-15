@@ -33,10 +33,10 @@ import {
 
 
 
-export class Dungeon4 extends DayScene {
+export class Dungeon5 extends DayScene {
     constructor() {
         super({
-            key: SCENES.DUNGEON4
+            key: SCENES.DUNGEON5
         })
     }
     init(data) {
@@ -70,12 +70,11 @@ export class Dungeon4 extends DayScene {
         this.load.image("clear", "./assets/images/tiles/newerTileImages/zzzclearTile.png");
 
 
-        this.load.tilemapTiledJSON("map4", "assets/tilemaps/FireRoom.json");
+        this.load.tilemapTiledJSON("map4", "assets/tilemaps/Dungeon5.json");
         this.mapLevel = "map4";
     }
     create() {
         //Generate map
-        console.log("COmes");
         this.map = this.add.tilemap(this.mapLevel);
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding

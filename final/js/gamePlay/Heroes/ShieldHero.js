@@ -328,8 +328,6 @@ export class ShieldHero extends DayPlayer {
         //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
 
         if(this.scene.barrel){
-            this.scene.barrel.body.immovable = false;
-            console.log("comes here");
             this.scene.physics.add.collider(shieldBeamSprite, this.scene.barrel);
         }   
 
@@ -358,13 +356,9 @@ export class ShieldHero extends DayPlayer {
             }
             this.colliding = null;
             this.enemiesHit = null;
+            console.log(this);
 
-            //Stop moving the barrels
-            if(this.class.scene.barrel){
-                this.class.scene.barrel.body.velocity.x = 0;
-                this.class.scene.barrel.body.velocity.y = 0;
-                this.class.scene.barrel.body.immovable = true;
-            }
+
 
             this.destroy();
         });
@@ -391,7 +385,15 @@ export class ShieldHero extends DayPlayer {
         });
         if (this.scene.barrels) {
             this.scene.physics.add.overlap(shieldBeamSprite, this.scene.barrels.getChildren(), function (shieldBeamSprite, barrel) {
-                barrel.body.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
+                barrel.move = true;
+                barrel.body.immovable = false;
+
+                if(shieldBeamSprite.body.velocity.x > shieldBeamSprite.body.velocity.y){
+                    barrel.body.setVelocity(shieldBeamSprite.body.velocity.x);
+                }
+                else{
+                    barrel.body.setVelocity(shieldBeamSprite.body.velocity.y);
+                }
             });
         }
         if (Math.random() > 0.5)

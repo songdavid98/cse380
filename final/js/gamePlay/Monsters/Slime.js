@@ -13,7 +13,7 @@ export class Slime extends Enemy { // ---- someone fix this~
     constructor(data) {
         super(data);
         this.enemyType = ENEMIES.SLIME; // like slime
-        this.health = 2;
+        this.health = 3;
         this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 100;

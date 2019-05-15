@@ -796,6 +796,17 @@ export class DayScene extends Phaser.Scene {
             for (let i = 0; i < this.monsterArray.length; i++) {
                 var monster = this.monsterArray[i].dayUpdate(time, this.player);
             }
+
+
+            //Barrels
+            //Stop moving the barrels
+            if(this.barrels && !this.barrels.move){
+                this.barrel.body.velocity.x = 0;
+                this.barrel.body.velocity.y = 0;
+                this.barrel.body.immovable = true;
+                console.log("Barrel stops moving");
+            }
+            
         }
     }
 
