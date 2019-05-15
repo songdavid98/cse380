@@ -88,6 +88,9 @@ export class DayNightTransition extends CutScene{
 
         console.log("Day Night Cutscene");
 
+        this.input.keyboard.addKeys('Two');
+
+
     }
 
     update(time){
@@ -184,6 +187,11 @@ export class DayNightTransition extends CutScene{
 
 
         }
+
+        if (this.input.keyboard.keys[50].isDown) {
+            this.counter = 2;
+            this.lastTransition = 0;
+        } 
     }
 }
 

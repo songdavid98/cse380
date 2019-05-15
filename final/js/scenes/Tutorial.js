@@ -204,7 +204,7 @@ export class Tutorial extends DayScene {
 
             if(!this.clearedAngle[0] || !this.clearedAngle[1] || !this.clearedAngle[2] || !this.clearedAngle[3]){
                 if(!this.doneOnce){
-                    this.textWords = "Try moving your mouse around your character.\nYou will be able to make your character look in all directions.";
+                    this.textWords = "Try moving your MOUSE around your character.\nYou will be able to make your character look in all directions.";
                     this.doneOnce = true;
                 }
             }
@@ -235,7 +235,7 @@ export class Tutorial extends DayScene {
         else if(this.door.lessonStep == 3){
             if(this.money == 0){
                 if(!this.doneOnce && !this.slimeFound){
-                    this.textWords = "A single slime will spawn somewhere on the map. Try locating\nit and then attacking by left-clicking the mouse.\nFor now, you will have infinite lives.";
+                    this.textWords = "A single slime will spawn somewhere on the map. Try locating\nit and then attacking by LEFT-CLICKING the mouse.\nFor now, you will have infinite lives.";
                     this.spawn();
                     this.doneOnce = true;
                 }
@@ -316,7 +316,7 @@ export class Tutorial extends DayScene {
                 }
                 else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
                     if(this.saidOnce){
-                        this.textWords = "The mage can do long-ranged attack. If the enemies are hit, they will slow down.";
+                        this.textWords = "The mage can do long-ranged attack. If the enemies are hit, they will SLOW DOWN.";
                         this.saidOnce = false;
                         this.youCanMoveOn = true;
                     }
@@ -344,7 +344,7 @@ export class Tutorial extends DayScene {
         else if(this.door.lessonStep == 5){
             if(this.player.playerType != HEROES.SHIELD_HERO && !this.killedWithShield){
                 if(!this.doneOnce){
-                    this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SHIELD hero.\nThe shield hero doesn't deal damage. But you can use her attack to push monsters into hazardous environment!\nFind and defeat a slime with the shield hero.";
+                    this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SHIELD hero.\nThe shield hero doesn't deal damage. But you can use her attack to PUSH MONSTERS INTO HAZARDOUS ENVIRONMENT!\nFind and defeat a slime with the shield hero.";
                     this.doneOnce = true;
                     this.spawn();
                 }
@@ -370,7 +370,7 @@ export class Tutorial extends DayScene {
                 }
                 else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
                     if(this.saidOnce){
-                        this.textWords = "You can push monsters into one corner and use the mage to deal\ndamage to all of them. You can also use her attack to push objects!";
+                        this.textWords = "The shield hero can absorb projectiles. You can also use her attack to push objects!";
                         this.saidOnce = false;
                         this.youCanMoveOn = true;
                     }
