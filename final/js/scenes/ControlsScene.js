@@ -28,12 +28,12 @@ export class ControlsScene extends Phaser.Scene {
             fontSize: 32,
             color: "#000000"
         }).setDepth(2); //walking
-        this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .3, "Attacking:\nLeft click - Regular attack\nRight click - Special attack", {
+        this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .3, "Attacking:\nLeft click - Regular attack\nRight click - Special attack\nSpace - Swap characters", {
             fontSize: 32,
             color: "#000000"
         }).setDepth(2);
 
-        this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .5, "Night Phase: Setup your defense and start the wave!", {
+        this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .5, "Night Phase: Setup your defense\nand start the wave!", {
             fontSize: 32,
             color: "#000000"
         }).setDepth(2);
