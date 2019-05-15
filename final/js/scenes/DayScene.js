@@ -388,7 +388,7 @@ export class DayScene extends Phaser.Scene {
                 if(this.player == this.swordHero && this.swordHero.kills < this.swordHero.reqKills){
                     
                 }else if (this.player == this.shieldHero && this.shieldHero.hitProjectiles < this.shieldHero.reqProjectiles){
-                    
+
                 }else{
                     this.player.specialAttacked = true;
                     this.player.previousTime = Math.floor(this.time.now / 1000);
@@ -639,16 +639,18 @@ export class DayScene extends Phaser.Scene {
         if (!shieldBeamSprite.anims) {
             return;
         }
-        enemyProjectile.reflected = true;
+       // enemyProjectile.reflected = true;
+
         shieldBeamSprite.class.hitProjectiles++;
-        console.log("SLIME BALL TOUCHED", enemyProjectile.reflected);
+        enemyProjectile.destroy();
+        /*console.log("SLIME BALL TOUCHED", enemyProjectile.reflected);
 
         enemyProjectile.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
 
         if (!shieldBeamSprite.colliding) {
             shieldBeamSprite.colliding = [];
         }
-        shieldBeamSprite.colliding.push(enemyProjectile);
+        shieldBeamSprite.colliding.push(enemyProjectile);*/
     }
 
 
