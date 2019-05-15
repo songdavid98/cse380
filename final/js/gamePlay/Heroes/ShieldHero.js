@@ -358,8 +358,12 @@ export class ShieldHero extends DayPlayer {
             this.enemiesHit = null;
             console.log(this);
 
+            if(this.barrels){
+                let barrel = this.barrels.getChildren()[i];
+                barrel.body.setVelocity(0);
+                barrel.body.setVelocity(0);
 
-
+            }
             this.destroy();
         });
 
@@ -386,13 +390,13 @@ export class ShieldHero extends DayPlayer {
         if (this.scene.barrels) {
             this.scene.physics.add.overlap(shieldBeamSprite, this.scene.barrels.getChildren(), function (shieldBeamSprite, barrel) {
                 barrel.move = true;
-                barrel.body.immovable = false;
+                //barrel.body.immovable = false;
 
                 if(shieldBeamSprite.body.velocity.x > shieldBeamSprite.body.velocity.y){
-                    barrel.body.setVelocity(shieldBeamSprite.body.velocity.x);
+                    barrel.body.setVelocity(shieldBeamSprite.body.velocity.x,0);
                 }
                 else{
-                    barrel.body.setVelocity(shieldBeamSprite.body.velocity.y);
+                    barrel.body.setVelocity(0,shieldBeamSprite.body.velocity.y);
                 }
             });
         }

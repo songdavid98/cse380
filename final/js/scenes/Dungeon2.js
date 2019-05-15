@@ -199,7 +199,9 @@ export class Dungeon2 extends DayScene{
         this.physics.add.collider(this.enemyGroup, barrels.getChildren());
         this.physics.add.collider(barrels.getChildren(), this.wallLayer);
 
-
+        this.physics.add.overlap(this.playerGroup, barrels.getChildren(), function (o1,o2) {
+            console.log(o1,o2);
+        });
 
         //door overlap
         this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1) {
@@ -245,6 +247,21 @@ export class Dungeon2 extends DayScene{
 
     update(time, delta){
         super.update(time);
+
+        //Stop moving the barrels
+        /*
+        if(this.barrels){
+            for(let i = 0; i < this.barrels.getChildren().length; i++){
+                if(!this.barrels.getChildren().move){
+                    this.barrels.getChildren()[i].body.velocity.x = 0;
+                    this.barrels.getChildren()[i].body.velocity.y = 0;
+                    this.barrels.getChildren()[i].body.immovable = true;
+                    console.log("STOP THE BARRELS");
+                }
+            }
+        }
+*/
+
         /*
         if(this.input.keyboard.keys[49].isDown){
             this.music.pause();
