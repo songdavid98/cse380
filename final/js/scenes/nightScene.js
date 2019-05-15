@@ -83,7 +83,8 @@ export class NightScene extends Phaser.Scene {
 
         this.towerToBePlaced = null;
         this.towerSpriteForBuying = null;
-
+        this.rangeCircle = new Phaser.Geom.Circle(800, 450, 300);
+        
         this.enemiesSpawned = 0;
 
         this.enemiesToSpawn = [];
