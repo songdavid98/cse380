@@ -137,7 +137,9 @@ export class Dungeon5 extends DayScene {
 
 
 
-
+        for(let i = 0; i < 10; i++){
+            barrels.getChildren()[i].noMoreMovement = false;
+        }
 
 
         this.barrel1 = this.physics.add.existing(barrels.getChildren()[0]);
@@ -161,6 +163,8 @@ export class Dungeon5 extends DayScene {
         this.barrel8.body.immovable = true;
         this.barrel9.body.immovable = true;
         this.barrel10.body.immovable = true;
+
+
 
         this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
         this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
@@ -249,6 +253,12 @@ export class Dungeon5 extends DayScene {
                 enemySprite.class.damaged(hazard.layer.properties[0].value);
                 //console.log("Getting hit by some weed");
             }
+        });
+
+        this.barrelOverlap = this.physics.add.overlap(this.barrels.getChildren(), this.hardGrassLayer, function (o1, o2) {
+            o1.body.immovable = true;
+            o1.noMoreMovement = true;
+            
         });
 
         this.map.currentLayer = this.baseLayer;
