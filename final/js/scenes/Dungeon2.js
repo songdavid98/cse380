@@ -245,6 +245,7 @@ export class Dungeon2 extends DayScene{
 
     update(time, delta){
         super.update(time);
+        /*
         if(this.input.keyboard.keys[49].isDown){
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
@@ -291,5 +292,6 @@ export class Dungeon2 extends DayScene{
             });
             this.scene.stop();
         }
+        */
     }
 }
