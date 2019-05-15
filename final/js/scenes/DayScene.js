@@ -57,7 +57,7 @@ export class DayScene extends Phaser.Scene {
         this.deathSceneLength = 5;
         this.timeLimit = 10; //Day Countdown timer ~ 2min?
         this.textWords;
-        this.unlockedLevels = data.unlockedLevels;
+        this.unlockedLevels = data.unlockedLevels || [0,0,0,0,0,0,0,0];
         console.log(this.unlockedLevels);
 
         if(data.music){
