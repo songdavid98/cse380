@@ -198,6 +198,10 @@ export class Goblin extends Enemy {
         //Call the enemy class dayUpdate
         super.dayUpdate(time);
 
+        if(this.dead){
+            this.zzzSprite.destroy();
+        }
+
         if (this.active && !this.dead) {
             switch (this.state) {
                 case "sleeping":
@@ -313,7 +317,6 @@ export class Goblin extends Enemy {
                     break;
             }
         }
-
     }
 
     withinVacinity(playerSprite, enemySprite) {

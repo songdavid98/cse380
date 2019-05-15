@@ -509,7 +509,7 @@ export class MageHero extends DayPlayer {
         this.scene.physics.add.overlap(superMagicBeamSprite.parts.getChildren(), this.scene.enemyGroup.getChildren(), function (beamPart, enemySprite) {
             if (!beamPart.beamSprite.enemiesHit.includes(enemySprite)) {
                 beamPart.beamSprite.enemiesHit.push(enemySprite);
-                beamPart.beamSprite.scene.hittingWithMagicBeam(beamPart.beamSprite, enemySprite);
+                beamPart.beamSprite.scene.hittingWithSuperMagicBeam(beamPart.beamSprite, enemySprite);
             }
         });
 

@@ -136,7 +136,7 @@ export class Dungeon1 extends DayScene {
         this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1) {
             o1.scene.music.pause();
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
-            o1.scene.scene.start(SCENES.DUNGEON2, {
+            o1.scene.scene.start(SCENES.DUNGEON5, {
                 "money": o1.scene.money,
                 "level": 5,
                 "unlockedLevels":o1.scene.unlockedLevels

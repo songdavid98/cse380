@@ -80,9 +80,9 @@ export class Dungeon5 extends DayScene {
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
         this.grassLayer = this.map.createStaticLayer("grass", [this.terrain], 1, 0).setScale(5, 5);
+        this.hardGrassLayer = this.map.createStaticLayer("hardGrass", [this.terrain], 1, 0).setScale(5, 5);
         this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
         this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(5, 5);
-        this.lavaLayer = this.map.createStaticLayer("lava", [this.terrain], 1, 0).setScale(5, 5);
 
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
 
@@ -97,7 +97,6 @@ export class Dungeon5 extends DayScene {
 
 
         this.scaleObjects(.5);
-        let doors = this.createObjects('objectsLayer',2,'door', 16, 16);
         this.barrels = this.createObjects('objectsLayer',1,'barrel', 16, 16);   //It needs a "this" keyword
         let barrels = this.barrels;
         let treasures = this.createObjects('objectsLayer',20,'treasure', 16, 16);
@@ -140,12 +139,6 @@ export class Dungeon5 extends DayScene {
 
 
 
-        
-        this.door1 = this.physics.add.existing(doors.getChildren()[0]);
-        this.door2 = this.physics.add.existing(doors.getChildren()[1]);
-
-        this.door1.otherDoor = this.door2;
-        this.door2.otherDoor = this.door1;
 
         this.barrel1 = this.physics.add.existing(barrels.getChildren()[0]);
         this.barrel2 = this.physics.add.existing(barrels.getChildren()[1]);
@@ -153,9 +146,10 @@ export class Dungeon5 extends DayScene {
         this.barrel4 = this.physics.add.existing(barrels.getChildren()[3]);
         this.barrel5 = this.physics.add.existing(barrels.getChildren()[4]);
         this.barrel6 = this.physics.add.existing(barrels.getChildren()[5]);
-
-        this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
-        this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+        this.barrel7 = this.physics.add.existing(barrels.getChildren()[6]);
+        this.barrel8 = this.physics.add.existing(barrels.getChildren()[7]);
+        this.barrel9 = this.physics.add.existing(barrels.getChildren()[8]);
+        this.barrel10 = this.physics.add.existing(barrels.getChildren()[9]);
 
         this.barrel1.body.immovable = true;
         this.barrel2.body.immovable = true;
@@ -163,31 +157,82 @@ export class Dungeon5 extends DayScene {
         this.barrel4.body.immovable = true;
         this.barrel5.body.immovable = true;
         this.barrel6.body.immovable = true;
+        this.barrel7.body.immovable = true;
+        this.barrel8.body.immovable = true;
+        this.barrel9.body.immovable = true;
+        this.barrel10.body.immovable = true;
+
+        this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
+        this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+        this.treasure3 = this.physics.add.existing(treasures.getChildren()[2]);
+        this.treasure4 = this.physics.add.existing(treasures.getChildren()[3]);
+        this.treasure5 = this.physics.add.existing(treasures.getChildren()[4]);
+        this.treasure6 = this.physics.add.existing(treasures.getChildren()[5]);
+        this.treasure7 = this.physics.add.existing(treasures.getChildren()[6]);
+        this.treasure8 = this.physics.add.existing(treasures.getChildren()[7]);
+        this.treasure9 = this.physics.add.existing(treasures.getChildren()[8]);
+        this.treasure10 = this.physics.add.existing(treasures.getChildren()[9]);
+        this.treasure11 = this.physics.add.existing(treasures.getChildren()[10]);
 
         this.physics.add.collider(this.playerGroup, barrels.getChildren());
         this.physics.add.collider(this.enemyGroup, barrels.getChildren());
         this.physics.add.collider(barrels.getChildren(), this.wallLayer);
 
 
-        //door overlap
-        this.physics.add.overlap(this.door1, this.playerGroup.getChildren(), function (o1,o2) {
-            o2.x = o1.otherDoor.x + 100;
-            o2.y = o1.otherDoor.y + 150;
-            
-        });
-        this.physics.add.overlap(this.door2, this.playerGroup.getChildren(), function (o1,o2) {
-            o2.x = o1.otherDoor.x - 100;
-            o2.y = o1.otherDoor.y + 50;
-        });
 
         //Treasure stuff
         this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 1500;
+            o1.scene.money += 200;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure2, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 4000;
+            o1.scene.money += 400;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure3, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 100;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure4, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 2000;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure5, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 500;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure6, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 5000;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure7, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 5000;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure8, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 5000;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure9, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 5000;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure10, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 5000;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure11, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 5000;
             o1.destroy();
         });
 
