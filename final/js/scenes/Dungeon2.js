@@ -207,7 +207,8 @@ export class Dungeon2 extends DayScene{
             o1.scene.scene.stop(SCENES.DAY_OVERLAY);
             o1.scene.scene.start(SCENES.DUNGEON4, {
                 "money": o1.scene.money,
-                "level": 4
+                "level": 4,
+                "unlockedLevels":o1.scene.unlockedLevels
             });
             o1.scene.scene.stop();
         });
@@ -249,7 +250,8 @@ export class Dungeon2 extends DayScene{
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DUNGEON1, {
                 "money": this.money,
-                "level": 3
+                "level": 3,
+                "unlockedLevels":this.unlockedLevels
             });
             this.scene.stop();
         }else if(this.input.keyboard.keys[51].isDown){
@@ -257,7 +259,8 @@ export class Dungeon2 extends DayScene{
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.DUNGEON3, {
                 "money": this.money,
-                "level": 5
+                "level": 5,
+                "unlockedLevels":this.unlockedLevels
             });
             this.scene.stop();
         }else if(this.input.keyboard.keys[52].isDown){
@@ -265,7 +268,8 @@ export class Dungeon2 extends DayScene{
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
                 "money": this.money,
-                "level": 1
+                "level": 1,
+                "unlockedLevels":this.unlockedLevels
             });
             this.scene.stop();
         }else if(this.input.keyboard.keys[53].isDown){
@@ -273,7 +277,8 @@ export class Dungeon2 extends DayScene{
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
                 "money": this.money,
-                "level": 2
+                "level": 2,
+                "unlockedLevels":this.unlockedLevels
             });
             this.scene.stop();
         }else if(this.input.keyboard.keys[54].isDown){
@@ -281,7 +286,8 @@ export class Dungeon2 extends DayScene{
             this.scene.stop(SCENES.DAY_OVERLAY);
             this.scene.start(SCENES.NIGHT, {
                 "money": this.money,
-                "level": 3
+                "level": 3,
+                "unlockedLevels":this.unlockedLevels
             });
             this.scene.stop();
         }

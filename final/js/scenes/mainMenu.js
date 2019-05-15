@@ -57,7 +57,8 @@ export class MenuScene extends Phaser.Scene {
             //this.music.pause();
             let data = {
                 "music":this.music,
-                "str":"moving to controls"
+                "str":"moving to controls",
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.CONTROLS, data);
             this.scene.stop();
@@ -67,7 +68,8 @@ export class MenuScene extends Phaser.Scene {
             //this.music.pause();
             let data = {
                 "music":this.music,
-                "str":"moving to help"
+                "str":"moving to help",
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.HELP, data);
             this.scene.stop();

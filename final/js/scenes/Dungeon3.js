@@ -192,7 +192,11 @@ export class Dungeon3 extends DayScene {
         if (this.player.sprite.body && this.player.sprite.body.position.x > 1400 && this.player.sprite.body.position.x < 1700 && this.player.sprite.body.position.y < 50) {
             this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
-            this.scene.start(SCENES.MAIN_MENU, "winner");
+            let data = {
+                "str":"winner",
+                "unlockedLevels":this.unlockedLevels
+            }
+            this.scene.start(SCENES.MAIN_MENU, data);
             this.scene.stop();
         }
         //cheats
