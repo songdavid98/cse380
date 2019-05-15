@@ -185,9 +185,6 @@ export class NightScene extends Phaser.Scene {
         startwave.setInteractive();
         startwave.on("pointerdown", () => {
             console.log("startwave pressed");
-            console.log("this.enemiesSpawned "+this.enemiesSpawned);
-            console.log("this.spawnInt: ");
-            console.log(this.spawnIntervalVar);
             if (this.startWavePressed)
                 return;
             this.startWavePressed = true;
@@ -197,7 +194,7 @@ export class NightScene extends Phaser.Scene {
             this.descriptionText.alpha = 1;
             this.descriptionText.setText("Press to start the wave");
             this.descriptionText.x = this.game.renderer.width * 0.2;
-            this.descriptionText.y = pointer.y -12;
+            this.descriptionText.y = this.buttonYinc * 2 - 12;
         });
         startwave.on("pointerout", (pointer) => {
             this.descriptionText.alpha = 0;
@@ -299,11 +296,19 @@ export class NightScene extends Phaser.Scene {
                 let rectangle = new Phaser.Geom.Rectangle(this.scene.towerSpriteForBuying.body.position.x,this.scene.towerSpriteForBuying.body.position.y,this.scene.towerSpriteForBuying.body.width,this.scene.towerSpriteForBuying.body.height);
                 let pathArray = this.scene.pathLayer.getTilesWithinShape(rectangle);
                 let placeable = true;
-                pathArray.forEach(function(pathTile){
-                    if(pathTile.index != -1){
-                        placeable = false;
-                    }
-                });
+
+                let sizeOfTower = this.scene.towerToBePlaced.sprite.body.halfWidth;
+                if (this.scene.closeToTower(pointer.x, pointer.y, sizeOfTower) ) {
+                    placeable = false;
+                    console.log("close to tower");
+                }
+                else {
+                    pathArray.forEach(function(pathTile){
+                        if(pathTile.index != -1){
+                            placeable = false;
+                        }
+                    });
+                }
                 this.scene.towerToBePlaced.placeable = placeable;
                 this.scene.towerSpriteForBuying.x = pointer.x;
                 this.scene.towerSpriteForBuying.y = pointer.y;
@@ -341,7 +346,6 @@ export class NightScene extends Phaser.Scene {
                 buyicetower.alpha = 1;
                 this.rangeCircle.x = -1000;
                 this.rangeCircle.y = -1000;
-                console.log(this.rangeCircle.scale);
             }
             pointer = null;
         });
@@ -580,6 +584,14 @@ export class NightScene extends Phaser.Scene {
         //this.timeToStopInterval = numberOfEnemies * msInterval + this.time.now;
     }
 
-
-
+    closeToTower(x, y, sizeOfTower) {
+        console.log("closeToTower begin");
+        for (let i = 0; i < this.defStrs.length; i++) {
+            let towerSprite = this.defStrs[i].sprite;
+            let distance = Phaser.Math.Distance.Between(x, y, towerSprite.x, towerSprite.y);
+            if ( distance < sizeOfTower + towerSprite.body.halfWidth)
+                return true;
+        }
+        return false;
+    }
 }
