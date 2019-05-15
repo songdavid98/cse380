@@ -90,13 +90,8 @@ export class Cannon extends NightDefenseStructure {
             
             this.class.targetFound = false;
         });
-
-        console.log(this.anims);
+        // console.log(this.anims);
     }
-    
-//    distanceCalc(x1, y1, x2, y2) {
-//        return super.distanceCalc(x1, y1, x2, y2);
-//    }
     
     update(time, enemies) {
         super.update(time, enemies);

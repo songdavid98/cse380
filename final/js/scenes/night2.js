@@ -48,9 +48,13 @@ export class Night2 extends NightScene {
     
     init(data) {
         super.init(data);
-        this.numEnemySpawns = 30;
-        this.spawnX = 1600;
-        this.spawnY = 170;
+        this.spawnY = 125;
+        this.enemiesToSpawn = [
+            [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
+            [20, ENEMIES.GOBLIN, 1000],
+            [10, ENEMIES.GOLEM, 1000]
+        ]
+        this.numEnemySpawns = 40;
     }
     
     preload() {
@@ -60,22 +64,7 @@ export class Night2 extends NightScene {
     }
     
     create() {
-        
         super.create();
-        startwave.on("pointerdown", () => {
-            console.log("startwave pressed");
-            if (this.startWavePressed)
-                return;
-            this.startWavePressed = true;
-            startwave.alpha = 0.5;
-            
-            this.enemiesToSpawn = [
-                [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
-                [20, ENEMIES.GOBLIN, 1000],
-                [10, ENEMIES.GOLEM, 1000]
-            ]
-            this.numEnemySpawns = 40;
-        });
     }
     
     update(time, delta) {
