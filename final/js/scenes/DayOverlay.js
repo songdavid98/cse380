@@ -269,13 +269,13 @@ export class DayOverlayScene extends Phaser.Scene {
                 //you win
                 switch(this.dayScene.level){
                     case 1: 
-                        this.unlockedLevels = [1,1,0,0,0,0,0];
+                        this.unlockedLevels = [1,1,2,0,0,0,0,0];
                         break;
                     case 3: 
-                        this.unlockedLevels = [1,1,1,1,0,0,0];
+                        this.unlockedLevels = [1,1,1,1,2,0,0,0];
                         break;
                     case 5: 
-                        this.unlockedLevels = [1,1,1,1,1,1,0];
+                        this.unlockedLevels = [1,1,1,1,1,1,2,0];
                         break;
                 }
                 let data = {

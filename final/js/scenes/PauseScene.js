@@ -9,6 +9,8 @@ export class PauseScene extends Phaser.Scene{
         //console.log(data);
         this.dayScene = data['scene'];
         this.scenes = data["scenes"];
+        this.unlockedLevels = data.unlockedLevels;
+        console.log(data);
         this.initTime = 0;
     }
     create(){
@@ -38,7 +40,12 @@ export class PauseScene extends Phaser.Scene{
             this.scene.stop();
         });
         exitButton.on("pointerdown", ()=>{
-            let data = "main menu from level help"
+            let data = {
+                "str":"main menu from level help",
+                "unlockedLevels":this.unlockedLevels
+            }
+
+            console.log(this.unlockedLevels);
             for(var i = 0; i < this.scenes.length; i++){
                 this.scene.stop(this.scenes[i]);
             }
@@ -52,7 +59,6 @@ export class PauseScene extends Phaser.Scene{
         if(this.initTime == 0){
             this.initTime = this.time.now;
         }
-        console.log(this.time.now);
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             console.log("unpausing");
             for(var i = 0; i < this.scenes.length; i++){

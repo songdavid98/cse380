@@ -81,6 +81,7 @@ export class Beginning extends CutScene{
 
         this.yesButton.setInteractive();
         this.noButton.setInteractive();
+        this.skipButton.setInteractive();
 
         this.yesButton.on("pointerdown", () => {
             console.log("YES we will fight");
@@ -96,6 +97,14 @@ export class Beginning extends CutScene{
             this.lineCounter = 19.5;
         });
 
+        this.skipButton.on("pointerdown", () => {
+            this.music.stop();
+            let data = {
+                "level": 0
+            }
+            this.scene.start(SCENES.TUTORIAL, data);
+            this.scene.stop();
+        });
 
         this.music = this.sound.add("audiotitlesong");
         

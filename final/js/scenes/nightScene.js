@@ -55,6 +55,9 @@ export class NightScene extends Phaser.Scene {
         this.winGame = false;
 
         this.level = data.level;
+        this.unlockedLevels = data.unlockedLevels;
+        console.log(data.unlockedLevels);
+
         this.mapLevel;
         this.music = null;
 
@@ -93,6 +96,7 @@ export class NightScene extends Phaser.Scene {
         this.currentlySpawning = null;
         this.startWavePressed = false;
         this.timeToStopInterval = null;
+
         
         this.alreadyClicked = false;
     }
@@ -371,13 +375,13 @@ export class NightScene extends Phaser.Scene {
                 if(this.winGame){
                     switch(this.level){
                         case 2: 
-                            this.unlockedLevels = [1,1,1,0,0,0,0];
+                            this.unlockedLevels = [1,1,1,2,0,0,0,0];
                             break;
                         case 4: 
-                            this.unlockedLevels = [1,1,1,1,1,0,0];
+                            this.unlockedLevels = [1,1,1,1,1,2,0,0];
                             break;
                         case 6: 
-                            this.unlockedLevels = [1,1,1,1,1,1,1];
+                            this.unlockedLevels = [1,1,1,1,1,1,1,2];
                             break;
                     }
                     let data = {
@@ -426,7 +430,8 @@ export class NightScene extends Phaser.Scene {
             this.justPaused = true
             this.music.pause();
             this.scene.launch(SCENES.PAUSE, {
-                "scenes": [SCENES.NIGHT]
+                "scenes": [SCENES.NIGHT],
+                "unlockedLevels":this.unlockedLevels
             });
             this.scene.pause();
         } else if (this.input.keyboard.keys[27].isUp && this.justPaused) {

@@ -16,6 +16,12 @@ export class CutScene extends Phaser.Scene{
         this.load.image("terrain", "assets/images/tiles/addableTiles.png");
         this.load.image("textBar", "assets/images/icons/textBar.png");
         this.load.image("blackScreen", "assets/images/cutScene/blackScreen.png");
+        this.load.image("skipButton", "assets/images/buttons/skipButton.png");
+        this.load.image("yesButton", "assets/images/buttons/yesButton.png");
+        this.load.image("noButton", "assets/images/buttons/noButton.png");
+
+
+
 
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
@@ -119,8 +125,9 @@ export class CutScene extends Phaser.Scene{
         this.anims.create({ key: 'leftIdleVillageGirl', frames: leftIdleFrame, frameRate: 5, repeat: -1 });
         
 
-        this.yesButton = this.add.image(this.game.renderer.width * .7, this.game.renderer.height * .4, "backButton").setDepth(1).setScale(2, 2);
-        this.noButton = this.add.image(this.game.renderer.width * .3, this.game.renderer.height * .4, "backButton").setDepth(1).setScale(2, 2);
+        this.yesButton = this.add.image(this.game.renderer.width * .7, this.game.renderer.height * .4, "yesButton").setDepth(3).setScale(2, 2);
+        this.noButton = this.add.image(this.game.renderer.width * .3, this.game.renderer.height * .4, "noButton").setDepth(3).setScale(2, 2);
+        this.skipButton = this.add.image(this.game.renderer.width * .05, this.game.renderer.height * .1, "skipButton").setDepth(3).setScale(2, 2);
 
 
 

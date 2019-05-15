@@ -55,7 +55,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 120; //Day Countdown timer ~ 2min?
+        this.timeLimit = 1; //Day Countdown timer ~ 2min?
         this.textWords;
 
     }
@@ -108,6 +108,9 @@ export class DayScene extends Phaser.Scene {
         let initialX = data['initialX'] || 200;
         let initialY = data['initialY'] || 200;
         this.initPos = [initialX, initialY]; //Need this for tutorial
+
+        this.unlockedLevels = data.unlockedLevels;
+
 
         this.music = this.sound.add("audiobackgroundsong");
         this.music.setLoop(true);
@@ -730,7 +733,8 @@ export class DayScene extends Phaser.Scene {
                 this.scene.launch(SCENES.PAUSE, {
                     "scenes": [this.sceneKey, SCENES.DAY_OVERLAY],
                     "scene":this,
-                    "level":this.level
+                    "level":this.level,
+                    "unlockedLevels":this.unlockedLevels
                 });
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();

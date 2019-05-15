@@ -36,7 +36,7 @@ export class SplashScene extends Phaser.Scene {
         startButton.on("pointerdown", () => {
             //this.music.pause();
 
-            let unlockedLevels = [0,0,0,0,0,0];
+            let unlockedLevels = [2,0,0,0,0,0,0,0];
 
             let data = {
                 "music":this.music,

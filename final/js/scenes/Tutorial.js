@@ -55,6 +55,8 @@ export class Tutorial extends DayScene {
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
         this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
+        this.load.image("skipButton", "assets/images/buttons/skipButton.png");
+
         this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
         this.mapLevel = "tutorial";
 
@@ -63,6 +65,23 @@ export class Tutorial extends DayScene {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
+
+        //Add this
+        let skipButton = this.add.image(this.game.renderer.width * .95, this.game.renderer.height * .1, "skipButton").setDepth(3).setScale(2, 2);
+        skipButton.setInteractive();
+        skipButton.on("pointerdown", () => {
+            this.music.stop();
+            this.scene.stop(SCENES.DAY_OVERLAY);
+            let unlockedLevels = [1,2,0,0,0,0,0,0];
+
+            let data = {
+                "str":"Day 1 Unlocked",
+                "unlockedLevels":unlockedLevels
+            }
+            this.scene.start(SCENES.LEVEL_SELECT,data);
+            this.scene.stop();
+        });
+
 
         //this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
         this.baseLayer = this.map.createStaticLayer("groundLayer", [this.terrain], 0, 0).setScale(5, 5);
@@ -500,9 +519,9 @@ export class Tutorial extends DayScene {
                     }
                 }
                 else{
-                    this.music.pause();
+                    this.music.stop();
                     this.scene.stop(SCENES.DAY_OVERLAY);
-                    let unlockedLevels = [1,0,0,0,0,0,0];
+                    let unlockedLevels = [1,2,0,0,0,0,0,0];
 
                     let data = {
                         "str":"Day 1 Unlocked",
