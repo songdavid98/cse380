@@ -86,7 +86,7 @@ export class DayScene extends Phaser.Scene {
         this.load.image("terrain", "./assets/images/tiles/addableTiles.png");
         this.load.image("greenHealth", "./assets/images/icons/bar1.png");
         this.load.image("healthBar", "./assets/images/icons/bar2.png");
-
+        this.load.image("beamPart", './assets/images/beamPart.png');
         this.load.multiatlas(HEROES.SHIELD_HERO, './assets/images/heroes/shield.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.SWORD_HERO, './assets/images/heroes/sword.json', "assets/images/heroes");
         this.load.multiatlas(HEROES.MAGE_HERO, './assets/images/heroes/mage.json', "assets/images/heroes");
@@ -381,7 +381,8 @@ export class DayScene extends Phaser.Scene {
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
-            } else if (pointer.rightButtonDown()) {
+            } else if (pointer.rightButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
+                this.player.previousTime = Math.floor(this.time.now / 1000);
                 this.player.attackSpecial(pointer, this.player.angle);
             }
         }, this);
