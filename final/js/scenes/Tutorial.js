@@ -43,7 +43,6 @@ export class Tutorial extends DayScene {
         this.killedSlime = false;
         this.slimeFound = false;
 
-
         this.clearedAngle = [false, false, false, false]; //0, 90, 180, 270
 
 
@@ -65,8 +64,6 @@ export class Tutorial extends DayScene {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
-
-
 
 
         //this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
@@ -516,13 +513,14 @@ export class Tutorial extends DayScene {
                         this.doneOnce = true;
                     }
                 }
-                else{
-                    this.music.stop();
+                else{                    
                     let unlockedLevels = [1,2,0,0,0,0,0,0];
+                    this.music.stop();
 
                     let data = {
                         "str":"Day 1 Unlocked",
-                        "unlockedLevels":unlockedLevels
+                        "unlockedLevels":unlockedLevels,
+                        "music":this.music
                     }
                     this.scene.start(SCENES.MINI_DUNGEON,data);
                     this.scene.stop();

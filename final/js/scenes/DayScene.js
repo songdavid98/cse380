@@ -60,6 +60,10 @@ export class DayScene extends Phaser.Scene {
         this.unlockedLevels = data.unlockedLevels;
         console.log(this.unlockedLevels);
 
+        if(data.music){
+            this.music = data.music;
+        }
+
     }
     preload() {
         
@@ -142,11 +146,14 @@ export class DayScene extends Phaser.Scene {
 
 
 
-
-        this.music = this.sound.add("audiobackgroundsong");
-        this.music.setLoop(true);
-        this.music.play();
+        if(!this.music){
+            this.music = this.sound.add("audiobackgroundsong");
+        }
         
+        this.music.setLoop(true);
+        if(!this.music.isPlaying){
+            this.music.play();
+        }
         
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);

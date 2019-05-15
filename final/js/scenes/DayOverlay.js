@@ -42,7 +42,6 @@ export class DayOverlayScene extends Phaser.Scene {
         console.log("what map?", this.dayScene.mapLevel);
 
         if(this.dayScene.mapLevel == 'tutorial' || this.dayScene.mapLevel == 'miniMap'){
-
             console.log("Overlay tutorial", this.dayScene.mapLevel);
             this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
             this.text = this.add.text(30, 790, "Welcome to the tutorial", {
@@ -237,7 +236,7 @@ export class DayOverlayScene extends Phaser.Scene {
         }
 
         //------------------- Text box stuff -----------------------
-        if(this.dayScene.mapLevel == 'tutorial'){
+        if(this.dayScene.mapLevel == 'tutorial' || this.dayScene.mapLevel == 'miniMap'){
             if(this.text != this.dayScene.textWords){
                 this.text.setText(this.dayScene.textWords);
             }

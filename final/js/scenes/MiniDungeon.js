@@ -42,7 +42,6 @@ export class MiniDungeon extends DayScene {
     init(data) {
         
         super.init(data);
-
         this.slimeSpawnArr = [
 
         ];
@@ -57,8 +56,10 @@ export class MiniDungeon extends DayScene {
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
-
-
+        this.stepLength = 2;   //2 seconds
+        this.doneOnce = false;
+        this.resetStep = false;
+        this.timeOfStepFinished = 0;
     }
     preload() {
         this.level = 0;
@@ -77,7 +78,7 @@ export class MiniDungeon extends DayScene {
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
 
-
+        console.log(this.music);
         //this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
         this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
@@ -93,6 +94,25 @@ export class MiniDungeon extends DayScene {
         this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
 
+
+        this.scaleObjects(.5);
+        let doors = this.createObjects('objectsLayer',2,'door', 16, 16);
+        console.log(doors);
+        this.door = this.physics.add.existing(doors.getChildren()[0]);
+        this.door.class = this;
+
+        this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.class.music.stop();
+            o1.class.scene.stop(SCENES.DAY_OVERLAY);
+            let unlockedLevels = [1,2,0,0,0,0,0,0];
+            let data = {
+                "str":"Day 1 Unlocked",
+                "unlockedLevels":unlockedLevels
+            }
+            o1.class.scene.start(SCENES.LEVEL_SELECT,data);
+            o1.class.scene.stop();
+            
+        });
 
         //Objects?
         this.scaleObjects(.5);
@@ -112,27 +132,20 @@ export class MiniDungeon extends DayScene {
         this.scene.stop();
     }
 
-    tasks(){
+    tasks(time){
 
-        console.log("Enter");
-        if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
-            if(!this.doneOnce){
-                this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
-                this.doneOnce = true;
-            }
+        if(!this.doneOnce){
+            console.log("COme hseres");
+            this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
+            this.doneOnce = true;
         }
-        else{
-            this.music.stop();
-            this.scene.stop(SCENES.DAY_OVERLAY);
-            let unlockedLevels = [1,2,0,0,0,0,0,0];
+            
 
-            let data = {
-                "str":"Day 1 Unlocked",
-                "unlockedLevels":unlockedLevels
-            }
-            this.scene.start(SCENES.LEVEL_SELECT,data);
-            this.scene.stop();
-        }
+
+
+  
+                
+        
     }
 
 
@@ -140,6 +153,10 @@ export class MiniDungeon extends DayScene {
 
     update(time, delta) {
         super.update(time);
+
+        this.tasks(time);
+
+
         //cheats
         if (this.input.keyboard.keys[50].isDown) {
             this.music.pause();
