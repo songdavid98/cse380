@@ -259,13 +259,13 @@ export class Enemy {
     
     nightUpdate(time, level) {
         switch (level) {
-            case 1:
+            case 2:
                 this.nightLevel1Pathfinding();
                 break;
-            case 2:
+            case 4:
                 this.nightLevel2Pathfinding();
                 break;
-            case 3:
+            case 6:
                 this.nightLevel3Pathfinding();
                 break;
             default:

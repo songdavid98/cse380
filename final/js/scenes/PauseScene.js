@@ -52,13 +52,14 @@ export class PauseScene extends Phaser.Scene{
         if(this.initTime == 0){
             this.initTime = this.time.now;
         }
-        console.log(this.time.now);
+//        console.log(this.time.now);
         if(this.input.keyboard.keys[27].isDown && !this.justPaused){
             console.log("unpausing");
             for(var i = 0; i < this.scenes.length; i++){
                 this.scene.resume(this.scenes[i]);
             }
-            this.dayScene.initTime += this.time.now - this.initTime;
+            if (this.dayScene)
+                this.dayScene.initTime += this.time.now - this.initTime;
             this.scene.stop();
         }else if(this.input.keyboard.keys[27].isDown){
             this.justPaused = false;

@@ -132,7 +132,7 @@ export class DayNightTransition extends CutScene{
                             });
                             break;
                         case 2: 
-                            this.scene.start(SCENES.NIGHT, {
+                            this.scene.start(SCENES.NIGHT1, {
                                 "level": 2,
                                 "money": this.transferMoney
                             });
@@ -143,7 +143,7 @@ export class DayNightTransition extends CutScene{
                             });
                             break;
                         case 4:
-                            this.scene.start(SCENES.NIGHT, {
+                            this.scene.start(SCENES.NIGHT2, {
                                 "level": 4,
                                 "money": this.transferMoney
                             });
@@ -154,7 +154,7 @@ export class DayNightTransition extends CutScene{
                             });
                             break;
                         case 6:
-                            this.scene.start(SCENES.NIGHT, {
+                            this.scene.start(SCENES.NIGHT3, {
                                 "level": 6,
                                 "money": this.transferMoney
                             });

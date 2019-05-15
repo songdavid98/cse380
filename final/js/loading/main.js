@@ -23,6 +23,15 @@ import {
     NightScene
 } from "../scenes/nightScene.js"
 import {
+    Night1
+} from "../scenes/night1.js"
+import {
+    Night2
+} from "../scenes/night2.js"
+import {
+    Night3
+} from "../scenes/night3.js"
+import {
     PauseScene
 } from "../scenes/PauseScene.js"
 import {
@@ -51,7 +60,7 @@ let game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene: [
-        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, NightScene, Dungeon1, Dungeon2, Dungeon3, Dungeon4, Beginning, DayNightTransition, Tutorial, DayOverlayScene, PauseScene
+        PreloadScene, SplashScene, MenuScene, LevelSelectionScene, HelpScene, ControlsScene, Night1, Night2, Night3, Dungeon1, Dungeon2, Dungeon3, Dungeon4, Beginning, DayNightTransition, Tutorial, DayOverlayScene, PauseScene
     ],
 
     //----------------------------------mine 

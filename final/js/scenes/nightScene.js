@@ -7,9 +7,6 @@ import {
 import {
     DEFSTR
 } from "../constants/DefenseStructureTypes.js";
-//import {
-//    NightEnemy
-//} from "../gamePlay/NightEnemy.js";
 import {
     NightDefenseStructure
 } from "../gamePlay/NightDefenseStructure.js";
@@ -17,11 +14,9 @@ import {
 import {
     Slime
 } from "../gamePlay/Monsters/Slime.js";
-
 import {
     Goblin
 } from "../gamePlay/Monsters/Goblin.js";
-
 import {
     Golem
 } from "../gamePlay/Monsters/Golem.js";
@@ -40,11 +35,13 @@ import {
 
 
 export class NightScene extends Phaser.Scene {
-    constructor() {
+    constructor(data) {
         super({
-            key: SCENES.NIGHT
-        })
+            key: data['key']
+        });
+        this.sceneKey = data['key'];
     }
+    
     init(data) {
         console.log(data);
         console.log("entered night scene");
@@ -84,9 +81,9 @@ export class NightScene extends Phaser.Scene {
         this.towerSpriteForBuying = null;
 
         this.enemiesSpawned = 0;
-        this.numEnemySpawns = 30;
-        this.spawnX = 1600;
-        this.spawnY = 170;
+//        this.numEnemySpawns = 30;
+//        this.spawnX = 1600;
+//        this.spawnY = 170;
         this.enemiesToSpawn = [];
         //        [30, ENEMIES.GOBLIN, 500] spawn 30 goblins at 0.5sec intervals
         this.spawnIntervalVar = null;
@@ -105,8 +102,8 @@ export class NightScene extends Phaser.Scene {
 
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
-        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
-        this.mapLevel = "night-map2";
+//        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
+//        this.mapLevel = "night-map2";
         console.log("Welcome to level " + this.level);
 
 
@@ -169,7 +166,7 @@ export class NightScene extends Phaser.Scene {
         let buycannon = this.add.image(this.buttonX, this.buttonYinc * 7, "buycannon").setDepth(3).setScale(1, 1);
 
 
-        this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the the town! Enemies coming from the forest!", {
+        this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the town! Enemies coming from the right!", {
             fontSize: '30px',
             fill: '#fff',
             strokeThickness: 10,
@@ -184,36 +181,6 @@ export class NightScene extends Phaser.Scene {
                 return;
             this.startWavePressed = true;
             startwave.alpha = 0.5;
-            //make a swtich case, to spawn different things for each level
-            //Create the enemies
-            switch (this.level) {
-                case 2:
-                    this.enemiesToSpawn = [
-                        [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
-                        [10, ENEMIES.GOBLIN, 2000]
-                    ]
-                    this.numEnemySpawns = 20;
-                    break;
-                case 4:
-                    this.enemiesToSpawn = [
-                        [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
-                        [20, ENEMIES.GOBLIN, 1000],
-                        [10, ENEMIES.GOLEM, 1000]
-                    ]
-                    this.numEnemySpawns = 40;
-                    break;
-                case 6:
-                    his.enemiesToSpawn = [
-                        [10, ENEMIES.SLIME, 1000], //10 slimes, 1000milliseconds apart.
-                        [20, ENEMIES.GOBLIN, 1000],
-                        [10, ENEMIES.GOLEM, 1000]
-                    ]
-                    this.numEnemySpawns = 40;
-                    break;
-                default:
-                    break;
-            }
-
         });
 
 
@@ -426,7 +393,7 @@ export class NightScene extends Phaser.Scene {
             this.justPaused = true
             this.music.pause();
             this.scene.launch(SCENES.PAUSE, {
-                "scenes": [SCENES.NIGHT]
+                "scenes": [this.sceneKey]
             });
             this.scene.pause();
         } else if (this.input.keyboard.keys[27].isUp && this.justPaused) {
@@ -436,8 +403,8 @@ export class NightScene extends Phaser.Scene {
         
         //for stopping/restarting the spawn of enemies
         if (this.timeToStopInterval && time >= this.timeToStopInterval) {
-
-            clearInterval(this.spawnIntervalVar);
+            
+            this.spawnIntervalVar.remove();
 
             if (this.enemiesToSpawn.length == 0) {
                 this.timeToStopInterval = null;

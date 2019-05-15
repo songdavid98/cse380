@@ -31,8 +31,6 @@ import {
      DayScene 
 } from "./DayScene.js";
 
-
-
 export class Dungeon1 extends DayScene {
     constructor() {
         super({
