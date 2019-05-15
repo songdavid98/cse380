@@ -553,8 +553,8 @@ export class DayScene extends Phaser.Scene {
             enemySprite.class.justGotHit = true;
         }
         
-        if(Math.floor(tornado.scene.time.now/1000) - Math.floor(enemySprite.class.lastDamaged/1000) > enemySprite.class.specialDamageCooldown){
-            enemySprite.class.damaged(tornado.class.basicAttack);
+        if(Math.floor(tornado.scene.time.now/1000) - Math.floor(enemySprite.class.lastDamaged/1000) < enemySprite.class.specialDamageCooldown){
+            enemySprite.class.damaged(tornado.class.specialAttack);
         }
         else{
             enemySprite.class.justGotHit = false;
@@ -575,6 +575,25 @@ export class DayScene extends Phaser.Scene {
             enemySprite.class.state = "attacking";
         }
         enemySprite.class.damaged(magicBeamSprite.class.basicAttack);
+
+        //Slows the enemy down by half the speed
+        enemySprite.class.slowDown();
+        enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now; //Need this for damage cooldown
+        enemySprite.class.justGotHit = true;
+
+        if (!magicBeamSprite.colliding) {
+            magicBeamSprite.colliding = [];
+        }
+        magicBeamSprite.colliding.push(enemySprite);
+    }
+    hittingWithSuperMagicBeam(magicBeamSprite, enemySprite) {
+        if (!magicBeamSprite.anims) {
+            return;
+        }
+        if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
+            enemySprite.class.state = "attacking";
+        }
+        enemySprite.class.damaged(magicBeamSprite.class.specialAttack);
 
         //Slows the enemy down by half the speed
         enemySprite.class.slowDown();

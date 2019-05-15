@@ -69,6 +69,7 @@ export class Enemy {
 
     destroySprite() {
         this.sprite.destroy();
+        
         this.healthBar.destroy();
         this.greenBar.destroy();
     }

@@ -14,7 +14,7 @@ export class SwordHero extends DayPlayer {
         this.health = 3;
         this.basicAttack = 2;
         this.basicAttackSpeed = 3;
-        this.specialAttack = 5;
+        this.specialAttack = 2;
         this.specialAttackSpeed = 4;
         this.speed = 400;
 
