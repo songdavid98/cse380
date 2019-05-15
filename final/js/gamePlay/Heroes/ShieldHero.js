@@ -19,6 +19,8 @@ export class ShieldHero extends DayPlayer {
         this.specialAttackSpeed = 3;
         this.speed = 400;
         this.beams = [];
+        this.hitProjectiles = 1;
+        this.reqProjectiles = 1;
 
         this.damageCooldown = 3;
         this.attackCooldown = 1;
@@ -434,6 +436,7 @@ export class ShieldHero extends DayPlayer {
 
 
     attackSpecial(cursor, angle) {
+        this.hitProjectiles = 0;
         this.isAttacking = true; //Need this for animation
         let pointY;
         let pointX;
