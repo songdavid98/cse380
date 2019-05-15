@@ -61,7 +61,7 @@ export class Dungeon5 extends DayScene {
 
     }
     preload() {
-        this.level = 4;
+        this.level = 1;
         super.preload();
 
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
@@ -70,8 +70,8 @@ export class Dungeon5 extends DayScene {
         this.load.image("clear", "./assets/images/tiles/newerTileImages/zzzclearTile.png");
 
 
-        this.load.tilemapTiledJSON("map4", "assets/tilemaps/Dungeon5.json");
-        this.mapLevel = "map4";
+        this.load.tilemapTiledJSON("map5", "assets/tilemaps/Dungeon5.json");
+        this.mapLevel = "map5";
     }
     create() {
         //Generate map

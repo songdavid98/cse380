@@ -33,7 +33,7 @@ export class ControlsScene extends Phaser.Scene {
             color: "#000000"
         }).setDepth(2);
 
-        this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .5, "Night Phase: Keep starting and defending \nwaves until you win", {
+        this.add.text(this.game.renderer.width * .4, this.game.renderer.height * .5, "Night Phase: Setup your defense and start the wave!", {
             fontSize: 32,
             color: "#000000"
         }).setDepth(2);

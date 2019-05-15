@@ -14,7 +14,7 @@ export class Ice extends NightDefenseStructure {
         super(data);
         this.defStrType = DEFSTR.ICE;
         this.damage = 1;
-        this.range = 300; //units in pixels, I think
+        this.range = 250; //units in pixels, I think
 
         //        this.sprite = data.sprite;
         //        this.physics = data.physics;

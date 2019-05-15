@@ -94,6 +94,7 @@ export class NightScene extends Phaser.Scene {
         //this.timeToStopInterval = null;
 
         this.alreadyClicked = false; // describes if a buytower button has been clicked
+        this.descriptionText = null;
     }
 
     preload() {
@@ -105,8 +106,9 @@ export class NightScene extends Phaser.Scene {
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
         this.load.image("rangeCircle", "./assets/images/defenseStructure/circle/newcircle.png");
-//        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
-//        this.mapLevel = "night-map2";
+
+
+
         console.log("Welcome to level " + this.level);
 
 
@@ -170,9 +172,9 @@ export class NightScene extends Phaser.Scene {
         
         // place circle off screen
         this.rangeCircle = this.add.image(-1000, -1000, "rangeCircle").setDepth(3).setScale(1, 1);
-        this.rangeCircle.alpha = 0.2;
+        this.rangeCircle.alpha = 0.15;
 
-        this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the town! Enemies coming from the right!", {
+        this.descriptionText = this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the town! Enemies coming from the right!", {
             fontSize: '30px',
             fill: '#fff',
             strokeThickness: 10,
@@ -191,7 +193,15 @@ export class NightScene extends Phaser.Scene {
             this.startWavePressed = true;
             startwave.alpha = 0.5;
         });
-
+        startwave.on("pointerover", (pointer) => {
+            this.descriptionText.alpha = 1;
+            this.descriptionText.setText("Press to start the wave");
+            this.descriptionText.x = this.game.renderer.width * 0.2;
+            this.descriptionText.y = pointer.y -12;
+        });
+        startwave.on("pointerout", (pointer) => {
+            this.descriptionText.alpha = 0;
+        });
 
         buyicetower.setInteractive();
         buyicetower.on("pointerdown", (pointer) => {
@@ -224,6 +234,16 @@ export class NightScene extends Phaser.Scene {
                 this.towerToBePlaced = null;
             }
         });
+        buyicetower.on("pointerover", (pointer) => {
+            this.descriptionText.alpha = 1;
+            this.descriptionText.setText("Ice Tower: Permanently slows enemies\nAffects all enemies in range\nRange: 250\nDamage: 1\nRate of Fire: 3sec");
+            this.descriptionText.x = this.game.renderer.width * 0.2;
+            this.descriptionText.y = pointer.y - 50;
+        });
+        buyicetower.on("pointerout", (pointer) => {
+            this.descriptionText.alpha = 0;
+        });
+
 
         buycannon.setInteractive();
         buycannon.on("pointerdown", (pointer) => {
@@ -263,7 +283,16 @@ export class NightScene extends Phaser.Scene {
                 this.towerToBePlaced = null;
             }
         });
-        
+        buycannon.on("pointerover", (pointer) => {
+            this.descriptionText.alpha = 1;
+            this.descriptionText.setText("Cannon Tower\nSingle target damage\nRange: 500\nDamage: 3\nRate of Fire: 3sec");
+            this.descriptionText.x = this.game.renderer.width * 0.2;
+            this.descriptionText.y = pointer.y - 50;
+        });
+        buycannon.on("pointerout", (pointer) => {
+            this.descriptionText.alpha = 0;
+        });
+
 
         this.input.on("pointermove", function (pointer) {
             if (this.scene.startDragging) {
@@ -312,16 +341,15 @@ export class NightScene extends Phaser.Scene {
                 buyicetower.alpha = 1;
                 this.rangeCircle.x = -1000;
                 this.rangeCircle.y = -1000;
-                console.log(this.rangeCircle);
+                console.log(this.rangeCircle.scale);
             }
             pointer = null;
         });
-
-
         this.input.keyboard.addKeys('Esc');
         this.input.keyboard.addKeys('One,Two,Three,Four,Five,Six,I');
         console.log("end of create in nightscene");
     }
+
     update(time, delta) {
         //enemy update, so that when the game ends, the enemy Pathfinding doesn't shut down
         if (this.enemies) {
