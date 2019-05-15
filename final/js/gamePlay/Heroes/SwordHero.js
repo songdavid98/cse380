@@ -14,7 +14,7 @@ export class SwordHero extends DayPlayer {
         this.health = 3;
         this.basicAttack = 2;
         this.basicAttackSpeed = 3;
-        this.specialAttack = 2;
+        this.specialAttack = 0.025;
         this.specialAttackSpeed = 4;
         this.speed = 400;
 
@@ -277,6 +277,7 @@ export class SwordHero extends DayPlayer {
             this.class.startSpecialAttackTime = this.class.time;
         });
         this.sprite.on('animationcomplete_specialEnd', function () {
+            this.class.specialAttacked = false;
             this.class.attacking = false;
             this.class.invincible = false;
         });

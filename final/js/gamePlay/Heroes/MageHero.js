@@ -281,7 +281,7 @@ export class MageHero extends DayPlayer {
         for(var i=0; i<this.beams.length; i++){
             //console.log("test");
             if(this.beams[i].counter == 8 && this.beams[i].elapsedFrames != 13){
-                console.log(this.beams[i].prevPointX, this.beams[i].prevPointY);
+                //console.log(this.beams[i].prevPointX, this.beams[i].prevPointY);
 
                 let new1 = this.scene.physics.add.sprite(this.beams[i].prevPointX + this.beams[i].xFactor,this.beams[i].prevPointY + this.beams[i].yFactor,'beamPart').setScale(3,3);
                 new1.body.setSize(this.beams[i].yy,this.beams[i].xx);
@@ -424,109 +424,108 @@ export class MageHero extends DayPlayer {
 */
 
     attackSpecial(cursor, angle) {
-        if(!this.chargeNow){
-            this.isAttacking = true; //Need this for animation
-            let pointY;
-            let pointX;
+    
+        this.isAttacking = true; //Need this for animation
+        let pointY;
+        let pointX;
 
-            let dist = 800;
-            pointX = this.sprite.x + dist * (Math.sin(Math.PI / 2 - this.angle));
-            pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - this.angle));
+        let dist = 800;
+        pointX = this.sprite.x + dist * (Math.sin(Math.PI / 2 - this.angle));
+        pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - this.angle));
 
-            let partPointX = this.sprite.x + 140 * (Math.sin(Math.PI / 2 - this.angle));
-            let partPointY = this.sprite.y + 140 * (Math.cos(Math.PI / 2 - this.angle));
+        let partPointX = this.sprite.x + 140 * (Math.sin(Math.PI / 2 - this.angle));
+        let partPointY = this.sprite.y + 140 * (Math.cos(Math.PI / 2 - this.angle));
 
-            
-            let superMagicBeamSprite = this.scene.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'superMagic/0001.png').setScale(8, 8);
-            superMagicBeamSprite.class = this;
-            superMagicBeamSprite.xFactor = 50*(Math.sin(Math.PI / 2 - this.angle));
-            superMagicBeamSprite.yFactor = 50*(Math.cos(Math.PI / 2 - this.angle));
-            superMagicBeamSprite.prevPointX = partPointX + 50*(Math.sin(Math.PI / 2 - this.angle));
-            superMagicBeamSprite.prevPointY = partPointY + 50*(Math.cos(Math.PI / 2 - this.angle));
-            superMagicBeamSprite.counter = 0;
-            superMagicBeamSprite.elapsedFrames = 0;
-            superMagicBeamSprite.parts = this.scene.physics.add.group();
-            console.log(superMagicBeamSprite);
-            console.log((superMagicBeamSprite.width/2) * Math.cos(this.angle));
-            superMagicBeamSprite.parts.add(this.scene.physics.add.sprite(partPointX,partPointY,'beamPart').setScale(3,3));
-            superMagicBeamSprite.parts.add(this.scene.physics.add.sprite(partPointX + 50*(Math.sin(Math.PI / 2 - this.angle)), partPointY + 50*(Math.cos(Math.PI / 2 - this.angle)), 'beamPart').setScale(3, 3));
         
-            superMagicBeamSprite.counter = 0;
-            superMagicBeamSprite.enemiesHit = [];
-            this.beam = superMagicBeamSprite;
-            
-
-            
-            let xx = Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.sin(this.angle)));
-            let yy = Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.cos(this.angle))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.cos(this.angle + Math.PI / 2)));
-            superMagicBeamSprite.xx = xx;
-            superMagicBeamSprite.yy = yy;
-            console.log("SUPER MAGIC",xx,yy );
-            
-            superMagicBeamSprite.parts.getChildren()[0].body.setSize(yy,xx);
-            superMagicBeamSprite.parts.getChildren()[0].body.setOffset(0,0);
-            superMagicBeamSprite.parts.getChildren()[0].beamSprite = superMagicBeamSprite;
-            superMagicBeamSprite.parts.getChildren()[1].body.setSize(yy,xx);
-            superMagicBeamSprite.parts.getChildren()[1].body.setOffset(0,0);
-            superMagicBeamSprite.parts.getChildren()[1].beamSprite = superMagicBeamSprite;
-            /*superMagicBeamSprite.parts[2].body.setSize(yy,xx);
-            superMagicBeamSprite.parts[2].body.setOffset(0,0);
-            superMagicBeamSprite.parts[3].body.setSize(yy,xx);
-            superMagicBeamSprite.parts[3].body.setOffset(0,0);
-            superMagicBeamSprite.parts[4].body.setSize(yy,xx);
-            superMagicBeamSprite.parts[4].body.setOffset(0,0);
-            superMagicBeamSprite.parts[5].body.setSize(yy,xx);
-            superMagicBeamSprite.parts[5].body.setOffset(0,0);*/
-
-            //superMagicBeamSprite.body.setOffset(80,10);
-            console.log(superMagicBeamSprite.body);
-            console.log(this.sprite.x, this.sprite.y);
-            //superMagicBeamSprite.body.x = this.sprite.x;
-            //superMagicBeamSprite.body.y = this.sprite.y;
-
-            //superMagicBeamSprite.body.setOffset(superMagicBeamSprite.body.offset.x-40, superMagicBeamSprite.body.offset.y-40);
-
-            superMagicBeamSprite.setRotation(this.angle);
-
-            superMagicBeamSprite.on('animationcomplete', function (anim, frame) {
-                this.emit('animationcomplete_' + anim.key, anim, frame);
-            }, superMagicBeamSprite);
-
-            superMagicBeamSprite.on('animationcomplete_superMagic', function (o1) {
-                this.class.usedBeam = true;
-                this.class.chargeNow = true;
-                console.log(this.parts);
-                let children = this.parts.getChildren();
-                for(var i = 0; i< children.length; i++){
-                    children[i].destroy();
-                    i--;
-                }
-                this.parts.destroy();
-                this.parts = null;
-                this.class.beams.splice(this.class.beams.indexOf(this),1);
-                console.log(this.class.beams);
-                this.destroy();
-            });
-            this.beams.push(superMagicBeamSprite);
-            //superMagicBeamSprite.body.setVelocityY(this.basicAttackSpeed * Math.sin(this.angle));
-            //superMagicBeamSprite.body.setVelocityX(this.basicAttackSpeed * Math.cos(this.angle));
-            superMagicBeamSprite.anims.play("superMagic");
-
-            //The beam attacked
-            this.scene.physics.add.overlap(superMagicBeamSprite.parts.getChildren(), this.scene.enemyGroup.getChildren(), function (beamPart, enemySprite) {
-                if (!beamPart.beamSprite.enemiesHit.includes(enemySprite)) {
-                    beamPart.beamSprite.enemiesHit.push(enemySprite);
-                    beamPart.beamSprite.scene.hittingWithSuperMagicBeam(beamPart.beamSprite, enemySprite);
-                }
-            });
-
-
-
-            this.scene.sound.play("audiomageattack", {
-                "volume": 30
-            });
+        let superMagicBeamSprite = this.scene.add.sprite(pointX, pointY, HEROES.MAGE_HERO, 'superMagic/0001.png').setScale(8, 8);
+        superMagicBeamSprite.class = this;
+        superMagicBeamSprite.xFactor = 50*(Math.sin(Math.PI / 2 - this.angle));
+        superMagicBeamSprite.yFactor = 50*(Math.cos(Math.PI / 2 - this.angle));
+        superMagicBeamSprite.prevPointX = partPointX + 50*(Math.sin(Math.PI / 2 - this.angle));
+        superMagicBeamSprite.prevPointY = partPointY + 50*(Math.cos(Math.PI / 2 - this.angle));
+        superMagicBeamSprite.counter = 0;
+        superMagicBeamSprite.elapsedFrames = 0;
+        superMagicBeamSprite.parts = this.scene.physics.add.group();
+        console.log(superMagicBeamSprite);
+        console.log((superMagicBeamSprite.width/2) * Math.cos(this.angle));
+        superMagicBeamSprite.parts.add(this.scene.physics.add.sprite(partPointX,partPointY,'beamPart').setScale(3,3));
+        superMagicBeamSprite.parts.add(this.scene.physics.add.sprite(partPointX + 50*(Math.sin(Math.PI / 2 - this.angle)), partPointY + 50*(Math.cos(Math.PI / 2 - this.angle)), 'beamPart').setScale(3, 3));
+    
+        superMagicBeamSprite.counter = 0;
+        superMagicBeamSprite.enemiesHit = [];
+        this.beam = superMagicBeamSprite;
+    
         
-        }
+        let xx = Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.sin(this.angle)));
+        let yy = Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.cos(this.angle))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.cos(this.angle + Math.PI / 2)));
+        superMagicBeamSprite.xx = xx;
+        superMagicBeamSprite.yy = yy;
+        console.log("SUPER MAGIC",xx,yy );
+        
+        superMagicBeamSprite.parts.getChildren()[0].body.setSize(yy,xx);
+        superMagicBeamSprite.parts.getChildren()[0].body.setOffset(0,0);
+        superMagicBeamSprite.parts.getChildren()[0].beamSprite = superMagicBeamSprite;
+        superMagicBeamSprite.parts.getChildren()[1].body.setSize(yy,xx);
+        superMagicBeamSprite.parts.getChildren()[1].body.setOffset(0,0);
+        superMagicBeamSprite.parts.getChildren()[1].beamSprite = superMagicBeamSprite;
+        /*superMagicBeamSprite.parts[2].body.setSize(yy,xx);
+        superMagicBeamSprite.parts[2].body.setOffset(0,0);
+        superMagicBeamSprite.parts[3].body.setSize(yy,xx);
+        superMagicBeamSprite.parts[3].body.setOffset(0,0);
+        superMagicBeamSprite.parts[4].body.setSize(yy,xx);
+        superMagicBeamSprite.parts[4].body.setOffset(0,0);
+        superMagicBeamSprite.parts[5].body.setSize(yy,xx);
+        superMagicBeamSprite.parts[5].body.setOffset(0,0);*/
+
+        //superMagicBeamSprite.body.setOffset(80,10);
+        //console.log(superMagicBeamSprite.body);
+        //console.log(this.sprite.x, this.sprite.y);
+        //superMagicBeamSprite.body.x = this.sprite.x;
+        //superMagicBeamSprite.body.y = this.sprite.y;
+
+        //superMagicBeamSprite.body.setOffset(superMagicBeamSprite.body.offset.x-40, superMagicBeamSprite.body.offset.y-40);
+
+        superMagicBeamSprite.setRotation(this.angle);
+
+        superMagicBeamSprite.on('animationcomplete', function (anim, frame) {
+            this.emit('animationcomplete_' + anim.key, anim, frame);
+        }, superMagicBeamSprite);
+
+        superMagicBeamSprite.on('animationcomplete_superMagic', function (o1) {
+            this.class.usedBeam = true;
+            this.class.chargeNow = true;
+            this.class.specialAttacked = false;
+            console.log(this.parts);
+            let children = this.parts.getChildren();
+            for(var i = 0; i< children.length; i++){
+                children[i].destroy();
+                i--;
+            }
+            this.parts.destroy();
+            this.parts = null;
+            this.class.beams.splice(this.class.beams.indexOf(this),1);
+            console.log(this.class.beams);
+            this.destroy();
+        });
+        this.beams.push(superMagicBeamSprite);
+        //superMagicBeamSprite.body.setVelocityY(this.basicAttackSpeed * Math.sin(this.angle));
+        //superMagicBeamSprite.body.setVelocityX(this.basicAttackSpeed * Math.cos(this.angle));
+        superMagicBeamSprite.anims.play("superMagic");
+
+        //The beam attacked
+        this.scene.physics.add.overlap(superMagicBeamSprite.parts.getChildren(), this.scene.enemyGroup.getChildren(), function (beamPart, enemySprite) {
+            if (!beamPart.beamSprite.enemiesHit.includes(enemySprite)) {
+                beamPart.beamSprite.enemiesHit.push(enemySprite);
+                beamPart.beamSprite.scene.hittingWithSuperMagicBeam(beamPart.beamSprite, enemySprite);
+            }
+        });
+
+
+
+        this.scene.sound.play("audiomageattack", {
+            "volume": 30
+        });
+        
     }
 
     swap() {

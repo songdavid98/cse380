@@ -55,7 +55,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 10; //Day Countdown timer ~ 2min?
+        this.timeLimit = 300; //Day Countdown timer ~ 2min?
         this.textWords;
         this.unlockedLevels = data.unlockedLevels || [2,0,0,0,0,0,0,0];
         console.log(this.unlockedLevels);
@@ -98,6 +98,7 @@ export class DayScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.MINOTAUR, './assets/images/enemies/minotaur.json', "assets/images/enemies");
 
 
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
@@ -259,9 +260,6 @@ export class DayScene extends Phaser.Scene {
             healthBarSprite.visible = false;
             healthSprite.visible = false;
 
-
-
-
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({
                 "sprite": slimeSprite,
@@ -380,11 +378,13 @@ export class DayScene extends Phaser.Scene {
 
 
         this.input.on('pointerdown', function (pointer) {
+            console.log(this.player.specialAttacked);
             if (!this.player.dead && pointer.leftButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 //Call the player's attack 
                 this.player.attackBasic(pointer);
-            } else if (pointer.rightButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown) {
+            } else if (pointer.rightButtonDown() && Math.floor(this.time.now / 1000) - this.player.previousTime >= this.player.attackCooldown && !this.player.specialAttacked && !this.player.chargeNow) {
+                this.player.specialAttacked = true;
                 this.player.previousTime = Math.floor(this.time.now / 1000);
                 this.player.attackSpecial(pointer, this.player.angle);
             }
@@ -772,7 +772,6 @@ export class DayScene extends Phaser.Scene {
 
     update(time, delta) {
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
-            console.log("hello");
             this.player.active = true;
             this.player.sprite.body.setVelocity(0, 0);
         }
