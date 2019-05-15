@@ -366,7 +366,7 @@ export class NightScene extends Phaser.Scene {
                     enem.health = 0;
                 }
                 if (enem.health <= 0) {
-                    enem.destroySprite();
+                    //enem.destroySprite();
                     enem.active = false;
                     this.enemies.splice(i, 1);
                     i--;
@@ -527,6 +527,7 @@ export class NightScene extends Phaser.Scene {
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newSlime = new Slime({
+                    "scene": this,
                     "sprite": enemySprite,
                     "physics": this.physics,
                     "anims": this.anims,
@@ -592,5 +593,9 @@ export class NightScene extends Phaser.Scene {
                 return true;
         }
         return false;
+    }
+
+    getMoney( money ) {
+        this.money += money;
     }
 }
