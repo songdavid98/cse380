@@ -125,6 +125,7 @@ export class HelpScene extends Phaser.Scene {
         tab4.setInteractive();
         
         backButton.on("pointerdown", () => {
+            //this.music.stop();
             console.log("hello");
             let data = {
                 "str":"main menu from level help",
@@ -212,6 +213,7 @@ export class HelpScene extends Phaser.Scene {
     update(time, delta) {
         if (this.input.keyboard.keys[27].isDown) {
             let data = {
+                "music":this.music,
                 "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.MAIN_MENU, data);

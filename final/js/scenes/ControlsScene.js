@@ -64,6 +64,7 @@ export class ControlsScene extends Phaser.Scene {
     update(time, delta) {
         if (this.input.keyboard.keys[27].isDown) {
             let data = {
+                "music":this.music,
                 "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.MAIN_MENU,data);
