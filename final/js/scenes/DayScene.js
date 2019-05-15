@@ -184,7 +184,7 @@ export class DayScene extends Phaser.Scene {
 
         //Create the heroes
         this.shieldHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SHIELD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
-        this.swordHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
+        this.swordHeroSprite = this.physics.add.sprite(1600, 4000, HEROES.SWORD_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
         this.mageHeroSprite = this.physics.add.sprite(initialX, initialY, HEROES.MAGE_HERO, 'down/0001.png').setScale(5, 5).setDepth(1);
 
         this.playerGroup = this.physics.add.group();

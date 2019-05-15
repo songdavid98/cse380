@@ -48,6 +48,7 @@ export class Dungeon3 extends DayScene {
         super.init(data);
 
         this.slimeSpawnArr = [
+            /*
             [1800, 600+3200],
             [2320, 300+3200],
             [1500, 500+3200],
@@ -57,17 +58,17 @@ export class Dungeon3 extends DayScene {
             [1600, 1200+3200],
             [1550, 1600+3200],
             [1500, 1000+3200],
-            [1600, 1500+3200]
+            [1600, 1500+3200]*/
         ];
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
-            [1900, 1200+3200],
-            [1400, 1500+3200]
+            /*[1900, 1200+3200],
+            [1400, 1500+3200]*/
         ];
         this.golemCount = this.golemSpawnArr.length;
 
-        this.goblinSpawnArr = [
+        this.goblinSpawnArr = [/*
             [1300, 1400+3200],
             [1400, 600+3200],
             [1500, 1400+3200],
@@ -79,13 +80,13 @@ export class Dungeon3 extends DayScene {
             [1220, 1300+3200],
             [1600, 600+3200],
             [1700, 900+3200],
-            [1800, 800+3200],
+            [1800, 800+3200],*/
 
         ];
         this.goblinCount = this.goblinSpawnArr.length;
 
         this.minotaurSpawnArr = [
-            [1600,800]
+            /*[1600,800]*/
         ];
         this.minotaurLength = this.minotaurSpawnArr.length;
 
@@ -138,6 +139,15 @@ export class Dungeon3 extends DayScene {
             barrels[i].body.setOffset(0, 0);
         }
 
+        let goblinSpawnPoints = this.createSpawnPoints('goblinSpawnPoints',60,'clear');
+        for(let i = 0; i < goblinSpawnPoints.getChildren().length; i++){
+            let halfOfTileWidth = goblinSpawnPoints.getChildren()[0].width/2;
+            let halfOfTileHeight = goblinSpawnPoints.getChildren()[0].height/2;
+            let x = (goblinSpawnPoints.getChildren()[i].x-halfOfTileWidth)*4;
+            let y = (goblinSpawnPoints.getChildren()[i].y-halfOfTileHeight)*4;
+            this.goblinSpawnArr.push([x,y]);
+        }
+        this.spawnMoreGoblins();
         //collisions
         this.wallLayer.setCollision(6); //dungeon level     //Change this if you want a different tile set. This is the ID.
         this.prisonLayer.setCollision(18);
