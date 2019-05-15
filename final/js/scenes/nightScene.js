@@ -48,6 +48,7 @@ export class NightScene extends Phaser.Scene {
         this.time;
         this.map;
 
+        this.sceneType = "night";
         this.gameEndTime = -1;
         this.winGame = false;
 
@@ -108,7 +109,6 @@ export class NightScene extends Phaser.Scene {
         this.load.image("rangeCircle", "./assets/images/defenseStructure/circle/newcircle.png");
 
 
-
         console.log("Welcome to level " + this.level);
 
 
@@ -145,6 +145,12 @@ export class NightScene extends Phaser.Scene {
         this.plantLayer = this.map.createStaticLayer("background plants", [this.terrain], 2, 0).setScale(5, 3);
         this.rockLayer = this.map.createStaticLayer("background rocks", [this.terrain], 2, 0).setScale(5, 3);
         this.wallLayer = this.map.createStaticLayer("background wall", [this.terrain], 4, 0).setScale(5, 3);
+
+
+
+
+
+
 
 
         //add money info
@@ -355,6 +361,8 @@ export class NightScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+
+        
         //enemy update, so that when the game ends, the enemy Pathfinding doesn't shut down
         if (this.enemies) {
             for (let i = 0; i < this.enemies.length; i++) {
@@ -522,6 +530,9 @@ export class NightScene extends Phaser.Scene {
         let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
         let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
         
+        healthBarSprite.visible = false;
+        healthSprite.visible = false;
+
         switch (enemyType) {
             case ENEMIES.SLIME:
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'left/0001.png').setScale(5, 5);

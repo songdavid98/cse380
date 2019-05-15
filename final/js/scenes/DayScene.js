@@ -46,6 +46,7 @@ export class DayScene extends Phaser.Scene {
         this.sceneKey = data['key'];
     }
     init(data) {
+        this.sceneType = "day";
         this.map;
         this.monsterArray = new Array();
         this.level = data.level;

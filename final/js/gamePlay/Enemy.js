@@ -51,8 +51,11 @@ export class Enemy {
         if (this.health > 0) {
             if (!this.healthBar.visible || !this.greenBar.visible) {
                 this.healthBar.visible = true;
+                console.log("HEY COME HERE TO SEE");
                 this.greenBar.visible = true;
             }
+
+            console.log(this.healthBar);
             this.health -= intDamageTaken; //For now, it's only the basic attack...
             this.beenAttacked = true;
             this.greenBar.setScale(2 * (this.health / this.totalHealth), 2);
