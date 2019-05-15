@@ -457,6 +457,14 @@ export class NightScene extends Phaser.Scene {
                             break;
                         case 6: 
                             this.unlockedLevels = [1,1,1,1,1,1,1,2];
+                            /*
+                            let datam = {
+                                "str":"moving to level select",
+                                "unlockedLevels":this.unlockedLevels
+                            }
+                            this.scene.start(SCENES.ENDING,datam);
+                            this.scene.stop();
+                            */
                             break;
                     }
                     let data = {

@@ -32,6 +32,8 @@ export class SwordHero extends DayPlayer {
         this.specialBlinkSpeed = 200;
         this.lastSpecialBlinked = 0;
 
+
+        this.chargeNow = true;
         this.create();
     }
     init() {}
@@ -278,7 +280,6 @@ export class SwordHero extends DayPlayer {
             this.class.startSpecialAttackTime = this.class.time;
         });
         this.sprite.on('animationcomplete_specialEnd', function () {
-            this.class.specialAttacked = false;
             this.class.attacking = false;
             this.class.invincible = false;
         });
@@ -424,6 +425,7 @@ export class SwordHero extends DayPlayer {
     }
 
     attackSpecial(cursor, angle) {
+
         this.attacking = true;
         this.sprite.anims.play("specialStart", true);
         this.angle = 0;
@@ -456,6 +458,8 @@ export class SwordHero extends DayPlayer {
             this.sprite.anims.playReverse("specialEnd");
             this.continueSpecialAttack = false;
             this.sprite.clearTint();
+            this.chargeNow = true;
+
         }
     }
 
