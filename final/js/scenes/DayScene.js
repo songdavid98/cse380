@@ -783,6 +783,7 @@ export class DayScene extends Phaser.Scene {
                 this.scene.pause(SCENES.DAY_OVERLAY)
                 this.scene.pause();
             } else if (this.input.keyboard.keys[27].isUp && this.justPaused) {
+                console.log(this.justPaused);
                 this.justPaused = false;
                 this.music.resume();
             }
