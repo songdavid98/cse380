@@ -37,6 +37,10 @@ export class PauseScene extends Phaser.Scene{
             for(var i = 0; i < this.scenes.length; i++){
                 this.scene.resume(this.scenes[i]);
             }
+            if (this.dayScene)
+                this.dayScene.initTime += this.time.now - this.initTime;
+                this.dayScene.input.keyboard.keys[27].isUp = true;
+                this.dayScene.input.keyboard.keys[27].isDown = false;
             this.scene.stop();
         });
         exitButton.on("pointerdown", ()=>{
