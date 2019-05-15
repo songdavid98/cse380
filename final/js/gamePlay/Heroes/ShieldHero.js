@@ -416,11 +416,11 @@ export class ShieldHero extends DayPlayer {
         }
         if (Math.random() > 0.5)
             this.scene.sound.play("audioshieldattack1", {
-                "volume": 15
+                "volume": 5
             });
         else
             this.scene.sound.play("audioshieldattack2", {
-                "volume": 15
+                "volume": 5
             });
     }
 
@@ -513,11 +513,11 @@ export class ShieldHero extends DayPlayer {
 
         if (Math.random() > 0.5)
         this.scene.sound.play("audioshieldattack1", {
-            "volume": 15
+            "volume": 5
         });
     else
         this.scene.sound.play("audioshieldattack2", {
-            "volume": 15
+            "volume": 5
         });
 
 

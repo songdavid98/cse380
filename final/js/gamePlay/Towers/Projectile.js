@@ -38,8 +38,8 @@ export class Projectile {
 
                 if (enemDistToProj > this.size)
                     continue;
-                
-                enem.health -= this.damage;
+                enem.damaged(this.damage);
+                //enem.health -= this.damage;
                 this.sprite.x = -1000;
                 this.sprite.y = -1000;
                 this.sprite.body.setVelocityX( 0 );

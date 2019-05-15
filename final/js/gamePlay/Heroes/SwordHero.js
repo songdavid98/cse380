@@ -14,7 +14,7 @@ export class SwordHero extends DayPlayer {
         this.health = 3;
         this.basicAttack = 2;
         this.basicAttackSpeed = 3;
-        this.specialAttack = 2;
+        this.specialAttack = 0.025;
         this.specialAttackSpeed = 4;
         this.speed = 400;
 
@@ -419,7 +419,7 @@ export class SwordHero extends DayPlayer {
         });
         //play sound
         this.scene.sound.play("audioswordslice", {
-            "volume": 30
+            "volume": 15
         });
     }
 

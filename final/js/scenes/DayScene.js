@@ -98,6 +98,7 @@ export class DayScene extends Phaser.Scene {
         this.load.multiatlas(ENEMIES.GOLEM, './assets/images/enemies/golem.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.SLIME, './assets/images/enemies/slime.json', "assets/images/enemies");
         this.load.multiatlas(ENEMIES.GOBLIN, './assets/images/enemies/goblin.json', "assets/images/enemies");
+        this.load.multiatlas(ENEMIES.MINOTAUR, './assets/images/enemies/minotaur.json', "assets/images/enemies");
 
 
         this.load.audio("audiobackgroundsong", "./assets/audio/backgroundsong.wav");
@@ -258,9 +259,6 @@ export class DayScene extends Phaser.Scene {
 
             healthBarSprite.visible = false;
             healthSprite.visible = false;
-
-
-
 
             this.enemyGroup.add(slimeSprite);
             let slime = new Slime({
@@ -778,7 +776,6 @@ export class DayScene extends Phaser.Scene {
 
     update(time, delta) {
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
-            console.log("hello");
             this.player.active = true;
             this.player.sprite.body.setVelocity(0, 0);
         }

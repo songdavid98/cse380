@@ -136,7 +136,7 @@ export class NightScene extends Phaser.Scene {
         this.music = this.sound.add("audionightbackgroundsong");
         this.music.setLoop(true);
         this.music.play()
-        this.music.setVolume(0.25);
+        this.music.setVolume(1);
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain");
@@ -366,7 +366,7 @@ export class NightScene extends Phaser.Scene {
                     enem.health = 0;
                 }
                 if (enem.health <= 0) {
-                    enem.destroySprite();
+                    //enem.destroySprite();
                     enem.active = false;
                     this.enemies.splice(i, 1);
                     i--;
@@ -527,6 +527,7 @@ export class NightScene extends Phaser.Scene {
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.SLIME, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newSlime = new Slime({
+                    "scene": this,
                     "sprite": enemySprite,
                     "physics": this.physics,
                     "anims": this.anims,
@@ -585,7 +586,6 @@ export class NightScene extends Phaser.Scene {
     }
 
     closeToTower(x, y, sizeOfTower) {
-        console.log("closeToTower begin");
         for (let i = 0; i < this.defStrs.length; i++) {
             let towerSprite = this.defStrs[i].sprite;
             let distance = Phaser.Math.Distance.Between(x, y, towerSprite.x, towerSprite.y);
@@ -593,5 +593,9 @@ export class NightScene extends Phaser.Scene {
                 return true;
         }
         return false;
+    }
+
+    getMoney( money ) {
+        this.money += money;
     }
 }

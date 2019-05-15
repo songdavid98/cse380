@@ -281,7 +281,7 @@ export class MageHero extends DayPlayer {
         for(var i=0; i<this.beams.length; i++){
             //console.log("test");
             if(this.beams[i].counter == 8 && this.beams[i].elapsedFrames != 13){
-                console.log(this.beams[i].prevPointX, this.beams[i].prevPointY);
+                //console.log(this.beams[i].prevPointX, this.beams[i].prevPointY);
 
                 let new1 = this.scene.physics.add.sprite(this.beams[i].prevPointX + this.beams[i].xFactor,this.beams[i].prevPointY + this.beams[i].yFactor,'beamPart').setScale(3,3);
                 new1.body.setSize(this.beams[i].yy,this.beams[i].xx);
@@ -403,7 +403,7 @@ export class MageHero extends DayPlayer {
         });
 
         this.scene.sound.play("audiomageattack", {
-            "volume": 30
+            "volume": 20
         });
     }
 
@@ -454,8 +454,7 @@ export class MageHero extends DayPlayer {
         superMagicBeamSprite.counter = 0;
         superMagicBeamSprite.enemiesHit = [];
         this.beam = superMagicBeamSprite;
-        
-
+    
         
         let xx = Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.sin(this.angle)));
         let yy = Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.cos(this.angle))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.cos(this.angle + Math.PI / 2)));
@@ -479,8 +478,8 @@ export class MageHero extends DayPlayer {
         superMagicBeamSprite.parts[5].body.setOffset(0,0);*/
 
         //superMagicBeamSprite.body.setOffset(80,10);
-        console.log(superMagicBeamSprite.body);
-        console.log(this.sprite.x, this.sprite.y);
+        //console.log(superMagicBeamSprite.body);
+        //console.log(this.sprite.x, this.sprite.y);
         //superMagicBeamSprite.body.x = this.sprite.x;
         //superMagicBeamSprite.body.y = this.sprite.y;
 
@@ -524,7 +523,7 @@ export class MageHero extends DayPlayer {
 
 
         this.scene.sound.play("audiomageattack", {
-            "volume": 30
+            "volume": 20
         });
         
     }

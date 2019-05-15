@@ -49,7 +49,7 @@ export class Enemy {
     //When the hero tries to kill the monster
     damaged(intDamageTaken, player) {
         if (this.health > 0) {
-            if (!this.healthBar.visible && !this.greenBar.visible) {
+            if (!this.healthBar.visible || !this.greenBar.visible) {
                 this.healthBar.visible = true;
                 this.greenBar.visible = true;
             }

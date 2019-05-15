@@ -234,9 +234,6 @@ export class DayOverlayScene extends Phaser.Scene {
         if(this.mageHero.chargeNow){
             if(!this.mageHero.usedBeam){
                 if(Math.floor(time/1000) - Math.floor(this.chargeBlueTime/1000) > this.mageHero.chargingBlueIncrementTime){
-                    console.log("CHARGING", this.superBlue);
-                    console.log("CHARGINGg ", this.superBar);
-
                     this.superBlue.setScale(this.superBlue.scaleX+ 1, 4);
                     this.superBlue.x =  this.superBar.width + 7 + ((this.superBlue.width) * this.superBlue.scaleX / 2) - this.superBlue.scaleX*0.75;
 
