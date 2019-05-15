@@ -102,7 +102,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -163,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -209,6 +209,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../images/enemies/minotaur/swingLeft/0001.png</key>
+            <key type="filename">../images/enemies/minotaur/swingLeft/0002.png</key>
+            <key type="filename">../images/enemies/minotaur/swingLeft/0003.png</key>
+            <key type="filename">../images/enemies/minotaur/swingLeft/0004.png</key>
             <key type="filename">../images/enemies/minotaur/swingRight/0001.png</key>
             <key type="filename">../images/enemies/minotaur/swingRight/0002.png</key>
             <key type="filename">../images/enemies/minotaur/swingRight/0003.png</key>

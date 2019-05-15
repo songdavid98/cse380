@@ -211,32 +211,32 @@ export class Dungeon5 extends DayScene {
         });
 
         this.physics.add.overlap(this.treasure6, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 5000;
+            o1.scene.money += 50;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure7, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 5000;
+            o1.scene.money += 50;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure8, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 5000;
+            o1.scene.money += 50;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure9, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 5000;
+            o1.scene.money += 50;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure10, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 5000;
+            o1.scene.money += 50;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure11, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 5000;
+            o1.scene.money += 50;
             o1.destroy();
         });
 
