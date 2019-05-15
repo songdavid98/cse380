@@ -31,6 +31,7 @@ export class Minotaur extends Enemy {
         this.active = true;
         this.dead = false;
         this.movementTime = 20;
+        this.counter = 0;
 
 
         this.lastAttacked = 0;
@@ -202,7 +203,8 @@ export class Minotaur extends Enemy {
 
     dayUpdate(time, player) {
         //have dayscene activity here
-        if(!this.dead){
+        
+        if(!this.dead && !player.dead){
             //Call the enemy class dayUpdate
             super.dayUpdate(time);
         
@@ -225,15 +227,17 @@ export class Minotaur extends Enemy {
                         }
                         try {
 
-                            if(this.counter > this.movementTime){                        
-                                this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
-                                if(distance <= 300 && time - this.lastAttacked >= this.atkCooldown*1000){
-                                    this.lastAttacked = time;
-                                    console.log(this.state);
-                                    this.sprite.body.setVelocity(0,0);
-                                    this.state = 'attacking';
-                                    this.attack();
-                                }
+                            if(this.counter > this.movementTime){  
+                                    this.attackDist(this.sprite.body.position.x, this.sprite.body.position.y, player.sprite.body.position.x, player.sprite.body.position.y);
+                                    if(distance <= 300 && time - this.lastAttacked >= this.atkCooldown*1000){
+                                        this.lastAttacked = time;
+                                        console.log(this.state);
+                                        this.sprite.body.setVelocity(0,0);
+                                        this.state = 'attacking';
+                                        this.attack();
+                                    }
+                                    this.counter = 0;
+                                    
                             }
                             else{
                                 this.counter++;

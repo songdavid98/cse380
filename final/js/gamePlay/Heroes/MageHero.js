@@ -454,8 +454,7 @@ export class MageHero extends DayPlayer {
         superMagicBeamSprite.counter = 0;
         superMagicBeamSprite.enemiesHit = [];
         this.beam = superMagicBeamSprite;
-        
-
+    
         
         let xx = Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.sin(this.angle)));
         let yy = Math.abs(superMagicBeamSprite.parts.getChildren()[0].width * (Math.cos(this.angle))) + Math.abs(superMagicBeamSprite.parts.getChildren()[0].height * (Math.cos(this.angle + Math.PI / 2)));

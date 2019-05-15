@@ -772,7 +772,6 @@ export class DayScene extends Phaser.Scene {
 
     update(time, delta) {
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
-            console.log("hello");
             this.player.active = true;
             this.player.sprite.body.setVelocity(0, 0);
         }
