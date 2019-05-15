@@ -9,6 +9,7 @@ export class ControlsScene extends Phaser.Scene {
     }
     init(data) {
         this.music = data.music;
+        this.unlockedLevels = data.unlockedLevels;
         console.log(data);
         console.log("entered controls");
     }
@@ -50,7 +51,9 @@ export class ControlsScene extends Phaser.Scene {
             console.log("hello");
             let data = {
                 "str":"main menu from controls",
-                "music":this.music
+                "music":this.music,
+                "unlockedLevels":this.unlockedLevels
+
             }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
@@ -60,7 +63,10 @@ export class ControlsScene extends Phaser.Scene {
     }
     update(time, delta) {
         if (this.input.keyboard.keys[27].isDown) {
-            this.scene.start(SCENES.MAIN_MENU);
+            let data = {
+                "unlockedLevels":this.unlockedLevels
+            }
+            this.scene.start(SCENES.MAIN_MENU,data);
         }
     }
 }

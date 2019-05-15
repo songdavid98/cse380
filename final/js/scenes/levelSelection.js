@@ -132,7 +132,8 @@ export class LevelSelectionScene extends Phaser.Scene {
         this.tutorialButton.on("pointerdown", () => {
             this.music.stop();
             let data = {
-                "level": 0
+                "level": 0,
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.BEGINNING, data);
         });
@@ -289,7 +290,10 @@ export class LevelSelectionScene extends Phaser.Scene {
 
     update(time, delta) {
         if (this.input.keyboard.keys[27].isDown) {
-            this.scene.start(SCENES.MAIN_MENU);
+            let data = {
+                "unlockedLevels":this.unlockedLevels
+            }
+            this.scene.start(SCENES.MAIN_MENU, data);
         }
         if (this.input.keyboard.keys[50].isDown && !this.allLevelsUnlocked) {
                 this.level1Button.setInteractive();

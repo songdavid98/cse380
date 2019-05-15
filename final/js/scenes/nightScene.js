@@ -94,8 +94,7 @@ export class NightScene extends Phaser.Scene {
         this.startWavePressed = false;
         this.timeToStopInterval = null;
 
-        
-        this.alreadyClicked = false;
+        this.alreadyClicked = false; // describes if a buytower button has been clicked
     }
 
     preload() {
@@ -419,7 +418,7 @@ export class NightScene extends Phaser.Scene {
                 console.log(nextSetOfEnemies);
                 this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
             }
-        } else if (!this.spawnIntervalVar && this.enemiesToSpawn.length > 0) {
+        } else if (this.startWavePressed && !this.spawnIntervalVar && this.enemiesToSpawn.length > 0) {
             let nextSetOfEnemies = this.enemiesToSpawn.shift();
             this.spawnMultipleEnemies(nextSetOfEnemies[0], nextSetOfEnemies[1], nextSetOfEnemies[2]);
         }

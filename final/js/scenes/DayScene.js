@@ -746,7 +746,13 @@ export class DayScene extends Phaser.Scene {
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
             console.log(this.scene);
-            this.scene.start(SCENES.MAIN_MENU, 'dead');
+
+            let data = {
+                "str":"dead",
+                "unlockedLevels":this.unlockedLevels
+            }
+
+            this.scene.start(SCENES.MAIN_MENU, data);
             this.scene.stop();
         } else {
             
