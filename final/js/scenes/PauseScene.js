@@ -40,10 +40,10 @@ export class PauseScene extends Phaser.Scene{
                 if (this.pausedScene.spawnIntervalVar)
                     this.pausedScene.spawnIntervalVar.paused = false;
             }
-            if (this.dayScene)
-                this.dayScene.initTime += this.time.now - this.initTime;
-                this.dayScene.input.keyboard.keys[27].isUp = true;
-                this.dayScene.input.keyboard.keys[27].isDown = false;
+            if (this.pausedScene)
+                this.pausedScene.initTime += this.time.now - this.initTime;
+                this.pausedScene.input.keyboard.keys[27].isUp = true;
+                this.pausedScene.input.keyboard.keys[27].isDown = false;
             this.scene.stop();
         });
         exitButton.on("pointerdown", ()=>{

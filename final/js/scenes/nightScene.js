@@ -207,6 +207,8 @@ export class NightScene extends Phaser.Scene {
         buyicetower.setInteractive();
         buyicetower.on("pointerdown", (pointer) => {
             console.log("buyicetower pressed");
+            buycannon.alpha = 1;
+            buyturret.alpha = 1;
             if ( this.money < 400 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
@@ -233,6 +235,8 @@ export class NightScene extends Phaser.Scene {
                 this.towerSpriteForBuying = null;
                 this.startDragging = false;
                 this.towerToBePlaced = null;
+                this.rangeCircle.x = -1000;
+                this.rangeCircle.y = -1000;
             }
         });
         buyicetower.on("pointerover", (pointer) => {
@@ -249,12 +253,14 @@ export class NightScene extends Phaser.Scene {
         buycannon.setInteractive();
         buycannon.on("pointerdown", (pointer) => {
             console.log("buycannon pressed");
+            buyicetower.alpha = 1;
+            buyturret.alpha = 1;
             if ( this.money < 100 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
                 buycannon.alpha = 0.5;
-                this.towerSpriteForBuying = this.physics.add.sprite(pointer.x, pointer.y, DEFSTR.CANNON, 'right/0003.png').setScale(4, 4);
+                this.towerSpriteForBuying = this.physics.add.sprite(pointer.x, pointer.y, DEFSTR.CANNON, 'right/0003.png').setScale(6, 6);
                 
                 this.towerToBePlaced = new Cannon({
                     "sprite": this.towerSpriteForBuying,
@@ -282,6 +288,8 @@ export class NightScene extends Phaser.Scene {
                 this.towerSpriteForBuying = null;
                 this.startDragging = false;
                 this.towerToBePlaced = null;
+                this.rangeCircle.x = -1000;
+                this.rangeCircle.y = -1000;
             }
         });
         buycannon.on("pointerover", (pointer) => {
@@ -298,6 +306,8 @@ export class NightScene extends Phaser.Scene {
         buyturret.setInteractive();
         buyturret.on("pointerdown", (pointer) => {
             console.log("buyturret pressed");
+            buyicetower.alpha = 1;
+            buycannon.alpha = 1;
             if ( this.money < 100 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
@@ -311,7 +321,7 @@ export class NightScene extends Phaser.Scene {
                     "anims": this.anims
                 });
                 
-                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(3,3);
+                let projSprite = this.physics.add.sprite(-1000, -1000, DEFSTR.CANNONBALL, '0001.png').setScale(4, 4);
                 let proj = new Projectile({
                     "damage": this.towerToBePlaced.damage,
                     "sprite": projSprite
@@ -331,6 +341,8 @@ export class NightScene extends Phaser.Scene {
                 this.towerSpriteForBuying = null;
                 this.startDragging = false;
                 this.towerToBePlaced = null;
+                this.rangeCircle.x = -1000;
+                this.rangeCircle.y = -1000;
             }
         });
         buyturret.on("pointerover", (pointer) => {
@@ -397,6 +409,7 @@ export class NightScene extends Phaser.Scene {
                 this.alreadyClicked = false;
                 buycannon.alpha = 1;
                 buyicetower.alpha = 1;
+                buyturret.alpha = 1;
                 this.rangeCircle.x = -1000;
                 this.rangeCircle.y = -1000;
             }
@@ -599,6 +612,7 @@ export class NightScene extends Phaser.Scene {
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOBLIN, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newgoblin = new Goblin({
+                    "scene": this,
                     "sprite": enemySprite,
                     "physics": this.physics,
                     "anims": this.anims,
@@ -611,6 +625,7 @@ export class NightScene extends Phaser.Scene {
                 enemySprite = this.physics.add.sprite(this.spawnX, this.spawnY, ENEMIES.GOLEM, 'left/0001.png').setScale(5, 5);
                 this.enemySpritesGroup.add(enemySprite);
                 let newgolem = new Golem({
+                    "scene": this,
                     "sprite": enemySprite,
                     "physics": this.physics,
                     "anims": this.anims,
