@@ -9,8 +9,8 @@ export class MenuScene extends Phaser.Scene {
     }
     init(data) {
         this.music = data.music;
-        this.unlockedLevels = data.unlockedLevels || 0;
-        console.log(data.str);
+        this.unlockedLevels = data.unlockedLevels;
+        console.log(data.unlockedLevels);
     }
     preload() {
         this.load.audio("audiotitlesong", "./assets/audio/titlesong.wav");

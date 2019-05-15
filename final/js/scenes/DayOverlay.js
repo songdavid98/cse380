@@ -34,15 +34,29 @@ export class DayOverlayScene extends Phaser.Scene {
         this.timer = data.timer || 620;
         this.initTime = 0;
     }
-    create() {
+    preload(){
+        this.load.image("skipButton", "assets/images/buttons/skipButton.png");
 
-        if(this.dayScene.mapLevel == 'tutorial'){
+    }
+    create() {
+        console.log("what map?", this.dayScene.mapLevel);
+
+        if(this.dayScene.mapLevel == 'tutorial' || this.dayScene.mapLevel == 'miniMap'){
+            console.log("Overlay tutorial", this.dayScene.mapLevel);
             this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
-            
             this.text = this.add.text(30, 790, "Welcome to the tutorial", {
                 fontSize: '32px',
                 fill: '#000000',
             }).setDepth(4);
+
+            console.log(this.text);
+
+                    //Add this
+            let skipButton = this.add.image(this.game.renderer.width * .95, this.game.renderer.height * .1, "skipButton").setDepth(3).setScale(2, 2);
+            skipButton.setInteractive();
+            skipButton.on("pointerdown", () => {
+                this.dayScene.skip();
+            });
         }
         else{
             
@@ -222,7 +236,7 @@ export class DayOverlayScene extends Phaser.Scene {
         }
 
         //------------------- Text box stuff -----------------------
-        if(this.dayScene.mapLevel == 'tutorial'){
+        if(this.dayScene.mapLevel == 'tutorial' || this.dayScene.mapLevel == 'miniMap'){
             if(this.text != this.dayScene.textWords){
                 this.text.setText(this.dayScene.textWords);
             }
@@ -248,7 +262,7 @@ export class DayOverlayScene extends Phaser.Scene {
 
 
         //------------------------- Time Stuff ------------------------------------
-        if(this.dayScene.mapLevel != 'tutorial'){
+        if(this.dayScene.mapLevel != 'tutorial' && this.dayScene.mapLevel != 'miniMap' ){
             let timeRemaining = this.timer - (Math.floor(time / 1000) - Math.floor(this.initTime / 1000));
             let seconds = timeRemaining % 60;
             if (seconds < 10) {
@@ -269,13 +283,13 @@ export class DayOverlayScene extends Phaser.Scene {
                 //you win
                 switch(this.dayScene.level){
                     case 1: 
-                        this.unlockedLevels = [1,1,0,0,0,0,0];
+                        this.unlockedLevels = [1,1,2,0,0,0,0,0];
                         break;
                     case 3: 
-                        this.unlockedLevels = [1,1,1,1,0,0,0];
+                        this.unlockedLevels = [1,1,1,1,2,0,0,0];
                         break;
                     case 5: 
-                        this.unlockedLevels = [1,1,1,1,1,1,0];
+                        this.unlockedLevels = [1,1,1,1,1,1,2,0];
                         break;
                 }
                 let data = {

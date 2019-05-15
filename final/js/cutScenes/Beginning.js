@@ -81,21 +81,34 @@ export class Beginning extends CutScene{
 
         this.yesButton.setInteractive();
         this.noButton.setInteractive();
+        this.skipButton.setInteractive();
 
         this.yesButton.on("pointerdown", () => {
             console.log("YES we will fight");
             this.gaveAnswer = true;
             this.chosenToFight = true;
-            this.lineCounter = 19.5;
+            this.lineCounter = 20.5;
+            this.screenActive = true;
+
         });
 
         this.noButton.on("pointerdown", () => {
             console.log("NO we will not fight");
             this.gaveAnswer = true;
             this.chosenToFight = false;
-            this.lineCounter = 19.5;
+            this.lineCounter = 20.5;
+            this.screenActive = true;
+
         });
 
+        this.skipButton.on("pointerdown", () => {
+            this.music.stop();
+            let data = {
+                "level": 0
+            }
+            this.scene.start(SCENES.TUTORIAL, data);
+            this.scene.stop();
+        });
 
         this.music = this.sound.add("audiotitlesong");
         
@@ -287,7 +300,7 @@ export class Beginning extends CutScene{
 
             if(this.villageGirlSprite.body.position.x < 700){
                 this.villageGirlSprite.body.velocity.x = 250;
-                console.log("RUn");
+                console.log("RUn",this.villageGirlSprite.body.position.x);
             }
             else{
                 console.log("STOP");
@@ -295,9 +308,11 @@ export class Beginning extends CutScene{
                 this.villageGirlSprite.anims.play("rightIdleVillageGirl");
             }
         }
+
         else if(this.lineCounter == 16){
             if(this.onlyOnce){
                 this.villageGirlSprite.body.velocity.x = 0;
+                this.villageGirlSprite.body.position.x = 700;
                 this.villageGirlSprite.setPosition(700,650);
                 this.str = "Excuse me!";
                 this.oneTimeOnly(this.str);
@@ -337,25 +352,22 @@ export class Beginning extends CutScene{
 
 //------------------------------------------------------------------------------
         if(this.gaveAnswer){
+            console.log(this.lineCounter);
             if(this.lineCounter == 20){
+                this.screenActive = false;
                 if(!this.chosenToFight){
                     if(this.onlyOnce){
-                        this.yesButton.active = false;
-                        this.yesButton.visible = false;
-                        this.noButton.active = false;
-                        this.noButton.visible = false;
+
                         this.character.setText(this.shield);
                         this.str = "No thanks. We have to go find food.";
                         this.oneTimeOnly(this.str);
+                        
                     }
                     if(this.displayText(time, this.counter)){ this.counter++; } 
                 }
-                if(this.chosenToFight){
+                else{
                     if(this.onlyOnce){
-                        this.yesButton.active = false;
-                        this.yesButton.visible = false;
-                        this.noButton.active = false;
-                        this.noButton.visible = false;
+ 
                         this.character.setText(this.shield);
                         this.str = "Sure! If you give us food.";
                         this.oneTimeOnly(this.str);
@@ -364,6 +376,7 @@ export class Beginning extends CutScene{
                 }
             }
             else if(this.lineCounter == 21){
+                this.screenActive = true;
                 if(!this.chosenToFight ){
                     if(this.onlyOnce){
                         this.character.setText(this.vilGrl);
@@ -379,7 +392,11 @@ export class Beginning extends CutScene{
                         this.oneTimeOnly(this.str);
                     }
                     if(this.displayText(time, this.counter)){ this.counter++; } 
-                }    
+                } 
+                this.yesButton.active = false;
+                this.yesButton.visible = false;
+                this.noButton.active = false;
+                this.noButton.visible = false;   
             }
             else if(this.lineCounter == 22){
                 if(!this.chosenToFight ){

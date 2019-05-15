@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="5">
- <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="20" columns="20">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="6">
+ <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="62" columns="62">
   <properties>
    <property name="collide" type="bool" value="true"/>
   </properties>
-  <image source="../images/tiles/addableTiles.png" width="320" height="16"/>
+  <image source="../images/tiles/addableTiles.png" width="992" height="16"/>
   <tile id="3">
    <properties>
     <property name="collide" type="bool" value="true"/>
@@ -289,5 +289,6 @@
  <objectgroup id="9" name="objectLayer">
   <object id="2" name="barrel1" gid="1" x="156" y="223.5" width="16" height="16"/>
   <object id="3" name="barrel2" gid="1" x="626" y="224.5" width="16" height="16"/>
+  <object id="5" name="player" gid="59" x="392.667" y="736.667" width="16" height="16"/>
  </objectgroup>
 </map>

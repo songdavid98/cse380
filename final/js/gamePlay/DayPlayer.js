@@ -221,20 +221,20 @@ export class DayPlayer {
                         this.dead = true;
                         if (this.playerType == HEROES.SHIELD_HERO)
                             this.scene.sound.play("audiofemaledeath", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                         else
                             this.scene.sound.play("audiomaledeath", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                     } else {
                         if (this.playerType == HEROES.SHIELD_HERO)
                             this.scene.sound.play("audiohurtshield", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                         else
                             this.scene.sound.play("audiohurtmale", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                     }
                 }
@@ -271,20 +271,20 @@ export class DayPlayer {
                         this.dead = true;
                         if (this.playerType == HEROES.SHIELD_HERO)
                             this.scene.sound.play("audiofemaledeath", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                         else
                             this.scene.sound.play("audiomaledeath", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                     } else {
                         if (this.playerType == HEROES.SHIELD_HERO)
                             this.scene.sound.play("audiohurtshield", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                         else
                             this.scene.sound.play("audiohurtmale", {
-                                "volume": 30
+                                "volume": 0.25
                             });
                     }
                 }

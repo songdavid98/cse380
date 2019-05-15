@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="162">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="163">
  <tileset firstgid="1" name="addableTiles" tilewidth="16" tileheight="16" tilecount="62" columns="62">
   <image source="../images/tiles/addableTiles.png" trans="ffffff" width="992" height="16"/>
  </tileset>
+ <tileset firstgid="63" source="addableTiles.tsx"/>
  <layer id="5" name="base" width="64" height="64">
   <data encoding="csv">
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
@@ -407,11 +408,12 @@
   <object id="103" name="slime" gid="62" x="415" y="163" width="16" height="16"/>
   <object id="104" name="slime" gid="62" x="183" y="518" width="16" height="16"/>
   <object id="105" name="slime" gid="62" x="47" y="382" width="16" height="16"/>
-  <object id="106" name="slime" gid="62" x="245" y="167" width="16" height="16"/>
+  <object id="106" name="slime" gid="62" x="314.5" y="88.5" width="16" height="16"/>
   <object id="107" name="slime" gid="62" x="957" y="431" width="16" height="16"/>
   <object id="108" name="slime" gid="62" x="975" y="148" width="16" height="16"/>
   <object id="109" name="slime" gid="62" x="331" y="734" width="16" height="16"/>
   <object id="110" name="slime" gid="62" x="529" y="890" width="16" height="16"/>
+  <object id="162" name="player" gid="121" x="243.75" y="170" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="14" name="golemSpawnPoints">
   <object id="111" name="golem" gid="61" x="796" y="231" width="16" height="16"/>

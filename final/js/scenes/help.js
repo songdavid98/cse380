@@ -8,6 +8,7 @@ export class HelpScene extends Phaser.Scene {
         })
     }
     init(data) {
+        this.music = data.music;
         console.log(data);
         console.log("entered help");
     }
@@ -124,7 +125,10 @@ export class HelpScene extends Phaser.Scene {
         
         backButton.on("pointerdown", () => {
             console.log("hello");
-            let data = "main menu from level help"
+            let data = {
+                "str":"main menu from level help",
+                "music":this.music
+            }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
         tab1.on('pointerdown', () => {

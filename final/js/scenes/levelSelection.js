@@ -23,7 +23,8 @@ export class LevelSelectionScene extends Phaser.Scene {
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         this.cameras.main.setBackgroundColor('#008080')
         let backButton = this.add.image(this.game.renderer.width * .05, this.game.renderer.height * .1, "backButton").setDepth(1).setScale(2, 2);
-        let tutorialButton = this.add.image(this.game.renderer.width * .2, this.game.renderer.height * .38, "tutorialThumb").setDepth(2).setScale(1, 1);
+        
+        this.tutorialButton = this.add.image(this.game.renderer.width * .2, this.game.renderer.height * .38, "tutorialThumb").setDepth(2).setScale(1, 1);
         this.level1Button = this.add.image(this.game.renderer.width * .40, this.game.renderer.height * .38, "dungeon1Thumb").setDepth(2).setScale(1, 1);
         this.level2Button = this.add.image(this.game.renderer.width * .60, this.game.renderer.height * .38, "dungeon2Thumb").setDepth(2).setScale(1, 1); //level2
         this.level3Button = this.add.image(this.game.renderer.width * .80, this.game.renderer.height * .38, "dungeon3Thumb").setDepth(2).setScale(1, 1); //level3
@@ -43,12 +44,37 @@ export class LevelSelectionScene extends Phaser.Scene {
         this.lock4 = this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3);   //n-level2 tba
         this.lock6 = this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .68, "tba").setDepth(3).setScale(3, 3);  //n-level3 tba
 
+        //add checkmarks
+        this.checkMark0 = this.add.image(this.game.renderer.width * .2, this.game.renderer.height * .38, "checkmark").setDepth(3).setScale(3);
+        this.checkMark1 = this.add.image(this.game.renderer.width * .4, this.game.renderer.height * .38, "checkmark").setDepth(3).setScale(3);
+        this.checkMark3 = this.add.image(this.game.renderer.width * .6, this.game.renderer.height * .38, "checkmark").setDepth(3).setScale(3);
+        this.checkMark5 = this.add.image(this.game.renderer.width * .8, this.game.renderer.height * .38, "checkmark").setDepth(3).setScale(3);
+        this.checkMark2 = this.add.image(this.game.renderer.width * .25, this.game.renderer.height * .68, "checkmark").setDepth(3).setScale(3);
+        this.checkMark4 = this.add.image(this.game.renderer.width * .5, this.game.renderer.height * .68, "checkmark").setDepth(3).setScale(3);
+        this.checkMark6 = this.add.image(this.game.renderer.width * .75, this.game.renderer.height * .68, "checkmark").setDepth(3).setScale(3);
+
+        this.checkMark0.visible = false;
+        this.checkMark1.visible = false;
+        this.checkMark2.visible = false;
+        this.checkMark3.visible = false;
+        this.checkMark4.visible = false;
+        this.checkMark5.visible = false;
+        this.checkMark6.visible = false;
+
+
+
         //Unlock each level
         console.log("UNLOCKED: ", this.unlockedLevels);
+
         for(let i = 0; i < 7; i++){
-            if(this.unlockedLevels[i]){
-                this.unlock(i+1);
+            if(this.unlockedLevels[i] == 1){
+                this.check(i);
             }
+            else if(this.unlockedLevels[i] == 2){ //1 and 2
+                this.unlock(i);
+            }
+
+
         }
 
         //add text
@@ -88,9 +114,8 @@ export class LevelSelectionScene extends Phaser.Scene {
         //set opacities and stuff
         levelsBox.alpha = 0.75
 
-        //add button events
-        tutorialButton.setInteractive();
 
+        console.log(this.unlockedLevels);
         
         backButton.setInteractive();
 
@@ -104,7 +129,7 @@ export class LevelSelectionScene extends Phaser.Scene {
         if(!this.music.isPlaying){
             this.music.play();
         }
-        tutorialButton.on("pointerdown", () => {
+        this.tutorialButton.on("pointerdown", () => {
             this.music.stop();
             let data = {
                 "level": 0
@@ -115,7 +140,8 @@ export class LevelSelectionScene extends Phaser.Scene {
             this.music.stop();
             let data = {
                 "transitionScene":"d1",
-                "level": 1
+                "level": 1,
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
         });
@@ -123,7 +149,8 @@ export class LevelSelectionScene extends Phaser.Scene {
             this.music.stop();
             let data = {
                 "transitionScene":"d2",
-                "level": 3
+                "level": 3,
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
         });
@@ -131,7 +158,8 @@ export class LevelSelectionScene extends Phaser.Scene {
             this.music.stop();
             let data = {
                 "transitionScene":"d3",
-                "level": 5
+                "level": 5,
+                "unlockedLevels":this.unlockedLevels
             }
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
         });
@@ -140,7 +168,8 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "transitionScene":"n1",
                 "level": 2,
-                "money": 1000 + this.transferMoney
+                "money": 1000 + this.transferMoney,
+                "unlockedLevels":this.unlockedLevels
             } //Change this to make sure money comes from day time
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
         });
@@ -150,7 +179,8 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "transitionScene":"n2",
                 "level": 4,
-                "money": 1500 + this.transferMoney
+                "money": 1500 + this.transferMoney,
+                "unlockedLevels":this.unlockedLevels
             } //Change this to make sure money comes from day time
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
         });
@@ -159,14 +189,19 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "transitionScene":"n3",
                 "level": 6,
-                "money": 2000 + this.transferMoney
+                "money": 2000 + this.transferMoney,
+                "unlockedLevels":this.unlockedLevels
             } //Change this to make sure money comes from day time
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
         });
 
         backButton.on("pointerdown", () => {
             //this.music.pause();
-            let data = "main menu from level select"
+            let data = {
+                "str":"main menu from level select",
+                "music":this.music,
+                "unlockedLevels":this.unlockedLevels
+            }
             this.scene.start(SCENES.MAIN_MENU, data);
         });
 
@@ -178,6 +213,9 @@ export class LevelSelectionScene extends Phaser.Scene {
     unlock(levelNum){
         console.log("Unlocking level: ", levelNum);
         switch(levelNum){
+            case 0:
+                this.tutorialButton.setInteractive();
+                break;
             case 1:
                 this.level1Button.setInteractive();
                 this.lock1.visible = false;
@@ -208,6 +246,46 @@ export class LevelSelectionScene extends Phaser.Scene {
         }
     }
 
+    check(levelNum){
+        console.log("Checking level: ", levelNum);
+        switch(levelNum){
+            case 0:
+                this.checkMark0.visible = true;
+                break;
+            case 1:
+                this.lock1.visible = false;
+
+                this.checkMark1.visible = true;
+                break;
+            case 2:
+                this.lock2.visible = false;
+
+                this.checkMark2.visible = true;
+                break;
+            case 3:
+                this.lock3.visible = false;
+
+                this.checkMark3.visible = true;
+                break;
+            case 4: 
+                this.lock4.visible = false;
+                this.checkMark4.visible = true;
+                break;
+            case 5: 
+                this.lock5.visible = false;
+
+                this.checkMark5.visible = true;
+                break;
+            case 6:
+                this.lock6.visible = false;
+
+                this.checkMark6.visible = true;
+                break;
+            case 7:
+                console.log("YOU BEAT THE GAME!!!!!!!!!!!!!!!!");
+                console.log("INSERT ENDING SCENNE HERE");
+        }
+    }
 
     update(time, delta) {
         if (this.input.keyboard.keys[27].isDown) {
@@ -229,22 +307,8 @@ export class LevelSelectionScene extends Phaser.Scene {
                 this.lock6.visible = false;
                 this.allLevelsUnlocked = true;
         }
-        else if(this.input.keyboard.keys[50].isDown && this.allLevelsUnlocked){
-                this.level1Button.setInteractive(false);
-                this.nightLevel1Button.setInteractive(false);
-                this.level2Button.setInteractive(false);
-                this.nightLevel2Button.setInteractive(false);
-                this.level3Button.setInteractive(false);
-                this.nightLevel3Button.setInteractive(false);
 
-                this.lock1.visible = true;
-                this.lock3.visible = true;
-                this.lock5.visible = true;
-                this.lock2.visible = true;
-                this.lock4.visible = true;
-                this.lock6.visible = true;
-                this.allLevelsUnlocked = false;
-        }
+
 
 
     }

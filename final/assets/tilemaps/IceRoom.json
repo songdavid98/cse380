@@ -71,6 +71,18 @@
                  "width":16,
                  "x":173.667,
                  "y":50.3333
+                }, 
+                {
+                 "gid":121,
+                 "height":16,
+                 "id":10,
+                 "name":"player",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":53,
+                 "y":82
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -79,22 +91,22 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.3",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":20,
+         "columns":62,
          "firstgid":1,
          "image":"..\/images\/tiles\/addableTiles.png",
          "imageheight":16,
-         "imagewidth":320,
+         "imagewidth":992,
          "margin":0,
          "name":"addableTiles",
          "spacing":0,
-         "tilecount":20,
+         "tilecount":62,
          "tileheight":16,
          "tiles":[
                 {
@@ -127,11 +139,11 @@
          "tilewidth":16
         }, 
         {
-         "columns":20,
-         "firstgid":21,
+         "columns":62,
+         "firstgid":63,
          "image":"..\/images\/tiles\/addableTiles.png",
          "imageheight":16,
-         "imagewidth":320,
+         "imagewidth":992,
          "margin":0,
          "name":"addableTiles",
          "properties":[
@@ -141,7 +153,7 @@
                  "value":true
                 }],
          "spacing":0,
-         "tilecount":20,
+         "tilecount":62,
          "tileheight":16,
          "tiles":[
                 {

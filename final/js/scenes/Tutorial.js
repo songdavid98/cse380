@@ -37,12 +37,11 @@ export class Tutorial extends DayScene {
 
 
         //Lesson stuff
-        this.stepLength = 2;   //3 seconds
+        this.stepLength = 2;   //2 seconds
         this.doneOnce = false;
         this.resetStep = false;
         this.killedSlime = false;
         this.slimeFound = false;
-
 
         this.clearedAngle = [false, false, false, false]; //0, 90, 180, 270
 
@@ -55,14 +54,17 @@ export class Tutorial extends DayScene {
         this.load.image("treasure", "./assets/images/tiles/newerTileImages/treasure.png");
         this.load.image("barrel", "./assets/images/tiles/newerTileImages/barrel.png");
 
+
         this.load.tilemapTiledJSON("tutorial", "assets/tilemaps/tutorial.json");
         this.mapLevel = "tutorial";
 
     }
+
     create() {
         //Generate map
         this.map = this.add.tilemap(this.mapLevel);
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
+
 
         //this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
         this.baseLayer = this.map.createStaticLayer("groundLayer", [this.terrain], 0, 0).setScale(5, 5);
@@ -133,6 +135,18 @@ export class Tutorial extends DayScene {
 
     }
 
+    skip(){
+        this.music.stop();
+        this.scene.stop(SCENES.DAY_OVERLAY);
+        let unlockedLevels = [1,2,0,0,0,0,0,0];
+
+        let data = {
+            "str":"Day 1 Unlocked",
+            "unlockedLevels":unlockedLevels
+        }
+        this.scene.start(SCENES.MINI_DUNGEON,data);
+        this.scene.stop();
+    }
     //Walk and attack slimes, get coins
     tasks(time){
         //Walk with ASDW
@@ -493,22 +507,22 @@ export class Tutorial extends DayScene {
             }
             else{
                 console.log("Enter");
-                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+2){
+                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
                     if(!this.doneOnce){
                         this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
                         this.doneOnce = true;
                     }
                 }
-                else{
-                    this.music.pause();
-                    this.scene.stop(SCENES.DAY_OVERLAY);
-                    let unlockedLevels = [1,0,0,0,0,0,0];
+                else{                    
+                    let unlockedLevels = [1,2,0,0,0,0,0,0];
+                    this.music.stop();
 
                     let data = {
                         "str":"Day 1 Unlocked",
-                        "unlockedLevels":unlockedLevels
+                        "unlockedLevels":unlockedLevels,
+                        "music":this.music
                     }
-                    this.scene.start(SCENES.LEVEL_SELECT,data);
+                    this.scene.start(SCENES.MINI_DUNGEON,data);
                     this.scene.stop();
                 }
             }
@@ -549,7 +563,6 @@ export class Tutorial extends DayScene {
         if(this.enemyGroup.getChildren().length == 0){
             this.slimeFound = false;    //This is the reset counter
         }
- 
 
         if(!this.clearTasks){ this.tasks(time); }
         else{
@@ -559,9 +572,6 @@ export class Tutorial extends DayScene {
             this.scene.stop();
         }
    
-
-
-
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
             //console.log("hello");
             this.player.active = true;

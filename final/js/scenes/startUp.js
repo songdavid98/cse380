@@ -22,7 +22,9 @@ export class SplashScene extends Phaser.Scene {
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * .5, "textlogo").setDepth(2).setScale(3, 3);
         let startButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height * .7, "startButton").setDepth(1).setScale(3, 3);
 
-
+        if(this.music){
+            this.music.stop();
+        }
         this.music = this.sound.add("audiotitlesong");
         this.music.setLoop(true);
         this.music.play();
@@ -34,7 +36,7 @@ export class SplashScene extends Phaser.Scene {
         startButton.on("pointerdown", () => {
             //this.music.pause();
 
-            let unlockedLevels = [0,0,0,0,0,0];
+            let unlockedLevels = [2,0,0,0,0,0,0,0];
 
             let data = {
                 "music":this.music,
