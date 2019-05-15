@@ -200,6 +200,7 @@ export class Dungeon3 extends DayScene {
             this.scene.stop();
         }
         //cheats
+        /*
         if (this.input.keyboard.keys[49].isDown) {
             this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
@@ -246,5 +247,6 @@ export class Dungeon3 extends DayScene {
             });
             this.scene.stop();
         }
+        */
     }
 }

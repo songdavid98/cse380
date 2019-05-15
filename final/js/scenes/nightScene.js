@@ -446,6 +446,7 @@ export class NightScene extends Phaser.Scene {
         if (this.input.keyboard.keys[73].isDown) {
             this.invulnerable = true;
         }
+        /*
         if (this.input.keyboard.keys[49].isDown) {
             this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
@@ -471,6 +472,7 @@ export class NightScene extends Phaser.Scene {
             });
             this.scene.stop();
         }
+        */
     }
 
     spawnEnemy(enemyType) {

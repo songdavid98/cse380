@@ -800,10 +800,11 @@ export class DayScene extends Phaser.Scene {
 
             //Barrels
             //Stop moving the barrels
-            if(this.barrels && !this.barrels.move){
-                this.barrel.body.velocity.x = 0;
-                this.barrel.body.velocity.y = 0;
-                this.barrel.body.immovable = true;
+            if(this.barrels && !this.barrels.getChildren().move){
+                console.log(this.barrels.getChildren());
+                this.barrels.getChildren().body.velocity.x = 0;
+                this.barrels.getChildren().body.velocity.y = 0;
+                this.barrels.getChildren().body.immovable = true;
                 console.log("Barrel stops moving");
             }
             
