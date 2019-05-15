@@ -24,11 +24,12 @@ import {
 import {
     Cannon
 } from "../gamePlay/Towers/Cannon.js";
-
 import {
     Ice
 } from "../gamePlay/Towers/Ice.js";
-
+import {
+    Turret
+} from "../gamePlay/Towers/Turret.js";
 import {
     Projectile
 } from "../gamePlay/Towers/Projectile.js"

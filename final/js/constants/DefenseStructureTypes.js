@@ -1,5 +1,6 @@
 export const DEFSTR = {
     CANNON: "CANNON",
     ICE: "ICE",
-    CANNONBALL:"CANNONBALL"
+    CANNONBALL:"CANNONBALL",
+    TURRET:"TURRET"
 }
