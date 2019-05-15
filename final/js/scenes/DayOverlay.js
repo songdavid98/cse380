@@ -31,6 +31,7 @@ export class DayOverlayScene extends Phaser.Scene {
 
         //Super stuff
         this.chargeBlueTime = 0;
+        this.chargeRedTime = 0;
 
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
@@ -250,22 +251,18 @@ export class DayOverlayScene extends Phaser.Scene {
             }
 
         }
-        if(this.swordHero.kills && this.kills != this.swordHero.kills){
-            this.kills = this.swordHero.kills;
-            if(!this.swordHero.specialAttacked){
-                if(Math.floor(time/1000) - Math.floor(this.chargeBlueTime/1000) > this.mageHero.chargingBlueIncrementTime){
-                    console.log("CHARGING", this.superBlue);
-                    console.log("CHARGINGg ", this.superBar);
+        if(this.swordHero.kills && this.kills != this.swordHero.kills && this.swordHero.chargeNow){
+                    this.kills = this.swordHero.kills;
 
-                    this.superBlue.setScale(this.superBlue.scaleX+ 1, 4);
-                    this.superBlue.x =  this.superBar.width + 7 + ((this.superBlue.width) * this.superBlue.scaleX / 2) - this.superBlue.scaleX*0.75;
 
-                    this.chargeBlueTime = time;
-                    if(this.superBlue.scaleX >= this.superBar.scaleX){
-                        this.mageHero.chargeNow = false;
+                    this.superRed.setScale(this.kills*4/10, 4);
+                    this.superRed.x =  this.superBar.width + 7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX*0.75;
+
+                    if(this.superRed.scaleX >= this.superBar.scaleX){
+                        this.swordHero.chargeNow = false;
                     }
-                }
-            }
+                
+            
         }
 
 
