@@ -12,43 +12,11 @@ export class NightDefenseStructure {
         this.physics = data.physics;
         this.anims = data.anims;
         //sprite has attribute x and y
-
-        //        this.defstrType = data.defstrType;
-        //        this.health = data.health;
-        //        this.damage = data.d;
-        //        this.speed = data.speed;
-        //
-        //        this.range = data.range;
-        //        this.active = true; //FIXME: remove this
-        //        this.shoots = data.shoots;
-        //        this.cooldown = data.cooldown; // unit is seconds
-        //        this.prevTime = 0;
-        //        this.create();
-        //        this.placed = true;
-        //this.moveCounter = new Array(this.sprite.length).fill(0);
-        //this.movement = new Array(this.sprite.length).fill(Math.random()*100);
-        //this.goX = new Array(this.sprite.length).fill(true);
-        //this.goY = new Array(this.sprite.length).fill(true);
-
     }
     init() {}
 
     create() {
-        console.log(this.defstrType);
-        /*var rightFrames = this.anims.generateFrameNames(this.defstrType, {
-            start: 1,
-            end: 4,
-            zeroPad: 4,
-            prefix: 'right/',
-            suffix: '.png'
-        });
-        this.anims.create({
-            key: 'rightCannon',
-            frames: rightFrames,
-            frameRate: 15,
-            repeat: 0
-        });*/
-        
+        //console.log(this.defstrType);
     }
 
     distanceCalc(x1, y1, x2, y2) {

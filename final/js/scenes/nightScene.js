@@ -104,7 +104,7 @@ export class NightScene extends Phaser.Scene {
 
         this.load.image("startwave", "./assets/images/buttons/startwave.JPG");
 
-        this.load.image("rangeCircle", "./assets/images/defenseStructure/circle/circle.png");
+        this.load.image("rangeCircle", "./assets/images/defenseStructure/circle/newcircle.png");
 //        this.load.tilemapTiledJSON("night-map2", "./assets/tilemaps/nightMap2.json");
 //        this.mapLevel = "night-map2";
         console.log("Welcome to level " + this.level);
@@ -167,7 +167,10 @@ export class NightScene extends Phaser.Scene {
         let startwave = this.add.image(this.buttonX, this.buttonYinc * 2, "startwave").setDepth(3).setScale(1.5, 1.5);
         let buyicetower = this.add.image(this.buttonX, this.buttonYinc * 6, "buyicetower").setDepth(3).setScale(1, 1);
         let buycannon = this.add.image(this.buttonX, this.buttonYinc * 7, "buycannon").setDepth(3).setScale(1, 1);
-        this.rangeCircle = this.add.image(800, 450, "rangeCircle").setDepth(3).setScale(10, 10);
+        
+        // place circle off screen
+        this.rangeCircle = this.add.image(-1000, -1000, "rangeCircle").setDepth(3).setScale(1, 1);
+        this.rangeCircle.alpha = 0.2;
 
         this.add.text(this.game.renderer.width * .15, this.game.renderer.height * .02, "Defend the town! Enemies coming from the right!", {
             fontSize: '30px',
@@ -275,10 +278,14 @@ export class NightScene extends Phaser.Scene {
                 this.scene.towerToBePlaced.placeable = placeable;
                 this.scene.towerSpriteForBuying.x = pointer.x;
                 this.scene.towerSpriteForBuying.y = pointer.y;
+                let scaleFactor = this.scene.towerToBePlaced.range / 100;
+                this.scene.rangeCircle.setScale(scaleFactor, scaleFactor);
+                this.scene.rangeCircle.x = pointer.x;
+                this.scene.rangeCircle.y = pointer.y;
 
                 //if the pointer is not in bounds
                 if (pointer.x <= this.scene.minX || pointer.y <= this.scene.minY || !this.scene.towerToBePlaced.placeable) {
-                    this.scene.towerSpriteForBuying.alpha = 0.5;
+                    this.scene.towerSpriteForBuying.alpha = 0.25;
                 } else {
                     this.scene.towerSpriteForBuying.alpha = 1;
                 }
@@ -303,6 +310,9 @@ export class NightScene extends Phaser.Scene {
                 this.alreadyClicked = false;
                 buycannon.alpha = 1;
                 buyicetower.alpha = 1;
+                this.rangeCircle.x = -1000;
+                this.rangeCircle.y = -1000;
+                console.log(this.rangeCircle);
             }
             pointer = null;
         });
