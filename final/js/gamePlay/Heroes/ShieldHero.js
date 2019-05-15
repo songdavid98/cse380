@@ -391,8 +391,7 @@ export class ShieldHero extends DayPlayer {
             this.scene.physics.add.overlap(shieldBeamSprite, this.scene.barrels.getChildren(), function (shieldBeamSprite, barrel) {
                 barrel.move = true;
                 //barrel.body.immovable = false;
-
-                if(shieldBeamSprite.body.velocity.x > shieldBeamSprite.body.velocity.y){
+                if(Math.abs(shieldBeamSprite.body.velocity.x) > Math.abs(shieldBeamSprite.body.velocity.y)){
                     barrel.body.setVelocity(shieldBeamSprite.body.velocity.x,0);
                 }
                 else{
