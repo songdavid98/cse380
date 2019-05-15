@@ -585,7 +585,6 @@ export class NightScene extends Phaser.Scene {
     }
 
     closeToTower(x, y, sizeOfTower) {
-        console.log("closeToTower begin");
         for (let i = 0; i < this.defStrs.length; i++) {
             let towerSprite = this.defStrs[i].sprite;
             let distance = Phaser.Math.Distance.Between(x, y, towerSprite.x, towerSprite.y);
