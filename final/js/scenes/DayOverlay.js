@@ -29,6 +29,9 @@ export class DayOverlayScene extends Phaser.Scene {
         this.text;
         this.playerType = data.playerType;
 
+        //Super stuff
+        this.chargeBlueTime = 0;
+
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
         this.timer = data.timer || 620;
@@ -36,6 +39,14 @@ export class DayOverlayScene extends Phaser.Scene {
     }
     preload(){
         this.load.image("skipButton", "assets/images/buttons/skipButton.png");
+        this.load.image("superBar", "assets/images/icons/superBar.png");
+        this.load.image("superRed", "assets/images/icons/superRed.png");
+        this.load.image("superBlue", "assets/images/icons/superBlue.png");
+        this.load.image("superGreen", "assets/images/icons/superGreen.png");
+
+
+
+
 
     }
     create() {
@@ -85,7 +96,19 @@ export class DayOverlayScene extends Phaser.Scene {
 
 
 
+        //Super bar
+        this.superBar = this.add.image(100, 250, "superBar").setScale(4).setDepth(1);
+        this.superRed = this.add.image(100, 250, "superRed").setScale(4).setDepth(2);
+        this.superBlue = this.add.image(100, 250, "superBlue").setScale(4).setDepth(2);
+        this.superGreen = this.add.image(100, 250, "superGreen").setScale(4).setDepth(2);
 
+        this.superRed.visible = false;
+        this.superBlue.visible = false;
+        this.superGreen.visible = false;
+
+        this.superRed.setScale(0);
+        this.superBlue.setScale(0);
+        this.superBlue.setScale(0);
 
 
         //add images
@@ -158,18 +181,27 @@ export class DayOverlayScene extends Phaser.Scene {
                     this.shieldIcon.visible = true;
                     this.swordIcon.visible = false;
                     this.staffIcon.visible = false;
+                    this.superRed.visible = false;
+                    this.superBlue.visible = false;
+                    this.superGreen.visible = true;
                     this.heartDepth = [3, 2, 1, 150, 130, 110];
                     break;
                 case HEROES.SWORD_HERO:
                     this.shieldIcon.visible = false;
                     this.swordIcon.visible = true;
                     this.staffIcon.visible = false;
+                    this.superRed.visible = true;
+                    this.superBlue.visible = false;
+                    this.superGreen.visible = false;
                     this.heartDepth = [1, 3, 2, 110, 150, 130];
                     break;
                 case HEROES.MAGE_HERO:
                     this.shieldIcon.visible = false;
                     this.swordIcon.visible = false;
                     this.staffIcon.visible = true;
+                    this.superRed.visible = false;
+                    this.superBlue.visible = true;
+                    this.superGreen.visible = false;
                     this.heartDepth = [2, 1, 3, 130, 110, 150];
                     break;
             }
@@ -196,6 +228,31 @@ export class DayOverlayScene extends Phaser.Scene {
             this.playerType = this.dayScene.player.playerType;
         }
 
+        //Charging super move
+
+        console.log()
+        if(this.mageHero.chargeNow){
+            if(!this.mageHero.usedBeam){
+                if(Math.floor(time/1000) - Math.floor(this.chargeBlueTime/1000) > this.mageHero.chargingBlueIncrementTime){
+                    console.log("CHARGING", this.superBlue);
+                    console.log("CHARGINGg ", this.superBar);
+
+                    this.superBlue.setScale(this.superBlue.scaleX+ 1, 4);
+                    this.superBlue.x =  this.superBar.width + 7 + ((this.superBlue.width) * this.superBlue.scaleX / 2) - this.superBlue.scaleX*0.75;
+
+                    this.chargeBlueTime = time;
+                    if(this.superBlue.scaleX >= this.superBar.scaleX){
+                        this.mageHero.chargeNow = false;
+                    }
+                }
+            }
+            else{
+                this.mageHero.usedBeam = false; //Reset
+                this.superBlue.setScale(0, 4);
+
+            }
+
+        }
 
 
 
