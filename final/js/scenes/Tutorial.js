@@ -96,7 +96,7 @@ export class Tutorial extends DayScene {
 
         //door overlap
         this.physics.add.overlap(this.door, this.playerGroup.getChildren(), function (o1,o2) {
-            if(o1.lessonStep == 8){
+            if(o1.lessonStep == 9){
                 o1.clearedTasks = true;
                 console.log("Duneon enter");
             }
@@ -325,7 +325,7 @@ export class Tutorial extends DayScene {
         else if(this.door.lessonStep == 5){
             if(this.player.playerType != HEROES.SHIELD_HERO && !this.killedWithShield){
                 if(!this.doneOnce){
-                    this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SHIELD hero.\nThe shield hero doesn't deal damage. But you can use her attack to push monsters into hazardous environment!\nFind and defeat a slime with the shield hero.";
+                    this.textWords = "Now, try switching heroes. Press the space bar to turn in to the SHIELD hero.\nThe shield hero doesn't deal damage. But you can use her attack to push monsters into hazardous environment!\n(ex: push a monster onto the purple grass)\nFind and defeat a slime with the shield hero.";
                     this.doneOnce = true;
                     this.spawn();
                 }
@@ -351,7 +351,7 @@ export class Tutorial extends DayScene {
                 }
                 else if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength + 4){
                     if(this.saidOnce){
-                        this.textWords = "The shield hero can ABSORB PROJECTILES. You can also use her attack to PUSH OBJECTS!";
+                        this.textWords = "The shield hero can ABSORB PROJECTILES. You can also use her attack to\nPUSH OBJECTS!";
                         this.saidOnce = false;
                         this.youCanMoveOn = true;
                     }
@@ -432,7 +432,7 @@ export class Tutorial extends DayScene {
             //console.log("WELCOME TO THE NEXT LEVEL", this.tempMoney, this.money);
             if(this.tempMoney+30 > this.money){
                 if(!this.doneOnce && Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+3){
-                    this.textWords = "When you defeat a monster, you will get coins. Take a look at the top right of\nthe screen. The more coins you collect, the more defense structures you will\nbe able to buy for night.";
+                    this.textWords = "When you defeat a monster, you will get coins. Take a look at the top right of\nthe screen. The more coins you collect, the more defense structures you will\nbe able to buy at night.";
                     this.doneOnce = true;
                     this.killedWithSword = false;
                     this.killedWithShield = false;
@@ -466,57 +466,38 @@ export class Tutorial extends DayScene {
                 else{
                     this.door.lessonStep = 8;
                     this.doneOnce = false;  //Reset
+                    this.timeOfStepFinished = time;
                     this.resetStep = false;
                 }
             }
         }
-/*
+
         //Look at coins and defeat more monsters
         else if(this.door.lessonStep == 8){
-            //console.log("WELCOME TO THE NEXT LEVEL", this.tempMoney, this.money);
-            if(this.tempMoney+30 > this.money){
-                if(!this.doneOnce && Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+3){
-                    this.textWords = "Each hero has their unique special ability. RIGHT-CLICKING the mouse will allow\nyou to use their super ability, IF THE SUPER METER IS FULLY CHARGED.\n";
-                    this.doneOnce = true;
-                    this.killedWithSword = false;
-                    this.killedWithShield = false;
-                    this.killedWithMage = false;
-                }
-                else{
-                    if(this.doneOnce&& Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) > this.stepLength+6){
-                        this.textWords = "In order to charge for the super moves, do the following:\nSWORD HERO ------ DEFEAT MONSTERS\nSHIELD HERO ----- ABSORB PROJECTILES\nMAGE HERO ------- AUTOMATIC CHARGING.";
-                        this.shieldHero.semiInvincible = false;
-                        this.swordHero.semiInvincible = false;
-                        this.mageHero.semiInvincible = false;
-                        this.healAllHeroes();
-                        this.spawn(3);
-                        this.doneOnce = false;
-                    }
-                }
-            }
-            else if(!this.resetStep && !this.slimeFound){
-                this.timeOfStepFinished = time;
-                this.doneOnce = false;
-                this.resetStep = true;
-                console.log("CLEARED");
-            }
-            else{
-                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength){
+                if( Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+5){
                     if(!this.doneOnce){
-                        this.textWords = "Great, you earned a lot of money.";
+                        this.textWords = "Each hero has their unique special ability. RIGHT-CLICKING the mouse will allow\nyou to use their super ability, IF THE SUPER METER IS FULLY CHARGED.\n";
                         this.doneOnce = true;
                     }
                 }
                 else{
-                    this.door.lessonStep = 8;
-                    this.doneOnce = false;  //Reset
-                    this.resetStep = false;
+                    if( Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+18){
+                        if(this.doneOnce){
+                            this.textWords = "In order to charge for the super moves, do the following:\nSWORD HERO ------ DEFEAT MONSTERS\nSHIELD HERO ----- ABSORB PROJECTILES\nMAGE HERO ------- AUTOMATIC CHARGING.";
+                            this.doneOnce = false;
+                        }
+                    }
+                    else{
+                        this.door.lessonStep = 9;
+                        this.doneOnce = false;  //Reset
+                        this.resetStep = false;
+                    }
                 }
-            }
+            
         }
-*/
-            //Look at coins and defeat more monsters
-        else if(this.door.lessonStep == 8){
+
+        //Look at coins and defeat more monsters
+        else if(this.door.lessonStep == 9){
             if(!this.door.clearedTasks){
                 if(!this.doneOnce && !this.slimeFound){
                     this.textWords = "Now, find the dungeon door! If you need to move objects to get through,\nuse the shield hero!";
@@ -532,22 +513,17 @@ export class Tutorial extends DayScene {
             }
             else{
                 console.log("Enter");
-                if(Math.floor((time / 1000)) - Math.floor(this.timeOfStepFinished / 1000) <= this.stepLength+2){
-                    if(!this.doneOnce){
-                        this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
-                        this.doneOnce = true;
-                    }
-                }
-                else{
+                
                     this.music.pause();
                     this.scene.stop(SCENES.DAY_OVERLAY);
-                    this.scene.start(SCENES.DUNGEON1, {
+                    this.scene.start(SCENES.MINI_DUNGEON, {
                         "money": this.money,
                         "level": 1
+                        
                     });
                     this.scene.stop();
                     console.log("It's a whole new world");
-                }
+                
             }
         }
 

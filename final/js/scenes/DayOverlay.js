@@ -32,6 +32,7 @@ export class DayOverlayScene extends Phaser.Scene {
         //Super stuff
         this.chargeBlueTime = 0;
         this.chargeRedTime = 0;
+        this.superBarScale = 5;
 
         this.moneyText;
         this.checkIfMoneyIsSame = 0;
@@ -98,20 +99,30 @@ export class DayOverlayScene extends Phaser.Scene {
 
 
         //Super bar
-        this.superBar = this.add.image(100, 250, "superBar").setScale(4).setDepth(1);
-        this.superRed = this.add.image(100, 250, "superRed").setScale(4).setDepth(2);
-        this.superBlue = this.add.image(100, 250, "superBlue").setScale(4).setDepth(2);
-        this.superGreen = this.add.image(100, 250, "superGreen").setScale(4).setDepth(2);
+        this.superBar = this.add.image(100, 250, "superBar").setScale(this.superBarScale).setDepth(1);
+        this.superRed = this.add.image(100, 250, "superRed").setScale(0).setDepth(2);
+        this.superBlue = this.add.image(100, 250, "superBlue").setScale(0).setDepth(2);
+        this.superGreen = this.add.image(100, 250, "superGreen").setScale(0).setDepth(2);
 
         this.superRed.visible = false;
         this.superBlue.visible = false;
         this.superGreen.visible = false;
 
-        this.superRed.setScale(0);
-        this.superBlue.setScale(0);
-        this.superBlue.setScale(0);
+     
 
-       
+        this.superAttackMeterText = this.add.text(10, 200, "Super Attack Meter", {
+            fontSize: '20px',
+            fill: '#fff',
+            strokeThickness: 10,
+            stroke: "#000000"
+        });
+
+        this.superAttackCriteriaText = this.add.text(27.5, 240, "DEFEAT COUNT", {
+            fontSize: '20px',
+            fill:'#000000'
+        });
+        this.superAttackCriteriaText.setDepth(3);
+
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         for (var i = 0; i < this.shieldHero.health; i++) {
@@ -185,6 +196,7 @@ export class DayOverlayScene extends Phaser.Scene {
                     this.superRed.visible = false;
                     this.superBlue.visible = false;
                     this.superGreen.visible = true;
+                    this.superAttackCriteriaText.setText('ABSORPTION');
                     this.heartDepth = [3, 2, 1, 150, 130, 110];
                     break;
                 case HEROES.SWORD_HERO:
@@ -194,6 +206,8 @@ export class DayOverlayScene extends Phaser.Scene {
                     this.superRed.visible = true;
                     this.superBlue.visible = false;
                     this.superGreen.visible = false;
+                    this.superAttackCriteriaText.setText('DEFEAT COUNT');
+
                     this.heartDepth = [1, 3, 2, 110, 150, 130];
                     break;
                 case HEROES.MAGE_HERO:
@@ -203,6 +217,8 @@ export class DayOverlayScene extends Phaser.Scene {
                     this.superRed.visible = false;
                     this.superBlue.visible = true;
                     this.superGreen.visible = false;
+                    this.superAttackCriteriaText.setText('TIMER');
+
                     this.heartDepth = [2, 1, 3, 130, 110, 150];
                     break;
             }
@@ -231,12 +247,11 @@ export class DayOverlayScene extends Phaser.Scene {
 
         //Charging super move
 
-        console.log()
         if(this.mageHero.chargeNow){
             if(!this.mageHero.usedBeam){
                 if(Math.floor(time/1000) - Math.floor(this.chargeBlueTime/1000) > this.mageHero.chargingBlueIncrementTime){
-                    this.superBlue.setScale(this.superBlue.scaleX+ 1, 4);
-                    this.superBlue.x =  this.superBar.width + 7 + ((this.superBlue.width) * this.superBlue.scaleX / 2) - this.superBlue.scaleX*0.75;
+                    this.superBlue.setScale(this.superBlue.scaleX+ 0.5, this.superBarScale);
+                    this.superBlue.x =  this.superBar.width -7  + ((this.superBlue.width) * this.superBlue.scaleX / 2) - this.superBlue.scaleX;
 
                     this.chargeBlueTime = time;
                     if(this.superBlue.scaleX >= this.superBar.scaleX){
@@ -246,32 +261,18 @@ export class DayOverlayScene extends Phaser.Scene {
             }
             else{
                 this.mageHero.usedBeam = false; //Reset
-                this.superBlue.setScale(0, 4);
-
+                this.superBlue.setScale(0, this.superBarScale);
             }
 
         }
         if(this.swordHero.kills && this.kills != this.swordHero.kills && this.swordHero.chargeNow){
-                    this.kills = this.swordHero.kills;
+            this.kills = this.swordHero.kills;
+            this.superRed.setScale(this.kills*this.superBarScale/10, this.superBarScale);
+            this.superRed.x =  this.superBar.width -7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX;
 
-
-                    this.superRed.setScale(this.kills*4/10, 4);
-                    this.superRed.x =  this.superBar.width + 7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX*0.75;
-
-                    if(this.superRed.scaleX >= this.superBar.scaleX){
-                        this.swordHero.chargeNow = false;
-                    }
-                
-            
-        }
-        if(!this.shieldCharged && this.shieldHero.hitProjectiles < this.shieldHero.reqProjectiles+1 && this.shieldHero.hitProjectiles != this.hitProjectiles){
-            console.log("test");
-            this.shieldCharged = true;
-            this.superGreen.setScale(this.shieldHero.hitProjectiles*4/this.shieldHero.reqProjectiles, 4);
-            this.superGreen.x = this.superBar.width + 7 + ((this.superGreen.width)* this.superGreen.scaleX/2)-this.superGreen.scaleX*0.75;
-
-        }else{
-            this.shieldCharged = false;
+            if(this.superRed.scaleX >= this.superBar.scaleX){
+                this.swordHero.chargeNow = false;
+            }            
         }
 
 

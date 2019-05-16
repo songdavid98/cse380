@@ -136,7 +136,7 @@ export class MiniDungeon extends DayScene {
 
         if(!this.doneOnce){
             console.log("COme hseres");
-            this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before the time runs out. Good luck!";
+            this.textWords = "You are now ready to enter the dungeon. Defeat as many monsters as\nyou can before time runs out. Good luck!";
             this.doneOnce = true;
         }
             
