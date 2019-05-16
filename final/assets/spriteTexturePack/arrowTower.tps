@@ -132,7 +132,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../images/defenseStructure/arrowTower.json</filename>
+                <filename>../images/defenseStructure/turret.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,10 +181,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../images/defenseStructure/arrowTower/right/0001.png</key>
-            <key type="filename">../images/defenseStructure/arrowTower/right/0002.png</key>
-            <key type="filename">../images/defenseStructure/arrowTower/right/0003.png</key>
-            <key type="filename">../images/defenseStructure/arrowTower/right/0004.png</key>
+            <key type="filename">../images/defenseStructure/turret/right/0001.png</key>
+            <key type="filename">../images/defenseStructure/turret/right/0002.png</key>
+            <key type="filename">../images/defenseStructure/turret/right/0003.png</key>
+            <key type="filename">../images/defenseStructure/turret/right/0004.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -200,7 +200,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/defenseStructure/arrowTower</filename>
+            <filename>../images/defenseStructure/turret</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -56,15 +56,15 @@ export class DayOverlayScene extends Phaser.Scene {
         if(this.dayScene.mapLevel == 'tutorial' || this.dayScene.mapLevel == 'miniMap'){
             console.log("Overlay tutorial", this.dayScene.mapLevel);
             this.add.image(800, 820, "textBar").setScale(12.5, 10).setDepth(3);
-            this.text = this.add.text(30, 790, "Welcome to the tutorial", {
+            this.text = this.add.text(30, 770, "Welcome to the tutorial", {
                 fontSize: '32px',
                 fill: '#000000',
             }).setDepth(4);
 
             console.log(this.text);
 
-                    //Add this
-            let skipButton = this.add.image(this.game.renderer.width * .95, this.game.renderer.height * .1, "skipButton").setDepth(3).setScale(2, 2);
+            //Add this
+            let skipButton = this.add.image(this.game.renderer.width * .95, this.game.renderer.height * .2, "skipButton").setDepth(3).setScale(2, 2);
             skipButton.setInteractive();
             skipButton.on("pointerdown", () => {
                 this.dayScene.skip();
