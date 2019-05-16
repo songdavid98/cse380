@@ -308,7 +308,6 @@ export class SwordHero extends DayPlayer {
 
     }
     update(time, angle) {
-        console.log(this.kills);
         if (this.active && this.sprite.body) {
             super.update(time);
 

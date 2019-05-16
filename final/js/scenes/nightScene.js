@@ -209,7 +209,7 @@ export class NightScene extends Phaser.Scene {
             console.log("buyicetower pressed");
             buycannon.alpha = 1;
             buyturret.alpha = 1;
-            if ( this.money < 400 )
+            if ( this.money < 500 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
@@ -255,7 +255,7 @@ export class NightScene extends Phaser.Scene {
             console.log("buycannon pressed");
             buyicetower.alpha = 1;
             buyturret.alpha = 1;
-            if ( this.money < 100 )
+            if ( this.money < 150 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;
@@ -308,7 +308,7 @@ export class NightScene extends Phaser.Scene {
             console.log("buyturret pressed");
             buyicetower.alpha = 1;
             buycannon.alpha = 1;
-            if ( this.money < 100 )
+            if ( this.money < 150 )
                 return;
             if (!this.alreadyClicked && !this.startDragging) {
                 this.alreadyClicked = true;

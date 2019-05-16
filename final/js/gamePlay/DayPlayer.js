@@ -248,20 +248,33 @@ export class DayPlayer {
                 this.invulnerable = true;
                 this.active = false;
 
-                if (this.health > 0 && !this.semiInvincible) {
-                    this.health -= monster.class.basicAttack;
-                    if (this.health <= 0) {
-                        this.dead = true;
-                        if (this.playerType == HEROES.SHIELD_HERO)
-                            this.scene.sound.play("audiofemaledeath", {
-                                "volume": 1
-                            });
-                        else
-                            this.scene.sound.play("audiomaledeath", {
-                                "volume": 1
-                            });
-                    } else {
-                        if (this.playerType == HEROES.SHIELD_HERO)
+                if (this.health > 0 ) {
+                    if(!this.semiInvincible){
+                        this.health -= monster.class.basicAttack;
+                        if (this.health <= 0) {
+                            this.dead = true;
+                            if (this.playerType == HEROES.SHIELD_HERO)
+                                this.scene.sound.play("audiofemaledeath", {
+                                    "volume": 1
+                                });
+                            else
+                                this.scene.sound.play("audiomaledeath", {
+                                    "volume": 1
+                                });
+                        } else {
+                            if (this.playerType == HEROES.SHIELD_HERO)
+                                this.scene.sound.play("audiohurtshield", {
+                                    "volume": 1
+                                });
+                            else
+                                this.scene.sound.play("audiohurtmale", {
+                                    "volume": 1
+                                });
+                        }
+                    }
+                }
+                else{
+                    if (this.playerType == HEROES.SHIELD_HERO)
                             this.scene.sound.play("audiohurtshield", {
                                 "volume": 1
                             });
@@ -269,23 +282,24 @@ export class DayPlayer {
                             this.scene.sound.play("audiohurtmale", {
                                 "volume": 1
                             });
-                    }
+                    
                 }
+            }
 
                 //Push back stuff
-                if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
-                    this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
-                } else {
-                    this.sprite.body.setVelocity((Math.sign(monster.body.velocity.x)) * 500, (Math.sign(monster.body.velocity.y)) * 500);
-                }
-                if (this.dead && !this.semiInvincible) {
-                    this.scene.swapHero(this.scene.lastDamaged);
-                    console.log("I'm dead so I'll swap");
-                    console.log(this.lastDamaged);
-                } else if (this.dead && this.semiInvincible) {
-                    this.scene.healAllHeroes();
-                    this.dead = false;
-                }
+                
+            if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
+                this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
+            } else {
+                this.sprite.body.setVelocity((Math.sign(monster.body.velocity.x)) * 500, (Math.sign(monster.body.velocity.y)) * 500);
+            }
+            if (this.dead && !this.semiInvincible) {
+                this.scene.swapHero(this.scene.lastDamaged);
+                console.log("I'm dead so I'll swap");
+                console.log(this.lastDamaged);
+            } else if (this.dead && this.semiInvincible) {
+                this.scene.healAllHeroes();
+                this.dead = false;
             }
         }
     }
@@ -298,19 +312,21 @@ export class DayPlayer {
                 this.invulnerable = true;
                 this.active = false;
 
-                if (this.health > 0 && !this.semiInvincible) {
-                    this.health -= value;
-                    if (this.health <= 0) {
-                        this.dead = true;
-                        if (this.playerType == HEROES.SHIELD_HERO)
-                            this.scene.sound.play("audiofemaledeath", {
-                                "volume": 1
-                            });
-                        else
-                            this.scene.sound.play("audiomaledeath", {
-                                "volume": 1
-                            });
-                    } else {
+                if (this.health > 0) {
+                    if(!this.semiInvincible){
+                        this.health -= value;
+                        if (this.health <= 0) {
+                            this.dead = true;
+                            if (this.playerType == HEROES.SHIELD_HERO)
+                                this.scene.sound.play("audiofemaledeath", {
+                                    "volume": 1
+                                });
+                            else
+                                this.scene.sound.play("audiomaledeath", {
+                                    "volume": 1
+                                });
+                        } 
+                        else{   //This is okay even though it's a copy of the one outside
                         if (this.playerType == HEROES.SHIELD_HERO)
                             this.scene.sound.play("audiohurtshield", {
                                 "volume": 1
@@ -319,21 +335,32 @@ export class DayPlayer {
                             this.scene.sound.play("audiohurtmale", {
                                 "volume": 1
                             });
+                        }
                     }
+                    else{
+                        if (this.playerType == HEROES.SHIELD_HERO)
+                            this.scene.sound.play("audiohurtshield", {
+                                "volume": 1
+                            });
+                        else
+                            this.scene.sound.play("audiohurtmale", {
+                                "volume": 1
+                            });
+                        }
                 }
+            }
 
-                //Push back stuff
-                if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
-                    this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
-                }
-                if (this.dead && !this.semiInvincible) {
-                    this.scene.swapHero(this.scene.lastDamaged);
-                    console.log("I'm dead so I'll swap");
-                    console.log(this.lastDamaged);
-                } else if (this.dead && this.semiInvincible) {
-                    this.scene.healAllHeroes();
-                    this.dead = false;
-                }
+            //Push back stuff
+            if (this.sprite.body.velocity.x != 0 || this.sprite.body.velocity.y != 0) {
+                this.sprite.body.setVelocity((-1) * (Math.sign(this.sprite.body.velocity.x)) * 500, (-1) * (Math.sign(this.sprite.body.velocity.y)) * 500);
+            }
+            if (this.dead && !this.semiInvincible) {
+                this.scene.swapHero(this.scene.lastDamaged);
+                console.log("I'm dead so I'll swap");
+                console.log(this.lastDamaged);
+            } else if (this.dead && this.semiInvincible) {
+                this.scene.healAllHeroes();
+                this.dead = false;
             }
         }
     }
