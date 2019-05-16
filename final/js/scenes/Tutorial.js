@@ -157,7 +157,7 @@ export class Tutorial extends DayScene {
                         }
                     }
                     else{
-                        this.door.lessonStep = 8;
+                        this.door.lessonStep = 2;
                         this.doneOnce = false;  //Reset
                         this.resetStep = false;
                         this.tempMoney = this.money;    //debugging purpose
@@ -470,7 +470,7 @@ export class Tutorial extends DayScene {
                 }
             }
         }
-
+/*
         //Look at coins and defeat more monsters
         else if(this.door.lessonStep == 8){
             //console.log("WELCOME TO THE NEXT LEVEL", this.tempMoney, this.money);
@@ -514,9 +514,9 @@ export class Tutorial extends DayScene {
                 }
             }
         }
-
+*/
             //Look at coins and defeat more monsters
-        else if(this.door.lessonStep == 9){
+        else if(this.door.lessonStep == 8){
             if(!this.door.clearedTasks){
                 if(!this.doneOnce && !this.slimeFound){
                     this.textWords = "Now, find the dungeon door! If you need to move objects to get through,\nuse the shield hero!";
