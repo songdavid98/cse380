@@ -346,7 +346,9 @@ export class Minotaur extends Enemy {
         swordSlashSprite.body.setOffset(0,0);
 
         swordSlashSprite.setRotation(angle - Math.PI / 4);
-
+        this.scene.physics.overlap(this.scene.playerGroup.getChildren(),swordSlashSprite,function(player,swordSprite){
+            player.class.damage(swordSprite);
+        })
         swordSlashSprite.on('animationcomplete', function (anim, frame) {
             this.emit('animationcomplete_' + anim.key, anim, frame);
         }, swordSlashSprite);
