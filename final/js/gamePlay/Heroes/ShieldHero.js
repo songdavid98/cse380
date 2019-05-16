@@ -471,11 +471,10 @@ export class ShieldHero extends DayPlayer {
         let xx = Math.abs(superShieldBeam.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(superShieldBeam.width * (Math.sin(this.angle)));
         let yy = Math.abs(superShieldBeam.width * (Math.cos(this.angle))) + Math.abs(superShieldBeam.height * (Math.cos(this.angle + Math.PI / 2)));
 
-        console.log("SUPER MAGIC",xx,yy );
         //superShieldBeam.body.setSize(yy/3,xx/3);
         //superMagicBeamSprite.body.setOffset(80,10);
-        console.log(superShieldBeam.body);
-        console.log(this.sprite.x, this.sprite.y);
+        //console.log(superShieldBeam.body);
+        //console.log(this.sprite.x, this.sprite.y);
         //superShieldBeam.body.x = 0;
         //superShieldBeam.body.y = 0;
         //superMagicBeamSprite.body.setOffset(superMagicBeamSprite.body.offset.x-40, superMagicBeamSprite.body.offset.y-40);

@@ -540,7 +540,11 @@ export class DayScene extends Phaser.Scene {
             }
             enemySprite.setVelocity(1000*velXSign,1000*velYSign);
         }
-        enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
+        if(!special){
+            enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
+        }else{
+            enemySprite.class.damaged(shieldBeamSprite.class.specialAttack);
+        }
 
         //console.log(enemySprite.texture," got hit");
         enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now; //Need this for damage cooldown
