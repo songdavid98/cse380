@@ -23,7 +23,7 @@ export class Cannon extends NightDefenseStructure {
         this.shoots = true;
         this.rateOfFire = 3; //once every x seconds
         this.prevTime = 0;
-        this.price = 100;
+        this.price = 150;
 
         this.placed = false;
         

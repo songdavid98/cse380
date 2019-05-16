@@ -22,7 +22,7 @@ export class Turret extends NightDefenseStructure {
         this.shoots = true;
         this.rateOfFire = 0.8; //once every x seconds
         this.prevTime = 0;
-        this.price = 100;
+        this.price = 150;
 
         this.placed = false;
         

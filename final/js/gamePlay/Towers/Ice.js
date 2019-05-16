@@ -23,7 +23,7 @@ export class Ice extends NightDefenseStructure {
         this.shoots = true;
         this.rateOfFire = 3;
         this.prevTime = 0;
-        this.price = 400;
+        this.price = 500;
         
         this.placed = false;
         this.create();
