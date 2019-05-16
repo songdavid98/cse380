@@ -59,6 +59,7 @@ export class DayScene extends Phaser.Scene {
         this.timeLimit = 300; //Day Countdown timer ~ 2min?
         this.textWords;
         this.unlockedLevels = data.unlockedLevels || [2,0,0,0,0,0,0,0];
+        this.barrels = this.physics.add.group();
         console.log(this.unlockedLevels);
 
         if(data.music){
@@ -129,7 +130,7 @@ export class DayScene extends Phaser.Scene {
             console.log("Used 59");
         }
         if(player.getChildren().length == 0){
-           initialX = data['initialY'] || 200;
+           initialX = data['initialX'] || 200;
            initialY = data['initialY'] || 200;
         }
         else{
@@ -511,14 +512,14 @@ export class DayScene extends Phaser.Scene {
         }
     }
 
-    hittingWithShieldBeam(shieldBeamSprite, enemySprite) {
+    hittingWithShieldBeam(shieldBeamSprite, enemySprite, special) {
         if (!shieldBeamSprite.anims) {
             return;
         }
         if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
             enemySprite.class.justWokeUp = true;
         }
-        if(shieldBeamSprite.body.velocity.x > 0){
+        if(!special){
             enemySprite.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
         }else{
             let velXSign;

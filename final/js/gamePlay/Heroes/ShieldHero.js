@@ -296,6 +296,7 @@ export class ShieldHero extends DayPlayer {
                 console.log("heelo");
                 this.beams[i].box.getChildren()[0].destroy();
                 let superShieldBox = this.scene.physics.add.sprite(this.beams[i].pointX,this.beams[i].pointY,'superShieldBox').setScale(this.beams[i].factor+.2,this.beams[i].factor+.2);
+                superShieldBox.special = true;
                 superShieldBox.beam = this.beams[i];
                 this.beams[i].box.add(superShieldBox);
 
@@ -339,14 +340,11 @@ export class ShieldHero extends DayPlayer {
         let shieldBeamSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'shield/0001.png').setScale(5, 5);
         shieldBeamSprite.class = this;
         shieldBeamSprite.enemiesHit = [];
+        shieldBeamSprite.objectsHit = [];
 
         //Want to destroy shieldBeam if it hits the wall (so that it doesn't attack slimes on the other side of the wall)
         this.scene.physics.add.collider(shieldBeamSprite, this.scene.wallLayer);
         //this.scene.physics.add.collider(shieldBeamSprite,this.scene.enemyGroup.getChildren());
-
-        if(this.scene.barrel){
-            this.scene.physics.add.collider(shieldBeamSprite, this.scene.barrel);
-        }   
 
 
         let xx = Math.abs(shieldBeamSprite.height * (Math.sin(this.angle + Math.PI / 2))) + Math.abs(shieldBeamSprite.width * (Math.sin(this.angle)));
@@ -371,6 +369,14 @@ export class ShieldHero extends DayPlayer {
                     }
                 }
             }
+            if(this.objectsHit){
+                for (var i = 0; i < this.objectsHit.length; i++) {
+                    if (this.objectsHit[i]) {
+                        this.objectsHit[i].body.setVelocity(0,0);
+                    }
+                }
+            }
+            this.objectsHit = null;
             this.colliding = null;
             this.enemiesHit = null;
             console.log(this);
@@ -407,6 +413,7 @@ export class ShieldHero extends DayPlayer {
         if (this.scene.barrels) {
             this.scene.physics.add.overlap(shieldBeamSprite, this.scene.barrels.getChildren(), function (shieldBeamSprite, barrel) {
                 barrel.move = true;
+                shieldBeamSprite.objectsHit.push(barrel);
                 //barrel.body.immovable = false;
                 if(Math.abs(shieldBeamSprite.body.velocity.x) > Math.abs(shieldBeamSprite.body.velocity.y)){
                     barrel.body.setVelocity(shieldBeamSprite.body.velocity.x,0);
@@ -455,6 +462,7 @@ export class ShieldHero extends DayPlayer {
         superShieldBeam.enemiesHit = [];
         superShieldBeam.box = this.scene.physics.add.group();
         let superShieldBox = this.scene.physics.add.sprite(pointX,pointY,'superShieldBox').setScale(1,1);
+        superShieldBox.special = true;
         superShieldBox.beam = superShieldBeam;
         superShieldBeam.box.add(superShieldBox);
         this.beam = superShieldBeam;
@@ -508,7 +516,7 @@ export class ShieldHero extends DayPlayer {
             if (!superShieldBox.beam.enemiesHit.includes(enemySprite)) {
                 superShieldBox.beam.enemiesHit.push(enemySprite);
                 enemySprite.class.active = false;
-                superShieldBox.beam.scene.hittingWithShieldBeam(superShieldBox.beam, enemySprite);
+                superShieldBox.beam.scene.hittingWithShieldBeam(superShieldBox.beam, enemySprite, true);
             }
         });
 
