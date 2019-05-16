@@ -264,6 +264,15 @@ export class DayOverlayScene extends Phaser.Scene {
                 
             
         }
+        if(!this.shieldCharged && this.shieldHero.hitProjectiles < this.shieldHero.reqProjectiles+1 && this.shieldHero.hitProjectiles != this.hitProjectiles){
+            console.log("test");
+            this.shieldCharged = true;
+            this.superGreen.setScale(this.shieldHero.hitProjectiles*4/this.shieldHero.reqProjectiles, 4);
+            this.superGreen.x = this.superBar.width + 7 + ((this.superGreen.width)* this.superGreen.scaleX/2)-this.superGreen.scaleX*0.75;
+
+        }else{
+            this.shieldCharged = false;
+        }
 
 
 
