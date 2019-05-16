@@ -111,7 +111,7 @@ export class DayOverlayScene extends Phaser.Scene {
         this.superBlue.setScale(0);
         this.superBlue.setScale(0);
 
-
+       
         //add images
         //let logo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height*.35, "logo").setDepth(1).setScale(.5,.5);
         for (var i = 0; i < this.shieldHero.health; i++) {
