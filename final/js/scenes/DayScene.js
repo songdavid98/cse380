@@ -651,7 +651,6 @@ export class DayScene extends Phaser.Scene {
             return;
         }
        // enemyProjectile.reflected = true;
-        enemyProjectile.class.touched = true;
         shieldBeamSprite.class.hitProjectiles++;
         enemyProjectile.destroy();
         /*console.log("SLIME BALL TOUCHED", enemyProjectile.reflected);
