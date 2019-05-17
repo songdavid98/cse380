@@ -377,22 +377,34 @@ export class DayOverlayScene extends Phaser.Scene {
                 };
                 if(this.dayScene.mapLevel == "map1"){
                     data['level'] = 2;
+                    console.log("1");
                     this.scene.start(SCENES.NIGHT1,data);
                     this.scene.stop();
                 }else if(this.dayScene.mapLevel == "map2"){
+                    console.log("2");
                     data['level'] = 4;
                     this.scene.start(SCENES.NIGHT2,data);
                     this.scene.stop();
                 }else if(this.dayScene.mapLevel == "map3"){
+                    console.log("3");
                     data['level'] = 6;
                     this.scene.start(SCENES.NIGHT1,data);
                     this.scene.stop();
                 }else if(this.dayScene.mapLevel == "map4"){
+                    console.log("4");
                     data['level'] = 4;
                     this.scene.start(SCENES.NIGHT1,data);
                     this.scene.stop();
-                }else{
-                    data['level'] = 2;
+                }else if(this.dayScene.mapLevel == "map5"){
+                    console.log("5");
+                    data['level'] = 1;
+                    this.scene.start(SCENES.NIGHT1,data);
+                    this.scene.stop();
+                }
+                else {
+                    //no map matched
+                    console.log("5");
+                    data['level'] = 1;
                     this.scene.start(SCENES.LEVEL_SELECT,data);
                     this.scene.stop();
                 }
