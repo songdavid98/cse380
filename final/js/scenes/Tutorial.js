@@ -531,7 +531,17 @@ export class Tutorial extends DayScene {
     }
 
 
-
+    skip(){
+        this.music.stop();
+        this.scene.stop(SCENES.DAY_OVERLAY);
+        let unlockedLevels = [1,2,0,0,0,0,0,0];
+        let data = {
+            "str":"Day 1 Unlocked",
+            "unlockedLevels":unlockedLevels
+        }
+        this.scene.start(SCENES.LEVEL_SELECT,data);
+        this.scene.stop();
+    }
     
 
     //Puzzle with push
