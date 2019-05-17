@@ -28,6 +28,7 @@ export class DayOverlayScene extends Phaser.Scene {
         this.sceneKey = data.sceneKey;
         this.text;
         this.playerType = data.playerType;
+        this.kills = 0;
 
         //Super stuff
         this.chargeBlueTime = 0;
@@ -265,8 +266,9 @@ export class DayOverlayScene extends Phaser.Scene {
             }
 
         }
-
+        //console.log(this.kills);
         if((this.kills != this.swordHero.kills) && this.swordHero.chargeNow){
+           //console.log("wo");
             this.kills = this.swordHero.kills;
             let xScale = this.kills*this.superBarScale/this.swordHero.reqKills;
             if(xScale > 1*this.superBarScale){

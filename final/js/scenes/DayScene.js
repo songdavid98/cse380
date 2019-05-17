@@ -823,6 +823,7 @@ export class DayScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+       // console.log(this.swordHero);
         if (this.player.sprite && this.player.sprite.body && !this.player.active && time - (this.lastDamaged + 400) >= 0) {
             this.player.active = true;
             this.player.sprite.body.setVelocity(0, 0);
