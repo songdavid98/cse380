@@ -154,7 +154,7 @@ export class Dungeon1 extends DayScene {
             console.log(o1.scene.scene.unlockedLevels);
             console.log(o1.scene);
             o1.scene.scene.start(SCENES.DUNGEON5, {
-                "money": o1.scene.scene.money,
+                "money": o1.scene.money,
                 "level": 5,
                 "timer": o1.scene.timeRemaining,
                 "unlockedLevels":o1.scene.unlockedLevels

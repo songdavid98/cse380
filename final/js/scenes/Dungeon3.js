@@ -214,6 +214,7 @@ export class Dungeon3 extends DayScene {
             this.music.stop();
             this.scene.stop(SCENES.DAY_OVERLAY);
             let data = {
+                "money":this.money,
                 "str":"winner",
                 "unlockedLevels":this.unlockedLevels,
                 "timer":this.timeRemaining
