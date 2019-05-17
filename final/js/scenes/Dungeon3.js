@@ -216,7 +216,7 @@ export class Dungeon3 extends DayScene {
                 "str":"winner",
                 "unlockedLevels":this.unlockedLevels
             }
-            this.scene.start(SCENES.MAIN_MENU, data);
+            this.scene.start(SCENES.DUNGEON6, data);
             this.scene.stop();
         }
         //cheats
