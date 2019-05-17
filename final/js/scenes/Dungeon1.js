@@ -101,6 +101,7 @@ export class Dungeon1 extends DayScene {
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
         this.baseLayer = this.map.createStaticLayer("base", [this.terrain], 0, 0).setScale(5, 5);
         this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(5, 5);
+        this.dangerGrassLayer = this.map.createStaticLayer("dangerGrass", [this.terrain], 1, 0).setScale(5, 5);
 
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
 
@@ -126,7 +127,21 @@ export class Dungeon1 extends DayScene {
             key: 'door'
         })[0];
 
-
+        //Danger grass stuffs
+        this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (playerSprite,hazard) {
+            if(hazard.index != -1){
+                playerSprite.class.hazardDamage(hazard.layer.properties[0].value);
+                //console.log("Getting hit by some weed");
+            }
+        });
+        this.physics.add.overlap(this.enemyGroup.getChildren(), this.dangerGrassLayer, function (enemySprite,hazard) {
+            if(hazard.index != -1){
+                //console.log(hazard);
+                //console.log(enemySprite);
+                enemySprite.class.damaged(hazard.layer.properties[0].value);
+                //console.log("Getting hit by some weed");
+            }
+        });
 
         this.door = this.physics.add.existing(this.door);
         this.door.body.setSize(this.door.body.width, this.door.body.height);
