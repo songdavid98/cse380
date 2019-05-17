@@ -24,7 +24,8 @@ export class SwordHero extends DayPlayer {
         this.attackCooldown = 1;
         this.damageCooldown = 3;
         this.sprite.class = this;
-        this.reqKills = 10; 
+        this.reqKills = 5; 
+        this.kills = 5;
 
         this.continueSpecialAttack = false;
         this.startSpecialAttackTime;
@@ -282,6 +283,8 @@ export class SwordHero extends DayPlayer {
         this.sprite.on('animationcomplete_specialEnd', function () {
             this.class.attacking = false;
             this.class.invincible = false;
+            this.class.specialAttacked = false;
+            this.class.chargeNow = true;
         });
 
 
