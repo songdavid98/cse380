@@ -265,9 +265,17 @@ export class DayOverlayScene extends Phaser.Scene {
             }
 
         }
-        if(this.swordHero.kills && this.kills != this.swordHero.kills && this.swordHero.chargeNow){
+        console.log(this.swordHero.kills);
+        console.log(this.kills);
+        console.log(this.swordHero.chargeNow);
+        if(this.kills != this.swordHero.kills && this.swordHero.chargeNow){
+            console.log("wefiwefo");
             this.kills = this.swordHero.kills;
-            this.superRed.setScale(this.kills*this.superBarScale/10, this.superBarScale);
+            let xScale = this.kills*this.superBarScale/this.swordHero.reqKills;
+            if(xScale > 1*this.superBarScale){
+                xScale = this.superBarScale;
+            }
+            this.superRed.setScale(xScale, this.superBarScale);
             this.superRed.x =  this.superBar.width -7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX;
 
             if(this.superRed.scaleX >= this.superBar.scaleX){

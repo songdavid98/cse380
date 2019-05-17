@@ -28,97 +28,14 @@ export class Dungeon2 extends DayScene{
         super.init(data);
 
         this.slimeSpawnArr = [
-            [900,900],
-            [900,1200],
-            [1000,1000],
-            [1100,1300],
-
-            [1700,100],
-            [1800,200],
-            [1800,100],
-            [1900,300],
-
-            [1800,1600],
-            [1800,1700],
-            [1900,1800],
-            [1900,1900],
-            [2100,1500],
-
-            [1900,4000],
-            [2000,3900],
-            [2000,4000],
-            [2100,4100],
-            [2200,3800],
-            [2500,3700],
-
-            [4800,200],
-            [4200,300],
-            [4800,700],
-            [4300,300],
-            [4100,300],
-            [3900,200],
-
-            [2800,3700],
-            [2800,3800],
-            [3000,3800],
-            [3100,3500],
-            [3100,3600],
-
-            [2500,4500],
-            [2600,4000],
-            [2300,4000],
-            [2500,4300],
-            [2700,4300],
-
-
-            [4000,4000],
-            [4200,4400],
-            [4200,4500],
-            [4200,4800],
-            [4300,4000],
-            [4500,4000],
-            [4800,4300],
-
-            [4900,4900]
-            
-           
         ];
         this.slimeCount = this.slimeSpawnArr.length;
 
         this.golemSpawnArr = [
-            [1200,3800],
-            [1400,800],
-            [2000,3700],
-            [2200,4300]
-
-
         ];
         this.golemCount = this.golemSpawnArr.length;
 
         this.goblinSpawnArr = [
-            [2800,200],
-            [2800,400],
-            [2900,200],
-            [3100,300],
-            [3200,300],
-            [3300,300],
-
-
-            [2000,2800],
-            [2100,2500],
-            [2000,2700],
-            [2100,2900],
-            [2200,2600],
-            [2300,2100],
-
-            [3900,2600],
-            [3400,2700],
-            [3600,2500],
-            [3700,2200],
-            [3300,2000],
-            [3100,1900],
-           
-
         ];
         this.goblinCount = this.goblinSpawnArr.length;
         
@@ -159,7 +76,9 @@ export class Dungeon2 extends DayScene{
         let doors = this.createObjects('objectsLayer',2,'door', 16, 16);
         let barrels = this.createObjects('objectsLayer',1,'barrel', 16, 16);
         let treasures = this.createObjects('objectsLayer',20,'treasure', 16, 16);
-
+        let goblinSpawnPoints = this.createSpawnPoints('goblinSpawnPoints',60,'clear');
+        let slimeSpawnPoints = this.createSpawnPoints('slimeSpawnPoints', 62, 'clear');
+        let golemSpawnPoints = this.createSpawnPoints('golemSpawnPoints', 61, 'clear');
 
         this.barrels = barrels; //Need this to push barrels in shield hero class
 
@@ -182,6 +101,8 @@ export class Dungeon2 extends DayScene{
 
         this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
         this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+        this.treasure3 = this.physics.add.existing(treasures.getChildren()[2]);
+        this.treasure4 = this.physics.add.existing(treasures.getChildren()[3]);
 
         this.barrel1.body.immovable = true;
         this.barrel2.body.immovable = true;
@@ -215,6 +136,9 @@ export class Dungeon2 extends DayScene{
             o1.scene.scene.stop();
         });
 
+
+
+
         //Treasure stuff
         this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
             o1.scene.money += 20;
@@ -222,6 +146,15 @@ export class Dungeon2 extends DayScene{
         });
 
         this.physics.add.overlap(this.treasure2, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 30;
+            o1.destroy();
+        });
+        this.physics.add.overlap(this.treasure3, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 20;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure4, this.playerGroup.getChildren(), function (o1,o2) {
             o1.scene.money += 30;
             o1.destroy();
         });
@@ -241,6 +174,38 @@ export class Dungeon2 extends DayScene{
                 //console.log("Getting hit by some weed");
             }
         });
+
+
+
+        for(let i = 0; i < slimeSpawnPoints.getChildren().length; i++){
+            let halfOfTileWidth = slimeSpawnPoints.getChildren()[0].width/2;
+            let halfOfTileHeight = slimeSpawnPoints.getChildren()[0].height/2;
+            let x = (slimeSpawnPoints.getChildren()[i].x-halfOfTileWidth)*5;
+            let y = (slimeSpawnPoints.getChildren()[i].y-halfOfTileHeight)*5;
+            this.slimeSpawnArr.push([x,y]);
+        }
+        this.spawnMoreSlimes();
+        
+        for(let i = 0; i < goblinSpawnPoints.getChildren().length; i++){
+            let halfOfTileWidth = goblinSpawnPoints.getChildren()[0].width/2;
+            let halfOfTileHeight = goblinSpawnPoints.getChildren()[0].height/2;
+            let x = (goblinSpawnPoints.getChildren()[i].x-halfOfTileWidth)*5;
+            let y = (goblinSpawnPoints.getChildren()[i].y-halfOfTileHeight)*5;
+            this.goblinSpawnArr.push([x,y]);
+        }
+        this.spawnMoreGoblins();
+
+
+        for(let i = 0; i < golemSpawnPoints.getChildren().length; i++){
+            let halfOfTileWidth = golemSpawnPoints.getChildren()[0].width/2;
+            let halfOfTileHeight = golemSpawnPoints.getChildren()[0].height/2;            
+            let x = (golemSpawnPoints.getChildren()[i].x-halfOfTileWidth)*5;
+            let y = (golemSpawnPoints.getChildren()[i].y-halfOfTileHeight)*5;
+            this.golemSpawnArr.push([x,y]);
+        }
+        this.spawnMoreGolems();
+
+
 
         this.map.currentLayer = this.baseLayer;
     }

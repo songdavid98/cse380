@@ -61,7 +61,7 @@ export class Dungeon4 extends DayScene {
 
     }
     preload() {
-        this.level = 2;
+        this.level = 3;
         super.preload();
 
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");

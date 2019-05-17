@@ -56,7 +56,7 @@ export class DayScene extends Phaser.Scene {
         this.lastDamaged = 0;
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
-        this.timeLimit = 180; //Day Countdown timer ~ 2min?
+        this.timeLimit = 300; //Day Countdown timer ~ 2min?
         this.textWords;
         this.unlockedLevels = data.unlockedLevels || [2,0,0,0,0,0,0,0];
         this.barrels = this.physics.add.group();
@@ -539,7 +539,7 @@ export class DayScene extends Phaser.Scene {
             }else{
                 velYSign = 0;
             }
-            enemySprite.setVelocity(1000*velXSign,1000*velYSign);
+            enemySprite.setVelocity(500*velXSign,500*velYSign);
         }
         if(!special){
             enemySprite.class.damaged(shieldBeamSprite.class.basicAttack);
