@@ -292,7 +292,7 @@ export class ShieldHero extends DayPlayer {
             }
         }
         for(var i=0; i<this.beams.length; i++){
-            if(this.beams[i].counter == 2){
+            if(this.beams[i].counter == 1){
                 console.log("heelo");
                 this.beams[i].box.getChildren()[0].destroy();
                 let superShieldBox = this.scene.physics.add.sprite(this.beams[i].pointX,this.beams[i].pointY,'superShieldBox').setScale(this.beams[i].factor+.2,this.beams[i].factor+.2);
@@ -453,7 +453,7 @@ export class ShieldHero extends DayPlayer {
         pointY = this.sprite.y + dist * (Math.cos(Math.PI / 2 - this.angle));
 
 
-        let superShieldBeam = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'superShieldBeam/0001.png').setScale(8, 8);
+        let superShieldBeam = this.scene.physics.add.sprite(pointX, pointY, HEROES.SHIELD_HERO, 'superShieldBeam/0001.png').setScale(12, 12);
         superShieldBeam.factor = 2;
         superShieldBeam.counter = 0;
         superShieldBeam.pointX = pointX;
