@@ -265,17 +265,9 @@ export class DayOverlayScene extends Phaser.Scene {
             }
 
         }
-        console.log(this.swordHero.kills);
-        console.log(this.kills);
-        console.log(this.swordHero.chargeNow);
-        if(this.kills != this.swordHero.kills && this.swordHero.chargeNow){
-            console.log("wefiwefo");
+        if(this.swordHero.kills && this.kills != this.swordHero.kills && this.swordHero.chargeNow){
             this.kills = this.swordHero.kills;
-            let xScale = this.kills*this.superBarScale/this.swordHero.reqKills;
-            if(xScale > 1*this.superBarScale){
-                xScale = this.superBarScale;
-            }
-            this.superRed.setScale(xScale, this.superBarScale);
+            this.superRed.setScale(this.kills*this.superBarScale/10, this.superBarScale);
             this.superRed.x =  this.superBar.width -7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX;
 
             if(this.superRed.scaleX >= this.superBar.scaleX){
@@ -359,6 +351,7 @@ export class DayOverlayScene extends Phaser.Scene {
         //------------------------- Time Stuff ------------------------------------
         if(this.dayScene.mapLevel != 'tutorial' && this.dayScene.mapLevel != 'miniMap' ){
             let timeRemaining = this.timer - (Math.floor(time / 1000) - Math.floor(this.initTime / 1000));
+            this.dayScene.timeRemaining = timeRemaining;
             let seconds = timeRemaining % 60;
             if (seconds < 10) {
                 seconds = "0" + seconds;

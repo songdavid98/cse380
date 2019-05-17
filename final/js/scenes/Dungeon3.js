@@ -215,7 +215,8 @@ export class Dungeon3 extends DayScene {
             this.scene.stop(SCENES.DAY_OVERLAY);
             let data = {
                 "str":"winner",
-                "unlockedLevels":this.unlockedLevels
+                "unlockedLevels":this.unlockedLevels,
+                "timer":this.timeRemaining
             }
             this.scene.start(SCENES.DUNGEON6, data);
             this.scene.stop();
