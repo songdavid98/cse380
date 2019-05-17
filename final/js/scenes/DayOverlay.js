@@ -375,6 +375,12 @@ export class DayOverlayScene extends Phaser.Scene {
                     "unlockedLevels":this.dayScene.unlockedLevels,
                     "money":this.dayScene.money
                 };
+
+
+                this.scene.start(SCENES.LEVEL_SELECT,data);
+                this.scene.stop();
+
+/*
                 if(this.dayScene.mapLevel == "map1"){
                     data['level'] = 2;
                     console.log("1");
@@ -408,6 +414,7 @@ export class DayOverlayScene extends Phaser.Scene {
                     this.scene.start(SCENES.LEVEL_SELECT,data);
                     this.scene.stop();
                 }
+                */
             }
         }
     }
