@@ -55,6 +55,7 @@ export class Night2 extends NightScene {
             [10, ENEMIES.GOLEM, 1000]
         ]
         this.numEnemySpawns = 40;
+        this.money += 1200;
     }
     
     preload() {

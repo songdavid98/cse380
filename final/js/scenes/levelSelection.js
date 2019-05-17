@@ -169,7 +169,7 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "transitionScene":"n1",
                 "level": 2,
-                "money": 700 + this.transferMoney,
+                "money": this.transferMoney,
                 "unlockedLevels":this.unlockedLevels
             } //Change this to make sure money comes from day time
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
@@ -180,7 +180,7 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "transitionScene":"n2",
                 "level": 4,
-                "money": 1200 + this.transferMoney,
+                "money": this.transferMoney,
                 "unlockedLevels":this.unlockedLevels
             } //Change this to make sure money comes from day time
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
@@ -190,7 +190,7 @@ export class LevelSelectionScene extends Phaser.Scene {
             let data = {
                 "transitionScene":"n3",
                 "level": 6,
-                "money": 1500 + this.transferMoney,
+                "money": this.transferMoney,
                 "unlockedLevels":this.unlockedLevels
             } //Change this to make sure money comes from day time
             this.scene.start(SCENES.DAY_NIGHT_TRANSITION, data);
