@@ -33,10 +33,10 @@ import {
 
 
 
-export class Dungeon4 extends DayScene {
+export class Dungeon6 extends DayScene {
     constructor() {
         super({
-            key: SCENES.DUNGEON4
+            key: SCENES.DUNGEON6
         })
     }
     init(data) {
@@ -61,7 +61,7 @@ export class Dungeon4 extends DayScene {
 
     }
     preload() {
-        this.level = 2;
+        this.level = 3;
         super.preload();
 
         this.load.image("door", "./assets/images/tiles/newerTileImages/caveDoor.png");
@@ -70,8 +70,8 @@ export class Dungeon4 extends DayScene {
         this.load.image("clear", "./assets/images/tiles/newerTileImages/zzzclearTile.png");
 
 
-        this.load.tilemapTiledJSON("map4", "assets/tilemaps/FireRoom.json");
-        this.mapLevel = "map4";
+        this.load.tilemapTiledJSON("map6", "assets/tilemaps/Dungeon6.json");
+        this.mapLevel = "map6";
     }
     create() {
         //Generate map
@@ -88,7 +88,6 @@ export class Dungeon4 extends DayScene {
         super.create(); //at the moment, super.create must come after loading the map, as the map must be loaded before sprites are added
 
 
-
         //collisions
         this.wallLayer.setCollision(6); 
         this.wallLayer.setCollision(18); 
@@ -96,7 +95,6 @@ export class Dungeon4 extends DayScene {
 
         this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);
-
 
 
         this.scaleObjects(.5);
@@ -127,7 +125,6 @@ export class Dungeon4 extends DayScene {
         }
         this.spawnMoreGoblins();
 
-
         for(let i = 0; i < golemSpawnPoints.getChildren().length; i++){
             let halfOfTileWidth = golemSpawnPoints.getChildren()[0].width/2;
             let halfOfTileHeight = golemSpawnPoints.getChildren()[0].height/2;            
@@ -136,11 +133,6 @@ export class Dungeon4 extends DayScene {
             this.golemSpawnArr.push([x,y]);
         }
         this.spawnMoreGolems();
-
-
-
-
-
 
 
         
@@ -156,9 +148,13 @@ export class Dungeon4 extends DayScene {
         this.barrel4 = this.physics.add.existing(barrels.getChildren()[3]);
         this.barrel5 = this.physics.add.existing(barrels.getChildren()[4]);
         this.barrel6 = this.physics.add.existing(barrels.getChildren()[5]);
-
-        this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
-        this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+        this.barrel7 = this.physics.add.existing(barrels.getChildren()[6]);
+        this.barrel8 = this.physics.add.existing(barrels.getChildren()[7]);
+        this.barrel9 = this.physics.add.existing(barrels.getChildren()[8]);
+        this.barrel10 = this.physics.add.existing(barrels.getChildren()[9]);
+        this.barrel11 = this.physics.add.existing(barrels.getChildren()[10]);
+        this.barrel12 = this.physics.add.existing(barrels.getChildren()[11]);
+        this.barrel13 = this.physics.add.existing(barrels.getChildren()[12]);
 
         this.barrel1.body.immovable = true;
         this.barrel2.body.immovable = true;
@@ -166,17 +162,29 @@ export class Dungeon4 extends DayScene {
         this.barrel4.body.immovable = true;
         this.barrel5.body.immovable = true;
         this.barrel6.body.immovable = true;
+        this.barrel7.body.immovable = true;
+        this.barrel8.body.immovable = true;
+        this.barrel9.body.immovable = true;
+        this.barrel10.body.immovable = true;
+        this.barrel11.body.immovable = true;
+        this.barrel12.body.immovable = true;
+        this.barrel13.body.immovable = true;
+
+        this.treasure1 = this.physics.add.existing(treasures.getChildren()[0]);
+        this.treasure2 = this.physics.add.existing(treasures.getChildren()[1]);
+        this.treasure3 = this.physics.add.existing(treasures.getChildren()[2]);
+        this.treasure4 = this.physics.add.existing(treasures.getChildren()[3]);
+        this.treasure5 = this.physics.add.existing(treasures.getChildren()[4]);
+        this.treasure6 = this.physics.add.existing(treasures.getChildren()[5]);
 
         this.physics.add.collider(this.playerGroup, barrels.getChildren());
         this.physics.add.collider(this.enemyGroup, barrels.getChildren());
         this.physics.add.collider(barrels.getChildren(), this.wallLayer);
 
-
         //door overlap
         this.physics.add.overlap(this.door1, this.playerGroup.getChildren(), function (o1,o2) {
             o2.x = o1.otherDoor.x + 100;
             o2.y = o1.otherDoor.y + 150;
-            
         });
         this.physics.add.overlap(this.door2, this.playerGroup.getChildren(), function (o1,o2) {
             o2.x = o1.otherDoor.x - 100;
@@ -185,7 +193,7 @@ export class Dungeon4 extends DayScene {
 
         //Treasure stuff
         this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 15;
+            o1.scene.money += 20;
             o1.destroy();
         });
 
@@ -194,6 +202,25 @@ export class Dungeon4 extends DayScene {
             o1.destroy();
         });
 
+        this.physics.add.overlap(this.treasure3, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 10;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure4, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 20;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure5, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 10;
+            o1.destroy();
+        });
+
+        this.physics.add.overlap(this.treasure6, this.playerGroup.getChildren(), function (o1,o2) {
+            o1.scene.money += 10;
+            o1.destroy();
+        });
 
         //Danger grass stuffs
         this.physics.add.overlap(this.playerGroup.getChildren(), this.dangerGrassLayer, function (playerSprite,hazard) {
@@ -214,13 +241,11 @@ export class Dungeon4 extends DayScene {
             if(lava.index != -1){
                 playerSprite.class.hazardDamage(lava.layer.properties[0].value);
                 
-                //console.log("Getting hit by some weed");
             }
         });
         this.physics.add.overlap(this.enemyGroup.getChildren(), this.lavaLayer, function (enemySprite,lava) {
             if(lava.index != -1){
                 enemySprite.class.damaged(lava.layer.properties[0].value);
-                //console.log("Getting hit by some weed");
             }
         });
 

@@ -372,11 +372,11 @@ export class DayOverlayScene extends Phaser.Scene {
                 }
                 let data = {
                     "str":"moving to level select",
-                    "unlockedLevels":this.dayScene.unlockedLevels,
+                    "unlockedLevels":this.unlockedLevels,
                     "money":this.dayScene.money
                 };
 
-
+                console.log(this.dayScene.level);
                 this.scene.start(SCENES.LEVEL_SELECT,data);
                 this.scene.stop();
 
