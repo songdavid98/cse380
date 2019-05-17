@@ -131,11 +131,11 @@ export class DayScene extends Phaser.Scene {
             console.log("Used 59");
         }
         if(player.getChildren().length == 0){
+            console.log("used a default player spawn point")
            initialX = data['initialX'] || 200;
            initialY = data['initialY'] || 200;
         }
         else{
-
             let halfOfTileWidth = player.getChildren()[0].width/2;
             let halfOfTileHeight = player.getChildren()[0].height/2;
             initialX= (player.getChildren()[0].x-halfOfTileWidth)*5;
@@ -456,9 +456,6 @@ export class DayScene extends Phaser.Scene {
             let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
 
 
-            console.log(slimeSprite);
-            console.log(this.anims);
-
             healthBarSprite.visible = false;
             healthSprite.visible = false;
 
@@ -483,12 +480,12 @@ export class DayScene extends Phaser.Scene {
     spawnMoreGoblins() {
         //Create the enemies
         this.goblinCount = this.goblinSpawnArr.length;
-        console.log(this.goblinSpawnArr);
+        //console.log(this.goblinSpawnArr);
         for (var i = 0; i < this.goblinCount; i++) {
             let scaleX = 5;
             let scaleY = 5;
             let goblinSprite = this.physics.add.sprite(this.goblinSpawnArr[i][0], this.goblinSpawnArr[i][1], ENEMIES.GOBLIN, 'sleep/0001.png').setScale(scaleX, scaleY);
-            console.log(goblinSprite);
+            //console.log(goblinSprite);
             
             let zzzSprite = this.add.sprite(this.goblinSpawnArr[i][0] + 100, this.goblinSpawnArr[i][1] - 100, ENEMIES.GOBLIN, 'zzz/0001.png').setScale(scaleX, scaleY);
             let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
@@ -713,14 +710,14 @@ export class DayScene extends Phaser.Scene {
             }
             grid.push(col);
         }
-        console.log(this.map);
+        //console.log(this.map);
         this.easystar.setGrid(grid);
         this.easystar.enableDiagonals();
 
         var tileset = this.map.tilesets[0];
         var properties = tileset.tileProperties;
-        console.log(tileset);
-        console.log(grid);
+        //console.log(tileset);
+        //console.log(grid);
         var acceptableTiles = [];
 
         // We need to list all the tile IDs that can be walked on. Let's iterate over all of them
@@ -737,8 +734,8 @@ export class DayScene extends Phaser.Scene {
 
         this.easystar.setAcceptableTiles(acceptableTiles);
 
-        console.log(acceptableTiles);
-        console.log(grid);
+        //console.log(acceptableTiles);
+        //console.log(grid);
     }
 
     //Used in pathfinding
@@ -842,7 +839,7 @@ export class DayScene extends Phaser.Scene {
             this.timeOfDeath = null;
             this.music.pause();
             this.scene.stop(SCENES.DAY_OVERLAY);
-            console.log(this.scene);
+            //console.log(this.scene);
 
             let data = {
                 "str":"dead",
@@ -912,7 +909,7 @@ export class DayScene extends Phaser.Scene {
         let objects = this.map.createFromObjects(layer, name, {
             key: key
         }); //create sprites not affected by physics
-        console.log(objects);
+        //console.log(objects);
 
 
         
@@ -923,7 +920,7 @@ export class DayScene extends Phaser.Scene {
             children[i].body.setOffset(0, 0);
             children[i].setDepth(0);
         }
-        console.log(objectGroup);
+        //console.log(objectGroup);
 
         objects = null //for garbage collection
         return objectGroup;

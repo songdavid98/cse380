@@ -91,7 +91,14 @@ export class Dungeon6 extends DayScene {
         //collisions
         this.wallLayer.setCollision(6); 
         this.wallLayer.setCollision(18); 
-        this.wallLayer.setCollision(46); 
+        this.wallLayer.setCollision(46);
+        this.wallLayer.setCollision(48);
+        this.wallLayer.setCollision(45);
+
+        this.wallLayer.setCollision(7);
+        this.wallLayer.setCollision(5); 
+ 
+ 
 
         this.physics.add.collider(this.playerGroup.getChildren(), this.wallLayer);
         this.physics.add.collider(this.enemyGroup.getChildren(), this.wallLayer);

@@ -188,7 +188,7 @@ export class Dungeon3 extends DayScene {
 
     update(time, delta) {
         //console.log(this.player.sprite.body.position);
-        console.log(this.minotaur.sprite);
+        //console.log(this.minotaur.sprite);
         if(!this.minotaur.sprite.scene && this.doorLayer2){
             console.log("testing");
             this.physics.world.removeCollider(this.doorCollider2);
