@@ -518,6 +518,13 @@ export class ShieldHero extends DayPlayer {
                 superShieldBox.beam.scene.hittingWithShieldBeam(superShieldBox.beam, enemySprite, true);
             }
         });
+        this.scene.physics.add.overlap(superShieldBeam.box.getChildren(), this.scene.projectileGroup, function (superShieldBox, enemySprite) {
+            if (!superShieldBox.beam.enemiesHit.includes(enemySprite)) {
+                superShieldBox.beam.enemiesHit.push(enemySprite);
+                enemySprite.class.active = false;
+                superShieldBox.beam.scene.hittingProjectiles(superShieldBox.beam, enemySprite);
+            }
+        });
 
 
 
