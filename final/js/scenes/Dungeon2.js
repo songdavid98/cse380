@@ -217,12 +217,12 @@ export class Dungeon2 extends DayScene{
 
         //Treasure stuff
         this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 500;
+            o1.scene.money += 20;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure2, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 1000;
+            o1.scene.money += 30;
             o1.destroy();
         });
 

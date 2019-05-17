@@ -547,6 +547,7 @@ export class DayScene extends Phaser.Scene {
         }
 
         //console.log(enemySprite.texture," got hit");
+        enemySprite.class.touched = true;
         enemySprite.class.lastDamaged = shieldBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
 
@@ -566,6 +567,7 @@ export class DayScene extends Phaser.Scene {
         enemySprite.setVelocity(swordBeamSprite.body.velocity.x, swordBeamSprite.body.velocity.y);
         enemySprite.class.damaged(swordBeamSprite.class.basicAttack, this.swordHero);
 
+        enemySprite.class.touched = true;
         enemySprite.class.lastDamaged = swordBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
 
@@ -581,6 +583,8 @@ export class DayScene extends Phaser.Scene {
         if(enemySprite.class.enemyType == ENEMIES.GOBLIN && enemySprite.class.state == "sleeping"){
             enemySprite.class.state = "attacking";
         }
+
+        enemySprite.class.touched = true;
         enemySprite.setVelocity(tornado.body.velocity.x, tornado.body.velocity.y);
 
         if(!enemySprite.class.justGotHit){
@@ -612,6 +616,7 @@ export class DayScene extends Phaser.Scene {
         enemySprite.class.damaged(magicBeamSprite.class.basicAttack);
 
         //Slows the enemy down by half the speed
+        enemySprite.class.touched = true;
         enemySprite.class.slowDown();
         enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
@@ -631,6 +636,7 @@ export class DayScene extends Phaser.Scene {
         enemySprite.class.damaged(magicBeamSprite.class.specialAttack);
 
         //Slows the enemy down by half the speed
+        enemySprite.class.touched = true;
         enemySprite.class.slowDown();
         enemySprite.class.lastDamaged = magicBeamSprite.scene.time.now; //Need this for damage cooldown
         enemySprite.class.justGotHit = true;
@@ -645,11 +651,10 @@ export class DayScene extends Phaser.Scene {
             return;
         }
        // enemyProjectile.reflected = true;
-
+        enemySprite.class.touched = true;
         shieldBeamSprite.class.hitProjectiles++;
         enemyProjectile.destroy();
         /*console.log("SLIME BALL TOUCHED", enemyProjectile.reflected);
-
         enemyProjectile.setVelocity(shieldBeamSprite.body.velocity.x, shieldBeamSprite.body.velocity.y);
 
         if (!shieldBeamSprite.colliding) {

@@ -186,57 +186,57 @@ export class Dungeon5 extends DayScene {
 
         //Treasure stuff
         this.physics.add.overlap(this.treasure1, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 200;
+            o1.scene.money += 20;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure2, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 400;
+            o1.scene.money += 40;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure3, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 100;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure4, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 2000;
+            o1.scene.money += 20;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure5, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 500;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure6, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 50;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure7, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 50;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure8, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 50;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure9, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 50;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure10, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 50;
+            o1.scene.money += 10;
             o1.destroy();
         });
 
         this.physics.add.overlap(this.treasure11, this.playerGroup.getChildren(), function (o1,o2) {
-            o1.scene.money += 50;
+            o1.scene.money += 10;
             o1.destroy();
         });
 

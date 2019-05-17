@@ -209,6 +209,7 @@ export class Goblin extends Enemy {
              
                     if(this.justWokeUp){
                         if(this.wakeUpOnce){
+                            this.touched = true;
                             this.wakeUpTime = time;
                             this.wakeUpOnce = false;
                         }

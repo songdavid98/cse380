@@ -29,7 +29,7 @@ export class Enemy {
 
         this.lastAttacked = 0;
         this.attackCooldown = 2;
-
+        this.touched = false;
         this.justGotHit;
         this.direction = 2; // up, down, left, right;  Please replace this with a better algorithm
         this.moveCounter = 0;
@@ -66,8 +66,10 @@ export class Enemy {
                 }
                 this.dead = true;
                 this.active = false;
-                console.log("killed");
-                this.scene.getMoney(this.killCost);
+
+                if(this.touched){
+                    this.scene.getMoney(this.killCost);
+                }
                 this.destroySprite(); //Calls a function to destroy all the things attached to sprite
             }
         }
