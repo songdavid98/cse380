@@ -265,17 +265,20 @@ export class DayOverlayScene extends Phaser.Scene {
             }
 
         }
-        if(this.swordHero.kills && this.kills != this.swordHero.kills && this.swordHero.chargeNow){
-            this.kills = this.swordHero.kills;
-            this.superRed.setScale(this.kills*this.superBarScale/10, this.superBarScale);
-            this.superRed.x =  this.superBar.width -7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX;
 
+        if((this.kills != this.swordHero.kills) && this.swordHero.chargeNow){
+            this.kills = this.swordHero.kills;
+            let xScale = this.kills*this.superBarScale/this.swordHero.reqKills;
+            if(xScale > 1*this.superBarScale){
+                xScale = this.superBarScale;
+            }
+            this.superRed.setScale(this.kills*this.superBarScale/this.swordHero.reqKills, this.superBarScale);
+            this.superRed.x =  this.superBar.width -7 + ((this.superRed.width) * this.superRed.scaleX / 2) - this.superRed.scaleX;
             if(this.superRed.scaleX >= this.superBar.scaleX){
                 this.swordHero.chargeNow = false;
             }            
         }
         if(!this.shieldCharged && this.shieldHero.hitProjectiles < this.shieldHero.reqProjectiles+1 && this.shieldHero.hitProjectiles != this.hitProjectiles){
-            console.log("test");
             this.shieldCharged = true;
             this.superGreen.setScale(this.shieldHero.hitProjectiles*this.superBarScale/this.shieldHero.reqProjectiles, this.superBarScale);
             this.superGreen.x = this.superBar.width - 7 + ((this.superGreen.width)* this.superGreen.scaleX/2)-this.superGreen.scaleX;
