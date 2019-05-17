@@ -217,7 +217,8 @@ export class Dungeon3 extends DayScene {
                 "money":this.money,
                 "str":"winner",
                 "unlockedLevels":this.unlockedLevels,
-                "timer":this.timeRemaining
+                "timer":this.timeRemaining,
+                "currentPlayer":this.player.playerType
             }
             this.scene.start(SCENES.DUNGEON6, data);
             this.scene.stop();

@@ -132,7 +132,8 @@ export class Dungeon2 extends DayScene{
                 "money": o1.scene.money,
                 "level": 4,
                 "timer": o1.scene.timeRemaining,
-                "unlockedLevels":o1.scene.unlockedLevels
+                "unlockedLevels":o1.scene.unlockedLevels,
+                "currentPlayer":o1.scene.player.playerType
             });
             o1.scene.scene.stop();
         });

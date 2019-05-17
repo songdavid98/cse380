@@ -54,6 +54,7 @@ export class DayScene extends Phaser.Scene {
         this.easystar;
         this.money = data['money'] || 0;
         this.lastDamaged = 0;
+        this.prevPlayer = data['currentPlayer'];
         //This variable is used for attack cooldowns as well as time in between damages from monsters
         this.deathSceneLength = 5;
         this.timeLimit = data['timer'] || 300; //Day Countdown timer ~ 2min?
@@ -206,6 +207,22 @@ export class DayScene extends Phaser.Scene {
         //this.swordHeroSprite.setVelocity(0,0);
         this.mageHeroSprite.visible = false;
         this.mageHeroSprite.setVelocity(0, 0);
+        
+        if(this.prevPlayer == HEROES.MAGE_HERO){
+            this.swordHeroSprite.visible = false;
+            this.swordHeroSprite.setVelocity(0, 0);
+            this.mageHeroSprite.visible = true;
+            //this.swordHeroSprite.setVelocity(0,0);
+            this.shieldHeroSprite.visible = false;
+            this.shieldHeroSprite.setVelocity(0, 0);
+        }else if(this.prevPlayer == HEROES.SHIELD_HERO){
+            this.swordHeroSprite.visible = false;
+            this.swordHeroSprite.setVelocity(0, 0);
+            this.shieldHeroSprite.visible = true;
+            //this.swordHeroSprite.setVelocity(0,0);
+            this.mageHeroSprite.visible = false;
+            this.mageHeroSprite.setVelocity(0, 0);
+        }
 
         //First player is always shieldHero
         this.shieldHero = new ShieldHero({
@@ -234,6 +251,24 @@ export class DayScene extends Phaser.Scene {
         });
 
         this.player = this.swordHero;
+        
+        if(this.prevPlayer == HEROES.MAGE_HERO){
+            this.swordHeroSprite.visible = false;
+            this.swordHeroSprite.setVelocity(0, 0);
+            this.mageHeroSprite.visible = true;
+            //this.swordHeroSprite.setVelocity(0,0);
+            this.shieldHeroSprite.visible = false;
+            this.shieldHeroSprite.setVelocity(0, 0);
+            this.player = this.mageHero;
+        }else if(this.prevPlayer == HEROES.SHIELD_HERO){
+            this.swordHeroSprite.visible = false;
+            this.swordHeroSprite.setVelocity(0, 0);
+            this.shieldHeroSprite.visible = true;
+            //this.swordHeroSprite.setVelocity(0,0);
+            this.mageHeroSprite.visible = false;
+            this.mageHeroSprite.setVelocity(0, 0);
+            this.player = this.shieldHero;
+        }
 
         //Setting the .class method of sprite to the sprite's class (the hero class)
         this.shieldHeroSprite.class = this.shieldHero;
