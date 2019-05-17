@@ -15,7 +15,7 @@ export class Minotaur extends Enemy {
         super(data);
         this.zzzSprite = data.zzzSprite;
         this.enemyType = ENEMIES.MINOTAUR; // like slime
-        this.health = 50;
+        this.health = 2;
         this.atkDist = 150; 
         this.hitBoxSize = 1.3;
         this.totalHealth = this.health; //Keep this for health bar stuff

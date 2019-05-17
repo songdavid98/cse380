@@ -112,10 +112,10 @@ export class Dungeon3 extends DayScene {
         this.map = this.add.tilemap(this.mapLevel);
 
         this.terrain = this.map.addTilesetImage("addableTiles", "terrain"); //Variable used in pathfinding
-        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 1, 0).setScale(4, 4);
-        this.groundLayer = this.map.createStaticLayer("ground", [this.terrain], 1, 0).setScale(4, 4);
-        this.buttonsLayer = this.map.createStaticLayer("buttons", [this.terrain], 1, 0).setScale(4, 4);
-        this.prisonLayer = this.map.createStaticLayer("prison", [this.terrain], 1, 0).setScale(4, 4);
+        this.wallLayer = this.map.createStaticLayer("walls", [this.terrain], 0, 0).setScale(4, 4);
+        this.groundLayer = this.map.createStaticLayer("ground", [this.terrain], 0, 0).setScale(4, 4);
+        this.buttonsLayer = this.map.createStaticLayer("buttons", [this.terrain], 0, 0).setScale(4, 4);
+        this.prisonLayer = this.map.createStaticLayer("prison", [this.terrain], 0, 0).setScale(4, 4);
         this.doorLayer = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
         super.create({"initialX":1600, "initialY":3000+2600});//3000+2600});
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 4, this.map.heightInPixels * 4);
@@ -162,6 +162,7 @@ export class Dungeon3 extends DayScene {
 
 
         this.doorCollider = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer);
+        this.prisonCollider = this.physics.add.collider(this.enemyGroup.getChildren(), this.prisonLayer);
         this.barrelOverlap = this.physics.add.overlap(this.barrels.getChildren(), this.buttonsLayer, function (o1, o2) {
             if (o1.scene.buttonsPressed >= 2) {
                 if (o1.scene.doorLayer) {
@@ -186,6 +187,15 @@ export class Dungeon3 extends DayScene {
 
     update(time, delta) {
         //console.log(this.player.sprite.body.position);
+        console.log(this.minotaur.sprite);
+        if(!this.minotaur.sprite.scene && this.doorLayer2){
+            console.log("testing");
+            this.physics.world.removeCollider(this.doorCollider2);
+            this.physics.world.removeCollider(this.doorCollider2pt2);
+            this.doorLayer2.destroy();
+            this.doorLayer2 = null;
+            this.permanentDestroy = true;
+        }
         super.update(time);
             //console.log(this.player.sprite.body.position);
         if(this.player.active && this.player.sprite.body.position.y <= 1240 & this.player.sprite.body.position.y > 0){
@@ -193,11 +203,11 @@ export class Dungeon3 extends DayScene {
             this.player.active = false;
         }
         //console.log(this.buttonsPressed);
-        if(!this.doorLayer && !this.doorLayer2 && this.player.sprite.body.y < 2800){
+        if(!this.doorLayer && !this.doorLayer2 && this.player.sprite.body.y < 2800 && !this.permanentDestroy){
             this.doorLayer2 = this.map.createStaticLayer("door", [this.terrain], 0, 0).setScale(4, 4);
             this.doorLayer2.setCollision(18);
             this.doorCollider2 = this.physics.add.collider(this.playerGroup.getChildren(), this.doorLayer2);
-            this.physics.add.collider(this.enemyGroup.getChildren(), this.doorLayer2);
+            this.doorCollider2pt2 = this.physics.add.collider(this.enemyGroup.getChildren(), this.doorLayer2);
         }
         if (this.player.sprite.body && this.player.sprite.body.position.x > 1400 && this.player.sprite.body.position.x < 1700 && this.player.sprite.body.position.y < 50) {
             this.music.stop();

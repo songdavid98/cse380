@@ -338,7 +338,7 @@ export class DayScene extends Phaser.Scene {
         for (var i = 0; i < this.minotaurLength; i++) {
             let scaleX = 8;
             let scaleY = 8;
-            let minotaurSprite = this.physics.add.sprite(this.minotaurSpawnArr[i][0], this.minotaurSpawnArr[i][1], ENEMIES.GOBLIN, 'down/0001.png').setScale(scaleX, scaleY);
+            let minotaurSprite = this.physics.add.sprite(this.minotaurSpawnArr[i][0], this.minotaurSpawnArr[i][1], ENEMIES.MINOTAUR, 'down/0001.png').setScale(scaleX, scaleY);
             let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
             let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
 
@@ -360,6 +360,7 @@ export class DayScene extends Phaser.Scene {
             });
             minotaurSprite.class = minotaur;
             this.monsterArray.push(minotaur);
+            this.minotaur = minotaur;
         }
 
         //Damaging the player
