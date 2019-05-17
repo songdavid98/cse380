@@ -602,7 +602,15 @@ export class Goblin extends Enemy {
 
     nightUpdate(time, level) {
         super.nightUpdate(time, level);
-        this.sprite.anims.play("leftGoblin", true);
+        if(this.sprite.body.velocity.x > 0){
+            this.sprite.anims.play('rightGoblin',true);
+        }else if(this.sprite.body.velocity.y > 0){
+            this.sprite.anims.play('downGoblin',true);
+        }else if(this.sprite.body.velocity.y < 0){
+            this.sprite.anims.play('upGoblin', true);
+        }else{
+            this.sprite.anims.play("leftGoblin", true);
+        }
         //        if (this.active) {
         //            this.sprite.body.setVelocityX(-1 * this.speed);
         //            this.sprite.body.setVelocityY(0);

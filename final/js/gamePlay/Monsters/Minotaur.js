@@ -21,9 +21,9 @@ export class Minotaur extends Enemy {
         this.totalHealth = this.health; //Keep this for health bar stuff
         this.basicAttack = 1;
         this.basicAttackSpeed = 80;
-        this.speed = 200;
+        this.speed = 300;
         this.movement = 60; //Monster keeps moving in square pattern for now
-        this.killCost = 25;
+        this.killCost = 200;
         this.state = "waiting"; //The behavioral states of the mino
         this.detectionRange = 1000; //Need this to know how far away the player has to be to get detected
         this.frmRt = 10;
@@ -329,7 +329,7 @@ export class Minotaur extends Enemy {
         pointY = this.sprite.y + this.atkDist * (Math.cos(Math.PI / 2 - angle));
 
 
-        let swordSlashSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SWORD_HERO, 'sword/0001.png').setScale(5, 5);
+        let swordSlashSprite = this.scene.physics.add.sprite(pointX, pointY, HEROES.SWORD_HERO, 'sword/0001.png').setScale(10, 10);
         swordSlashSprite.class = this;
 
         this.scene.physics.add.collider(swordSlashSprite, this.scene.wallLayer);
