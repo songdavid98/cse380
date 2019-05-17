@@ -152,13 +152,14 @@ export class NightScene extends Phaser.Scene {
 
 
         //add money info
-        this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(1);
+        this.add.image(1300, 100, "coin").setScale(1.2, 1.2).setDepth(3);
         this.moneyText = this.add.text(1335, 68, ':' + this.money, {
             fontSize: '70px',
             fill: '#fff',
             strokeThickness: 10,
             stroke: "#000000"
         });
+        this.moneyText.setDepth(3);
 
         //add heart
         this.add.image(100, 100, "heart").setDepth(3).setScale(2, 2);
@@ -422,7 +423,6 @@ export class NightScene extends Phaser.Scene {
 
     update(time, delta) {
 
-        
         //enemy update, so that when the game ends, the enemy Pathfinding doesn't shut down
         if (this.enemies) {
             for (let i = 0; i < this.enemies.length; i++) {

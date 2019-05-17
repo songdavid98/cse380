@@ -131,11 +131,11 @@ export class DayScene extends Phaser.Scene {
             console.log("Used 59");
         }
         if(player.getChildren().length == 0){
+            console.log("used a default player spawn point")
            initialX = data['initialX'] || 200;
            initialY = data['initialY'] || 200;
         }
         else{
-
             let halfOfTileWidth = player.getChildren()[0].width/2;
             let halfOfTileHeight = player.getChildren()[0].height/2;
             initialX= (player.getChildren()[0].x-halfOfTileWidth)*5;
@@ -455,9 +455,6 @@ export class DayScene extends Phaser.Scene {
             let healthBarSprite = this.add.sprite(0, 0, 'healthBar').setScale(2, 2);
             let healthSprite = this.add.sprite(0, 0, 'greenHealth').setScale(2, 2);
 
-
-            console.log(slimeSprite);
-            console.log(this.anims);
 
             healthBarSprite.visible = false;
             healthSprite.visible = false;
